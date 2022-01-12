@@ -1,0 +1,95 @@
+////////////////    part A      ////////////////
+initialize an array with 2 values in it (apples and oranges)
+const fruit = ["apples", "oranges"];
+
+what does array.map do? and what is returns?
+map.array method creates a new array by iterating over the array and calling function on every element of array, it return the same array length with the ability to change array elements
+fruit.map(element => {
+    return element * 3.5;
+});
+
+what does array.filter do? and what is returns?
+array.filter method creates an array filter filled with the array filtered elements, it return the filtered element of the array with the ability to change these returned elements
+fruit.filter(element => {
+    return element.status === 'intern';
+}).filter(age => {
+   return age.age > 23;
+});
+
+what does array.reduce do? and what is returns?
+array.reduce method used to change the array into a single value, it ilterates over the whole array doining changes on each value from left-to-right 
+fruit = fruit.reduce(sum,element => {
+    return sum + element.age;
+}, 0);
+
+////////////////    part B      ////////////////
+what is the difference between Synchronous and ASynchronous?
+Synchronous calls refer to a callback where the code execution waits for an event before continuing, while Asynchronous calls, on the other hand, refer to a callback that does not block the execution of the program.
+
+what are promises ?
+Promis is when a program is commited to do something if resolved, it represent processes that are already happening, which can be chained with callback functions.
+
+write a promise that resolves when getting a value.
+Promise.resolve('resolved').then(
+    (result) => { 
+       console.log(result);
+    },
+    (error) => { 
+       console.log(error);
+    }
+  );
+
+write a promise that reject when getting an error.
+Promise.reject(new Error('fail')).then(
+    (result) => { 
+       console.log(result);
+    },
+    (error) => { 
+       console.log(error);
+    }
+  );
+
+should we use syn await, or .then().
+await is just an internal version of .then() (doing basically the same thing), where the reason to choose one over the other doesn't really have to do with performance, but has to do with desired coding style or coding convenience.
+If we have multiple successive Asynchronous calls it is better to use await, rather than bracketing them each inside a .then() handler to chain them properly, you could just use await and have simpler looking code
+
+what is promise.all
+Promise.all([promises]) accepts a collection (for example, an array) of promises as an argument and executes them in parallel.
+This method waits for all the promises to resolve and returns the array of promise results. If any of the promises reject or execute to fail due to an error, all other promise results will be ignored.
+
+what is promise.race
+Promise.race([promises]) – It waits for the first (quickest) promise to settle, and returns the result/error accordingly.
+
+when do we use promise.all and when do we use promise.race
+Both of the Promise methods receive an array of promises, however, you’ll want to choose one over the other depending on what you need to accomplish.
+Promise.all will attempt to fulfill all of them. Exits early if just 1 promise gets rejected.
+Promise.race will returns the first promise that is settled. A settled promise can either be resolved or rejected.
+
+is setTimeout an ASynchronous function
+setTimeout()is an asynchronous function, meaning that the timer function will not pause execution of other functions in the functions stack
+
+what are callbacks
+passed function is referred as callback function, mean function that can then be called inside another functions
+There are two types of callbacks. A callback passed to a function f can be invoked synchronously before f returns, or it can be deferred to execute asynchronously some time after f returns
+
+////////////////    part C      ////////////////
+using lodash function, get the employee with the highest age.
+console.log(_.max(employees.map(e=> {return e = e.totalOrderPrice})));
+or let highestage =_(employees).map('age').value();
+console.log(_.max(highestage))
+
+using lodash function, order the array by age(desc)
+console.log(_.orderBy(employees,['totalNumber'],['desc']))
+
+
+using lodash function, order the array by age (asc)
+console.log(_.orderBy(employees,['totalNumber'],['asc']))
+
+
+using lodash function, get the age of anthony
+console.log(_.find(employees, function(chr) {return  chr.name === 'Anthony'}).age);
+or console.log(_(employees).filter(c => c.name === 'Anthony').map('age').value())
+
+using lodash function get the status of the developers and then snake case the String.
+console.log(_.filter(employees.map(e => {return e=e.status}), function(chr) {return  chr==='Developer' }).map(element => {return _.snakeCase( [string=element] )}))
+or console.log(_(employees).filter(c => c.status === 'Developer').map('status').map(element => _.snakeCase( [string=element] )).value())
