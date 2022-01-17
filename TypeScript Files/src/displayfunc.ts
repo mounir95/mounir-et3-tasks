@@ -1,6 +1,7 @@
 import boxesarrayfun from './boxesArray';
+import { Iobjectarray } from './enum.d';
 
-let displayfun = (finalArrayObject,currency) => {
+let displayfun = (finalArrayObject : Required<Iobjectarray[]>,currency:string) :string => {
     let finalstring  = "";
     finalArrayObject.map((element) => {
         // console.log(element)
@@ -20,7 +21,7 @@ let displayfun = (finalArrayObject,currency) => {
                 return numberofboxestring = numberofboxestring.concat('')
              }
         });
-        let removelastbreakline = numberofboxestring;
+        let removelastbreakline :string = numberofboxestring;
         removelastbreakline = numberofboxestring.substring(0, removelastbreakline.length - 1);
         finalstring = finalstring.concat(removelastbreakline + '\n');
         finalstring = finalstring.concat("the total order price Bages(" + finalobject["totalBagsPrice"] + currency + ") + coffee(" + finalobject["totalCoffePrice"] + currency + "): " + finalobject["totalOrderPrice"] + currency + '\n');
@@ -28,4 +29,4 @@ let displayfun = (finalArrayObject,currency) => {
     });
     return finalstring;
 }
-module.exports = displayfun;
+export default displayfun;

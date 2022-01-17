@@ -1,29 +1,30 @@
 import getArrayObject from './getArrayObject';
- 
-let addArrayTimeout = (finalArrayObject,del, valuesarray) => {
-    let GivenValuefun = (valuesarray) => {
-        const arraygivenvalue = [];
+import { Myconstants, MyStrings, Iobjectarray } from './enum.d'
+
+let addArrayTimeout = (finalArrayObject:Required<Iobjectarray[]>,del :number, valuesarray : number[]) :(Required<Iobjectarray[]> | Promise<unknown>)[] => {
+    let GivenValuefun = (valuesarray : number[]) : Required<Iobjectarray[]> => {
+        const arraygivenvalue : Required<Iobjectarray[]>= [];
         valuesarray.map((element) => {
             arraygivenvalue.push(getArrayObject(element));
         });
         return arraygivenvalue;
     };
-    const arraygivenvalue = GivenValuefun(valuesarray);
+    const arraygivenvalue : Required<Iobjectarray[]> = GivenValuefun(valuesarray);
     // finalArrayObject = arraygivenvalue; // result without the order['entred numebr]
     finalArrayObject.push.apply(finalArrayObject, arraygivenvalue); // result with the order['entered number]7
-    let arrayindex = 0;
+    let arrayindex : number = 0;
     let arraytimeout = () => {
         console.log(finalArrayObject[arrayindex]);  
         arrayindex++;
         if(arrayindex < finalArrayObject.length){
-            setTimeout(arraytimeout, 5000);
+            setTimeout(arraytimeout, Myconstants.delfive);
         }
     }
-    console.log("///////////////////    Part B :    ///////////////////");
+    console.log(MyStrings.partB);
     console.log("Adding to your first order this array of orders : " + valuesarray + " each array element in 5 second");
     arraytimeout();
 
     return     [new Promise(resolve => {
-        setTimeout(resolve, del * 1000)    }),finalArrayObject];
+        setTimeout(resolve, del * Myconstants.delone)    }),finalArrayObject];
 }
-module.exports = addArrayTimeout;
+export default addArrayTimeout;

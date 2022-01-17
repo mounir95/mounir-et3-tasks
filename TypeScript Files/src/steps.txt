@@ -1,0 +1,11 @@
+npm install tsc -g
+npm install typescript --save-dev
+npm install ts-node --save-dev
+npm install -g typesync // oprional
+create Create tsconfig.json => change from src to ./src
+change all file names from .js to .ts
+watch video on youtube : https://www.youtube.com/watch?v=qFMMOJucqTw&t=304s
+npm i -D typescript @types/node @types/express // added on package.json
+update package.json => change from src/getinput to ./dis/getinput
+npm run build
+correcrt the mistakes

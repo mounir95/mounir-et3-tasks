@@ -1,10 +1,11 @@
 import constants from './constantfile';
 import boxesarrayfun from './boxesArray';
+import { Iobjectarray } from './enum.d'
 
 let [largeboxobject,mediumboxobject,smallboxobject,bagprice,currency,orderId] = constants();
 
-let getArrayObject = (myordernumber) => {
-    let order = (par) => {
+let getArrayObject = (myordernumber ) : Required<Iobjectarray> => {
+    let order = (par : number) : Required<Iobjectarray> => {
         const bagp = bagprice;
         const boxesarray = boxesarrayfun(par);
         const finalobject = {
@@ -19,4 +20,4 @@ let getArrayObject = (myordernumber) => {
     }
     return order(myordernumber)
 }
-module.exports = getArrayObject;
+export default getArrayObject;
