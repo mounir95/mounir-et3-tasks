@@ -1,11 +1,11 @@
 import constants from './constantfile';
 import boxesarrayfun from './boxesArray';
-import { Iobjectarray } from './enum.d'
+import { TObjectArray } from './enum.d'
 
-let [largeboxobject,mediumboxobject,smallboxobject,bagprice,currency,orderId] = constants();
+let {largeboxobject,mediumboxobject,smallboxobject,bagprice,currency,orderId} = constants();
 
-let getArrayObject = (myordernumber ) : Required<Iobjectarray> => {
-    let order = (par : number) : Required<Iobjectarray> => {
+let getArrayObject = (myordernumber ) : Required<TObjectArray> => {
+    let order = (par : number) : Required<TObjectArray> => {
         const bagp = bagprice;
         const boxesarray = boxesarrayfun(par);
         const finalobject = {

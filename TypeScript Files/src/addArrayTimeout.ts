@@ -1,15 +1,15 @@
 import getArrayObject from './getArrayObject';
-import { Myconstants, MyStrings, Iobjectarray } from './enum.d'
+import { Myconstants, MyStrings, TObjectArray } from './enum.d'
 
-let addArrayTimeout = (finalArrayObject:Required<Iobjectarray[]>,del :number, valuesarray : number[]) :(Required<Iobjectarray[]> | Promise<unknown>)[] => {
-    let GivenValuefun = (valuesarray : number[]) : Required<Iobjectarray[]> => {
-        const arraygivenvalue : Required<Iobjectarray[]>= [];
+let addArrayTimeout = (finalArrayObject:Required<TObjectArray[]>,del :number, valuesarray : number[]) :(Required<TObjectArray[]> | Promise<unknown>)[] => {
+    let GivenValuefun = (valuesarray : number[]) : Required<TObjectArray[]> => {
+        const arraygivenvalue : Required<TObjectArray[]>= [];
         valuesarray.map((element) => {
             arraygivenvalue.push(getArrayObject(element));
         });
         return arraygivenvalue;
     };
-    const arraygivenvalue : Required<Iobjectarray[]> = GivenValuefun(valuesarray);
+    const arraygivenvalue : Required<TObjectArray[]> = GivenValuefun(valuesarray);
     // finalArrayObject = arraygivenvalue; // result without the order['entred numebr]
     finalArrayObject.push.apply(finalArrayObject, arraygivenvalue); // result with the order['entered number]7
     let arrayindex : number = 0;

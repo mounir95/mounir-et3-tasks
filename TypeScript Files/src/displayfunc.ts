@@ -1,7 +1,7 @@
 import boxesarrayfun from './boxesArray';
-import { Iobjectarray } from './enum.d';
+import { TObjectArray } from './enum.d';
 
-let displayfun = (finalArrayObject : Required<Iobjectarray[]>,currency:string) :string => {
+let displayfun = (finalArrayObject : Required<TObjectArray[]>,currency:string) :string => {
     let finalstring  = "";
     finalArrayObject.map((element) => {
         // console.log(element)

@@ -1,6 +1,6 @@
-import { MyStrings, Iobjectarray } from './enum.d';
+import { MyStrings, TObjectArray } from './enum.d';
 
-let discountAbove= (finalArrayObject : Required<Iobjectarray[]>,above : number,percentage : number) : number[] => {
+let discountAbove= (finalArrayObject : Required<TObjectArray[]>,above : number,percentage : number) : number[] => {
     const percengate : number = (percentage / 100);
     console.log(MyStrings.partE);
     return finalArrayObject

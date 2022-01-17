@@ -35,21 +35,31 @@ export const enum ArrayValue {
     eight = 300
 }
 
+export interface Tcontant {
+    largeboxobject:TPropertyofsize,
+    mediumboxobject:TPropertyofsize,
+    smallboxobject:TPropertyofsize,
+    bagprice:number,
+    currency:string,
+    orderId:number,
+    valuesarray:number[]
+}
+
 export const enum size{large = 'Large',medium = 'Medium',small = 'Small'}
 export const enum value{large = 20,medium = 10,small = 5}
 export const enum price{large = 1.80,medium = 1.00,small = 0.6}
 
-export type Unumberundefined = undefined | number;
-export type IUnionRequiredarrayundefined = Required<Iobjectarray[]> | undefined | null;
-export type IUnionstringundefined = string | undefined | null ;
+export type TUnumberundefined = undefined | number;
+export type TUnionRequiredarrayundefined = Required<TObjectArray[]> | undefined | null;
+export type TUnionstringundefined = string | undefined | null ;
 
-export interface IPropertyofsize {
+export interface TPropertyofsize {
     size:string,
     value:number,
     price:number
 }
 
-export interface Iobjectarray{
+export interface TObjectArray{
     orderID: number;
     totalNumber: number;
     totalCoffePrice: number;
@@ -57,7 +67,7 @@ export interface Iobjectarray{
     totalOrderPrice: number;
 }
 
-export interface Iboxarray{
+export interface TBoxarray{
     size: string;
     numbers_of_Bags: number;
     price_of_Boxes: number;

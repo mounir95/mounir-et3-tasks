@@ -12,12 +12,12 @@ import discountAbove from './discountAbove';
 import chooseChioce from './chooseChioce';
 import _orderBy from 'lodash/orderBy';
 import _filter  from'lodash/filter';
-import { MyStrings, Myconstants, Unumberundefined, Iobjectarray } from './enum.d';
+import { MyStrings, Myconstants, TUnumberundefined, TObjectArray } from './enum.d';
 
 async function someFunction() {
-    const prompt = require('prompt-sync')();
+    const prompt :any = require('prompt-sync')();
     let str :boolean = true;
-    let checkordernumber = () :Unumberundefined => {
+    let checkordernumber = () :TUnumberundefined => {
     while (str)
     {
         const ordernumber = prompt('Please enter your order : ');
@@ -35,14 +35,13 @@ async function someFunction() {
         }
     }
     }
-    const myordernumber :Unumberundefined = checkordernumber();
+    const myordernumber :TUnumberundefined = checkordernumber();
     console.log(`Hey the order number is : ` + myordernumber);
-    let [largeboxobject,mediumboxobject,smallboxobject,bagprice,currency,orderId] = constants();
-    let finalArrayObject :Required<Iobjectarray[]> = [getArrayObject(myordernumber)];
+    let {largeboxobject,mediumboxobject,smallboxobject,bagprice,currency,orderId} = constants();
+    let finalArrayObject :Required<TObjectArray[]> = [getArrayObject(myordernumber)];
     console.log(MyStrings.partA);
     console.log(displayfun(finalArrayObject,currency));
-    // let valuesarray : number[] = constants()[constants().length-1];
-    let valuesarray : number[] = constants()[Myconstants.six];
+    let valuesarray : number[] = constants().valuesarray;
     console.log(valuesarray)
     await addArrayTimeout(finalArrayObject,(((valuesarray.length) * Myconstants.five) + Myconstants.one),valuesarray)[Myconstants.zero];
     finalArrayObject = await arraySorting(finalArrayObject);

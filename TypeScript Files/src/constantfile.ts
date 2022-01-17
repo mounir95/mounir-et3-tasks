@@ -1,26 +1,22 @@
-import { Myconstants, MyStrings, ArrayValue, size, value, price } from './enum.d'
-import { IPropertyofsize } from './enum.d'
+import { Myconstants, Tcontant, MyStrings, ArrayValue, size, value, price } from './enum.d'
+import { TPropertyofsize } from './enum.d'
 
-const constants = () : [Required<IPropertyofsize>,
-                        Required<IPropertyofsize>,
-                        Required<IPropertyofsize>,
-                        Myconstants.bagprice,
-                        Myconstants.currency,
-                        number,
-                        number[]] => {
-    const largeboxobject : IPropertyofsize = {size:size.large,value:value.large,price:price.large};
-    const mediumboxobject : IPropertyofsize  = {size:size.medium,value:value.medium,price:price.medium};
-    const smallboxobject : IPropertyofsize  = {size:size.small,value:value.small,price:price.small};
+const constants = () : Tcontant => {
+    const largeboxobject : TPropertyofsize = {size:size.large,value:value.large,price:price.large};
+    const mediumboxobject : TPropertyofsize  = {size:size.medium,value:value.medium,price:price.medium};
+    const smallboxobject : TPropertyofsize  = {size:size.small,value:value.small,price:price.small};
     const orderId : Required<number> = Myconstants.one;
+    const bagprice : Required<number> = Myconstants.bagprice;
+    const currency : Required<string> = Myconstants.currency;
     const valuesarray : number[] = [ArrayValue.first,ArrayValue.second,ArrayValue.third,ArrayValue.forth,ArrayValue.fifth,ArrayValue.six,ArrayValue.seven,ArrayValue.eight];
-    return [
+    return {
         largeboxobject,
         mediumboxobject,
         smallboxobject,
-        Myconstants.bagprice,
-        Myconstants.currency,
+        bagprice,
+        currency,
         orderId,
         valuesarray
-    ];
+    };
 }
 export default constants
