@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, createContext } from 'react';
+import React, { useState } from 'react';
 import { globalStateContext, EmptyObject, MyFinalObject } from './myconstants/themeContext'
 import Addfun from './components/add_pr'
 import MyList from './components/mylist'
@@ -13,16 +13,18 @@ import Myinput from './components/myinput'
 let App = () => {
   // const { Id, Date, SE, Platform, Release_Version, Comment, Pr_Link, Size, Difiiculity} =React.useContext(globalStateContext); 
   // console.log(React.useContext(globalStateContext)); console.log(useState( React.useContext(globalStateContext).Date ));
-  const [ { id , date, se_list, comment, size, dificulity, platform, pr_Link, release_version } , setChanges] = useState( 
-    { id:React.useContext(globalStateContext).Id, 
-      date:React.useContext(globalStateContext).Date,
-      se_list:React.useContext(globalStateContext).SE_list,
+  const [ { id , date, se_list, comment, size, dificulity, platform, pr_Link, release_version, isHidden } , setChanges] = useState( 
+    { 
+      id : React.useContext(globalStateContext).Id, 
+      date : React.useContext(globalStateContext).Date,
+      se_list : React.useContext(globalStateContext).SE_list,
       comment : React.useContext(globalStateContext).Comment,
       size : React.useContext(globalStateContext).Size,
       dificulity : React.useContext(globalStateContext).Dificulity,
       platform : React.useContext(globalStateContext).Platform,
       pr_Link: React.useContext(globalStateContext).Pr_Link,
-      release_version : React.useContext(globalStateContext).Release_Version
+      release_version : React.useContext(globalStateContext).Release_Version,
+      isHidden : true
     });
     EmptyObject.Myid = id;
     EmptyObject.Mydate = date;
@@ -40,35 +42,32 @@ let App = () => {
 
   };
 
-  let outputEvent = (childData, parentData) =>{
-    console.log(childData);
+  let outputEvent = (event, parentData) =>{
     if( parentData === se_list ){
-      setChanges( val => val = { ...val, se_list : [childData] });
+      setChanges( val => val = { ...val, se_list : [ event.target.value ] });
     }
     else if( parentData === size){
-      setChanges( val => val = { ...val, size : [childData] });
+      setChanges( val => val = { ...val, size : [ event.target.value ] });
     }
     else if(parentData === dificulity){
-      setChanges(val => val = { ...val, dificulity : [ childData ] });
+      setChanges(val => val = { ...val, dificulity : [ event.target.value ] });
     }
     else if(parentData === platform){
-      setChanges(val => val = { ...val, platform : [ childData ] });
+      setChanges(val => val = { ...val, platform : [ event.target.value ] });
     }
   }
 
-  EmptyObject.Myse_list = se_list;
+  EmptyObject.Myse_list = se_list[0];
   EmptyObject.Mycomment = comment;
-  EmptyObject.Mysize = size;
-  EmptyObject.Mydificulity = dificulity;
-  EmptyObject.Myplatform = platform;
+  EmptyObject.Mysize = size[0];
+  EmptyObject.Mydificulity = dificulity[0];
+  EmptyObject.Myplatform = platform[0];
   EmptyObject.Myrelease_version = release_version;
   EmptyObject.Mypr_Link = pr_Link;
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setChanges(val => val = { ...val ,
-      id : val.id + 1 
-    } );
+    setChanges(val => val = { ...val , id : val.id + 1 , isHidden : false } );
     MyFinalObject.Myid = EmptyObject.Myid;
     MyFinalObject.Mydate = EmptyObject.Mydate;
     MyFinalObject.Myse_list = EmptyObject.Myse_list
@@ -79,86 +78,86 @@ let App = () => {
     MyFinalObject.Myrelease_version = EmptyObject.Myrelease_version;
     MyFinalObject.Mypr_Link = EmptyObject.Mypr_Link;
   }
-  
-  // let changeId = () => {
-  //   setChanges(val => val = { ...val ,
-  //     id : val.id + 1 
-  //   } );
-  //   MyFinalObject.Myid = EmptyObject.Myid;
-  //   MyFinalObject.Mydate = EmptyObject.Mydate;
-  //   MyFinalObject.Myse_list = EmptyObject.Myse_list
-  //   MyFinalObject.Mycomment = EmptyObject.Mycomment;
-  //   MyFinalObject.Mysize = EmptyObject.Mysize;
-  //   MyFinalObject.Mydificulity = EmptyObject.Mydificulity;
-  //   MyFinalObject.Myplatform = EmptyObject.Myplatform;
-  //   MyFinalObject.Myrelease_version = EmptyObject.Myrelease_version;
-  //   MyFinalObject.Mypr_Link = EmptyObject.Mypr_Link;
 
-  // };
-
-  return <div className="My_Form">
-    <h1>Form</h1>
-    <form onSubmit={handleSubmit}>
-      <ul>
-        <li>Date : { date } </li>
-        <li>SE List : 
-                    <globalStateContext.Provider value={ React.useContext(globalStateContext).SE_list }>
-                      <div>
-                          <MyList clickHandler={(tagname) => outputEvent( tagname, se_list )}/>
-                      </div>
-                    </globalStateContext.Provider>
-        </li>
-        <li>Platform : 
-                   <globalStateContext.Provider value={ React.useContext(globalStateContext).Platform }>
-                      <div>
-                          <MyList clickHandler={(tagname) => outputEvent( tagname, platform )}/>
-                      </div>
-                   </globalStateContext.Provider>
-        </li>
-        <li>Release Version : 
-                  <globalStateContext.Provider value={ release_version }>
-                      <div>
-                        <Myinput inputHandeler = {(inputval) => onInputchange( inputval, release_version)} />
-                      </div>
-                  </globalStateContext.Provider>
+  return <div>
+    <div className="My_Form">
+      <h1>Form</h1>
+      <form onSubmit={handleSubmit}>
+        <ul>
+          <li className='listinputs' ><h2 > Date : { date } </h2></li>
+          <li className='listinputs' >
+                      <globalStateContext.Provider value={ React.useContext(globalStateContext).SE_list }>
+                        <div className='listrows'>
+                          <textfield className="text_field_class"> SE List : </textfield> 
+                          <select  onChange={(event) => outputEvent(event,se_list)}>
+                            <MyList />
+                          </select>
+                        </div>
+                      </globalStateContext.Provider>
           </li>
-        <li>Comment : 
-                  <globalStateContext.Provider value={ comment }>
-                      <div>
-                        <Myinput inputHandeler = {(inputval) => onInputchange( inputval, comment )} />
-                      </div>
-                  </globalStateContext.Provider>
+          <li className='listinputs' >
+                    <globalStateContext.Provider value={ React.useContext(globalStateContext).Platform }>
+                        <div className='listrows'>
+                          <textfield className="text_field_class"> Platform : </textfield> 
+                          <select onChange={(event) => outputEvent(event,platform)}>
+                            <MyList />
+                          </select>
+                        </div>
+                    </globalStateContext.Provider>
+          </li>
+          <li className='listinputs' >
+                    <globalStateContext.Provider value={ release_version }>
+                        <div className='listrows'>
+                          <textfield className="text_field_class"> Release Version : </textfield> 
+                          <Myinput inputHandeler = {(inputval) => onInputchange( inputval, release_version)} />
+                        </div>
+                    </globalStateContext.Provider>
+            </li>
+          <li className='listinputs' >
+                    <globalStateContext.Provider value={ comment }>
+                        <div className='listrows'> 
+                          <textfield className="text_field_class"> Comment : </textfield> 
+                          <Myinput inputHandeler = {(inputval) => onInputchange( inputval, comment )} />
+                        </div>
+                    </globalStateContext.Provider>
 
-        </li>
-        <li>Pr Link : 
-                  <globalStateContext.Provider value={ pr_Link }>
-                      <div>
-                        <Myinput inputHandeler = {(inputval) => onInputchange( inputval, pr_Link)} />
-                      </div>
-                  </globalStateContext.Provider>
-        </li>
-        <li>Size : 
-                   <globalStateContext.Provider value={ React.useContext(globalStateContext).Size }>
-                      <div>
-                          <MyList clickHandler={(tagname) => outputEvent( tagname, size)}/>
-                      </div>
-                   </globalStateContext.Provider>
-        </li>
-        <li>Difiiculity : 
-                   <globalStateContext.Provider value={ React.useContext(globalStateContext).Dificulity }>
-                      <div>
-                          <MyList clickHandler={(tagname) => outputEvent( tagname, dificulity)}/>
-                      </div>
-                   </globalStateContext.Provider>
-        </li>
-      </ul>
+          </li>
+          <li className='listinputs' >
+                    <globalStateContext.Provider value={ pr_Link }>
+                        <div className='listrows'>
+                          <textfield className="text_field_class"> Pr Link : </textfield> 
+                          <Myinput inputHandeler = {(inputval) => onInputchange( inputval, pr_Link)} />
+                        </div>
+                    </globalStateContext.Provider>
+          </li>
+          <li className='listinputs' >
+                    <globalStateContext.Provider value={ React.useContext(globalStateContext).Size }>
+                        <div className='listrows'>
+                          <textfield className="text_field_class"> Size : </textfield> 
+                          <select  onChange={(event) => outputEvent(event,size)}>
+                            <MyList />
+                          </select>
+                        </div>
+                    </globalStateContext.Provider>
+          </li>
+          <li className='listinputs' >
+                    <globalStateContext.Provider value={ React.useContext(globalStateContext).Dificulity }>
+                        <div className='listrows'>
+                          <textfield className="text_field_class"> Difiiculity : </textfield> 
+                          <select onChange={(tagname) => outputEvent( tagname, dificulity)}>
+                            <MyList />
+                          </select>
+                        </div>
+                    </globalStateContext.Provider>
+          </li>
+        </ul>
+        <input className="submitbutton" type="submit" />
 
-      {/* <button onClick={changeId}>Submit</button> */}
-      <input type="submit" />
-
-      </form>
-
-      <Addfun></Addfun>
+        </form>
+    </div>
+    <div className="App_add_par">
+      { !isHidden && <Addfun></Addfun> }
+    </div>
     </div>
 }
 
