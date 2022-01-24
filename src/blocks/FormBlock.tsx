@@ -7,17 +7,15 @@ import RadioButton from './components/radiobuttons';
 
 export let ObjectArray : any = React.createContext([{}]);
 
-export let IDarray : any = React.createContext< Array<number>>([0]);
-var lastIndex : number= IDarray._currentValue[(IDarray._currentValue).length-1];
-
 interface Props {
   handleChange:any,
+  arraylastindex:any,
 }
 
-let AddForm :FC<Props> = ( { handleChange } ) => {
+let AddForm :FC<Props> = ( { handleChange, arraylastindex } ) => {
   const [ { id , date, se_list, comment, size, dificulity, platform, pr_Link, release_version, status_list, Main_status_list, reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT } , setChanges] = useState( 
     { 
-      id : lastIndex, 
+      id : arraylastindex, 
       date : React.useContext(globalStateContext).Date,
       se_list : React.useContext(globalStateContext).SE_list,
       comment : React.useContext(globalStateContext).Comment,
@@ -94,9 +92,7 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     setChanges(val => val = { ...val , id : val.id + 1 } );
-    IDarray = React.createContext< Array<number>>([...IDarray._currentValue, id + 1])
     ObjectArray = React.createContext< Array<number>>([...ObjectArray._currentValue, ObjectArray])
-    console.log(ObjectArray)
   }
 
   return <div>
@@ -105,7 +101,6 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
       <form onSubmit={handleSubmit}>
         <ul className='AddForm_field'>
         <li>Id : { id }</li>
-        <li>Id : { IDarray._currentValue }</li>
           <li className='listinputs' ><h2 > Date : { date } </h2></li>
           <li className='listinputs' >
                       <globalStateContext.Provider value={ React.useContext(globalStateContext).SE_list }>
@@ -203,7 +198,7 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
         <input className="submitbutton" value="Add" type="submit" />
         </form>
     </div>
-    <button onClick={() => handleChange()}>Done</button>
+    <button onClick={() => handleChange(ObjectArray, id)}>Done</button>
 
     </div>
 }

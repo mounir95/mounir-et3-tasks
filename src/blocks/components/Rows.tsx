@@ -1,4 +1,4 @@
-import { IDarray } from '../FormBlock';
+import { IDarray } from '../../App'
 // globalStateContext.conumer will provide the child with the value sent by the parent.
 // | attribute of the state decalred in the parent)
 // moreover the prop send by the parent (clickHandler)will be as an input to the child function 

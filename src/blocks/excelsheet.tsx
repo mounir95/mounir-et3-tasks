@@ -1,7 +1,8 @@
 import React, {FC} from "react";
 import { useState } from "react";
 import '../App.css';
-import { ObjectArray, IDarray } from '../blocks/FormBlock'
+import { ObjectArray } from '../blocks/FormBlock'
+import { IDarray } from "../App";
 import MyRow from '../blocks/components/Rows'
 
 interface Props {

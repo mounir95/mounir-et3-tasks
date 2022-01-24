@@ -18,7 +18,7 @@ const MyInput :FC<Props> = ({ inputHandeler }) => {
           { value =>  <input 
            type="text"
         //    value={ value }
-           placeholder={ value }
+        //    placeholder={ value }
            onChange={( value ) => inputHandeler( value )} required/> }
         </globalStateContext.Consumer>
     )
