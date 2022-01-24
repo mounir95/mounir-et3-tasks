@@ -4,30 +4,71 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin-left: 25%;
-  margin-right: 25%;
+  /* margin-left: 25%;
+  margin-right: 25%; */
   margin-bottom: 50px;
   border-radius: 25px;
   border: 10px solid #73ADE4;
 }
 
-.excelsheetcss{
+.listinputs {
+  text-align: left;
+}
+
+.listrows{
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.input_textfield{
+height: 15px;
+}
+
+.option_List_style{
+  height: 18px;
+  margin-top: 3px;
+  margin-right: 10px;
+}
+
+.text_field_class{
+  margin-right: 10px;
+}
+
+.text_value_radiobutton{
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.App {
   text-align: center;
-  background-color: #e7e7fd;
+}
+
+.submitbutton{
+  border: 5px solid #D8D8D8;
+  border-radius: 26px;
+  background-color: black;
+  color: white;
+  margin: 20px;
+}
+
+.AddClose_button{
+  border: 2px solid #D8D8F4;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  margin: 20px;
+  width:70px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-.AddForm_field{
-  border-radius: 25px;
-  border: 2px solid #73AD21;
-}
-
-.excelsheetalign{
-  text-align: -webkit-center;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .button_table{
@@ -45,6 +86,41 @@
     color: white;
 }
 
+.AddForm_field{
+  display: flex;
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+}
+
+.excelsheetcss{
+  text-align: center;
+  background-color: #e7e7fd;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 30px;
+  border-radius: 26px;
+  /* border: 2px solid #73AD21; */
+
+}
+
+.first_row_css{
+  background-color: lightblue;
+  color: black;
+}
+
+.second_row_css{
+  background-color: transparent;
+    color: black;
+}
+
+
+.excelsheetalign{
+  text-align: -webkit-center;
+}
+
 table, th, td {
   border: 1px solid black;
 }
@@ -52,39 +128,4 @@ table, th, td {
 .table_excelsheet{
 text-align: center;
 margin:20px;
-}
-
-.listinputs {
-  text-align: left;
-}
-
-.listrows{
-  margin-bottom: 10px;
-}
-
-.text_field_class{
-  margin: 10px;
-}
-
-.App {
-  text-align: center;
-}
-
-.submitbutton{
-  border: 5px solid #D8D8D8;
-  border-radius: 26px;
-  background-color: black;
-  color: white;
-  margin: 20px;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }

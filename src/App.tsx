@@ -3,35 +3,48 @@ import './App.css';
 import Excellsheet from './blocks/excelsheet'
 import AddForm from './blocks/FormBlock'
 
+export let ObjectArray : any = React.createContext([{}]);
+
 export let IDarray : any = React.createContext< Array<number>>([0]);
-var lastIndex : number= IDarray._currentValue[(IDarray._currentValue).length-1];
 
 function App() {
-  const [ { excelisHidden, formisHidden, id } , changeState ] = useState({
+  const [ { clickvalue, excelisHidden, formisHidden } , changeState ] = useState({
+    clickvalue : 'Add ↓',
     excelisHidden : true,
-    formisHidden : false,
-    id : lastIndex
-  })
+    formisHidden : true
+  });
 
-  let ToggleForm = (object, lastid) => {
-    console.log(object)
-    console.log(lastid)
-    changeState(val => val = { ...val,excelisHidden : !excelisHidden, formisHidden : true, id : lastid + 1 })
-    IDarray = React.createContext< Array<number>>([...IDarray._currentValue, lastid + 1 ])
-    console.log(IDarray)
-  }
-
-  let DoneForm = () => {
-    changeState(val => val = { ...val,excelisHidden : true, formisHidden : false })
-  }
+  let ToggleForm = (id, buttonvalue) => {
+    if (buttonvalue === 'Add ↓'){
+      changeState(val => val = { ...val,excelisHidden : !excelisHidden, formisHidden : true, clickvalue : 'Close ↑' })
+    }
+    else{
+      changeState(val => val = { ...val,excelisHidden : !excelisHidden, formisHidden : true, clickvalue : 'Add ↓' })
+    }
+    var lastIndex : number= IDarray._currentValue[IDarray._currentValue.length-1];
+    if(id !== lastIndex){
+      IDarray = React.createContext< Array<number>>([...IDarray._currentValue, id ]);
+      ObjectArray = React.createContext< Array<number>>([...ObjectArray._currentValue, ObjectArray])
+    }
+  };
+  
+  let AddButton = (buttonvalue) => {
+    if (buttonvalue === 'Add ↓'){
+      changeState(val => val = { ...val,excelisHidden : true, formisHidden : !formisHidden, clickvalue : 'Close ↑' })
+    }
+    else{
+      changeState(val => val = { ...val,excelisHidden : true, formisHidden : !formisHidden, clickvalue : 'Add ↓' })
+    }
+  };
 
   return (
     <div className="App">
       <div className='excelsheetcss'>
-      { !formisHidden && <AddForm arraylastindex={lastIndex} handleChange={(object, lastid) => ToggleForm(object, lastid)} ></AddForm> }
+        <Excellsheet ></Excellsheet>
+        <button className='AddClose_button' onClick={() => AddButton(clickvalue)}>{ clickvalue }</button>
       </div>
       <div className='excelsheetcss'>
-      { !excelisHidden && <Excellsheet addhandleChange={() => DoneForm()}></Excellsheet>}
+        { !formisHidden && <AddForm handleChange={(id) => ToggleForm(id, clickvalue)} ></AddForm> }
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { IDarray } from '../../App'
+import { IDarray } from '../../App';
 // globalStateContext.conumer will provide the child with the value sent by the parent.
 // | attribute of the state decalred in the parent)
 // moreover the prop send by the parent (clickHandler)will be as an input to the child function 
@@ -12,8 +12,9 @@ const MyRow = () => {
             {/* <select name="carBrand">{ value => value.map( e => <option value={e}>{e}</option> ) }</select> */}
 
             { value => value.map((i) => { 
-                return (
-                                    <tr>
+                                     if(i.Myid >= 0){
+                 return (
+                                    <tr className='second_row_css'>
                                      <td>{ i.Mydate }</td>
                                      <td>{ i.Myse_list }</td>
                                      <td>{ i.Myid }</td>
@@ -30,6 +31,7 @@ const MyRow = () => {
                                      </tr> )
                    
               }
+          }
                    )}
         </IDarray.Consumer>
    );

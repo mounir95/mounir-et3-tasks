@@ -1,32 +1,24 @@
-import React, {FC} from "react";
-import { useState } from "react";
 import '../App.css';
-import { ObjectArray } from '../blocks/FormBlock'
-import { IDarray } from "../App";
+import { ObjectArray, IDarray } from '../App'
 import MyRow from '../blocks/components/Rows'
 
-interface Props {
-  addhandleChange:any,
-}
-let arrayofObjects = [];
-
-const Excellsheet :FC<Props> = ( { addhandleChange } ) => {
-
-  const [ { arrayofids , arrayofobjects } , setchanges ] = useState({
-    arrayofids : React.useContext(IDarray),
-    arrayofobjects : React.useContext(ObjectArray)
-  })
+const Excellsheet = ( ) => {
+  let arrayofids = IDarray._currentValue;
+  let arrayofobjects = ObjectArray._currentValue;
 
 var lastIndex : number= arrayofids.length;
 for(let i = 1; i < lastIndex; i++){
-  arrayofObjects[i] = arrayofobjects[i];
+  arrayofobjects[i] = arrayofobjects[i];
 }
+// console.log(' Excel Sheet')
+// console.log(arrayofids)
+// console.log(arrayofobjects)
 
   return (
     <div className='excelsheetalign'>
       <div>
           <table className='table_excelsheet'>
-              <tr>
+              <tr className='first_row_css'>
                 <th>Date</th>
                 <th>SE_List</th>
                 <th>#</th>
@@ -41,13 +33,10 @@ for(let i = 1; i < lastIndex; i++){
                 <th>Reveiwed By AH</th>
                 <th>Reveiwed By HT</th>
               </tr>
-              <IDarray.Provider value= { arrayofObjects }>
+              <IDarray.Provider value= { arrayofobjects }>
                 <MyRow />
               </IDarray.Provider>
           </table>
-      </div>
-      <div className="App_add_par">
-        <button onClick={() => addhandleChange()}>Add</button>
       </div>
     </div>
   )

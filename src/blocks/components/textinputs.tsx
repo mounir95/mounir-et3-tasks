@@ -16,6 +16,7 @@ const MyInput :FC<Props> = ({ inputHandeler }) => {
     return (
         <globalStateContext.Consumer>
           { value =>  <input 
+          className="input_textfield"
            type="text"
         //    value={ value }
         //    placeholder={ value }
