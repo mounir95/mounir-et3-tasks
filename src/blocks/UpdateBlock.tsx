@@ -4,25 +4,19 @@ import { globalStateContext } from '../contants/UseContext'
 import MyList from './components/Lists'
 import Myinput from './components/Textinputs'
 import RadioButton from './components/Radiobuttons';
-import { IDarray, ObjectArray } from '../App';
+import { ObjectArray, updatedObjectarray } from '../App';
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 
 interface Props {
-  handleChange:any,
+  handleUpdateChange:any,
+  updatedvalue : any,
 }
 
-let AddForm :FC<Props> = ( { handleChange } ) => {
-  if(((IDarray._currentValue).length-1) < 0 ){
-    var lastIndex : number= 0;
-  }
-  else{
-    var lastIndex : number= IDarray._currentValue[(IDarray._currentValue).length-1];
-  }
-
+let UpdateForm :FC<Props> = ( { handleUpdateChange, updatedvalue } ) => {
   const [ { id , date, se_list, comment, size, dificulity, platform, pr_Link, release_version, status_list, Main_status_list, reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT } , setChanges] = useState( 
     { 
-      id : lastIndex, 
+      id : updatedvalue.Myid, 
       date : React.useContext(globalStateContext).Date,
       se_list : React.useContext(globalStateContext).SE_list,
       comment : React.useContext(globalStateContext).Comment,
@@ -38,7 +32,7 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
       reveiwed_by_HT : React.useContext(globalStateContext).Reveiwed_by_HT,
     });
 
-  let Changedate = (e : any) => {
+  let Changedate = (e) => {
     setChanges(val => val = {...val,  date: e });   
   }
 
@@ -86,29 +80,30 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
     }
  }
 
-  const handleSubmit = (event: any) => {
+  const handleSubmitUpdate = (event: any) => {
+    console.log("//////////// second  ///////////// ")
+    console.log(ObjectArray)
     event.preventDefault();
-    setChanges(val => val = { ...val , id : val.id + 1 } );
-    ObjectArray.Myid = id + 1;
-    ObjectArray.Mydate = date;
-    ObjectArray.Myse_list = se_list[0];
-    ObjectArray.Mycomment = comment;
-    ObjectArray.Mysize = size[0];
-    ObjectArray.Mydificulity = dificulity[0];
-    ObjectArray.Myplatform = platform[0];
-    ObjectArray.Myrelease_version = release_version;
-    ObjectArray.Mypr_Link = pr_Link;
-    ObjectArray.Mystatus_list = status_list[0];
-    ObjectArray.Myreveiwed_by_BY = reveiwed_by_BY;
-    ObjectArray.Myreveiwed_by_AH = reveiwed_by_AH;
-    ObjectArray.Myreveiwed_by_HT = reveiwed_by_HT;
-    handleChange(id + 1);
+    updatedObjectarray.Myid = id;
+    updatedObjectarray.Mydate = date;
+    updatedObjectarray.Myse_list = se_list[0];
+    updatedObjectarray.Mycomment = comment;
+    updatedObjectarray.Mysize = size[0];
+    updatedObjectarray.Mydificulity = dificulity[0];
+    updatedObjectarray.Myplatform = platform[0];
+    updatedObjectarray.Myrelease_version = release_version;
+    updatedObjectarray.Mypr_Link = pr_Link;
+    updatedObjectarray.Mystatus_list = status_list[0];
+    updatedObjectarray.Myreveiwed_by_BY = reveiwed_by_BY;
+    updatedObjectarray.Myreveiwed_by_AH = reveiwed_by_AH;
+    updatedObjectarray.Myreveiwed_by_HT = reveiwed_by_HT;
+    handleUpdateChange(id);
   }
 
   return <div>
     <div className="My_Form">
-      <h1>Add New Record</h1>
-      <form onSubmit={handleSubmit}>
+      <h1>Update Record</h1>
+      <form onSubmit={handleSubmitUpdate}>
         <div className='AddForm_field'>
           <ul>
             <li className='listinputs' >
@@ -221,7 +216,7 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
                   <div className="col-sm-4">  
                           <DatePicker className="form-control"  style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }}
                                   selected={date} placeholderText="Select Date" showPopperArrow={false}  
-                                  onChange={(newdate : any) => Changedate(newdate)}  
+                                  onChange={(newdate) => Changedate(newdate)}  
                           />  
                   </div>  
               </div>
@@ -230,8 +225,7 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
         <input className="submitbutton" value="Add" type="submit" />
         </form>
     </div>
-      {/* <button onClick={() => handleChange(id) }>Save</button> */}
     </div>
 }
 
-export default AddForm;
+export default UpdateForm;

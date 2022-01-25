@@ -2,7 +2,7 @@ import '../App.css';
 import { ObjectArray, IDarray } from '../App'
 import MyRow from './components/Rows'
 
-const Excellsheet = ( ) => {
+const Excellsheet = ( { SubmitDelete, SubmitEditrow }) => {
   let arrayofids = IDarray._currentValue;
   let arrayofobjects = ObjectArray._currentValue;
 
@@ -34,7 +34,7 @@ for(let i = 1; i < lastIndex; i++){
                 <th>Reveiwed By HT</th>
               </tr>
               <IDarray.Provider value= { arrayofobjects }>
-                <MyRow />
+                <MyRow submitEditrow={(object) => SubmitEditrow(object) } submitDeletrow= {(object) => SubmitDelete(object)}/>
               </IDarray.Provider>
           </table>
       </div>
