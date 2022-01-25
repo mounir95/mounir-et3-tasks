@@ -1,6 +1,6 @@
 import '../App.css';
 import { ObjectArray, IDarray } from '../App'
-import MyRow from '../blocks/components/Rows'
+import MyRow from './components/Rows'
 
 const Excellsheet = ( ) => {
   let arrayofids = IDarray._currentValue;

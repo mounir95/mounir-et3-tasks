@@ -15,7 +15,7 @@ const MyRow = () => {
                                      if(i.Myid >= 0){
                  return (
                                     <tr className='second_row_css'>
-                                     <td>{ i.Mydate }</td>
+                                     <td>{ JSON.stringify(i.Mydate) }</td>
                                      <td>{ i.Myse_list }</td>
                                      <td>{ i.Myid }</td>
                                      <td>{ i.Myplatform }</td>

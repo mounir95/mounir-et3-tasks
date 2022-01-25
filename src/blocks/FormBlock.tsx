@@ -2,9 +2,12 @@ import '../App.css';
 import React, { FC, useState } from 'react';
 import { globalStateContext } from '../contants/UseContext'
 import MyList from './components/Lists'
-import Myinput from './components/textinputs'
-import RadioButton from './components/radiobuttons';
+import Myinput from './components/Textinputs'
+import RadioButton from './components/Radiobuttons';
 import { IDarray, ObjectArray } from '../App';
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
+import { Container, Row, Col } from "react-bootstrap";
 
 interface Props {
   handleChange:any,
@@ -30,6 +33,14 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
       reveiwed_by_AH : React.useContext(globalStateContext).Reveiwed_by_AH,
       reveiwed_by_HT : React.useContext(globalStateContext).Reveiwed_by_HT,
     });
+
+  let Changedate = (e) => {
+    console.log(e)
+    console.log(typeof e)
+    console.log(JSON.stringify(e))
+    console.log(typeof e)
+    setChanges(val => val = {...val,  date: e });   
+  }
 
   let onInputchange = (event : any, Atribuite :any) => {
     if( Atribuite === comment ){
@@ -98,11 +109,6 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
     <div className="My_Form">
       <h1>Add New Record</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {/* <li>Id : { id }</li> */}
-          {/* <li>Id : { IDarray._currentValue }</li> */}
-          <li className='listinputs' ><h4 > Date : { date } </h4></li>
-        </ul>
         <div className='AddForm_field'>
           <ul>
             <li className='listinputs' >
@@ -207,6 +213,20 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
             </li>
           </ul>
         </div>
+        <ul>
+            {/* <li>Id : { id }</li> */}
+            {/* <li>Id : { IDarray._currentValue }</li> */}
+            <li>
+              <div className="row" style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, -200px)" }}>  
+                  <div className="col-sm-4">  
+                          <DatePicker className="form-control"  style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }}
+                                  selected={date} placeholderText="Select Date" showPopperArrow={false}  
+                                  onChange={(newdate) => Changedate(newdate)}  
+                          />  
+                  </div>  
+              </div>
+            </li>
+          </ul>
         <input className="submitbutton" value="Add" type="submit" />
         </form>
     </div>

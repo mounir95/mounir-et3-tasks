@@ -1,7 +1,7 @@
 import React from 'react';
 
-export interface Iobject{
-  Date: string, 
+export interface TPrObject{
+  Date: Date, 
   SE_list: string[], 
   Platform: string[], 
   Release_Version: string, 
@@ -15,9 +15,8 @@ export interface Iobject{
   Reveiwed_by_HT: string
 }
 
-let date = new Date();
-const globalState : Partial<Iobject> | any = {
-    Date: (date.getUTCMonth()+1) + '/' + date.getUTCDate() + '/' + date.getUTCFullYear(),
+const globalState : Partial<TPrObject> | any = {
+    Date: new Date(),
     SE_list:["AH", "BY", "HT"],
     Platform:["mobile-client", "kh-server-node", "kh-sqs-worker", "kh-server-firebase", "kh-admin-client",
     "kh-admin-server-new", "kh-admin", "fa-mobile-client", "fa-server-firebase", "kh-website", "fa-website"],
@@ -32,7 +31,7 @@ const globalState : Partial<Iobject> | any = {
     Reveiwed_by_HT : "no"
   };
 
-  export const globalStateContext = React.createContext<Partial<Iobject> | any>(globalState);
+  export const globalStateContext = React.createContext<Partial<TPrObject> | any>(globalState);
 
 // the consept of createcontext is to create a global varibale can be accessed by import.aslo 
 // this global variable can be changed at any level an set eaul to the state level and it will be changed in all proj
