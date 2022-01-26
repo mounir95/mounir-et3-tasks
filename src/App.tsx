@@ -10,11 +10,11 @@ export let updatedObjectarray : any = React.createContext([{}]);
 export let IDarray : any = React.createContext< Array<number>>([0]);
 
 function App() {
-  const [ { clickvalue, updateFormisHidden, formisHidden, editdobject } , changeState ] = useState({
+  const [ { clickvalue, updateFormisHidden, formisHidden, editd_object_id } , changeState ] = useState({
     clickvalue : 'ADD',
     updateFormisHidden : true,
     formisHidden : true,
-    editdobject : {}
+    editd_object_id : {}
   });
 
   let AddFormfun = (id : number, buttonvalue : string) => {
@@ -40,29 +40,29 @@ function App() {
     }
   };
 
-  let SubmitDeleteFun = (object : any) => {
+  let SubmitDeleteFun = (objectid : any) => {
     IDarray._currentValue = IDarray._currentValue.filter(e => {
-      if(e !== object.Myid){
+      if(e !== objectid){
         return e;
       }
       else{ return '' }
     });
     IDarray._currentValue2 = IDarray._currentValue2.filter(e => {
-      if(e !== object.Myid){
+      if(e !== objectid){
         return e;
       }
       else{ return '' }
     });
 
-    ObjectArray._currentValue = ObjectArray._currentValue.filter(objectid => {
-      if(objectid.Myid !== object.Myid){
+    ObjectArray._currentValue = ObjectArray._currentValue.filter(object => {
+      if(object.Myid !== objectid){
         return object;
       }
       else{ return '' }
         });
 
-    ObjectArray._currentValue2 = ObjectArray._currentValue2.filter(objectid => {
-        if(objectid.Myid !== object.Myid){
+    ObjectArray._currentValue2 = ObjectArray._currentValue2.filter(object => {
+        if(object.Myid !== objectid){
             return object;
         }
         else{ return '' }
@@ -71,21 +71,12 @@ function App() {
     ObjectArray = React.createContext< Array<number>>([...ObjectArray._currentValue])
     changeState(val => val = { ...val })
           }
-    
-  let SubmitEditFun = (object) => {
-    console.log("//////////// First  ///////////// ")
-    console.log(object)
-    console.log(ObjectArray)
-    changeState(val => val = { ...val,updateFormisHidden : false,formisHidden : true, editdobject : object  });
-  }
 
   let UpdateFormfun =(id) => {
     changeState(val => val = { ...val, updateFormisHidden : true })
     if(id === updatedObjectarray.Myid){
       ObjectArray._currentValue[id] = updatedObjectarray;
       ObjectArray._currentValue2[id] = updatedObjectarray;
-      console.log("//////////// third  ///////////// ")
-      console.log(ObjectArray)
     }
     ObjectArray = React.createContext< Array<number>>([...ObjectArray._currentValue])
   };
@@ -93,14 +84,11 @@ function App() {
   return (
     <div className="App">
       <div className='excelsheetcss'>
-        <Excellsheet SubmitEditrow={(object) => SubmitEditFun(object)} SubmitDelete={(object) => SubmitDeleteFun(object)}></Excellsheet>
+        <Excellsheet SubmitEditrow={(objectid) => UpdateFormfun(objectid)} SubmitDelete={(objectid) => SubmitDeleteFun(objectid)}></Excellsheet>
         <button className='AddClose_button' onClick={() => AddButton(clickvalue)}>{ clickvalue }</button>
       </div>
       <div className='excelsheetcss'>
         { !formisHidden && <AddForm handleChange={(id : number) => AddFormfun(id, clickvalue)} ></AddForm> }
-      </div>
-      <div className='excelsheetcss'>
-        { !updateFormisHidden && <UpdateForm updatedvalue={ editdobject } handleUpdateChange={(id) => UpdateFormfun(id)} ></UpdateForm> }
       </div>
     </div>
   );

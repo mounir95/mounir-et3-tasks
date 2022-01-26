@@ -39,6 +39,20 @@ height: 15px;
   margin-bottom: 5px;
 }
 
+.textalign_center{
+text-align: center;
+}
+
+.react-datepicker-popper{
+  position: absolute;
+  inset: 0px auto auto 0px;
+  transform: translate(0px, 0px);
+}
+
+.remove_li_dot{
+  display: block;
+}
+
 .App {
   text-align: center;
 }

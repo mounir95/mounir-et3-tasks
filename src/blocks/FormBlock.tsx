@@ -109,6 +109,20 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
     <div className="My_Form">
       <h1>Add New Record</h1>
       <form onSubmit={handleSubmit}>
+        <div className='textalign_center'>
+          <ul>
+            <li className='select_date_css'>
+              <div className="row">  
+                  <div className="col-sm-4">  
+                          <DatePicker className="form-control"  style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }}
+                                  selected={date} placeholderText="Select Date" showPopperArrow={false}  
+                                  onChange={(newdate : any) => Changedate(newdate)}  
+                          />  
+                  </div>  
+              </div>
+            </li>
+          </ul>
+        </div>
         <div className='AddForm_field'>
           <ul>
             <li className='listinputs' >
@@ -213,20 +227,6 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
             </li>
           </ul>
         </div>
-        <ul>
-            {/* <li>Id : { id }</li> */}
-            {/* <li>Id : { IDarray._currentValue }</li> */}
-            <li>
-              <div className="row" style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, -200px)" }}>  
-                  <div className="col-sm-4">  
-                          <DatePicker className="form-control"  style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }}
-                                  selected={date} placeholderText="Select Date" showPopperArrow={false}  
-                                  onChange={(newdate : any) => Changedate(newdate)}  
-                          />  
-                  </div>  
-              </div>
-            </li>
-          </ul>
         <input className="submitbutton" value="Add" type="submit" />
         </form>
     </div>

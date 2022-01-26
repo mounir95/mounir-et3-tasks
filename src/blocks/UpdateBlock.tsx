@@ -4,19 +4,18 @@ import { globalStateContext } from '../contants/UseContext'
 import MyList from './components/Lists'
 import Myinput from './components/Textinputs'
 import RadioButton from './components/Radiobuttons';
-import { ObjectArray, updatedObjectarray } from '../App';
+import { ObjectArray } from '../App';
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 
 interface Props {
-  handleUpdateChange:any,
-  updatedvalue : any,
+  updated_id_value : any,
 }
 
-let UpdateForm :FC<Props> = ( { handleUpdateChange, updatedvalue } ) => {
+let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
   const [ { id , date, se_list, comment, size, dificulity, platform, pr_Link, release_version, status_list, Main_status_list, reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT } , setChanges] = useState( 
     { 
-      id : updatedvalue.Myid, 
+      id : updated_id_value, 
       date : React.useContext(globalStateContext).Date,
       se_list : React.useContext(globalStateContext).SE_list,
       comment : React.useContext(globalStateContext).Comment,
@@ -81,29 +80,45 @@ let UpdateForm :FC<Props> = ( { handleUpdateChange, updatedvalue } ) => {
  }
 
   const handleSubmitUpdate = (event: any) => {
-    console.log("//////////// second  ///////////// ")
-    console.log(ObjectArray)
+    ObjectArray._currentValue.map(e => {
+        if(e.Myid === updated_id_value){
+            e.Myid = id;
+            e.Mydate = date;
+            e.Myse_list = se_list[0];
+            e.Mycomment = comment;
+            e.Mysize = size[0];
+            e.Mydificulity = dificulity[0];
+            e.Myplatform = platform[0];
+            e.Myrelease_version = release_version;
+            e.Mypr_Link = pr_Link;
+            e.Mystatus_list = status_list[0];
+            e.Myreveiwed_by_BY = reveiwed_by_BY;
+            e.Myreveiwed_by_AH = reveiwed_by_AH;
+            e.Myreveiwed_by_HT = reveiwed_by_HT;
+          }    
+      })
     event.preventDefault();
-    updatedObjectarray.Myid = id;
-    updatedObjectarray.Mydate = date;
-    updatedObjectarray.Myse_list = se_list[0];
-    updatedObjectarray.Mycomment = comment;
-    updatedObjectarray.Mysize = size[0];
-    updatedObjectarray.Mydificulity = dificulity[0];
-    updatedObjectarray.Myplatform = platform[0];
-    updatedObjectarray.Myrelease_version = release_version;
-    updatedObjectarray.Mypr_Link = pr_Link;
-    updatedObjectarray.Mystatus_list = status_list[0];
-    updatedObjectarray.Myreveiwed_by_BY = reveiwed_by_BY;
-    updatedObjectarray.Myreveiwed_by_AH = reveiwed_by_AH;
-    updatedObjectarray.Myreveiwed_by_HT = reveiwed_by_HT;
-    handleUpdateChange(id);
   }
 
   return <div>
     <div className="My_Form">
       <h1>Update Record</h1>
       <form onSubmit={handleSubmitUpdate}>
+      <div className='textalign_center'>
+          <ul>
+            <li className='remove_li_dot'>ID : { id }</li>
+            <li className='remove_li_dot'>
+              <div className="row">  
+                  <div className="col-sm-4">  
+                          <DatePicker className="form-control"  style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }}
+                                  selected={date} placeholderText="Select Date" showPopperArrow={false}  
+                                  onChange={(newdate : any) => Changedate(newdate)}  
+                          />  
+                  </div>  
+              </div>
+            </li>
+          </ul>
+        </div>
         <div className='AddForm_field'>
           <ul>
             <li className='listinputs' >
@@ -208,21 +223,7 @@ let UpdateForm :FC<Props> = ( { handleUpdateChange, updatedvalue } ) => {
             </li>
           </ul>
         </div>
-        <ul>
-            {/* <li>Id : { id }</li> */}
-            {/* <li>Id : { IDarray._currentValue }</li> */}
-            <li>
-              <div className="row" style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, -200px)" }}>  
-                  <div className="col-sm-4">  
-                          <DatePicker className="form-control"  style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }}
-                                  selected={date} placeholderText="Select Date" showPopperArrow={false}  
-                                  onChange={(newdate) => Changedate(newdate)}  
-                          />  
-                  </div>  
-              </div>
-            </li>
-          </ul>
-        <input className="submitbutton" value="Add" type="submit" />
+        <input className="submitbutton" value="Update" type="submit" />
         </form>
     </div>
     </div>
