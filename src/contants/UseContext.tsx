@@ -1,4 +1,5 @@
 import React from 'react';
+import { Context } from 'vm';
 
 export interface TPrObject{
   Date: Date, 
@@ -15,7 +16,7 @@ export interface TPrObject{
   Reveiwed_by_HT: string
 }
 
-const globalState : Partial<TPrObject> | any = {
+const globalState : Partial<TPrObject> = {
     Date: new Date(),
     SE_list:["AH", "BY", "HT"],
     Platform:["mobile-client", "kh-server-node", "kh-sqs-worker", "kh-server-firebase", "kh-admin-client",
@@ -31,7 +32,7 @@ const globalState : Partial<TPrObject> | any = {
     Reveiwed_by_HT : "no"
   };
 
-  export const globalStateContext = React.createContext<Partial<TPrObject> | any>(globalState);
+  export const globalStateContext : Context = React.createContext<Partial<TPrObject>>(globalState);
 
 // the consept of createcontext is to create a global varibale can be accessed by import.aslo 
 // this global variable can be changed at any level an set eaul to the state level and it will be changed in all proj

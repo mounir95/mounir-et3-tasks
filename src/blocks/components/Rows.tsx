@@ -1,7 +1,7 @@
-import { useState } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { FC, useState } from 'react';
 import { FaPencilAlt, FaSave } from 'react-icons/fa';
-import { IDarray } from '../../App';
+import { Context } from 'vm';
+import { ObjectArray } from '../../App';
 import UpdateForm from '../../blocks/UpdateBlock'
 
 // globalStateContext.conumer will provide the child with the value sent by the parent.
@@ -9,25 +9,31 @@ import UpdateForm from '../../blocks/UpdateBlock'
 // moreover the prop send by the parent (clickHandler)will be as an input to the child function 
 // instead of this.prop.propname, and this function can have an input as we can see below.
 
-const MyRow = ( { submitDeletrow, submitEditrow }) => {
+interface Props{
+    submitDeletrow : any,
+}
 
-    let [ { pencil_save, updateFormisHidden, editd_object_id }, changeIcon ] = useState({
+const MyRow :FC<Props>= ( { submitDeletrow }) => {
+    const [ { pencil_save, updateFormisHidden, editd_object_id }, changeIcon ] = useState({
         pencil_save : <FaPencilAlt />,
         updateFormisHidden : true,
         editd_object_id : 1
     })
 
-    const submitUpdate = (id) => {
+    const submitUpdate = (id : number) => {
+        console.log(pencil_save)
         if( pencil_save.type.name === 'FaPencilAlt'){
-            changeIcon(val => val = { ...val,pencil_save : <FaSave />, 
-                updateFormisHidden : false, editd_object_id : id })
+    changeIcon(val => val = { ...val, updateFormisHidden : false, editd_object_id : id, pencil_save : <FaSave /> })
+    console.log(updateFormisHidden)
+    console.log(id)
+    console.log(editd_object_id)
         }
         else{
-            changeIcon(val => val = { ...val,pencil_save : <FaPencilAlt />, 
-                updateFormisHidden : true, editd_object_id : id })
+    changeIcon({ pencil_save : <FaPencilAlt />, updateFormisHidden : true, editd_object_id : id })
+    console.log(updateFormisHidden)
         }
-        submitEditrow(id);
     }
+
    return (
 <div>
     <table className='table_excelsheet'>
@@ -46,12 +52,12 @@ const MyRow = ( { submitDeletrow, submitEditrow }) => {
         <th>Reveiwed By AH</th>
         <th>Reveiwed By HT</th>
         </tr>
-        <IDarray.Consumer>
+        <ObjectArray.Consumer>
             {/* {value => value.map(e => <button onClick={() => clickHandler(e)} >{e}</button>) } */}
             {/* <select name="carBrand">{ value => value.map( e => <option value={e}>{e}</option> ) }</select> */}
 
-            { value => value.map((i) => { 
-                                     if(i.Myid >= 0){
+            { (value : Context ) => value.map((i : Context) => { 
+                if(i.Myid >= 0){
                  return (
                                     <tr className='second_row_css'>
                                      <td>{ JSON.stringify(i.Mydate) }</td>
@@ -75,7 +81,7 @@ const MyRow = ( { submitDeletrow, submitEditrow }) => {
               }
           }
                    )}
-        </IDarray.Consumer>
+        </ObjectArray.Consumer>
     </table>
     { !updateFormisHidden && <UpdateForm updated_id_value={ editd_object_id } ></UpdateForm> }
 </div>

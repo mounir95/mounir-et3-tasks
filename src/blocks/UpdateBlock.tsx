@@ -16,22 +16,23 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
   const [ { id , date, se_list, comment, size, dificulity, platform, pr_Link, release_version, status_list, Main_status_list, reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT } , setChanges] = useState( 
     { 
       id : updated_id_value, 
-      date : React.useContext(globalStateContext).Date,
-      se_list : React.useContext(globalStateContext).SE_list,
-      comment : React.useContext(globalStateContext).Comment,
-      size : React.useContext(globalStateContext).Size,
-      dificulity : React.useContext(globalStateContext).Dificulity,
-      platform : React.useContext(globalStateContext).Platform,
-      pr_Link: React.useContext(globalStateContext).Pr_Link,
-      release_version : React.useContext(globalStateContext).Release_Version,
-      status_list : React.useContext(globalStateContext).Status_list,
-      Main_status_list : React.useContext(globalStateContext).Status_list,
-      reveiwed_by_BY : React.useContext(globalStateContext).Reveiwed_by_BY,
-      reveiwed_by_AH : React.useContext(globalStateContext).Reveiwed_by_AH,
-      reveiwed_by_HT : React.useContext(globalStateContext).Reveiwed_by_HT,
+      date : globalStateContext._currentValue.Date,
+      se_list : globalStateContext._currentValue.SE_list,
+      comment : globalStateContext._currentValue.Comment,
+      size : globalStateContext._currentValue.Size,
+      dificulity : globalStateContext._currentValue.Dificulity,
+      platform : globalStateContext._currentValue.Platform,
+      pr_Link: globalStateContext._currentValue.Pr_Link,
+      release_version : globalStateContext._currentValue.Release_Version,
+      status_list : globalStateContext._currentValue.Status_list,
+      Main_status_list : globalStateContext._currentValue.Status_list,
+      reveiwed_by_BY : globalStateContext._currentValue.Reveiwed_by_BY,
+      reveiwed_by_AH : globalStateContext._currentValue.Reveiwed_by_AH,
+      reveiwed_by_HT : globalStateContext._currentValue.Reveiwed_by_HT,
     });
+    console.log('here')
 
-  let Changedate = (e) => {
+  let Changedate = (e : Date) => {
     setChanges(val => val = {...val,  date: e });   
   }
 
@@ -80,7 +81,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
  }
 
   const handleSubmitUpdate = (event: any) => {
-    ObjectArray._currentValue.map(e => {
+    ObjectArray._currentValue.map((e : any ) => {
         if(e.Myid === updated_id_value){
             e.Myid = id;
             e.Mydate = date;
@@ -110,7 +111,8 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
             <li className='remove_li_dot'>
               <div className="row">  
                   <div className="col-sm-4">  
-                          <DatePicker className="form-control"  style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }}
+                          <DatePicker className="form-control"  
+                          // style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }}
                                   selected={date} placeholderText="Select Date" showPopperArrow={false}  
                                   onChange={(newdate : any) => Changedate(newdate)}  
                           />  
@@ -122,7 +124,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
         <div className='AddForm_field'>
           <ul>
             <li className='listinputs' >
-                        <globalStateContext.Provider value={ React.useContext(globalStateContext).SE_list }>
+                        <globalStateContext.Provider value={ globalStateContext._currentValue.SE_list }>
                           <div className='listrows'>
                             <label className="text_field_class"> SE List : </label> 
                             <select className='option_List_style' onChange={(event) => outputEvent(event,se_list)}>
@@ -132,7 +134,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                         </globalStateContext.Provider>
             </li>
             <li className='listinputs' >
-                      <globalStateContext.Provider value={ React.useContext(globalStateContext).Platform }>
+                      <globalStateContext.Provider value={ globalStateContext._currentValue.Platform }>
                           <div className='listrows'>
                             <label className="text_field_class"> Platform : </label> 
                             <select className='option_List_style' onChange={(event) => outputEvent(event,platform)}>
@@ -172,7 +174,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
           </ul>
           <ul>
             <li className='listinputs' >
-                      <globalStateContext.Provider value={ React.useContext(globalStateContext).Size }>
+                      <globalStateContext.Provider value={ globalStateContext._currentValue.Size }>
                           <div className='listrows'>
                             <label className="text_field_class"> Size : </label> 
                             <select className='option_List_style' onChange={(event) => outputEvent(event,size)}>
@@ -182,7 +184,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                       </globalStateContext.Provider>
             </li>
             <li className='listinputs' >
-                      <globalStateContext.Provider value={ React.useContext(globalStateContext).Dificulity }>
+                      <globalStateContext.Provider value={ globalStateContext._currentValue.Dificulity }>
                           <div className='listrows'>
                             <label className="text_field_class"> Dificulity : </label> 
                             <select className='option_List_style' onChange={(tagname) => outputEvent( tagname, dificulity)}>

@@ -1,8 +1,13 @@
 import '../App.css';
+import { FC } from 'react';
 import { ObjectArray, IDarray } from '../App'
 import MyRow from './components/Rows'
 
-const Excellsheet = ( { SubmitDelete, SubmitEditrow }) => {
+interface Props {
+  SubmitDelete:any,
+}
+
+const Excellsheet :FC<Props> = ( { SubmitDelete }) => {
   let arrayofids = IDarray._currentValue;
   let arrayofobjects = ObjectArray._currentValue;
 
@@ -17,9 +22,9 @@ for(let i = 1; i < lastIndex; i++){
   return (
     <div className='excelsheetalign'>
       <div>
-              <IDarray.Provider value= { arrayofobjects }>
-                <MyRow submitEditrow={(objectid) => SubmitEditrow(objectid) } submitDeletrow= {(objectid) => SubmitDelete(objectid)}/>
-              </IDarray.Provider>
+              <ObjectArray.Provider value= { arrayofobjects }>
+                <MyRow submitDeletrow= {(objectid : number) : any => SubmitDelete(objectid)}/>
+              </ObjectArray.Provider>
       </div>
     </div>
   )

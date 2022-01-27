@@ -10,7 +10,7 @@ const RadioButton :React.FC<Props> = ( { choosebutton }) => {
 
     return (
         <globalStateContext.Consumer>
-            {value =>
+            {(value : string)=>
                 <div>
                     <label> 
                         <input

@@ -1,18 +1,19 @@
 import '../App.css';
-import React, { FC, useState } from 'react';
+import React, { Context, FC, useState } from 'react';
 import { globalStateContext } from '../contants/UseContext'
 import MyList from './components/Lists'
 import Myinput from './components/Textinputs'
 import RadioButton from './components/Radiobuttons';
 import { IDarray, ObjectArray } from '../App';
-import DatePicker from 'react-datepicker'
+import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import context from 'react-bootstrap/esm/AccordionContext';
 
 interface Props {
   handleChange:any,
 }
 
-let AddForm :FC<Props> = ( { handleChange } ) => {
+const AddForm :FC<Props> = ( { handleChange } ) => {
   if(((IDarray._currentValue).length-1) < 0 ){
     var lastIndex : number= 0;
   }
@@ -23,19 +24,19 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
   const [ { id , date, se_list, comment, size, dificulity, platform, pr_Link, release_version, status_list, Main_status_list, reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT } , setChanges] = useState( 
     { 
       id : lastIndex, 
-      date : React.useContext(globalStateContext).Date,
-      se_list : React.useContext(globalStateContext).SE_list,
-      comment : React.useContext(globalStateContext).Comment,
-      size : React.useContext(globalStateContext).Size,
-      dificulity : React.useContext(globalStateContext).Dificulity,
-      platform : React.useContext(globalStateContext).Platform,
-      pr_Link: React.useContext(globalStateContext).Pr_Link,
-      release_version : React.useContext(globalStateContext).Release_Version,
-      status_list : React.useContext(globalStateContext).Status_list,
-      Main_status_list : React.useContext(globalStateContext).Status_list,
-      reveiwed_by_BY : React.useContext(globalStateContext).Reveiwed_by_BY,
-      reveiwed_by_AH : React.useContext(globalStateContext).Reveiwed_by_AH,
-      reveiwed_by_HT : React.useContext(globalStateContext).Reveiwed_by_HT,
+      date : globalStateContext._currentValue.Date,
+      se_list : (globalStateContext)._currentValue.SE_list,
+      comment : (globalStateContext)._currentValue.Comment,
+      size : (globalStateContext)._currentValue.Size,
+      dificulity : (globalStateContext)._currentValue.Dificulity,
+      platform : (globalStateContext)._currentValue.Platform,
+      pr_Link: (globalStateContext)._currentValue.Pr_Link,
+      release_version : (globalStateContext)._currentValue.Release_Version,
+      status_list : (globalStateContext)._currentValue.Status_list,
+      Main_status_list : (globalStateContext)._currentValue.Status_list,
+      reveiwed_by_BY : (globalStateContext)._currentValue.Reveiwed_by_BY,
+      reveiwed_by_AH : (globalStateContext)._currentValue.Reveiwed_by_AH,
+      reveiwed_by_HT : (globalStateContext)._currentValue.Reveiwed_by_HT,
     });
 
   let Changedate = (e : any) => {
@@ -114,7 +115,8 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
             <li className='select_date_css'>
               <div className="row">  
                   <div className="col-sm-4">  
-                          <DatePicker className="form-control"  style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }}
+                          <DatePicker className="form-control" 
+                          // {/* style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }} */}
                                   selected={date} placeholderText="Select Date" showPopperArrow={false}  
                                   onChange={(newdate : any) => Changedate(newdate)}  
                           />  
@@ -126,17 +128,17 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
         <div className='AddForm_field'>
           <ul>
             <li className='listinputs' >
-                        <globalStateContext.Provider value={ React.useContext(globalStateContext).SE_list }>
+                        <globalStateContext.Provider value ={ globalStateContext._currentValue.SE_list }>
                           <div className='listrows'>
                             <label className="text_field_class"> SE List : </label> 
-                            <select className='option_List_style' onChange={(event) => outputEvent(event,se_list)}>
+                            <select className='option_List_style' defaultValue='AH' onChange={(event) => outputEvent(event,se_list)}>
                               <MyList />
                             </select>
                           </div>
                         </globalStateContext.Provider>
             </li>
             <li className='listinputs' >
-                      <globalStateContext.Provider value={ React.useContext(globalStateContext).Platform }>
+                      <globalStateContext.Provider value={ globalStateContext._currentValue.Platform }>
                           <div className='listrows'>
                             <label className="text_field_class"> Platform : </label> 
                             <select className='option_List_style' onChange={(event) => outputEvent(event,platform)}>
@@ -176,7 +178,7 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
           </ul>
           <ul>
             <li className='listinputs' >
-                      <globalStateContext.Provider value={ React.useContext(globalStateContext).Size }>
+                      <globalStateContext.Provider value={ globalStateContext._currentValue.Size }>
                           <div className='listrows'>
                             <label className="text_field_class"> Size : </label> 
                             <select className='option_List_style' onChange={(event) => outputEvent(event,size)}>
@@ -186,7 +188,7 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
                       </globalStateContext.Provider>
             </li>
             <li className='listinputs' >
-                      <globalStateContext.Provider value={ React.useContext(globalStateContext).Dificulity }>
+                      <globalStateContext.Provider value={ globalStateContext._currentValue.Dificulity }>
                           <div className='listrows'>
                             <label className="text_field_class"> Dificulity : </label> 
                             <select className='option_List_style' onChange={(tagname) => outputEvent( tagname, dificulity)}>
@@ -230,7 +232,6 @@ let AddForm :FC<Props> = ( { handleChange } ) => {
         <input className="submitbutton" value="Add" type="submit" />
         </form>
     </div>
-      {/* <button onClick={() => handleChange(id) }>Save</button> */}
     </div>
 }
 
