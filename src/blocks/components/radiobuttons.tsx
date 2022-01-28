@@ -1,34 +1,53 @@
-import React from "react";
-import { globalStateContext } from '../../contants/UseContext';
+import { globalStateContext } from "../../contants/UseContext";
+import { ObjectArray } from '../../App';
+import { useState } from "react";
+import RadioButton from './inputfolder/Radiobutton';
 
-interface Props {
-    choosebutton: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
+const RadioButtons = () => {
+    const [ { reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT } , setChanges] = useState( 
+        { 
+          reveiwed_by_BY : (globalStateContext)._currentValue.Reveiwed_by_BY,
+          reveiwed_by_AH : (globalStateContext)._currentValue.Reveiwed_by_AH,
+          reveiwed_by_HT : (globalStateContext)._currentValue.Reveiwed_by_HT,
+        });
 
-const RadioButton :React.FC<Props> = ( { choosebutton }) => {
+    const changeHandle = ( event : React.ChangeEvent<HTMLInputElement>, attribute : object ) : void => {
+        if(Object.keys(attribute).toString() === 'reveiwed_by_BY' ){
+           setChanges( val => val = {...val, reveiwed_by_BY : event.target.value })
+        }
+        else if(Object.keys(attribute).toString() === 'reveiwed_by_AH' ){
+           setChanges( val => val = {...val, reveiwed_by_AH : event.target.value })
+        }
+        else if(Object.keys(attribute).toString() === 'reveiwed_by_HT' ){
+           setChanges( val => val = {...val, reveiwed_by_HT : event.target.value })
+        }
+     }
+
+     ObjectArray.Myreveiwed_by_BY = reveiwed_by_BY;
+     ObjectArray.Myreveiwed_by_AH = reveiwed_by_AH;
+     ObjectArray.Myreveiwed_by_HT = reveiwed_by_HT;
+
     return (
-        <globalStateContext.Consumer>
-            {(value : string)=>
-                <div>
-                    <label> 
-                        <input
-                            type="radio"
-                            value="no"
-                            checked={ value ==="no" }
-                            onChange={(e : React.ChangeEvent<HTMLInputElement>) : void => choosebutton(e)}
-                        />no
-                    </label>
-                    <label> 
-                        <input
-                            type="radio"
-                            value="yes"
-                            checked={ value ==="yes" }
-                            onChange={(e : React.ChangeEvent<HTMLInputElement>) => choosebutton(e)}
-                        />yes
-                    </label>
-                </div>
-            }
-        </globalStateContext.Consumer>
+        <ul>
+            <li className='text_value_radiobutton'>
+                    <globalStateContext.Provider value = { reveiwed_by_BY }>
+                    <strong>Reveiwed By BH :</strong>
+                    <RadioButton choosebutton = {(event : React.ChangeEvent<HTMLInputElement>) => changeHandle( event , { reveiwed_by_BY } )}/>
+                    </globalStateContext.Provider>
+            </li>
+            <li className='text_value_radiobutton'>
+                    <globalStateContext.Provider value = { reveiwed_by_AH }>
+                    <strong>Reveiwed By AH :</strong>
+                    <RadioButton choosebutton = {(event : React.ChangeEvent<HTMLInputElement>) => changeHandle( event, { reveiwed_by_AH } )}/>
+                    </globalStateContext.Provider>
+            </li>
+            <li className='text_value_radiobutton'>
+                    <globalStateContext.Provider value = { reveiwed_by_HT }>
+                    <strong>Reveiwed By HT :</strong>
+                    <RadioButton choosebutton = {(event :React.ChangeEvent<HTMLInputElement> ) => changeHandle( event, { reveiwed_by_HT } )}/>
+                    </globalStateContext.Provider>
+            </li>
+        </ul>
     )
 }
-export default RadioButton;
+export default RadioButtons

@@ -3,6 +3,7 @@ import { FaPencilAlt, FaSave } from 'react-icons/fa';
 import { Context } from 'vm';
 import { ObjectArray } from '../../App';
 import UpdateForm from '../../blocks/UpdateBlock'
+import RowLists from './inputfolder/rowtablelist'
 
 interface Props{
     submitDeletrow : Function,
@@ -12,21 +13,17 @@ const MyRow :FC<Props>= ( { submitDeletrow }) => {
     const [ { pencil_save, updateFormisHidden, editd_object_id }, changeIcon ] = useState({
         pencil_save : <FaPencilAlt />,
         updateFormisHidden : true,
-        editd_object_id : 1
+        editd_object_id : -1
     })
 
     const submitUpdate = (id : number) => {
-        console.log(pencil_save)
         if( pencil_save.type.name === 'FaPencilAlt'){
-    changeIcon(val => val = { ...val, updateFormisHidden : false, editd_object_id : id, pencil_save : <FaSave /> })
-    console.log(updateFormisHidden)
-    console.log(id)
-    console.log(editd_object_id)
-        }
-        else{
-    changeIcon({ pencil_save : <FaPencilAlt />, updateFormisHidden : true, editd_object_id : id })
-    console.log(updateFormisHidden)
-        }
+            changeIcon(val => val = { ...val, updateFormisHidden : false, editd_object_id : id, 
+                pencil_save : <FaSave /> })
+                }
+                else{
+            changeIcon({ pencil_save : <FaPencilAlt />, updateFormisHidden : true, editd_object_id : -1 })
+                }
     }
 
    return (
@@ -51,25 +48,11 @@ const MyRow :FC<Props>= ( { submitDeletrow }) => {
             { (value : Context ) => value.map((i : Context) => { 
                 if(i.Myid >= 0){
                  return (
-                                    <tr className='second_row_css'>
-                                     <td>{ JSON.stringify(i.Mydate) }</td>
-                                     <td>{ i.Myse_list }</td>
-                                     <td>{ i.Myid }</td>
-                                     <td>{ i.Myplatform }</td>
-                                     <td>{ i.Myrelease_version }</td>
-                                     <td>{ i.Mycomment }</td>
-                                     <td>{ i.Mypr_Link }</td>
-                                     <td>{ i.Mysize }</td>
-                                     <td>{ i.Mydificulity }</td>
-                                     <td>{ i.Mystatus_list }</td>
-                                     <td>{ i.Myreveiwed_by_BY }</td>
-                                     <td>{ i.Myreveiwed_by_AH }</td>
-                                     <td>{ i.Myreveiwed_by_HT }</td>
-                                     <button onClick={() => submitDeletrow(i.Myid)}>X</button>
-                                     <button onClick={() =>submitUpdate(i.Myid) }>{ pencil_save }</button>
-                                     </tr>
-                                             )
-                   
+                     <RowLists value={i} buttonvalue={ pencil_save } buttonsaveval = {<FaSave />} 
+                        idpressed = {editd_object_id}
+                        OnupdateSumit={(choosedid : number ) => submitUpdate(choosedid)} 
+                        OndeleteSubmit={() => submitDeletrow(i.Myid)}/>
+                 )
               }
           }
                    )}

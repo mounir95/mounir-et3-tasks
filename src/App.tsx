@@ -5,7 +5,6 @@ import Excellsheet from './blocks/ExcelSheet'
 import AddForm from './blocks/FormBlock'
 
 export let ObjectArray : Context = React.createContext<object[]>([{}]);
-
 export let IDarray : Context = React.createContext<number[]>([0]);
 
 function App() {
@@ -42,32 +41,20 @@ function App() {
       if(e !== objectid){
         return e;
       }
-      else{ return '' }
     });
-    IDarray._currentValue2 = IDarray._currentValue2.filter((e : number) => {
-      if(e !== objectid){
-        return e;
-      }
-      else{ return '' }
-    });
+    IDarray._currentValue2 = IDarray._currentValue;
 
     ObjectArray._currentValue = ObjectArray._currentValue.filter((object : Context) => {
       if(object.Myid !== objectid){
         return object;
       }
-      else{ return '' }
         });
 
-    ObjectArray._currentValue2 = ObjectArray._currentValue2.filter((object : Context) => {
-        if(object.Myid !== objectid){
-            return object;
-        }
-        else{ return '' }
-            });
+    ObjectArray._currentValue2 = ObjectArray._currentValue;
     IDarray = React.createContext<number[]>([...IDarray._currentValue ]);
     ObjectArray = React.createContext< object[]>([...ObjectArray._currentValue])
     changeState(val => val = { ...val })
-          }
+  }
   
   return (
     <div className="App">
