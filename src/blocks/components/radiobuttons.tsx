@@ -2,12 +2,10 @@ import React from "react";
 import { globalStateContext } from '../../contants/UseContext';
 
 interface Props {
-    choosebutton: (e: string) => void
-
+    choosebutton: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const RadioButton :React.FC<Props> = ( { choosebutton }) => {
-
     return (
         <globalStateContext.Consumer>
             {(value : string)=>
@@ -17,7 +15,7 @@ const RadioButton :React.FC<Props> = ( { choosebutton }) => {
                             type="radio"
                             value="no"
                             checked={ value ==="no" }
-                            onChange={(e : React.ChangeEvent<HTMLInputElement> | any ="no") : void => choosebutton(e)}
+                            onChange={(e : React.ChangeEvent<HTMLInputElement>) : void => choosebutton(e)}
                         />no
                     </label>
                     <label> 
@@ -25,7 +23,7 @@ const RadioButton :React.FC<Props> = ( { choosebutton }) => {
                             type="radio"
                             value="yes"
                             checked={ value ==="yes" }
-                            onChange={(e : React.ChangeEvent<HTMLInputElement> | any="yes") => choosebutton(e)}
+                            onChange={(e : React.ChangeEvent<HTMLInputElement>) => choosebutton(e)}
                         />yes
                     </label>
                 </div>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import context from 'react-bootstrap/esm/AccordionContext';
 import { Context } from 'vm';
 import './App.css';
 import Excellsheet from './blocks/ExcelSheet'
@@ -15,7 +14,7 @@ function App() {
     formisHidden : true,
   });
 
-  let AddFormfun = (id : number, buttonvalue : string) => {
+  const AddFormfun = (id : number, buttonvalue : string) => {
     if (buttonvalue === 'ADD'){
       changeState(val => val = { ...val, formisHidden : true, clickvalue : 'CLOSE' })
     }
@@ -29,7 +28,7 @@ function App() {
     }
   };
   
-  let AddButton = (buttonvalue : string) => {
+  const AddButton = (buttonvalue : string) => {
     if (buttonvalue === 'ADD'){
       changeState(val => val = { ...val, formisHidden : !formisHidden, clickvalue : 'CLOSE' })
     }
@@ -38,7 +37,7 @@ function App() {
     }
   };
 
-  let SubmitDeleteFun = (objectid : number)  : any => {
+  const SubmitDeleteFun = (objectid : number)  : void => {
     IDarray._currentValue = IDarray._currentValue.filter((e : number) => {
       if(e !== objectid){
         return e;
@@ -73,11 +72,11 @@ function App() {
   return (
     <div className="App">
       <div className='excelsheetcss'>
-        <Excellsheet SubmitDelete={(objectid : number) : any => SubmitDeleteFun(objectid)}></Excellsheet>
+        <Excellsheet SubmitDelete={(objectid : number) : void => SubmitDeleteFun(objectid)}></Excellsheet>
         <button className='AddClose_button' onClick={() => AddButton(clickvalue)}>{ clickvalue }</button>
       </div>
       <div className='excelsheetcss'>
-        { !formisHidden && <AddForm handleChange={(id : number) => AddFormfun(id, clickvalue)} ></AddForm> }
+        { !formisHidden && <AddForm handleChange={(id : number) : void => AddFormfun(id, clickvalue)} ></AddForm> }
       </div>
     </div>
   );

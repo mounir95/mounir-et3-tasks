@@ -3,27 +3,23 @@ import { FC } from 'react';
 import { ObjectArray, IDarray } from '../App'
 import MyRow from './components/Rows'
 
-interface Props {
-  SubmitDelete:any,
-}
+  interface Props {
+  SubmitDelete: Function,
+  }
 
-const Excellsheet :FC<Props> = ( { SubmitDelete }) => {
-  let arrayofids = IDarray._currentValue;
-  let arrayofobjects = ObjectArray._currentValue;
+  const Excellsheet :FC<Props> = ( { SubmitDelete }) => {
+    const arrayofids = IDarray._currentValue;
+    let arrayofobjects = ObjectArray._currentValue;
+    const lastIndex : number= arrayofids.length;
+    for(let i = 1; i < lastIndex; i++){
+    arrayofobjects[i] = arrayofobjects[i];
+    }
 
-var lastIndex : number= arrayofids.length;
-for(let i = 1; i < lastIndex; i++){
-  arrayofobjects[i] = arrayofobjects[i];
-}
-// console.log(' Excel Sheet')
-// console.log(arrayofids)
-// console.log(arrayofobjects)
-
-  return (
+    return (
     <div className='excelsheetalign'>
       <div>
               <ObjectArray.Provider value= { arrayofobjects }>
-                <MyRow submitDeletrow= {(objectid : number) : any => SubmitDelete(objectid)}/>
+                <MyRow submitDeletrow= {(objectid : number) : Function => SubmitDelete(objectid)}/>
               </ObjectArray.Provider>
       </div>
     </div>

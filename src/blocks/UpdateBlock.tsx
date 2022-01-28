@@ -7,12 +7,13 @@ import RadioButton from './components/Radiobuttons';
 import { ObjectArray } from '../App';
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
+import { Context } from 'vm';
 
 interface Props {
-  updated_id_value : any,
+  updated_id_value : number ,
 }
 
-let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
+const UpdateForm :FC<Props> = ( { updated_id_value } ) => {
   const [ { id , date, se_list, comment, size, dificulity, platform, pr_Link, release_version, status_list, Main_status_list, reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT } , setChanges] = useState( 
     { 
       id : updated_id_value, 
@@ -32,11 +33,11 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
     });
     console.log('here')
 
-  let Changedate = (e : Date) => {
+  const Changedate = (e : Date | null) :void => {
     setChanges(val => val = {...val,  date: e });   
   }
 
-  let onInputchange = (event : any, Atribuite :any) => {
+  const onInputchange = (event : React.ChangeEvent<HTMLSelectElement>, Atribuite :string) :void => {
     if( Atribuite === comment ){
       setChanges(val => val = { ...val, comment : event.target.value });
     }
@@ -49,7 +50,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
 
   };
 
-  let outputEvent = (event : any, parentData : any) =>{
+  const outputEvent = (event : React.ChangeEvent<HTMLSelectElement>, parentData : string) :void =>{
     if( parentData === se_list ){
       setChanges( val => val = { ...val, se_list : [ event.target.value ] });
     }
@@ -64,11 +65,11 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
     }
   }
 
-  let changeList = (event : any) => {
+  const changeList = (event : React.ChangeEvent<HTMLSelectElement>) :void => {
     setChanges(val => val = {...val, status_list : [ event.target.value ] })
  }
 
- let changeHandle = ( event : any, attribute : any ) => {
+ const changeHandle = ( event :  React.ChangeEvent<HTMLInputElement>, attribute : object ) : void => {
     if(Object.keys(attribute).toString() === 'reveiwed_by_BY' ){
        setChanges( val => val = {...val, reveiwed_by_BY : event.target.value })
     }
@@ -80,8 +81,8 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
     }
  }
 
-  const handleSubmitUpdate = (event: any) => {
-    ObjectArray._currentValue.map((e : any ) => {
+  const handleSubmitUpdate = (event: React.FormEvent<HTMLFormElement>) : void => {
+    ObjectArray._currentValue.map((e: Context) => {
         if(e.Myid === updated_id_value){
             e.Myid = id;
             e.Mydate = date;
@@ -114,7 +115,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                           <DatePicker className="form-control"  
                           // style={{ marginTop: "10px", position: "absolute", inset: "auto auto 0px 0px", transform: "translate(590px, 200px)" }}
                                   selected={date} placeholderText="Select Date" showPopperArrow={false}  
-                                  onChange={(newdate : any) => Changedate(newdate)}  
+                                  onChange={(newdate : Date | null ) => Changedate(newdate)}  
                           />  
                   </div>  
               </div>
@@ -127,7 +128,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                         <globalStateContext.Provider value={ globalStateContext._currentValue.SE_list }>
                           <div className='listrows'>
                             <label className="text_field_class"> SE List : </label> 
-                            <select className='option_List_style' onChange={(event) => outputEvent(event,se_list)}>
+                            <select className='option_List_style' onChange={(event: React.ChangeEvent<HTMLSelectElement>) => outputEvent(event,se_list)}>
                               <MyList />
                             </select>
                           </div>
@@ -137,7 +138,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                       <globalStateContext.Provider value={ globalStateContext._currentValue.Platform }>
                           <div className='listrows'>
                             <label className="text_field_class"> Platform : </label> 
-                            <select className='option_List_style' onChange={(event) => outputEvent(event,platform)}>
+                            <select className='option_List_style' onChange={(event: React.ChangeEvent<HTMLSelectElement>) => outputEvent(event,platform)}>
                               <MyList />
                             </select>
                           </div>
@@ -148,7 +149,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                       <globalStateContext.Provider value={ release_version }>
                           <div className='listrows'>
                             <label className="text_field_class"> Release Version : </label> 
-                            <Myinput inputHandeler = {(inputval : any) => onInputchange( inputval, release_version)} />
+                            <Myinput inputHandeler = {(inputval: React.ChangeEvent<HTMLSelectElement>) => onInputchange( inputval, release_version)} />
                           </div>
                       </globalStateContext.Provider>
               </li>
@@ -158,7 +159,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                       <globalStateContext.Provider value={ comment }>
                           <div className='listrows'> 
                             <label className="text_field_class"> Comment : </label> 
-                            <Myinput inputHandeler = {(inputval : any) => onInputchange( inputval, comment )} />
+                            <Myinput inputHandeler = {(inputval : React.ChangeEvent<HTMLSelectElement>) => onInputchange( inputval, comment )} />
                           </div>
                       </globalStateContext.Provider>
 
@@ -167,7 +168,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                       <globalStateContext.Provider value={ pr_Link }>
                           <div className='listrows'>
                             <label className="text_field_class"> Pr Link : </label> 
-                            <Myinput inputHandeler = {(inputval : any) => onInputchange( inputval, pr_Link)} />
+                            <Myinput inputHandeler = {(inputval : React.ChangeEvent<HTMLSelectElement>) => onInputchange( inputval, pr_Link)} />
                           </div>
                       </globalStateContext.Provider>
             </li>
@@ -177,7 +178,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                       <globalStateContext.Provider value={ globalStateContext._currentValue.Size }>
                           <div className='listrows'>
                             <label className="text_field_class"> Size : </label> 
-                            <select className='option_List_style' onChange={(event) => outputEvent(event,size)}>
+                            <select className='option_List_style' onChange={(event: React.ChangeEvent<HTMLSelectElement>) => outputEvent(event,size)}>
                               <MyList />
                             </select>
                           </div>
@@ -187,7 +188,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                       <globalStateContext.Provider value={ globalStateContext._currentValue.Dificulity }>
                           <div className='listrows'>
                             <label className="text_field_class"> Dificulity : </label> 
-                            <select className='option_List_style' onChange={(tagname) => outputEvent( tagname, dificulity)}>
+                            <select className='option_List_style' onChange={(tagname: React.ChangeEvent<HTMLSelectElement>) => outputEvent( tagname, dificulity)}>
                               <MyList />
                             </select>
                           </div>
@@ -197,7 +198,7 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
                       <globalStateContext.Provider value={ Main_status_list }>
                           <div className='listrows'>
                             <label className="text_field_class"> Status List : </label> 
-                      <select className='option_List_style' onChange={(event) => changeList(event)}>
+                      <select className='option_List_style' onChange={(event: React.ChangeEvent<HTMLSelectElement>) => changeList(event)}>
                           <MyList />
                           </select>
                           </div>
@@ -208,19 +209,19 @@ let UpdateForm :FC<Props> = ( { updated_id_value } ) => {
             <li className='text_value_radiobutton'>
                     <globalStateContext.Provider value = { reveiwed_by_BY }>
                     <strong>Reveiwed By BH :</strong>
-                      <RadioButton choosebutton = {(event) => changeHandle( event , { reveiwed_by_BY } )}/>
+                      <RadioButton choosebutton = {(event : React.ChangeEvent<HTMLInputElement>) => changeHandle( event , { reveiwed_by_BY } )}/>
                     </globalStateContext.Provider>
             </li>
             <li className='text_value_radiobutton'>
                     <globalStateContext.Provider value = { reveiwed_by_AH }>
                     <strong>Reveiwed By AH :</strong>
-                      <RadioButton choosebutton = {(event) => changeHandle( event, { reveiwed_by_AH } )}/>
+                      <RadioButton choosebutton = {(event : React.ChangeEvent<HTMLInputElement>) => changeHandle( event, { reveiwed_by_AH } )}/>
                     </globalStateContext.Provider>
             </li>
             <li className='text_value_radiobutton'>
                     <globalStateContext.Provider value = { reveiwed_by_HT }>
                     <strong>Reveiwed By HT :</strong>
-                      <RadioButton choosebutton = {(event) => changeHandle( event, { reveiwed_by_HT } )}/>
+                      <RadioButton choosebutton = {(event : React.ChangeEvent<HTMLInputElement>) => changeHandle( event, { reveiwed_by_HT } )}/>
                     </globalStateContext.Provider>
             </li>
           </ul>

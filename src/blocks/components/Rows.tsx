@@ -4,13 +4,8 @@ import { Context } from 'vm';
 import { ObjectArray } from '../../App';
 import UpdateForm from '../../blocks/UpdateBlock'
 
-// globalStateContext.conumer will provide the child with the value sent by the parent.
-// | attribute of the state decalred in the parent)
-// moreover the prop send by the parent (clickHandler)will be as an input to the child function 
-// instead of this.prop.propname, and this function can have an input as we can see below.
-
 interface Props{
-    submitDeletrow : any,
+    submitDeletrow : Function,
 }
 
 const MyRow :FC<Props>= ( { submitDeletrow }) => {
@@ -53,9 +48,6 @@ const MyRow :FC<Props>= ( { submitDeletrow }) => {
         <th>Reveiwed By HT</th>
         </tr>
         <ObjectArray.Consumer>
-            {/* {value => value.map(e => <button onClick={() => clickHandler(e)} >{e}</button>) } */}
-            {/* <select name="carBrand">{ value => value.map( e => <option value={e}>{e}</option> ) }</select> */}
-
             { (value : Context ) => value.map((i : Context) => { 
                 if(i.Myid >= 0){
                  return (
