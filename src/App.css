@@ -1,3 +1,20 @@
+.option_sort{
+  width: 100px;
+}
+
+.sort_by_comment{
+  margin:10px;
+}
+
+.all_filters{
+  margin : 10px;
+}
+
+.filter_pr{
+margin-top: 20px;
+}
+
+
 .My_Form{
   text-align: center;
   background-color: #e7e7fd;
