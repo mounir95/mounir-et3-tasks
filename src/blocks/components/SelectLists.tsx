@@ -51,7 +51,7 @@ const SelectLists = () => {
                     </globalStateContext.Provider>
             </li>
             <li className='listinputs' >
-                    <globalStateContext.Provider value={ status_list }>
+                    <globalStateContext.Provider value={ globalStateContext._currentValue.Status_list }>
                         <div className='listrows'>
                             <label className="text_field_class"> Status List : </label> 
                     <select className='option_List_style' onChange={(event : React.ChangeEvent<HTMLSelectElement>) => changeList(event)}>

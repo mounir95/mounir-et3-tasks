@@ -92,7 +92,6 @@ function App() {
 
   const DoneButton = () => {
     changeState(val => val = { ...val, FilterView : true })
-    setAllChanges();
   }
 
   return (
