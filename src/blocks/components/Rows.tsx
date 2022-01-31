@@ -18,8 +18,7 @@ const MyRow :FC<Props>= ( { submitDeletrow }) => {
 
     const submitUpdate = (id : number) => {
         if( pencil_save.type.name === 'FaPencilAlt'){
-            changeIcon(val => val = { ...val, updateFormisHidden : false, editd_object_id : id, 
-                pencil_save : <FaSave /> })
+            changeIcon(val => val = { updateFormisHidden : false, editd_object_id : id, pencil_save : <FaSave /> })
                 }
                 else{
             changeIcon({ pencil_save : <FaPencilAlt />, updateFormisHidden : true, editd_object_id : -1 })

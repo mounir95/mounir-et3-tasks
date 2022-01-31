@@ -12,10 +12,10 @@ const TextInputs = () => {
     
     const onInputchange = (event : React.ChangeEvent<HTMLSelectElement>, Atribuite :string) : void => {
         if( Atribuite === comment ){
-            setChanges(val => val = { ...val, comment : event.target.value });
+            setChanges(val => val = { pr_Link:pr_Link , comment : event.target.value });
         }
         else if ( Atribuite === pr_Link ){
-            setChanges(val => val = { ...val, pr_Link : event.target.value });
+            setChanges(val => val = { comment: comment, pr_Link : event.target.value });
         }
     };
 

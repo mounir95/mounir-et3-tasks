@@ -14,16 +14,16 @@ const FirstColumn = () => {
 
     const onInputchange = (event : React.ChangeEvent<HTMLSelectElement>, Atribuite :string) : void => {
         if ( Atribuite === release_version ){
-          setChanges(val => val = { ...val, release_version : event.target.value });
+          setChanges(val => val = { se_list : se_list, platform : platform, release_version : event.target.value });
         }
       };
     
       const outputEvent = (event : React.ChangeEvent<HTMLSelectElement>, parentData : string) : void =>{
         if( parentData === se_list ){
-          setChanges( val => val = { ...val, se_list : [ event.target.value ] });
+          setChanges( val => val = { platform : platform, release_version : release_version, se_list : [ event.target.value ] });
         }
         else if(parentData === platform){
-          setChanges(val => val = { ...val, platform : [ event.target.value ] });
+          setChanges(val => val = { se_list : se_list, release_version : release_version, platform : [ event.target.value ] });
         }
     }
 

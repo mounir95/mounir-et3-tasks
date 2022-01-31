@@ -12,15 +12,15 @@ const SelectLists = () => {
         });
     
     const changeList = (event : React.ChangeEvent<HTMLSelectElement>) : void => {
-        setChanges(val => val = {...val, status_list : [ event.target.value ] })
+        setChanges(val => val = {size : size,dificulity:dificulity,  status_list : [ event.target.value ] })
     }
 
     const outputEvent = (event : React.ChangeEvent<HTMLSelectElement>, parentData : string) : void =>{
         if( parentData === size){
-            setChanges( val => val = { ...val, size : [ event.target.value ] });
+            setChanges( val => val = { dificulity : dificulity, status_list:status_list, size : [ event.target.value ] });
         }
         else if(parentData === dificulity){
-          setChanges(val => val = { ...val, dificulity : [ event.target.value ] });
+          setChanges(val => val = { size:size ,status_list:status_list, dificulity : [ event.target.value ] });
         }
     }
 

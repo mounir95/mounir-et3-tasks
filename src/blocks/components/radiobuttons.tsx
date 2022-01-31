@@ -13,13 +13,13 @@ const RadioButtons = () => {
 
     const changeHandle = ( event : React.ChangeEvent<HTMLInputElement>, attribute : object ) : void => {
         if(Object.keys(attribute).toString() === 'reveiwed_by_BY' ){
-           setChanges( val => val = {...val, reveiwed_by_BY : event.target.value })
+           setChanges( val => val = {reveiwed_by_AH: reveiwed_by_AH, reveiwed_by_HT:reveiwed_by_HT, reveiwed_by_BY : event.target.value })
         }
         else if(Object.keys(attribute).toString() === 'reveiwed_by_AH' ){
-           setChanges( val => val = {...val, reveiwed_by_AH : event.target.value })
+           setChanges( val => val = { reveiwed_by_HT:reveiwed_by_HT, reveiwed_by_BY :reveiwed_by_BY, reveiwed_by_AH : event.target.value })
         }
         else if(Object.keys(attribute).toString() === 'reveiwed_by_HT' ){
-           setChanges( val => val = {...val, reveiwed_by_HT : event.target.value })
+           setChanges( val => val = {reveiwed_by_BY :reveiwed_by_BY, reveiwed_by_AH :reveiwed_by_AH, reveiwed_by_HT : event.target.value })
         }
      }
 

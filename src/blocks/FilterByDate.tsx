@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { ObjectArray } from "../../App";
+import { ObjectArray } from "../App";
 
 interface Props{
     SubmitingChanges : Function

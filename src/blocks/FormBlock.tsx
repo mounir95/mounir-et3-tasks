@@ -5,7 +5,7 @@ import RadioButtons from './components/RadioButtons';
 import SelectLists from './components/SelectLists';
 import FirstColumn from './components/FirstColumn';
 import TextInputs from './components/TextInputs';
-import { IDarray, ObjectArray } from '../App';
+import { ObjectArray } from '../App';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -14,9 +14,13 @@ interface Props {
 }
 
 const AddForm :FC<Props> = ( { handleChange } ) => {
-  let lastIndex : number = IDarray._currentValue[(IDarray._currentValue).length-1];
-  if(((IDarray._currentValue).length-1) < 0 ){
+
+  let lastIndex : number;
+  if(((ObjectArray._currentValue).length-1) <= 0 ){
     lastIndex = 0;
+  }
+  else{
+    lastIndex = ObjectArray._currentValue[(ObjectArray._currentValue).length-1].Myid;
   }
 
   const [ { id , date } , setChanges] = useState( 
@@ -26,12 +30,12 @@ const AddForm :FC<Props> = ( { handleChange } ) => {
     });
 
   const Changedate = (e : Date | null) : void => {
-    setChanges(val => val = {...val,  date: e });   
+    setChanges(val => val = {id:id ,  date: e });   
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) : void => {
     event.preventDefault();
-    setChanges(val => val = { ...val , id : val.id + 1 } );
+    setChanges(val => val = { date:date , id : val.id + 1 } );
     ObjectArray.Myid = id + 1;
     ObjectArray.Mydate = date;
     handleChange(id + 1);
