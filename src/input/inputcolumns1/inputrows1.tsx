@@ -54,7 +54,6 @@ const InputRowOne = () => {
 
   ObjectArray.Myse_list = se_list[0];
   ObjectArray.Myplatform = platform[0];
-  ObjectArray.Myrelease_version = release_version;
 
   return (
     <View>
