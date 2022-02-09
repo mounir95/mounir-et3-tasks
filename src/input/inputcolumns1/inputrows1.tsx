@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, FlatList, SafeAreaView} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {ObjectArray} from '../../../App';
 import FirstColumn from './firstcolumn';
@@ -58,23 +58,37 @@ const InputRowOne = () => {
 
   return (
     <View>
-      <View>
-        <Text> SE List : </Text>
+      <View style={styles.rowcolumncontainer}>
+        <Text style={styles.titleofrow}> SE List: </Text>
         <FirstColumn
           mytest={'mytest'}
           // arrayval={se_list}
-          onChoose={(event: any) => outputEvent(event, se_list)}
-        />
+          onChoose={(event: any) => outputEvent(event, se_list)} />
       </View>
-      <globalStateContext.Provider
-        value={globalStateContext._currentValue.SE_list}>
-        <Text> Platform : </Text>
-      </globalStateContext.Provider>
-      <globalStateContext.Provider
-        value={globalStateContext._currentValue.SE_list}>
-        <Text> Release Version : </Text>
-      </globalStateContext.Provider>
+      <View style={styles.rowcolumncontainer}>
+        <Text style={styles.titleofrow}> Platform: </Text>
+        <FirstColumn
+          mytest={'mytest'}
+          // arrayval={se_list}
+          onChoose={(event: any) => outputEvent(event, se_list)} />
+      </View>
+      <View style={styles.rowcolumncontainer}>
+        <Text style={styles.titleofrow}> Release Version: </Text>
+        <FirstColumn
+          mytest={'mytest'}
+          // arrayval={se_list}
+          onChoose={(event: any) => outputEvent(event, se_list)} />
+      </View>
     </View>
   );
 };
+const styles = StyleSheet.create({
+  rowcolumncontainer: {
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  titleofrow: {
+    color: '#776677',
+  }
+})
 export default InputRowOne;

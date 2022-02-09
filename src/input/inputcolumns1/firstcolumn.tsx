@@ -13,11 +13,10 @@ const FirstColumn: FC<Props> = ({onChoose, mytest}) => {
     return {label: element, value: element};
   });
   const listname = 'se_List';
-  console.warn(mytest)
+  // console.warn(mytest)
   return (
     <View style={styles.container}>
       <Text>Please select a {listname}</Text>
-      <Text>Please select a {mytest}</Text>
       <RNPickerSelect
         onValueChange={event => onChoose(event)}
         value={arraydata[0]}

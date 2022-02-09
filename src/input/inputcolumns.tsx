@@ -16,18 +16,19 @@ const InputRow = () => {
 };
 const styles = StyleSheet.create({
   viewStyle: {
-    // flex: 1,
-    // flexWrap: 'wrap',
-    flexDirection: 'row',
+    // flex: 1,// flexWrap: 'wrap',
+    flexDirection: 'column',
     marginTop: 20,
-    backgroundColor: 'blue'
+    backgroundColor: '#776677',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   childStyle: {
-    // width: '50%',
-    height: 100,
-    backgroundColor: 'red',
+    width: '90%',
+    // height: 100,
+    backgroundColor: 'white',
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: 'yellow',
     margin:5,
   },
 });

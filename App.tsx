@@ -4,7 +4,6 @@ import FirstRow from './src/firstrow';
 import AddButton from './src/addbutton';
 import InputRow from './src/input/inputcolumns';
 import {StyleSheet, View, Text, FlatList, SafeAreaView} from 'react-native';
-import FirstColumn from './src/input/inputcolumns1/firstcolumn';
 export let ObjectArray : Context = React.createContext<object[]>([{}]);
 
 const App: () => Node = () => {
@@ -13,7 +12,6 @@ const App: () => Node = () => {
       <FirstRow />
       <InputRow />
       <AddButton />
-      <FirstColumn />
     </View>
   )
 }
