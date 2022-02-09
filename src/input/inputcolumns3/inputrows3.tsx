@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import {StyleSheet, View, Text, FlatList, SafeAreaView} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {useState} from 'react';
@@ -12,17 +12,6 @@ const InputRowThree = () => {
     status_list: globalStateContext._currentValue.Status_list,
   });
 
-  const changeList = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    setChanges(
-      val =>
-        (val = {
-          size: size,
-          dificulity: dificulity,
-          status_list: [event.target.value],
-        }),
-    );
-  };
-
   const outputEvent = (
     event: React.ChangeEvent<HTMLSelectElement>,
     parentData: string,
@@ -33,7 +22,7 @@ const InputRowThree = () => {
           (val = {
             dificulity: dificulity,
             status_list: status_list,
-            size: [event.target.value],
+            size: [event],
           }),
       );
     } else if (parentData === dificulity) {
@@ -42,7 +31,16 @@ const InputRowThree = () => {
           (val = {
             size: size,
             status_list: status_list,
-            dificulity: [event.target.value],
+            dificulity: [event],
+          }),
+      );
+    } else if (parentData === status_list) {
+      setChanges(
+        val =>
+          (val = {
+            size: size,
+            dificulity: dificulity,
+            status_list: [event],
           }),
       );
     }
@@ -54,31 +52,49 @@ const InputRowThree = () => {
 
   return (
     <View>
-      <View>
-        <Text>c</Text>
+      <View style={styles.rowcolumncontainer}>
+        {/* <Text style={styles.titleofrow}> SE List: </Text> */}
         <FirstColumn
-          mytest={'mytest'}
-          // arrayval={se_list}
-          onChoose={(event: any) => outputEvent(event, size)}
+          listname={'Status List'}
+          arrayval={globalStateContext._currentValue.Status_list}
+          onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
+            outputEvent(event, status_list)
+          }
         />
       </View>
-      <View>
-        <Text>c</Text>
+      <View style={styles.rowcolumncontainer}>
+        {/* <Text style={styles.titleofrow}> Platform: </Text> */}
         <FirstColumn
-          mytest={'mytest'}
-          // arrayval={se_list}
-          onChoose={(event: any) => outputEvent(event, size)}
+          listname={'Size'}
+          arrayval={globalStateContext._currentValue.Size}
+          onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
+            outputEvent(event, size)
+          }
         />
       </View>
-      <View>
-        <Text>c</Text>
+      <View style={styles.rowcolumncontainer}>
+        {/* <Text style={styles.titleofrow}> Platform: </Text> */}
         <FirstColumn
-          mytest={'mytest'}
-          // arrayval={se_list}
-          onChoose={(event: any) => outputEvent(event, size)}
+          listname={'Dificulity'}
+          arrayval={globalStateContext._currentValue.Dificulity}
+          onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
+            outputEvent(event, dificulity)
+          }
         />
       </View>
+      <Text>{status_list}</Text>
+      <Text>{size}</Text>
+      <Text>{dificulity}</Text>
     </View>
   );
 };
+const styles = StyleSheet.create({
+  rowcolumncontainer: {
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  titleofrow: {
+    color: '#776677'
+  }
+})
 export default InputRowThree;

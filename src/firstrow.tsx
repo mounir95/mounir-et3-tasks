@@ -19,11 +19,6 @@ const days = [
 ];
 
 const ListItem = ({index}) => {
-  const flatListRef = React.useRef();
-  React.useEffect(() => {
-    flatListRef.current?.scrollToIndex({ animated: true, index: 4 }); 
-  }, [])
-
   return (
     <View style={styles.listItem}>
       <Text style={styles.listText}>{days[index].name}</Text>
@@ -38,12 +33,12 @@ const FirstRow: () => Node = () => {
         horizontal={true}
         data={days}
         renderItem={({index}) => <ListItem key={index} index={index} />}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         extraData={days}
       />
     </SafeAreaView>
   );
-}
+};
 const styles = StyleSheet.create({
   parentView: {
     flex: 1,
@@ -62,7 +57,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: '#776677',
     padding: 5,
-    height:60,
+    height: 60,
     borderRadius: 1,
   },
 });

@@ -13,8 +13,8 @@ const TextInputRow: FC<Props> = ({onchangefun, stringval}) => {
         style={styles.input}
         onChangeText={event => onchangefun(event)}
         // value={text}
-        placeholder={stringval}
-        keyboardType={stringval === 'comment' ? 'default' : 'email-address'}
+        // placeholder={stringval}
+        // keyboardType={stringval === 'pr_Link' ? 'email-address' : 'default'}
       />
     </SafeAreaView>
   );

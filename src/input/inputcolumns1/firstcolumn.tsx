@@ -9,7 +9,6 @@ type Props = {
 };
 
 const FirstColumn: FC<Props> = ({onChoose, listname, arrayval}) => {
-  console.warn(arrayval);
   const arraymap = arrayval.map(element => {
     return {label: element, value: element};
   });
@@ -58,6 +57,6 @@ const pickerSelectStyles = StyleSheet.create({
     borderRadius: 8,
     color: 'black',
     paddingRight: 30, // to ensure the text is never behind the icon
-  },
-});
+  }
+})
 export default FirstColumn;
