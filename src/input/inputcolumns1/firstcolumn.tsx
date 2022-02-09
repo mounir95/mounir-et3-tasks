@@ -3,23 +3,22 @@ import RNPickerSelect from 'react-native-picker-select';
 import {StyleSheet, Text, View} from 'react-native';
 
 type Props = {
-  onChoose: Function,
-  mytest: string,
+  onChoose: Function;
+  listname: string;
+  arrayval: string[];
 };
 
-const FirstColumn: FC<Props> = ({onChoose, mytest}) => {
-  const arraydata = ['BY', 'AH', 'HT'];
-  const arraymap = arraydata.map(element => {
+const FirstColumn: FC<Props> = ({onChoose, listname, arrayval}) => {
+  console.warn(arrayval);
+  const arraymap = arrayval.map(element => {
     return {label: element, value: element};
   });
-  const listname = 'se_List';
-  // console.warn(mytest)
   return (
     <View style={styles.container}>
-      <Text>Please select a {listname}</Text>
+      <Text style={styles.titleofrow}>Please select a {listname}</Text>
       <RNPickerSelect
         onValueChange={event => onChoose(event)}
-        value={arraydata[0]}
+        value={arrayval[0]}
         items={arraymap}
         style={pickerSelectStyles}
       />
@@ -28,8 +27,11 @@ const FirstColumn: FC<Props> = ({onChoose, mytest}) => {
 };
 
 const styles = StyleSheet.create({
+  titleofrow: {
+    color: '#776677',
+  },
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',

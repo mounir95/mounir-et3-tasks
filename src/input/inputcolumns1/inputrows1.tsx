@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Platform} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {ObjectArray} from '../../../App';
 import FirstColumn from './firstcolumn';
@@ -59,25 +59,20 @@ const InputRowOne = () => {
   return (
     <View>
       <View style={styles.rowcolumncontainer}>
-        <Text style={styles.titleofrow}> SE List: </Text>
+        {/* <Text style={styles.titleofrow}> SE List: </Text> */}
         <FirstColumn
-          mytest={'mytest'}
-          // arrayval={se_list}
-          onChoose={(event: any) => outputEvent(event, se_list)} />
+          listname={'SE List'}
+          arrayval={se_list}
+          onChoose={(event: any) => outputEvent(event, se_list)}
+        />
       </View>
       <View style={styles.rowcolumncontainer}>
-        <Text style={styles.titleofrow}> Platform: </Text>
+        {/* <Text style={styles.titleofrow}> Platform: </Text> */}
         <FirstColumn
-          mytest={'mytest'}
-          // arrayval={se_list}
-          onChoose={(event: any) => outputEvent(event, se_list)} />
-      </View>
-      <View style={styles.rowcolumncontainer}>
-        <Text style={styles.titleofrow}> Release Version: </Text>
-        <FirstColumn
-          mytest={'mytest'}
-          // arrayval={se_list}
-          onChoose={(event: any) => outputEvent(event, se_list)} />
+          listname={'Platform'}
+          arrayval={platform}
+          onChoose={(event: any) => outputEvent(event, platform)}
+        />
       </View>
     </View>
   );

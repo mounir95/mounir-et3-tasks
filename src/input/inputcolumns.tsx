@@ -9,8 +9,8 @@ const InputRow = () => {
     return (
         <View style={styles.viewStyle}>
             <View  style={styles.childStyle}><InputRowOne /></View>
-            <View style={styles.childStyle}><InputRowTwo /></View>
-            <View style={styles.childStyle}><InputRowThree /></View>
+            {/* <View style={styles.childStyle}><InputRowTwo /></View> */}
+            {/* <View style={styles.childStyle}><InputRowThree /></View> */}
         </View>
     );
 };
