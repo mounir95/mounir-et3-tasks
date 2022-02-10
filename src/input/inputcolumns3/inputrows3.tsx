@@ -1,11 +1,14 @@
-import React, { ChangeEvent } from 'react';
-import {StyleSheet, View, Text, FlatList, SafeAreaView} from 'react-native';
+import React, {FC, ChangeEvent} from 'react';
+import {StyleSheet, View, Text, Button} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {useState} from 'react';
 import {ObjectArray} from '../../../App';
-import FirstColumn from '../inputcolumns1/firstcolumn';
+import FirstColumn from '../inputcolumns1/selectinput';
 
-const InputRowThree = () => {
+type Props = {
+  nextfase3: Function;
+};
+const InputRowThree: FC<Props> = ({nextfase3}) => {
   const [{size, dificulity, status_list}, setChanges] = useState({
     size: globalStateContext._currentValue.Size,
     dificulity: globalStateContext._currentValue.Dificulity,
@@ -46,14 +49,15 @@ const InputRowThree = () => {
     }
   };
 
-  ObjectArray.Mystatus_list = status_list[0];
-  ObjectArray.Mysize = size[0];
-  ObjectArray.Mydificulity = dificulity[0];
-
+  const handlePressSubmitButton = () => {
+    ObjectArray.Mystatus_list = status_list[0];
+    ObjectArray.Mysize = size[0];
+    ObjectArray.Mydificulity = dificulity[0];
+    nextfase3();
+  };;
   return (
     <View>
-      <View style={styles.rowcolumncontainer}>
-        {/* <Text style={styles.titleofrow}> SE List: </Text> */}
+      <View style={{marginBottom: 20, marginTop: 10}}>
         <FirstColumn
           listname={'Status List'}
           arrayval={globalStateContext._currentValue.Status_list}
@@ -62,8 +66,7 @@ const InputRowThree = () => {
           }
         />
       </View>
-      <View style={styles.rowcolumncontainer}>
-        {/* <Text style={styles.titleofrow}> Platform: </Text> */}
+      <View style={{marginBottom: 20, marginTop: 10}}>
         <FirstColumn
           listname={'Size'}
           arrayval={globalStateContext._currentValue.Size}
@@ -72,8 +75,7 @@ const InputRowThree = () => {
           }
         />
       </View>
-      <View style={styles.rowcolumncontainer}>
-        {/* <Text style={styles.titleofrow}> Platform: </Text> */}
+      <View style={{marginBottom: 20, marginTop: 10}}>
         <FirstColumn
           listname={'Dificulity'}
           arrayval={globalStateContext._currentValue.Dificulity}
@@ -82,19 +84,9 @@ const InputRowThree = () => {
           }
         />
       </View>
-      <Text>{status_list}</Text>
-      <Text>{size}</Text>
-      <Text>{dificulity}</Text>
+      <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
     </View>
   );
 };
-const styles = StyleSheet.create({
-  rowcolumncontainer: {
-    marginBottom: 20,
-    marginTop: 10,
-  },
-  titleofrow: {
-    color: '#776677'
-  }
-})
+
 export default InputRowThree;
