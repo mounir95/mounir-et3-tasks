@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
+import {TouchableOpacity, View, Text} from 'react-native';
 
 type Props = {
   getboolean: {key: string; text: string}[];

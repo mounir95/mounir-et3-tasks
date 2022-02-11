@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {SafeAreaView, StyleSheet, TextInput} from 'react-native';
+import {SafeAreaView, TextInput} from 'react-native';
 
 type Props = {
   onchangefun: Function,
@@ -10,21 +10,11 @@ const TextInputRow: FC<Props> = ({onchangefun, stringval}) => {
   return (
     <SafeAreaView>
       <TextInput
-        style={styles.input}
+        style={{height: 30, margin: 12, borderWidth: 1,padding: 5}}
         onChangeText={event => onchangefun(event)}
-        // value={text}
-        // placeholder={stringval}
-        // keyboardType={stringval === 'pr_Link' ? 'email-address' : 'default'}
       />
     </SafeAreaView>
   );
 };
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});
+
 export default TextInputRow;

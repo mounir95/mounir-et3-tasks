@@ -1,6 +1,7 @@
 import React from 'react';
 import {Context} from 'vm';
 
+export let zero = 0;
 export const days = [
   {name: 'Date'},
   {name: 'SE_List'},

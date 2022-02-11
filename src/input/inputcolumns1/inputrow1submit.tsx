@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {View} from 'react-native';
-import InputRowOne from './inputrows1';
+import InputRowOne from './inputRows1';
 
 type Props = {
   nextinputone: Boolean;
   nextFaseOne: Function;
 };
 
-const InputRowOneSumit = ({nextinputone, nextFaseOne}) => {
+const InputRowOneSumit: FC<Props> = ({nextinputone, nextFaseOne}) => {
   return (
     <View
       style={{

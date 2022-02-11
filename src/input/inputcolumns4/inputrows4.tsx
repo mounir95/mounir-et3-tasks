@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
+import {globalStateContext} from '../../constants/useContext';
 import {ObjectArray} from '../../../App';
 import {useState} from 'react';
-import RadioButtonRow from './radiobuttonrow';
-import {booleanval} from '../../constants/UseContext';
+import RadioButtonRow from './radioButtonrow';
+import {booleanval} from '../../constants/useContext';
 
 type Props = {
   nextfase4: Function;

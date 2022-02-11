@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
-import {days} from '../constants/UseContext';
+import {days} from '../constants/useContext';
 
 type Props = {
   index: number,

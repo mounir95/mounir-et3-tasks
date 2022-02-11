@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
+import {View, Text, Button} from 'react-native';
+import {globalStateContext} from '../../constants/useContext';
 import {useState} from 'react';
 import {ObjectArray} from '../../../App';
-import TextInputRow from './textinputrow';
+import TextInputRow from './textInputRow';
 
 type Props = {
   nextfase2: Function

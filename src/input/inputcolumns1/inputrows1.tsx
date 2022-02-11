@@ -1,8 +1,8 @@
 import React, {ChangeEvent, FC, useState} from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
+import {View, Button} from 'react-native';
+import {globalStateContext} from '../../constants/useContext';
 import {ObjectArray} from '../../../App';
-import FirstColumn from './selectinput';
+import SelectInput from './selectInput';
 
 type Props = {
   nextfase1: Function,
@@ -45,19 +45,21 @@ const InputRowOne: FC<Props> = ({nextfase1}) => {
 
   return (
     <View>
-      <View style={styles.rowcolumncontainer}>
-        <FirstColumn
+      <View style={{marginBottom: 20, marginTop: 10}}>
+        <SelectInput
           listname={'SE List'}
           arrayval={globalStateContext._currentValue.SE_list}
+          choosedval={se_list}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, se_list)
           }
         />
       </View>
-      <View style={styles.rowcolumncontainer}>
-        <FirstColumn
+      <View style={{marginBottom: 20, marginTop: 10}}>
+        <SelectInput
           listname={'Platform'}
           arrayval={globalStateContext._currentValue.Platform}
+          choosedval={platform}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, platform)
           }
@@ -67,13 +69,5 @@ const InputRowOne: FC<Props> = ({nextfase1}) => {
     </View>
   );
 };
-const styles = StyleSheet.create({
-  rowcolumncontainer: {
-    marginBottom: 20,
-    marginTop: 10,
-  },
-  titleofrow: {
-    color: '#776677',
-  }
-})
+
 export default InputRowOne;

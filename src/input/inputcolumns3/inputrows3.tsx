@@ -1,9 +1,9 @@
 import React, {FC, ChangeEvent} from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
+import {View, Button} from 'react-native';
+import {globalStateContext} from '../../constants/useContext';
 import {useState} from 'react';
 import {ObjectArray} from '../../../App';
-import FirstColumn from '../inputcolumns1/selectinput';
+import SelectInput from '../inputcolumns1/selectInput';
 
 type Props = {
   nextfase3: Function;
@@ -58,27 +58,30 @@ const InputRowThree: FC<Props> = ({nextfase3}) => {
   return (
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
-        <FirstColumn
+        <SelectInput
           listname={'Status List'}
           arrayval={globalStateContext._currentValue.Status_list}
+          choosedval={status_list}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, status_list)
           }
         />
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
-        <FirstColumn
+        <SelectInput
           listname={'Size'}
           arrayval={globalStateContext._currentValue.Size}
+          choosedval={size}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, size)
           }
         />
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
-        <FirstColumn
+        <SelectInput
           listname={'Dificulity'}
           arrayval={globalStateContext._currentValue.Dificulity}
+          choosedval={dificulity}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, dificulity)
           }
