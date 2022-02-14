@@ -6,26 +6,26 @@ import InputRowThreeSumit from './inputthirdcolumn/InputTColSubmit';
 import InputRowFourSumit from './inputforthcolumn/InputFColSubmit';
 import {ObjectArray} from '../../App';
 import InputDatePicker from './datepicking/DatePickerSubmit';
+import {Context} from 'vm';
 
 type Props = {
-  inptformtrue: Boolean;
-  inputAdd: Function;
+  inputUpdate: Function;
   inputClose: Function;
+  updatedid: number;
+  inputupdateformtrue: Boolean;
 };
 
-const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
-  let lastIndex: number;
-  if (ObjectArray._currentValue.length - 1 <= 0) {
-    lastIndex = 0;
-  } else {
-    lastIndex =
-      ObjectArray._currentValue[ObjectArray._currentValue.length - 1].Myid;
-  }
+const UpdateRow: FC<Props> = ({
+  inputUpdate,
+  inputClose,
+  updatedid,
+  inputupdateformtrue,
+}) => {
   const [
     {id, nextinput1, nextinput2, nextinput3, nextinput4, nextinput5},
     setNext,
   ] = useState({
-    id: lastIndex,
+    id: updatedid,
     nextinput5: true,
     nextinput1: false,
     nextinput2: false,
@@ -37,7 +37,7 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
     setNext(
       val =>
         (val = {
-          id: lastIndex,
+          id: updatedid,
           nextinput5: false,
           nextinput1: true,
           nextinput2: false,
@@ -51,7 +51,7 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
     setNext(
       val =>
         (val = {
-          id: lastIndex,
+          id: updatedid,
           nextinput5: false,
           nextinput1: false,
           nextinput2: true,
@@ -65,7 +65,7 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
     setNext(
       val =>
         (val = {
-          id: lastIndex,
+          id: updatedid,
           nextinput5: false,
           nextinput1: false,
           nextinput2: false,
@@ -78,7 +78,7 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
     setNext(
       val =>
         (val = {
-          id: lastIndex,
+          id: updatedid,
           nextinput5: false,
           nextinput1: false,
           nextinput2: false,
@@ -89,11 +89,26 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
   };
 
   const nextFase4 = () => {
-    ObjectArray.Myid = id + 1;
+    ObjectArray._currentValue.map((e: Context) => {
+      if (e.Myid === id) {
+        e.Myid = id;
+        e.Myse_list = ObjectArray.Myse_list;
+        e.Myplatform = ObjectArray.Myplatform;
+        e.Myrelease_version = ObjectArray.Myrelease_version;
+        e.Mystatus_list = ObjectArray.Mystatus_list;
+        e.Mysize = ObjectArray.Mysize;
+        e.Mydificulity = ObjectArray.Mydificulity;
+        e.Mypr_Link = ObjectArray.Mypr_Link;
+        e.Mycomment = ObjectArray.Mycomment;
+        e.Myreveiwed_by_BY = ObjectArray.Myreveiwed_by_BY;
+        e.Myreveiwed_by_AH = ObjectArray.Myreveiwed_by_AH;
+        e.Myreveiwed_by_HT = ObjectArray.Myreveiwed_by_HT;
+      }
+    });
     setNext(
       val =>
         (val = {
-          id: lastIndex,
+          id: updatedid,
           nextinput5: true,
           nextinput1: false,
           nextinput2: false,
@@ -101,19 +116,19 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
           nextinput4: false,
         }),
     );
-    inputAdd();
+    inputUpdate();
   };
 
-  const handlePressCloseButton = () => {
+    const handlePressCloseButton = () => {
     setNext(
       val =>
         (val = {
-          id: lastIndex,
+          id: updatedid,
           nextinput5: true,
           nextinput1: false,
           nextinput2: false,
           nextinput3: false,
-          nextinput4: false,
+          nextinput4: false
         }),
     );
     inputClose();
@@ -121,7 +136,7 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
 
   return (
     <View>
-      {inptformtrue && (
+      {inputupdateformtrue && (
         <View
           style={{
             flexDirection: 'column',
@@ -132,33 +147,28 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
             justifyContent: 'center',
           }}>
           <InputDatePicker
-            key="firstrow"
             nextinputfive={nextinput5}
             nextFaseFive={() => nextFase5()}
           />
           <InputRowOneSumit
-            key="secondrow"
             nextinputone={nextinput1}
             nextFaseOne={() => nextFase1()}
           />
           <InputRowTwoSumit
-            key="thirdrow"
             nextinputtwo={nextinput2}
             nextFaseTwo={() => nextFase2()}
           />
           <InputRowThreeSumit
-            key="fourthrow"
             nextinputthree={nextinput3}
             nextFaseThree={() => nextFase3()}
           />
           <InputRowFourSumit
-            key="fifthrow"
             nextinputfour={nextinput4}
             nextFaseFour={() => nextFase4()}
           />
         </View>
       )}
-      {inptformtrue && (
+      {inputupdateformtrue && (
         <TouchableOpacity onPress={() => handlePressCloseButton()}>
           <View style={{alignItems: 'center'}}>
             <Text
@@ -181,4 +191,4 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
   );
 };
 
-export default InputRow;
+export default UpdateRow;

@@ -1,13 +1,13 @@
 import React from 'react';
 import {View} from 'react-native';
-import InputRowTwo from './inputRows2';
+import InputRowThree from './InputTCol';
 
 type Props = {
-  nextinputtwo: Boolean;
-  nextFaseTwo: Function;
+  nextinputthree: Boolean;
+  nextFaseThree: Function;
 };
 
-const InputRowTwoSumit = ({nextinputtwo, nextFaseTwo}) => {
+const InputRowThreeSumit = ({nextinputthree, nextFaseThree}) => {
   return (
     <View
       style={{
@@ -18,9 +18,9 @@ const InputRowTwoSumit = ({nextinputtwo, nextFaseTwo}) => {
         borderColor: 'yellow',
         margin: 5
       }}>
-      {nextinputtwo && <InputRowTwo nextfase2={() => nextFaseTwo()} />}
+      {nextinputthree && <InputRowThree nextfase3={() => nextFaseThree()} />}
     </View>
   );
 };
 
-export default InputRowTwoSumit;
+export default InputRowThreeSumit;

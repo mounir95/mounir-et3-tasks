@@ -15,7 +15,9 @@ export const days = [
   {name: 'Status List'},
   {name: 'Reveiwed By BY'},
   {name: 'Reveiwed By AH'},
-  {name: 'Reveiwed By HT'}
+  {name: 'Reveiwed By HT'},
+  {name: ''},
+  {name: ''}
 ];
 
 export const booleanval = [

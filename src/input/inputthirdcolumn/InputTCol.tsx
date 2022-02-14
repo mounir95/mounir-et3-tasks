@@ -1,9 +1,9 @@
 import React, {FC, ChangeEvent} from 'react';
 import {View, Button} from 'react-native';
-import {globalStateContext} from '../../constants/useContext';
+import {globalStateContext} from '../../constants/UseContext';
 import {useState} from 'react';
 import {ObjectArray} from '../../../App';
-import SelectInput from '../inputcolumns1/selectInput';
+import SelectInput from '../inputfirstcolumn/SelectInput';
 
 type Props = {
   nextfase3: Function;
@@ -59,6 +59,7 @@ const InputRowThree: FC<Props> = ({nextfase3}) => {
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
+          key="firstrow"
           listname={'Status List'}
           arrayval={globalStateContext._currentValue.Status_list}
           choosedval={status_list}
@@ -69,6 +70,7 @@ const InputRowThree: FC<Props> = ({nextfase3}) => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
+          key="secondrow"
           listname={'Size'}
           arrayval={globalStateContext._currentValue.Size}
           choosedval={size}
@@ -79,6 +81,7 @@ const InputRowThree: FC<Props> = ({nextfase3}) => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
+          key="thirdrow"
           listname={'Dificulity'}
           arrayval={globalStateContext._currentValue.Dificulity}
           choosedval={dificulity}
@@ -87,7 +90,9 @@ const InputRowThree: FC<Props> = ({nextfase3}) => {
           }
         />
       </View>
-      <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
+      <View style={{marginTop: 25}}>
+        <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
+      </View>
     </View>
   );
 };

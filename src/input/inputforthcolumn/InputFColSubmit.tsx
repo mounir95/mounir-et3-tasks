@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import InputRowFour from './inputRows4';
+import InputRowFour from './InputFCol';
 
 type Props = {
   nextinputfour: Boolean;

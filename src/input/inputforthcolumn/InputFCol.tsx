@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
-import {globalStateContext} from '../../constants/useContext';
+import {globalStateContext} from '../../constants/UseContext';
 import {ObjectArray} from '../../../App';
 import {useState} from 'react';
-import RadioButtonRow from './radioButtonrow';
-import {booleanval} from '../../constants/useContext';
+import RadioButtonRow from './RadioButton';
+import {booleanval} from '../../constants/UseContext';
 
 type Props = {
   nextfase4: Function;
@@ -72,6 +72,7 @@ const InputRowFour: FC<Props> = ({nextfase4}) => {
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>BY Approve:</Text>
           <RadioButtonRow
+            key="firstrow"
             getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
@@ -90,6 +91,7 @@ const InputRowFour: FC<Props> = ({nextfase4}) => {
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>AH Approve:</Text>
           <RadioButtonRow
+            key="secondrow"
             getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
@@ -108,6 +110,7 @@ const InputRowFour: FC<Props> = ({nextfase4}) => {
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>HT Approve:</Text>
           <RadioButtonRow
+            key="thirdrow"
             getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
@@ -116,7 +119,9 @@ const InputRowFour: FC<Props> = ({nextfase4}) => {
           />
         </View>
       </View>
-      <Button title={'Done'} onPress={() => handlePressSubmitButton()} />
+      <View style={{marginTop: 25}}>
+        <Button title={'Done'} onPress={() => handlePressSubmitButton()} />
+      </View>
     </View>
   );
 };

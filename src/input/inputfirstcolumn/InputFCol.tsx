@@ -1,11 +1,11 @@
 import React, {ChangeEvent, FC, useState} from 'react';
 import {View, Button} from 'react-native';
-import {globalStateContext} from '../../constants/useContext';
+import {globalStateContext} from '../../constants/UseContext';
 import {ObjectArray} from '../../../App';
-import SelectInput from './selectInput';
+import SelectInput from './SelectInput';
 
 type Props = {
-  nextfase1: Function,
+  nextfase1: Function;
 };
 
 const InputRowOne: FC<Props> = ({nextfase1}) => {
@@ -41,12 +41,13 @@ const InputRowOne: FC<Props> = ({nextfase1}) => {
     ObjectArray.Myse_list = se_list[0];
     ObjectArray.Myplatform = platform[0];
     nextfase1();
-  }
+  };
 
   return (
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
+          key="firstrow"
           listname={'SE List'}
           arrayval={globalStateContext._currentValue.SE_list}
           choosedval={se_list}
@@ -57,6 +58,7 @@ const InputRowOne: FC<Props> = ({nextfase1}) => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
+          key="secondrow"
           listname={'Platform'}
           arrayval={globalStateContext._currentValue.Platform}
           choosedval={platform}
@@ -65,7 +67,9 @@ const InputRowOne: FC<Props> = ({nextfase1}) => {
           }
         />
       </View>
-      <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
+      <View style={{marginTop: 25}}>
+        <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
+      </View>
     </View>
   );
 };

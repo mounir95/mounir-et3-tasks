@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
-import {globalStateContext} from '../../constants/useContext';
+import {globalStateContext} from '../../constants/UseContext';
 import {useState} from 'react';
 import {ObjectArray} from '../../../App';
-import TextInputRow from './textInputRow';
+import TextInputRow from './TextInputRow';
 
 type Props = {
   nextfase2: Function
@@ -32,7 +32,6 @@ const InputRowTwo: FC<Props> = ({nextfase2}) => {
     event: React.ChangeEvent<HTMLSelectElement>,
     Atribuite: string,
   ): void => {
-    console.log(event);
     if (Atribuite === comment) {
       setChanges(
         val =>
@@ -78,13 +77,13 @@ const InputRowTwo: FC<Props> = ({nextfase2}) => {
         if (pr_link_err) {
           return true;
         } else {
-          return 'Pr Link not set';
+          return 'Pr Link Required';
         }
       } else {
-        return 'Comment not set';
+        return 'Comment Required';
       }
     } else {
-      return 'Release Version not set';
+      return 'Release Version Required';
     }
   };
 
@@ -104,6 +103,7 @@ const InputRowTwo: FC<Props> = ({nextfase2}) => {
       <View>
         <Text style={{color: '#776677'}}>Release Version</Text>
         <TextInputRow
+          key="firstrow"
           stringval={globalStateContext.Release_Version}
           onchangefun={event => onInputchange(event, release_version)}
         />
@@ -111,6 +111,7 @@ const InputRowTwo: FC<Props> = ({nextfase2}) => {
       <View>
         <Text style={{color: '#776677'}}>Comment</Text>
         <TextInputRow
+          key="secondrow"
           stringval={globalStateContext.Comment}
           onchangefun={event => onInputchange(event, comment)}
         />
@@ -118,11 +119,14 @@ const InputRowTwo: FC<Props> = ({nextfase2}) => {
       <View>
         <Text style={{color: '#776677'}}>PR_LINK</Text>
         <TextInputRow
+          key="thirdrow"
           stringval={globalStateContext.Pr_Link}
           onchangefun={event => onInputchange(event, pr_Link)}
         />
       </View>
-      <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
+      <View style={{marginTop: 25}}>
+        <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
+      </View>
     </View>
   );
 };

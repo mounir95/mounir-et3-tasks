@@ -1,12 +1,17 @@
-import React from 'react';
-import type {Node} from 'react';
+import React, {FC} from 'react';
 import {View, FlatList, SafeAreaView} from 'react-native';
-import FirstRow from './firstexcelrow';
-import Rows from './rows';
-import {days} from '../constants/useContext';
+import FirstRow from './FirstExcelRow';
+import Rows from './Rows';
+import {days} from '../constants/UseContext';
 import {ObjectArray} from '../../App';
 
-const ExcelRows: () => Node = () => {
+type Props = {
+  updateiconid: number;
+  onUpdate: Function;
+  onDelete: Function;
+};
+
+const ExcelRows: FC<Props> = ({updateiconid, onUpdate, onDelete}) => {
   let arrayofobjects = ObjectArray._currentValue;
 
   return (
@@ -21,14 +26,20 @@ const ExcelRows: () => Node = () => {
               if (e.Mycomment) {
                 return (
                   <View style={{flexDirection: 'row'}}>
-                    <Rows objectval={e} index={index} />
+                    <Rows
+                      updatedid={updateiconid}
+                      onUpdateSub={(objid: number) => onUpdate(objid)}
+                      onDeletSub={(objid: number) => onDelete(objid)}
+                      objectval={e}
+                      index={index}
+                    />
                   </View>
                 );
               }
             })}
           </View>
         )}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.name}
         extraData={days}
       />
     </SafeAreaView>

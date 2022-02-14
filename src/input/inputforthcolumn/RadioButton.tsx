@@ -12,7 +12,7 @@ const RadioButtonRow: FC<Props> = ({getboolean, radiobuttonfun, value}) => {
     <View>
       {getboolean.map(res => {
         return (
-          <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
+          <View style={{flexDirection: 'row', marginBottom: 15, marginTop: 25}}>
             <Text
               style={{
                 marginLeft: 10,
@@ -24,8 +24,8 @@ const RadioButtonRow: FC<Props> = ({getboolean, radiobuttonfun, value}) => {
             </Text>
             <TouchableOpacity
               style={{
-                height: 15,
-                width: 15,
+                height: 18,
+                width: 18,
                 borderRadius: 110,
                 borderWidth: 2,
                 borderColor: '#2750aa',
@@ -36,8 +36,8 @@ const RadioButtonRow: FC<Props> = ({getboolean, radiobuttonfun, value}) => {
               {value === res.key && (
                 <View
                   style={{
-                    width: 15,
-                    height: 15,
+                    width: 18,
+                    height: 18,
                     borderRadius: 2,
                     backgroundColor: '#776677',
                   }}
