@@ -9,7 +9,7 @@ type Props = {
   choosedval: string[];
 };
 
-const FirstColumn: FC<Props> = ({onChoose, listname, arrayval, choosedval}) => {
+const SelectInput: FC<Props> = ({onChoose, listname, arrayval, choosedval}) => {
   const arraymap = arrayval.map(element => {
     return {label: element, value: element};
   });
@@ -52,4 +52,4 @@ const FirstColumn: FC<Props> = ({onChoose, listname, arrayval, choosedval}) => {
   );
 };
 
-export default FirstColumn;
+export default SelectInput;

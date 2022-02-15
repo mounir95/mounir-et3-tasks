@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
 import {View} from 'react-native';
-import InputRowTwo from './InputSCol';
+import InputSelectList from './SelectList';
 
 type Props = {
-  nextinputtwo: Boolean;
-  nextFaseTwo: Function;
+  openselectpage: Boolean;
+  toSelectList: Function;
 };
 
-const InputRowTwoSumit: FC<Props> = ({nextinputtwo, nextFaseTwo}) => {
+const InputSelectListSumit: FC<Props> = ({openselectpage, toSelectList}) => {
   return (
     <View
       style={{
@@ -18,9 +18,9 @@ const InputRowTwoSumit: FC<Props> = ({nextinputtwo, nextFaseTwo}) => {
         borderColor: 'yellow',
         margin: 5
       }}>
-      {nextinputtwo && <InputRowTwo nextfase2={() => nextFaseTwo()} />}
+      {openselectpage && <InputSelectList SelectList={() => toSelectList()} />}
     </View>
   );
 };
 
-export default InputRowTwoSumit;
+export default InputSelectListSumit;

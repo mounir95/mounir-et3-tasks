@@ -4,10 +4,10 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {ObjectArray} from '../../../App';
 
 type Props = {
-  nextfase5: Function;
+  DatePage: Function;
 };
 
-const Datepicker: FC<Props> = ({nextfase5}) => {
+const Datepicker: FC<Props> = ({DatePage}) => {
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
 
@@ -24,7 +24,7 @@ const Datepicker: FC<Props> = ({nextfase5}) => {
 
   const handlePressSubmitButton = () => {
     ObjectArray.Mydate = JSON.stringify(date);
-    nextfase5();
+    DatePage();
   };
 
   return (

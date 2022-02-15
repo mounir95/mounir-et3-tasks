@@ -2,22 +2,26 @@ import React, {useState} from 'react';
 import type {Node} from 'react';
 import ExcelRows from './src/excels/ExcelRows';
 import AddButton from './src/AddButton';
-import InputRow from './src/input/InputColumns';
-import UpdateRow from './src/input/InputUpdateColumns';
+import InputForm from './src/input/InputForm';
+import UpdateForm from './src/input/UpdateForm';
 import {ScrollView, View} from 'react-native';
 import {Context} from 'vm';
+import _ from 'lodash';
 
 export let ObjectArray: Context = React.createContext<object[]>([{}]);
 
 const App: () => Node = () => {
-  const [{id, addbuttontrue, inputform, updatefalse, addtext}, setState] =
-    useState({
-      id: -1,
-      addbuttontrue: true,
-      updatefalse: false,
-      inputform: false,
-      addtext: 'ADD',
-    });
+  const [
+    {id, addbuttontrue, inputform, updatefalse, filterfalse, addtext},
+    setState,
+  ] = useState({
+    id: -1,
+    addbuttontrue: true,
+    updatefalse: false,
+    inputform: false,
+    filterfalse: false,
+    addtext: 'ADD',
+  });
 
   const setAllChanges = () => {
     ObjectArray = React.createContext<object[]>([...ObjectArray._currentValue]);
@@ -29,6 +33,23 @@ const App: () => Node = () => {
           addbuttontrue: true,
           updatefalse: false,
           inputform: false,
+          filterfalse: false,
+          addtext: 'ADD',
+        }),
+    );
+  };
+
+  const setDateSort = (newobjectarray: object) => {
+    ObjectArray._currentValue = newobjectarray;
+    ObjectArray = React.createContext<object[]>([...ObjectArray._currentValue]);
+    setState(
+      val =>
+        (val = {
+          id: -1,
+          addbuttontrue: true,
+          updatefalse: false,
+          inputform: false,
+          filterfalse: false,
           addtext: 'ADD',
         }),
     );
@@ -36,6 +57,7 @@ const App: () => Node = () => {
 
   const onButtonPress = () => {
     if (addtext === 'Close') {
+      console.log('aaaaaaaaaaaaaa');
       setState(
         val =>
           (val = {
@@ -43,10 +65,23 @@ const App: () => Node = () => {
             addbuttontrue: true,
             updatefalse: false,
             inputform: false,
+            filterfalse: false,
             addtext: 'ADD',
           }),
       );
     } else {
+      if (ObjectArray._currentValue.length >= 2) {
+        ObjectArray._currentValue = _.orderBy(
+          ObjectArray._currentValue,
+          o => o.Myid,
+          ['asc'],
+        );
+        ObjectArray._currentValue.unshift({});
+        ObjectArray._currentValue.pop();
+        ObjectArray = React.createContext<object[]>([
+          ...ObjectArray._currentValue,
+        ]);
+      }
       setState(
         val =>
           (val = {
@@ -54,10 +89,25 @@ const App: () => Node = () => {
             addbuttontrue: false,
             updatefalse: false,
             inputform: true,
+            filterfalse: false,
             addtext: 'Close',
           }),
       );
     }
+  };
+
+  const filterPressed = () => {
+    setState(
+      val =>
+        (val = {
+          id: -1,
+          addbuttontrue: !addbuttontrue,
+          updatefalse: false,
+          inputform: false,
+          filterfalse: !filterfalse,
+          addtext: 'ADD',
+        }),
+    );
   };
 
   const onDeletFun = (objid: number) => {
@@ -80,6 +130,7 @@ const App: () => Node = () => {
           addbuttontrue: false,
           updatefalse: true,
           inputform: false,
+          filterfalse: false,
           addtext: 'ADD',
         }),
     );
@@ -93,6 +144,7 @@ const App: () => Node = () => {
           addbuttontrue: true,
           updatefalse: false,
           inputform: false,
+          filterfalse: false,
           addtext: 'ADD',
         }),
     );
@@ -107,6 +159,7 @@ const App: () => Node = () => {
           addbuttontrue: true,
           updatefalse: false,
           inputform: false,
+          filterfalse: false,
           addtext: 'ADD',
         }),
     );
@@ -124,6 +177,7 @@ const App: () => Node = () => {
           addbuttontrue: true,
           updatefalse: false,
           inputform: false,
+          filterfalse: false,
           addtext: 'ADD',
         }),
     );
@@ -131,21 +185,21 @@ const App: () => Node = () => {
 
   return (
     <View style={{flex: 1}}>
-      <ScrollView key="firstpage">
+      <ScrollView>
         <ExcelRows
-          key="excel"
+          openfilter={filterfalse}
           updateiconid={id}
+          filterPress={() => filterPressed()}
+          dateSort={(newobjectarray: object) => setDateSort(newobjectarray)}
           onUpdate={(objid: number) => onUpdateFun(objid)}
           onDelete={(objid: number) => onDeletFun(objid)}
         />
-        <InputRow
-          key="inputRow"
+        <InputForm
           inptformtrue={inputform}
           inputAdd={() => inputAddButton()}
           inputClose={() => inputCloseButton()}
         />
-        <UpdateRow
-          key="updateRow"
+        <UpdateForm
           inputupdateformtrue={updatefalse}
           updatedid={id}
           inputUpdate={() => inputUpdateButton()}
@@ -153,7 +207,6 @@ const App: () => Node = () => {
         />
       </ScrollView>
       <AddButton
-        key="addbutton"
         addbuttontrue={addbuttontrue}
         buttontext={addtext}
         buttonPressed={() => onButtonPress()}

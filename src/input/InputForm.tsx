@@ -1,9 +1,9 @@
 import React, {FC, useState} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import InputRowOneSumit from './inputfirstcolumn/InputFColSubmit';
-import InputRowTwoSumit from './inputsecondcolumn/InputSColSubmit';
-import InputRowThreeSumit from './inputthirdcolumn/InputTColSubmit';
-import InputRowFourSumit from './inputforthcolumn/InputFColSubmit';
+import InputSelectList from './selectlists/SelectListSubmit';
+import InputTextInput from './textinputs/TextInputSubmit';
+import InputSSDList from './ssdlists/SSDListsSubmit';
+import InputRadioButton from './radiobuttons/RadioButtonsSubmit';
 import {ObjectArray} from '../../App';
 import InputDatePicker from './datepicking/DatePickerSubmit';
 
@@ -22,83 +22,83 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
       ObjectArray._currentValue[ObjectArray._currentValue.length - 1].Myid;
   }
   const [
-    {id, nextinput1, nextinput2, nextinput3, nextinput4, nextinput5},
+    {id, selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue, datepagetrue},
     setNext,
   ] = useState({
     id: lastIndex,
-    nextinput5: true,
-    nextinput1: false,
-    nextinput2: false,
-    nextinput3: false,
-    nextinput4: false,
+    datepagetrue: true,
+    selectpagetrue: false,
+    textpagetrue: false,
+    ssdliststrue: false,
+    radiobuttonstrue: false,
   });
 
-  const nextFase5 = () => {
+  const DatePage = () => {
     setNext(
       val =>
         (val = {
           id: lastIndex,
-          nextinput5: false,
-          nextinput1: true,
-          nextinput2: false,
-          nextinput3: false,
-          nextinput4: false,
+          datepagetrue: false,
+          selectpagetrue: true,
+          textpagetrue: false,
+          ssdliststrue: false,
+          radiobuttonstrue: false,
         }),
     );
   };
 
-  const nextFase1 = () => {
+  const SelectList = () => {
     setNext(
       val =>
         (val = {
           id: lastIndex,
-          nextinput5: false,
-          nextinput1: false,
-          nextinput2: true,
-          nextinput3: false,
-          nextinput4: false,
+          datepagetrue: false,
+          selectpagetrue: false,
+          textpagetrue: true,
+          ssdliststrue: false,
+          radiobuttonstrue: false,
         }),
     );
   };
 
-  const nextFase2 = () => {
+  const TextPage = () => {
     setNext(
       val =>
         (val = {
           id: lastIndex,
-          nextinput5: false,
-          nextinput1: false,
-          nextinput2: false,
-          nextinput3: true,
-          nextinput4: false,
+          datepagetrue: false,
+          selectpagetrue: false,
+          textpagetrue: false,
+          ssdliststrue: true,
+          radiobuttonstrue: false,
         }),
     );
   };
-  const nextFase3 = () => {
+  const SSDLists = () => {
     setNext(
       val =>
         (val = {
           id: lastIndex,
-          nextinput5: false,
-          nextinput1: false,
-          nextinput2: false,
-          nextinput3: false,
-          nextinput4: true,
+          datepagetrue: false,
+          selectpagetrue: false,
+          textpagetrue: false,
+          ssdliststrue: false,
+          radiobuttonstrue: true,
         }),
     );
   };
 
-  const nextFase4 = () => {
+  const RadioButtons = () => {
     ObjectArray.Myid = id + 1;
     setNext(
       val =>
         (val = {
           id: lastIndex,
-          nextinput5: true,
-          nextinput1: false,
-          nextinput2: false,
-          nextinput3: false,
-          nextinput4: false,
+          datepagetrue: true,
+          selectpagetrue: false,
+          textpagetrue: false,
+          ssdliststrue: false,
+          radiobuttonstrue: false,
         }),
     );
     inputAdd();
@@ -109,11 +109,11 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
       val =>
         (val = {
           id: lastIndex,
-          nextinput5: true,
-          nextinput1: false,
-          nextinput2: false,
-          nextinput3: false,
-          nextinput4: false,
+          datepagetrue: true,
+          selectpagetrue: false,
+          textpagetrue: false,
+          ssdliststrue: false,
+          radiobuttonstrue: false,
         }),
     );
     inputClose();
@@ -132,29 +132,24 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
             justifyContent: 'center',
           }}>
           <InputDatePicker
-            key="firstrow"
-            nextinputfive={nextinput5}
-            nextFaseFive={() => nextFase5()}
+            opendatepage={datepagetrue}
+            toDatePage={() => DatePage()}
           />
-          <InputRowOneSumit
-            key="secondrow"
-            nextinputone={nextinput1}
-            nextFaseOne={() => nextFase1()}
+          <InputSelectList
+            openselectpage={selectpagetrue}
+            toSelectList={() => SelectList()}
           />
-          <InputRowTwoSumit
-            key="thirdrow"
-            nextinputtwo={nextinput2}
-            nextFaseTwo={() => nextFase2()}
+          <InputTextInput
+            opentextpage={textpagetrue}
+            toTextPage={() => TextPage()}
           />
-          <InputRowThreeSumit
-            key="fourthrow"
-            nextinputthree={nextinput3}
-            nextFaseThree={() => nextFase3()}
+          <InputSSDList
+            openssdlists={ssdliststrue}
+            toSSDLists={() => SSDLists()}
           />
-          <InputRowFourSumit
-            key="fifthrow"
-            nextinputfour={nextinput4}
-            nextFaseFour={() => nextFase4()}
+          <InputRadioButton
+            openradiobuttons={radiobuttonstrue}
+            toRadioButtons={() => RadioButtons()}
           />
         </View>
       )}
@@ -166,7 +161,7 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
                 borderWidth: 2,
                 borderRadius: 25,
                 padding: 10,
-                marginTop: 10,
+                marginTop: 25,
                 marginBottom: 5,
                 borderColor: '#776677',
                 color: '#776677',

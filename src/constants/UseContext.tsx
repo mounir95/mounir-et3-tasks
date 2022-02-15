@@ -20,6 +20,8 @@ export const days = [
   {name: ''}
 ];
 
+export const arrayofsort = ['asc', 'desc'];
+
 export const booleanval = [
   {
     key: 'yes',

@@ -6,10 +6,10 @@ import {ObjectArray} from '../../../App';
 import TextInputRow from './TextInputRow';
 
 type Props = {
-  nextfase2: Function
+  TextPage: Function
 }
 
-const InputRowTwo: FC<Props> = ({nextfase2}) => {
+const InputText: FC<Props> = ({TextPage}) => {
   const [
     {
       comment,
@@ -92,7 +92,7 @@ const InputRowTwo: FC<Props> = ({nextfase2}) => {
       ObjectArray.Mypr_Link = pr_Link;
       ObjectArray.Mycomment = comment;
       ObjectArray.Myrelease_version = release_version;
-      nextfase2();
+      TextPage();
     } else {
       console.warn(Validated());
     }
@@ -103,7 +103,6 @@ const InputRowTwo: FC<Props> = ({nextfase2}) => {
       <View>
         <Text style={{color: '#776677'}}>Release Version</Text>
         <TextInputRow
-          key="firstrow"
           stringval={globalStateContext.Release_Version}
           onchangefun={event => onInputchange(event, release_version)}
         />
@@ -111,7 +110,6 @@ const InputRowTwo: FC<Props> = ({nextfase2}) => {
       <View>
         <Text style={{color: '#776677'}}>Comment</Text>
         <TextInputRow
-          key="secondrow"
           stringval={globalStateContext.Comment}
           onchangefun={event => onInputchange(event, comment)}
         />
@@ -119,7 +117,6 @@ const InputRowTwo: FC<Props> = ({nextfase2}) => {
       <View>
         <Text style={{color: '#776677'}}>PR_LINK</Text>
         <TextInputRow
-          key="thirdrow"
           stringval={globalStateContext.Pr_Link}
           onchangefun={event => onInputchange(event, pr_Link)}
         />
@@ -130,4 +127,4 @@ const InputRowTwo: FC<Props> = ({nextfase2}) => {
     </View>
   );
 };
-export default InputRowTwo;
+export default InputText;

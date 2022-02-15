@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
 import {View} from 'react-native';
-import DateTimePicker from './DatePicking';;
+import InputText from './TextInput';
 
 type Props = {
-  opendatepage: Boolean;
-  toDatePage: Function;
+  opentextpage: Boolean;
+  toTextPage: Function;
 };
 
-const InputDatePicker: FC<Props> = ({opendatepage, toDatePage}) => {
+const InputTextSumit: FC<Props> = ({opentextpage, toTextPage}) => {
   return (
     <View
       style={{
@@ -18,9 +18,9 @@ const InputDatePicker: FC<Props> = ({opendatepage, toDatePage}) => {
         borderColor: 'yellow',
         margin: 5
       }}>
-      {opendatepage && <DateTimePicker DatePage={() => toDatePage()} />}
+      {opentextpage && <InputText TextPage={() => toTextPage()} />}
     </View>
   );
 };
 
-export default InputDatePicker;
+export default InputTextSumit;

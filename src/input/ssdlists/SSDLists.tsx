@@ -3,12 +3,12 @@ import {View, Button} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {useState} from 'react';
 import {ObjectArray} from '../../../App';
-import SelectInput from '../inputfirstcolumn/SelectInput';
+import SelectInput from '../selectlists/SelectInput';
 
 type Props = {
-  nextfase3: Function;
+  SSDLists: Function;
 };
-const InputRowThree: FC<Props> = ({nextfase3}) => {
+const SSDListInput: FC<Props> = ({SSDLists}) => {
   const [{size, dificulity, status_list}, setChanges] = useState({
     size: globalStateContext._currentValue.Size,
     dificulity: globalStateContext._currentValue.Dificulity,
@@ -53,13 +53,12 @@ const InputRowThree: FC<Props> = ({nextfase3}) => {
     ObjectArray.Mystatus_list = status_list[0];
     ObjectArray.Mysize = size[0];
     ObjectArray.Mydificulity = dificulity[0];
-    nextfase3();
+    SSDLists();
   };;
   return (
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          key="firstrow"
           listname={'Status List'}
           arrayval={globalStateContext._currentValue.Status_list}
           choosedval={status_list}
@@ -70,7 +69,6 @@ const InputRowThree: FC<Props> = ({nextfase3}) => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          key="secondrow"
           listname={'Size'}
           arrayval={globalStateContext._currentValue.Size}
           choosedval={size}
@@ -81,7 +79,6 @@ const InputRowThree: FC<Props> = ({nextfase3}) => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          key="thirdrow"
           listname={'Dificulity'}
           arrayval={globalStateContext._currentValue.Dificulity}
           choosedval={dificulity}
@@ -97,4 +94,4 @@ const InputRowThree: FC<Props> = ({nextfase3}) => {
   );
 };
 
-export default InputRowThree;
+export default SSDListInput;

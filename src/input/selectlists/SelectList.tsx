@@ -5,10 +5,10 @@ import {ObjectArray} from '../../../App';
 import SelectInput from './SelectInput';
 
 type Props = {
-  nextfase1: Function;
+  SelectList: Function;
 };
 
-const InputRowOne: FC<Props> = ({nextfase1}) => {
+const InputSelectList: FC<Props> = ({SelectList}) => {
   const [{se_list, platform}, setChanges] = useState({
     se_list: globalStateContext._currentValue.SE_list,
     platform: globalStateContext._currentValue.Platform,
@@ -40,7 +40,7 @@ const InputRowOne: FC<Props> = ({nextfase1}) => {
   const handlePressSubmitButton = () => {
     ObjectArray.Myse_list = se_list[0];
     ObjectArray.Myplatform = platform[0];
-    nextfase1();
+    SelectList();
   };
 
   return (
@@ -74,4 +74,4 @@ const InputRowOne: FC<Props> = ({nextfase1}) => {
   );
 };
 
-export default InputRowOne;
+export default InputSelectList;

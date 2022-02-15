@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
 import {View} from 'react-native';
-import InputRowOne from './InputFCol';
+import SSDListInput from './SSDLists';
 
 type Props = {
-  nextinputone: Boolean;
-  nextFaseOne: Function;
+  openssdlists: Boolean;
+  toSSDLists: Function;
 };
 
-const InputRowOneSumit: FC<Props> = ({nextinputone, nextFaseOne}) => {
+const SSDListInputSumit: FC<Props> = ({openssdlists, toSSDLists}) => {
   return (
     <View
       style={{
@@ -18,9 +18,9 @@ const InputRowOneSumit: FC<Props> = ({nextinputone, nextFaseOne}) => {
         borderColor: 'yellow',
         margin: 5
       }}>
-      {nextinputone && <InputRowOne nextfase1={() => nextFaseOne()} />}
+      {openssdlists && <SSDListInput SSDLists={() => toSSDLists()} />}
     </View>
   );
 };
 
-export default InputRowOneSumit;
+export default SSDListInputSumit;

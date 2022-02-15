@@ -3,13 +3,13 @@ import {View, Text, Button} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {ObjectArray} from '../../../App';
 import {useState} from 'react';
-import RadioButtonRow from './RadioButton';
+import RadioButtonRow from './RadioButtonInput';
 import {booleanval} from '../../constants/UseContext';
 
 type Props = {
-  nextfase4: Function;
+  RadioButtons: Function;
 };
-const InputRowFour: FC<Props> = ({nextfase4}) => {
+const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
   const [{reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT}, setChanges] =
     useState({
       reveiwed_by_BY: globalStateContext._currentValue.Reveiwed_by_BY,
@@ -55,7 +55,7 @@ const InputRowFour: FC<Props> = ({nextfase4}) => {
     ObjectArray.Myreveiwed_by_BY = reveiwed_by_BY;
     ObjectArray.Myreveiwed_by_AH = reveiwed_by_AH;
     ObjectArray.Myreveiwed_by_HT = reveiwed_by_HT;
-    nextfase4();
+    RadioButtons();
   };
 
   return (
@@ -119,11 +119,11 @@ const InputRowFour: FC<Props> = ({nextfase4}) => {
           />
         </View>
       </View>
-      <View style={{marginTop: 25}}>
+      <View style={{marginTop: 35}}>
         <Button title={'Done'} onPress={() => handlePressSubmitButton()} />
       </View>
     </View>
   );
 };
 
-export default InputRowFour;
+export default RadioButtonInput;
