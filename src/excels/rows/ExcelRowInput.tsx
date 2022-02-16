@@ -4,40 +4,37 @@ import Icons from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 type Props = {
-  objectval: object;
+  object: object;
   index: number;
-  onDeletSub: any;
-  onUpdateSub: any;
-  updatedid: number;
+  onDelete: any;
+  onUpdate: any;
+  updateiconid: number;
 };
-const Rows: FC<Props> = ({
-  objectval,
+const ExcelRowInput: FC<Props> = ({
+  object,
   index,
-  onDeletSub,
-  onUpdateSub,
-  updatedid,
+  onDelete,
+  onUpdate,
+  updateiconid,
 }) => {
-  const onUpdate = (objid: number) => {
-    onUpdateSub(objid);
-  };
 
   const objectarrayval = [
-    objectval.Mydate,
-    objectval.Myse_list,
-    objectval.Myid,
-    objectval.Myplatform,
-    objectval.Myrelease_version,
-    objectval.Mycomment,
-    objectval.Mypr_Link,
-    objectval.Mysize,
-    objectval.Mydificulity,
-    objectval.Mystatus_list,
-    objectval.Myreveiwed_by_BY,
-    objectval.Myreveiwed_by_AH,
-    objectval.Myreveiwed_by_HT,
+    object.Mydate,
+    object.Myse_list,
+    object.Myid,
+    object.Myplatform,
+    object.Myrelease_version,
+    object.Mycomment,
+    object.Mypr_Link,
+    object.Mysize,
+    object.Mydificulity,
+    object.Mystatus_list,
+    object.Myreveiwed_by_BY,
+    object.Myreveiwed_by_AH,
+    object.Myreveiwed_by_HT,
   ];
 
-  if (objectval === {}) {
+  if (object === {}) {
     return <Text />;
   } else {
     return (
@@ -72,11 +69,11 @@ const Rows: FC<Props> = ({
                 flexDirection: 'row',
                 backgroundColor: 'white',
               }}
-              onPress={() => onUpdate(objectval.Myid)}>
-              {updatedid !== objectval.Myid && (
+              onPress={() => onUpdate(object.Myid)}>
+              {updateiconid !== object.Myid && (
                 <Icons name="pencil" size={15} color="#900" />
               )}
-              {updatedid === objectval.Myid && (
+              {updateiconid === object.Myid && (
                 <FontAwesome name="save" size={20} color="#900" />
               )}
             </TouchableOpacity>
@@ -90,7 +87,7 @@ const Rows: FC<Props> = ({
                 paddingVertical: 3,
                 backgroundColor: 'white',
               }}
-              onPress={() => onDeletSub(objectval.Myid)}>
+              onPress={() => onDelete(object.Myid)}>
               <Text>X</Text>
             </TouchableOpacity>
           )}
@@ -100,4 +97,4 @@ const Rows: FC<Props> = ({
   }
 };
 
-export default Rows;
+export default ExcelRowInput;
