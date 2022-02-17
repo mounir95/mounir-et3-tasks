@@ -1,12 +1,12 @@
-import React, {FC, useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, { FC, useState } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 import InputSelectList from './selectlists/SelectListSubmit';
 import InputTextInput from './textinputs/TextInputSubmit';
 import InputSSDList from './ssdlists/SSDListsSubmit';
 import InputRadioButton from './radiobuttons/RadioButtonsSubmit';
-import {ObjectArray} from '../../App';
+import { ObjectArray } from '../App';
 import InputDatePicker from './datepicking/DatePickerSubmit';
-import {Context} from 'vm';
+import { Context } from 'vm';
 
 type Props = {
   inputUpdate: Function;
@@ -22,7 +22,7 @@ const UpdateRow: FC<Props> = ({
   inputupdateformtrue,
 }) => {
   const [
-    {id, selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue, datepagetrue},
+    { id, selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue, datepagetrue },
     setNext,
   ] = useState({
     id: updatedid,
@@ -36,55 +36,55 @@ const UpdateRow: FC<Props> = ({
   const DatePage = () => {
     setNext(
       val =>
-        (val = {
-          id: updatedid,
-          datepagetrue: false,
-          selectpagetrue: true,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
+      (val = {
+        id: updatedid,
+        datepagetrue: false,
+        selectpagetrue: true,
+        textpagetrue: false,
+        ssdliststrue: false,
+        radiobuttonstrue: false,
+      }),
     );
   };
 
   const SelectList = () => {
     setNext(
       val =>
-        (val = {
-          id: updatedid,
-          datepagetrue: false,
-          selectpagetrue: false,
-          textpagetrue: true,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
+      (val = {
+        id: updatedid,
+        datepagetrue: false,
+        selectpagetrue: false,
+        textpagetrue: true,
+        ssdliststrue: false,
+        radiobuttonstrue: false,
+      }),
     );
   };
 
   const TextPage = () => {
     setNext(
       val =>
-        (val = {
-          id: updatedid,
-          datepagetrue: false,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: true,
-          radiobuttonstrue: false,
-        }),
+      (val = {
+        id: updatedid,
+        datepagetrue: false,
+        selectpagetrue: false,
+        textpagetrue: false,
+        ssdliststrue: true,
+        radiobuttonstrue: false,
+      }),
     );
   };
   const SSDLists = () => {
     setNext(
       val =>
-        (val = {
-          id: updatedid,
-          datepagetrue: false,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: true,
-        }),
+      (val = {
+        id: updatedid,
+        datepagetrue: false,
+        selectpagetrue: false,
+        textpagetrue: false,
+        ssdliststrue: false,
+        radiobuttonstrue: true,
+      }),
     );
   };
 
@@ -107,29 +107,29 @@ const UpdateRow: FC<Props> = ({
     });
     setNext(
       val =>
-        (val = {
-          id: updatedid,
-          datepagetrue: true,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
+      (val = {
+        id: updatedid,
+        datepagetrue: true,
+        selectpagetrue: false,
+        textpagetrue: false,
+        ssdliststrue: false,
+        radiobuttonstrue: false,
+      }),
     );
     inputUpdate();
   };
 
-    const handlePressCloseButton = () => {
+  const handlePressCloseButton = () => {
     setNext(
       val =>
-        (val = {
-          id: updatedid,
-          datepagetrue: true,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: false
-        }),
+      (val = {
+        id: updatedid,
+        datepagetrue: true,
+        selectpagetrue: false,
+        textpagetrue: false,
+        ssdliststrue: false,
+        radiobuttonstrue: false
+      }),
     );
     inputClose();
   };
@@ -170,7 +170,7 @@ const UpdateRow: FC<Props> = ({
       )}
       {inputupdateformtrue && (
         <TouchableOpacity onPress={() => handlePressCloseButton()}>
-          <View style={{alignItems: 'center'}}>
+          <View style={{ alignItems: 'center' }}>
             <Text
               style={{
                 borderWidth: 2,

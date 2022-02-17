@@ -1,13 +1,13 @@
-import React, {FC, useState} from 'react';
-import {View, Text, Button, Platform} from 'react-native';
+import React, { FC, useState } from 'react';
+import { View, Text, Button, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {ObjectArray} from '../../../App';
+import { ObjectArray } from '../../App';
 
 type Props = {
   DatePage: Function;
 };
 
-const Datepicker: FC<Props> = ({DatePage}) => {
+const Datepicker: FC<Props> = ({ DatePage }) => {
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
 
@@ -38,13 +38,13 @@ const Datepicker: FC<Props> = ({DatePage}) => {
         padding: 20,
       }}>
       {/* Display the selected date */}
-      <View style={{padding: 20, backgroundColor: '#eee', borderRadius: 10}}>
-        <Text style={{fontSize: 18, color: 'black'}}>{date.toUTCString()}</Text>
+      <View style={{ padding: 20, backgroundColor: '#eee', borderRadius: 10 }}>
+        <Text style={{ fontSize: 18, color: 'black' }}>{date.toUTCString()}</Text>
       </View>
 
       {/* The button that used to trigger the date picker */}
       {!isPickerShow && (
-        <View style={{padding: 25}}>
+        <View style={{ padding: 25 }}>
           <Button title="Show Picker" color="purple" onPress={showPicker} />
         </View>
       )}
@@ -66,7 +66,7 @@ const Datepicker: FC<Props> = ({DatePage}) => {
           }}
         />
       )}
-      <View style={{marginTop: 15}}>
+      <View style={{ marginTop: 15 }}>
         <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
       </View>
     </View>

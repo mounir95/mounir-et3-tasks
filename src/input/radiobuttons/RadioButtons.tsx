@@ -1,16 +1,16 @@
-import React, {FC} from 'react';
-import {View, Text, Button} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
-import {ObjectArray} from '../../../App';
-import {useState} from 'react';
+import React, { FC } from 'react';
+import { View, Text, Button } from 'react-native';
+import { globalStateContext } from '../../constants/UseContext';
+import { ObjectArray } from '../../App';
+import { useState } from 'react';
 import RadioButtonRow from './RadioButtonInput';
-import {booleanval} from '../../constants/UseContext';
+import { booleanval } from '../../constants/UseContext';
 
 type Props = {
   RadioButtons: Function;
 };
-const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
-  const [{reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT}, setChanges] =
+const RadioButtonInput: FC<Props> = ({ RadioButtons }) => {
+  const [{ reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT }, setChanges] =
     useState({
       reveiwed_by_BY: globalStateContext._currentValue.Reveiwed_by_BY,
       reveiwed_by_AH: globalStateContext._currentValue.Reveiwed_by_AH,
@@ -24,29 +24,29 @@ const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
     if (attribute === 'reveiwed_by_BY') {
       setChanges(
         val =>
-          (val = {
-            reveiwed_by_AH: reveiwed_by_AH,
-            reveiwed_by_HT: reveiwed_by_HT,
-            reveiwed_by_BY: booleanstring,
-          }),
+        (val = {
+          reveiwed_by_AH: reveiwed_by_AH,
+          reveiwed_by_HT: reveiwed_by_HT,
+          reveiwed_by_BY: booleanstring,
+        }),
       );
     } else if (attribute === 'reveiwed_by_AH') {
       setChanges(
         val =>
-          (val = {
-            reveiwed_by_HT: reveiwed_by_HT,
-            reveiwed_by_BY: reveiwed_by_BY,
-            reveiwed_by_AH: booleanstring,
-          }),
+        (val = {
+          reveiwed_by_HT: reveiwed_by_HT,
+          reveiwed_by_BY: reveiwed_by_BY,
+          reveiwed_by_AH: booleanstring,
+        }),
       );
     } else if (attribute === 'reveiwed_by_HT') {
       setChanges(
         val =>
-          (val = {
-            reveiwed_by_BY: reveiwed_by_BY,
-            reveiwed_by_AH: reveiwed_by_AH,
-            reveiwed_by_HT: booleanstring,
-          }),
+        (val = {
+          reveiwed_by_BY: reveiwed_by_BY,
+          reveiwed_by_AH: reveiwed_by_AH,
+          reveiwed_by_HT: booleanstring,
+        }),
       );
     }
   };
@@ -60,7 +60,7 @@ const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
 
   return (
     <View>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         <View
           style={{
             flex: 1,
@@ -70,7 +70,7 @@ const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>BY Approve:</Text>
+          <Text style={{ fontSize: 15, fontWeight: '700' }}>BY Approve:</Text>
           <RadioButtonRow
             key="firstrow"
             getboolean={booleanval}
@@ -89,7 +89,7 @@ const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>AH Approve:</Text>
+          <Text style={{ fontSize: 15, fontWeight: '700' }}>AH Approve:</Text>
           <RadioButtonRow
             key="secondrow"
             getboolean={booleanval}
@@ -108,7 +108,7 @@ const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>HT Approve:</Text>
+          <Text style={{ fontSize: 15, fontWeight: '700' }}>HT Approve:</Text>
           <RadioButtonRow
             key="thirdrow"
             getboolean={booleanval}
@@ -119,7 +119,7 @@ const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
           />
         </View>
       </View>
-      <View style={{marginTop: 35}}>
+      <View style={{ marginTop: 35 }}>
         <Button title={'Done'} onPress={() => handlePressSubmitButton()} />
       </View>
     </View>

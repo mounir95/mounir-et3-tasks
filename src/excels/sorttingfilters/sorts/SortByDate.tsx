@@ -1,8 +1,8 @@
-import React, {FC} from 'react';
-import {Text, View} from 'react-native';
+import React, { FC } from 'react';
+import { Text, View } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import {ObjectArray} from '../../../../App';
-import {arrayofsort} from '../../../constants/UseContext';
+import { ObjectArray } from '../../../App';
+import { arrayofsort } from '../../../constants/UseContext';
 import _ from 'lodash';
 
 type Props = {
@@ -10,9 +10,9 @@ type Props = {
   choosedfilter: Boolean;
 };
 
-const SortByDate: FC<Props> = ({setDate, choosedfilter}) => {
+const SortByDate: FC<Props> = ({ setDate, choosedfilter }) => {
   const itemarray = arrayofsort.map(item => {
-    return {label: item, value: item};
+    return { label: item, value: item };
   });
 
   const setDateSort = (event: React.ChangeEvent) => {
@@ -24,7 +24,7 @@ const SortByDate: FC<Props> = ({setDate, choosedfilter}) => {
   };
 
   return (
-    <View style={{marginBottom: 20, marginTop: 10}}>
+    <View style={{ marginBottom: 20, marginTop: 10 }}>
       <Text>Sort By Date: </Text>
       {choosedfilter && (
         <RNPickerSelect

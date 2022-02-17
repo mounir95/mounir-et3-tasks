@@ -1,19 +1,20 @@
-import React, {useState} from 'react';
-import type {Node} from 'react';
-import Excel from './src/excels/Excel';
-import AddButton from './src/AddButton';
-import InputForm from './src/input/InputForm';
-import UpdateForm from './src/input/UpdateForm';
-import {ScrollView, View} from 'react-native';
-import {Context} from 'vm';
+import React, { useState } from 'react';
+import type { Node } from 'react';
+
+import { ScrollView, View } from 'react-native';
+import { Context } from 'vm';
 import _ from 'lodash';
+import Excel from './excels/Excel';
+import UpdateRow from './input/UpdateForm';
+import InputForm from './input/InputForm';
+import AddButton from './Addbutton';
 
 export let ObjectArray: Context = React.createContext<object[]>([{}]);
 export let FilteredObjectArray: Context = React.createContext<object[]>([{}]);
 
 const App: () => Node = () => {
   const [
-    {id, addbuttontrue, inputform, updatefalse, filterfalse, addtext},
+    { id, addbuttontrue, inputform, updatefalse, filterfalse, addtext },
     setState,
   ] = useState({
     id: -1,
@@ -27,28 +28,28 @@ const App: () => Node = () => {
   const resetState = () => {
     setState(
       val =>
-        (val = {
-          id: -1,
-          addbuttontrue: true,
-          updatefalse: false,
-          inputform: false,
-          filterfalse: false,
-          addtext: 'ADD',
-        }),
+      (val = {
+        id: -1,
+        addbuttontrue: true,
+        updatefalse: false,
+        inputform: false,
+        filterfalse: false,
+        addtext: 'ADD',
+      }),
     );
   };
 
   const filterResetState = () => {
     setState(
       val =>
-        (val = {
-          id: -1,
-          addbuttontrue: addbuttontrue,
-          updatefalse: false,
-          inputform: false,
-          filterfalse: filterfalse,
-          addtext: 'ADD',
-        }),
+      (val = {
+        id: -1,
+        addbuttontrue: addbuttontrue,
+        updatefalse: false,
+        inputform: false,
+        filterfalse: filterfalse,
+        addtext: 'ADD',
+      }),
     );
   }
 
@@ -77,14 +78,14 @@ const App: () => Node = () => {
       }
       setState(
         val =>
-          (val = {
-            id: -1,
-            addbuttontrue: false,
-            updatefalse: false,
-            inputform: true,
-            filterfalse: false,
-            addtext: 'Close',
-          }),
+        (val = {
+          id: -1,
+          addbuttontrue: false,
+          updatefalse: false,
+          inputform: true,
+          filterfalse: false,
+          addtext: 'Close',
+        }),
       );
     }
   };
@@ -104,14 +105,14 @@ const App: () => Node = () => {
   const onUpdateFun = (objid: number) => {
     setState(
       val =>
-        (val = {
-          id: objid,
-          addbuttontrue: false,
-          updatefalse: true,
-          inputform: false,
-          filterfalse: false,
-          addtext: 'ADD',
-        }),
+      (val = {
+        id: objid,
+        addbuttontrue: false,
+        updatefalse: true,
+        inputform: false,
+        filterfalse: false,
+        addtext: 'ADD',
+      }),
     );
   };
 
@@ -143,14 +144,14 @@ const App: () => Node = () => {
     setAllChanges();
     setState(
       val =>
-        (val = {
-          id: -1,
-          addbuttontrue: !addbuttontrue,
-          updatefalse: false,
-          inputform: false,
-          filterfalse: !filterfalse,
-          addtext: 'ADD',
-        }),
+      (val = {
+        id: -1,
+        addbuttontrue: !addbuttontrue,
+        updatefalse: false,
+        inputform: false,
+        filterfalse: !filterfalse,
+        addtext: 'ADD',
+      }),
     );
   };
 
@@ -192,7 +193,7 @@ const App: () => Node = () => {
     setAllChanges();
     filterResetState();
   };
-    const statusFilter = (event: React.ChangeEvent) => {
+  const statusFilter = (event: React.ChangeEvent) => {
     FilteredObjectArray._currentValue = _.filter(
       ObjectArray._currentValue,
       (c: Context) => {
@@ -206,7 +207,7 @@ const App: () => Node = () => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ScrollView>
         <Excel
           openfilter={filterfalse}
@@ -225,7 +226,7 @@ const App: () => Node = () => {
           inputAdd={() => inputAddButton()}
           inputClose={() => inputCloseButton()}
         />
-        <UpdateForm
+        <UpdateRow
           inputupdateformtrue={updatefalse}
           updatedid={id}
           inputUpdate={() => inputUpdateButton()}

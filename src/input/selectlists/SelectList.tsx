@@ -1,15 +1,15 @@
-import React, {ChangeEvent, FC, useState} from 'react';
-import {View, Button} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
-import {ObjectArray} from '../../../App';
+import React, { ChangeEvent, FC, useState } from 'react';
+import { View, Button } from 'react-native';
+import { globalStateContext } from '../../constants/UseContext';
+import { ObjectArray } from '../../App';
 import SelectInput from './SelectInput';
 
 type Props = {
   SelectList: Function;
 };
 
-const InputSelectList: FC<Props> = ({SelectList}) => {
-  const [{se_list, platform}, setChanges] = useState({
+const InputSelectList: FC<Props> = ({ SelectList }) => {
+  const [{ se_list, platform }, setChanges] = useState({
     se_list: globalStateContext._currentValue.SE_list,
     platform: globalStateContext._currentValue.Platform,
   });
@@ -21,18 +21,18 @@ const InputSelectList: FC<Props> = ({SelectList}) => {
     if (parentData === se_list) {
       setChanges(
         val =>
-          (val = {
-            platform: platform,
-            se_list: [event],
-          }),
+        (val = {
+          platform: platform,
+          se_list: [event],
+        }),
       );
     } else if (parentData === platform) {
       setChanges(
         val =>
-          (val = {
-            se_list: se_list,
-            platform: [event],
-          }),
+        (val = {
+          se_list: se_list,
+          platform: [event],
+        }),
       );
     }
   };
@@ -45,7 +45,7 @@ const InputSelectList: FC<Props> = ({SelectList}) => {
 
   return (
     <View>
-      <View style={{marginBottom: 20, marginTop: 10}}>
+      <View style={{ marginBottom: 20, marginTop: 10 }}>
         <SelectInput
           key="firstrow"
           listname={'SE List'}
@@ -56,7 +56,7 @@ const InputSelectList: FC<Props> = ({SelectList}) => {
           }
         />
       </View>
-      <View style={{marginBottom: 20, marginTop: 10}}>
+      <View style={{ marginBottom: 20, marginTop: 10 }}>
         <SelectInput
           key="secondrow"
           listname={'Platform'}
@@ -67,7 +67,7 @@ const InputSelectList: FC<Props> = ({SelectList}) => {
           }
         />
       </View>
-      <View style={{marginTop: 25}}>
+      <View style={{ marginTop: 25 }}>
         <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
       </View>
     </View>

@@ -1,15 +1,15 @@
-import React, {FC} from 'react';
-import {View, Text, Button} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
-import {useState} from 'react';
-import {ObjectArray} from '../../../App';
+import React, { FC } from 'react';
+import { View, Text, Button } from 'react-native';
+import { globalStateContext } from '../../constants/UseContext';
+import { useState } from 'react';
+import { ObjectArray } from '../../App';
 import TextInputRow from './TextInputRow';
 
 type Props = {
   TextPage: Function
 }
 
-const InputText: FC<Props> = ({TextPage}) => {
+const InputText: FC<Props> = ({ TextPage }) => {
   const [
     {
       comment,
@@ -35,38 +35,38 @@ const InputText: FC<Props> = ({TextPage}) => {
     if (Atribuite === comment) {
       setChanges(
         val =>
-          (val = {
-            pr_Link: pr_Link,
-            release_version: release_version,
-            comment: event,
-            pr_link_err: pr_link_err,
-            release_version_err: release_version_err,
-            comment_err: 'event'
-          })
+        (val = {
+          pr_Link: pr_Link,
+          release_version: release_version,
+          comment: event,
+          pr_link_err: pr_link_err,
+          release_version_err: release_version_err,
+          comment_err: 'event'
+        })
       )
     } else if (Atribuite === pr_Link) {
       setChanges(
         val =>
-          (val = {
-            comment: comment,
-            release_version: release_version,
-            pr_Link: event,
-            comment_err: comment_err,
-            release_version_err: release_version_err,
-            pr_link_err: 'event'
-          }),
+        (val = {
+          comment: comment,
+          release_version: release_version,
+          pr_Link: event,
+          comment_err: comment_err,
+          release_version_err: release_version_err,
+          pr_link_err: 'event'
+        }),
       );;
     } else if (Atribuite === release_version) {
       setChanges(
         val =>
-          (val = {
-            comment: comment,
-            pr_Link: pr_Link,
-            release_version: event,
-            comment_err: comment_err,
-            pr_link_err: pr_link_err,
-            release_version_err: 'event'
-          })
+        (val = {
+          comment: comment,
+          pr_Link: pr_Link,
+          release_version: event,
+          comment_err: comment_err,
+          pr_link_err: pr_link_err,
+          release_version_err: 'event'
+        })
       );;
     }
   };
@@ -101,27 +101,27 @@ const InputText: FC<Props> = ({TextPage}) => {
   return (
     <View>
       <View>
-        <Text style={{color: '#776677'}}>Release Version</Text>
+        <Text style={{ color: '#776677' }}>Release Version</Text>
         <TextInputRow
           stringval={globalStateContext.Release_Version}
           onchangefun={event => onInputchange(event, release_version)}
         />
       </View>
       <View>
-        <Text style={{color: '#776677'}}>Comment</Text>
+        <Text style={{ color: '#776677' }}>Comment</Text>
         <TextInputRow
           stringval={globalStateContext.Comment}
           onchangefun={event => onInputchange(event, comment)}
         />
       </View>
       <View>
-        <Text style={{color: '#776677'}}>PR_LINK</Text>
+        <Text style={{ color: '#776677' }}>PR_LINK</Text>
         <TextInputRow
           stringval={globalStateContext.Pr_Link}
           onchangefun={event => onInputchange(event, pr_Link)}
         />
       </View>
-      <View style={{marginTop: 25}}>
+      <View style={{ marginTop: 25 }}>
         <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
       </View>
     </View>

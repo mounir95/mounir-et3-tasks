@@ -1,10 +1,10 @@
-import React, {FC, useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, { FC, useState } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
 import InputSelectList from './selectlists/SelectListSubmit';
 import InputTextInput from './textinputs/TextInputSubmit';
 import InputSSDList from './ssdlists/SSDListsSubmit';
 import InputRadioButton from './radiobuttons/RadioButtonsSubmit';
-import {ObjectArray} from '../../App';
+import { ObjectArray } from '../App';
 import InputDatePicker from './datepicking/DatePickerSubmit';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
   inputClose: Function;
 };
 
-const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
+const InputForm: FC<Props> = ({ inptformtrue, inputAdd, inputClose }) => {
   let lastIndex: number;
   if (ObjectArray._currentValue.length - 1 <= 0) {
     lastIndex = 0;
@@ -22,7 +22,7 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
       ObjectArray._currentValue[ObjectArray._currentValue.length - 1].Myid;
   }
   const [
-    {id, selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue, datepagetrue},
+    { id, selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue, datepagetrue },
     setNext,
   ] = useState({
     id: lastIndex,
@@ -36,55 +36,55 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
   const DatePage = () => {
     setNext(
       val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: false,
-          selectpagetrue: true,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
+      (val = {
+        id: lastIndex,
+        datepagetrue: false,
+        selectpagetrue: true,
+        textpagetrue: false,
+        ssdliststrue: false,
+        radiobuttonstrue: false,
+      }),
     );
   };
 
   const SelectList = () => {
     setNext(
       val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: false,
-          selectpagetrue: false,
-          textpagetrue: true,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
+      (val = {
+        id: lastIndex,
+        datepagetrue: false,
+        selectpagetrue: false,
+        textpagetrue: true,
+        ssdliststrue: false,
+        radiobuttonstrue: false,
+      }),
     );
   };
 
   const TextPage = () => {
     setNext(
       val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: false,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: true,
-          radiobuttonstrue: false,
-        }),
+      (val = {
+        id: lastIndex,
+        datepagetrue: false,
+        selectpagetrue: false,
+        textpagetrue: false,
+        ssdliststrue: true,
+        radiobuttonstrue: false,
+      }),
     );
   };
   const SSDLists = () => {
     setNext(
       val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: false,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: true,
-        }),
+      (val = {
+        id: lastIndex,
+        datepagetrue: false,
+        selectpagetrue: false,
+        textpagetrue: false,
+        ssdliststrue: false,
+        radiobuttonstrue: true,
+      }),
     );
   };
 
@@ -92,14 +92,14 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
     ObjectArray.Myid = id + 1;
     setNext(
       val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: true,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
+      (val = {
+        id: lastIndex,
+        datepagetrue: true,
+        selectpagetrue: false,
+        textpagetrue: false,
+        ssdliststrue: false,
+        radiobuttonstrue: false,
+      }),
     );
     inputAdd();
   };
@@ -107,14 +107,14 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
   const handlePressCloseButton = () => {
     setNext(
       val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: true,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
+      (val = {
+        id: lastIndex,
+        datepagetrue: true,
+        selectpagetrue: false,
+        textpagetrue: false,
+        ssdliststrue: false,
+        radiobuttonstrue: false,
+      }),
     );
     inputClose();
   };
@@ -155,7 +155,7 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
       )}
       {inptformtrue && (
         <TouchableOpacity onPress={() => handlePressCloseButton()}>
-          <View style={{alignItems: 'center'}}>
+          <View style={{ alignItems: 'center' }}>
             <Text
               style={{
                 borderWidth: 2,
@@ -176,4 +176,4 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
   );
 };
 
-export default InputRow;
+export default InputForm;
