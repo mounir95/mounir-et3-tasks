@@ -50,7 +50,6 @@ const ExcelRowInput: FC<Props> = ({
           padding: 5,
           height: 35,
           borderRadius: 1,
-          color: 'black',
           backgroundColor: 'lavender',
         }}>
         {index <= 12 && (

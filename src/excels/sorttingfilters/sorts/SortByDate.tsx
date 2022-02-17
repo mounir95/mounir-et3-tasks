@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import {ObjectArray} from '../../../../App';
+import {ObjectArray} from '../../../App';
 import {arrayofsort} from '../../../constants/UseContext';
 import _ from 'lodash';
 
@@ -17,9 +17,11 @@ const SortByDate: FC<Props> = ({setDate, choosedfilter}) => {
 
   const setDateSort = (event: React.ChangeEvent) => {
     const datesorting = event.toString() === 'desc' ? 'asc' : 'desc';
-    const newobjectarray = _.orderBy(ObjectArray._currentValue, o => o.Mydate, [
-      datesorting,
-    ]);
+    const newobjectarray = _.orderBy(
+      ObjectArray._currentValue,
+      (obj: object) => obj.Mydate,
+      [datesorting],
+    );
     setDate(newobjectarray);
   };
 

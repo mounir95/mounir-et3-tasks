@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {View} from 'react-native';
 import ExcelRowInput from './ExcelRowInput';
 import FilteredRows from './FilteredRows';
-import {FilteredObjectArray, ObjectArray} from '../../../App';
+import {FilteredObjectArray, ObjectArray} from '../../App';
 
 type Props = {
   filtertrue: Boolean;
@@ -24,7 +24,7 @@ const ExcelRows: FC<Props> = ({
   return (
     <View>
       {!filtertrue &&
-        arrayofobjects.map(e => {
+        arrayofobjects.map((e: object) => {
           if (e.hasOwnProperty('Mycomment')) {
             return (
               <ExcelRowInput
@@ -38,7 +38,7 @@ const ExcelRows: FC<Props> = ({
           }
         })}
       {filtertrue &&
-        arrayoffilteredobjects.map(e => {
+        arrayoffilteredobjects.map((e: object) => {
           if (e.hasOwnProperty('Mycomment')) {
             return <FilteredRows object={e} index={index} />;
           }

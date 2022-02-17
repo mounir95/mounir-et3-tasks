@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, useState} from 'react';
 import {View, Button} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
-import {ObjectArray} from '../../../App';
+import {ObjectArray} from '../../App';
 import SelectInput from './SelectInput';
 
 type Props = {

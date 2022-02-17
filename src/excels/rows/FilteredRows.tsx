@@ -38,7 +38,6 @@ const FilteredRows: FC<Props> = ({object, index}) => {
           padding: 5,
           height: 35,
           borderRadius: 1,
-          color: 'black',
           backgroundColor: 'lavender',
         }}>
         {index <= 12 && (

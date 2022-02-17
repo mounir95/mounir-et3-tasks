@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import {View, Text, Button, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {ObjectArray} from '../../../App';
+import {ObjectArray} from '../../App';
 
 type Props = {
   DatePage: Function;

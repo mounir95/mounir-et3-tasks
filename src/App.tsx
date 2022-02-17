@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import type {Node} from 'react';
-import Excel from './src/excels/Excel';
-import AddButton from './src/AddButton';
-import InputForm from './src/input/InputForm';
-import UpdateForm from './src/input/UpdateForm';
+import Excel from './excels/Excel';
+import AddButton from './AddButton';
+import InputForm from './input/InputForm';
+import UpdateForm from './input/UpdateForm';
 import {ScrollView, View} from 'react-native';
 import {Context} from 'vm';
 import _ from 'lodash';
@@ -11,7 +10,7 @@ import _ from 'lodash';
 export let ObjectArray: Context = React.createContext<object[]>([{}]);
 export let FilteredObjectArray: Context = React.createContext<object[]>([{}]);
 
-const App: () => Node = () => {
+const App = () => {
   const [
     {id, addbuttontrue, inputform, updatefalse, filterfalse, addtext},
     setState,
@@ -50,7 +49,7 @@ const App: () => Node = () => {
           addtext: 'ADD',
         }),
     );
-  }
+  };
 
   const setAllChanges = () => {
     ObjectArray._currentValue2 = ObjectArray._currentValue;
@@ -68,8 +67,9 @@ const App: () => Node = () => {
       if (ObjectArray._currentValue.length >= 2) {
         ObjectArray._currentValue = _.orderBy(
           ObjectArray._currentValue,
-          o => o.Myid,
-          ['asc'],
+          (obj: object) => {
+            obj.Myid, ['asc'];
+          },
         );
         ObjectArray._currentValue.unshift({});
         ObjectArray._currentValue.pop();
@@ -93,7 +93,6 @@ const App: () => Node = () => {
     ObjectArray._currentValue = _.filter(
       ObjectArray._currentValue,
       (c: Context) => {
-        console.log(c.Myid);
         return c.Myid !== objid;
       },
     );
@@ -192,7 +191,7 @@ const App: () => Node = () => {
     setAllChanges();
     filterResetState();
   };
-    const statusFilter = (event: React.ChangeEvent) => {
+  const statusFilter = (event: React.ChangeEvent) => {
     FilteredObjectArray._currentValue = _.filter(
       ObjectArray._currentValue,
       (c: Context) => {

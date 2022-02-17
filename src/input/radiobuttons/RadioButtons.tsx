@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
-import {ObjectArray} from '../../../App';
+import {ObjectArray} from '../../App';
 import {useState} from 'react';
 import RadioButtonRow from './RadioButtonInput';
 import {booleanval} from '../../constants/UseContext';

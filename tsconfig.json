@@ -2,7 +2,7 @@
   "compileOnSave": true,
   "include": [
     "./src/"
-  ],
+, "AddButton.tsx"  ],
   "compilerOptions": {
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,

@@ -2,12 +2,12 @@ import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {useState} from 'react';
-import {ObjectArray} from '../../../App';
+import {ObjectArray} from '../../App';
 import TextInputRow from './TextInputRow';
 
 type Props = {
-  TextPage: Function
-}
+  TextPage: Function;
+};
 
 const InputText: FC<Props> = ({TextPage}) => {
   const [
@@ -17,7 +17,7 @@ const InputText: FC<Props> = ({TextPage}) => {
       pr_Link,
       pr_link_err,
       release_version,
-      release_version_err
+      release_version_err,
     },
     setChanges,
   ] = useState({
@@ -26,8 +26,8 @@ const InputText: FC<Props> = ({TextPage}) => {
     release_version: globalStateContext._currentValue.Release_Version,
     comment_err: '',
     pr_link_err: '',
-    release_version_err: ''
-  })
+    release_version_err: '',
+  });;
   const onInputchange = (
     event: React.ChangeEvent<HTMLSelectElement>,
     Atribuite: string,
@@ -41,9 +41,9 @@ const InputText: FC<Props> = ({TextPage}) => {
             comment: event,
             pr_link_err: pr_link_err,
             release_version_err: release_version_err,
-            comment_err: 'event'
-          })
-      )
+            comment_err: 'event',
+          }),
+      );;
     } else if (Atribuite === pr_Link) {
       setChanges(
         val =>
@@ -53,9 +53,9 @@ const InputText: FC<Props> = ({TextPage}) => {
             pr_Link: event,
             comment_err: comment_err,
             release_version_err: release_version_err,
-            pr_link_err: 'event'
+            pr_link_err: 'event',
           }),
-      );;
+      );
     } else if (Atribuite === release_version) {
       setChanges(
         val =>
@@ -65,9 +65,9 @@ const InputText: FC<Props> = ({TextPage}) => {
             release_version: event,
             comment_err: comment_err,
             pr_link_err: pr_link_err,
-            release_version_err: 'event'
-          })
-      );;
+            release_version_err: 'event',
+          }),
+      );
     }
   };
 
@@ -104,21 +104,24 @@ const InputText: FC<Props> = ({TextPage}) => {
         <Text style={{color: '#776677'}}>Release Version</Text>
         <TextInputRow
           stringval={globalStateContext.Release_Version}
-          onchangefun={event => onInputchange(event, release_version)}
+          onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
+            onInputchange(event, release_version)}
         />
       </View>
       <View>
         <Text style={{color: '#776677'}}>Comment</Text>
         <TextInputRow
           stringval={globalStateContext.Comment}
-          onchangefun={event => onInputchange(event, comment)}
+          onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
+            onInputchange(event, comment)}
         />
       </View>
       <View>
         <Text style={{color: '#776677'}}>PR_LINK</Text>
         <TextInputRow
           stringval={globalStateContext.Pr_Link}
-          onchangefun={event => onInputchange(event, pr_Link)}
+          onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) => 
+            onInputchange(event, pr_Link)}
         />
       </View>
       <View style={{marginTop: 25}}>

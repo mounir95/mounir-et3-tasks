@@ -4,7 +4,7 @@ import InputSelectList from './selectlists/SelectListSubmit';
 import InputTextInput from './textinputs/TextInputSubmit';
 import InputSSDList from './ssdlists/SSDListsSubmit';
 import InputRadioButton from './radiobuttons/RadioButtonsSubmit';
-import {ObjectArray} from '../../App';
+import {ObjectArray} from '../App';
 import InputDatePicker from './datepicking/DatePickerSubmit';
 import {Context} from 'vm';
 
