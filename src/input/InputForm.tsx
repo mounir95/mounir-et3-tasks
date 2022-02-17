@@ -1,11 +1,11 @@
 import React, {FC, useState} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import InputSelectList from './selectlists/SelectListSubmit';
-import InputTextInput from './textinputs/TextInputSubmit';
-import InputSSDList from './ssdlists/SSDListsSubmit';
-import InputRadioButton from './radiobuttons/RadioButtonsSubmit';
-import {ObjectArray} from '../App';
-import InputDatePicker from './datepicking/DatePickerSubmit';
+import InputSelectList from './selectlists/SelectList';
+import InputTextInput from './textinputs/TextInput';
+import InputSSDList from './ssdlists/SSDLists';
+import InputRadioButton from './radiobuttons/RadioButtons';
+import {ObjectArray} from '../components/ADDPage';
+import InputDatePicker from './datepicking/DatePicking';
 
 type Props = {
   inptformtrue: Boolean;
@@ -22,86 +22,50 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
       ObjectArray._currentValue[ObjectArray._currentValue.length - 1].Myid;
   }
   const [
-    {id, selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue, datepagetrue},
+    {id, arrayval},
     setNext,
   ] = useState({
     id: lastIndex,
-    datepagetrue: true,
-    selectpagetrue: false,
-    textpagetrue: false,
-    ssdliststrue: false,
-    radiobuttonstrue: false,
+    arrayval: ['']
   });
 
-  const DatePage = () => {
-    setNext(
-      val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: false,
-          selectpagetrue: true,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
-    );
+    const checkValidation = (stringarray: string []) => {
+            setNext(
+        val =>
+          (val = {
+            id: lastIndex,
+                arrayval: stringarray
+          }),
+      );
+      if (stringarray[2] !== '') {
+      if (stringarray[1] !== '') {
+        if (stringarray[0]) {
+          return true;
+        } else {
+          return 'Pr Link Required';
+        }
+      } else {
+        return 'Comment Required';
+      }
+    } else {
+      return 'Release Version Required';
+    }
   };
 
-  const SelectList = () => {
-    setNext(
-      val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: false,
-          selectpagetrue: false,
-          textpagetrue: true,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
-    );
-  };
-
-  const TextPage = () => {
-    setNext(
-      val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: false,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: true,
-          radiobuttonstrue: false,
-        }),
-    );
-  };
-  const SSDLists = () => {
-    setNext(
-      val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: false,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: true,
-        }),
-    );
-  };
-
-  const RadioButtons = () => {
-    ObjectArray.Myid = id + 1;
-    setNext(
-      val =>
-        (val = {
-          id: lastIndex,
-          datepagetrue: true,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
-    );
-    inputAdd();
+  const toRadioButtons = () => {
+    if (checkValidation(arrayval) === true) {
+      ObjectArray.Myid = id + 1;
+      setNext(
+        val =>
+          (val = {
+            id: lastIndex,
+                arrayval: ['']
+          }),
+      );
+      inputAdd();
+    }else{
+      console.warn(checkValidation);
+    };
   };
 
   const handlePressCloseButton = () => {
@@ -109,11 +73,7 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
       val =>
         (val = {
           id: lastIndex,
-          datepagetrue: true,
-          selectpagetrue: false,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
+              arrayval: ['']
         }),
     );
     inputClose();
@@ -131,26 +91,24 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <InputDatePicker
-            opendatepage={datepagetrue}
-            toDatePage={() => DatePage()}
-          />
-          <InputSelectList
-            openselectpage={selectpagetrue}
-            toSelectList={() => SelectList()}
-          />
-          <InputTextInput
-            opentextpage={textpagetrue}
-            toTextPage={() => TextPage()}
-          />
-          <InputSSDList
-            openssdlists={ssdliststrue}
-            toSSDLists={() => SSDLists()}
-          />
+        <View
+          style={{
+            width: '90%',
+            // height: 100,
+            backgroundColor: 'white',
+            borderWidth: 1,
+            borderColor: 'yellow',
+            margin: 5
+          }}>
+          <InputDatePicker />
+          <InputSelectList />
+          <InputTextInput 
+          Validated= {(stringarray: string[]) => checkValidation(stringarray)}/>
+          <InputSSDList />
           <InputRadioButton
-            openradiobuttons={radiobuttonstrue}
-            toRadioButtons={() => RadioButtons()}
+            RadioButtons={() => toRadioButtons()}
           />
+        </View>
         </View>
       )}
       {inptformtrue && (

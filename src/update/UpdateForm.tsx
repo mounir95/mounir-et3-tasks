@@ -4,8 +4,7 @@ import InputSelectList from './selectlists/SelectListSubmit';
 import InputTextInput from './textinputs/TextInputSubmit';
 import InputSSDList from './ssdlists/SSDListsSubmit';
 import InputRadioButton from './radiobuttons/RadioButtonsSubmit';
-import {ObjectArray} from '../App';
-import InputDatePicker from './datepicking/DatePickerSubmit';
+import {ObjectArray} from '../components/ADDPage';
 import {Context} from 'vm';
 
 type Props = {
@@ -22,37 +21,21 @@ const UpdateRow: FC<Props> = ({
   inputupdateformtrue,
 }) => {
   const [
-    {id, selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue, datepagetrue},
+    {id, selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue},
     setNext,
   ] = useState({
     id: updatedid,
-    datepagetrue: true,
-    selectpagetrue: false,
+    selectpagetrue: true,
     textpagetrue: false,
     ssdliststrue: false,
     radiobuttonstrue: false,
   });
-
-  const DatePage = () => {
-    setNext(
-      val =>
-        (val = {
-          id: updatedid,
-          datepagetrue: false,
-          selectpagetrue: true,
-          textpagetrue: false,
-          ssdliststrue: false,
-          radiobuttonstrue: false,
-        }),
-    );
-  };
 
   const SelectList = () => {
     setNext(
       val =>
         (val = {
           id: updatedid,
-          datepagetrue: false,
           selectpagetrue: false,
           textpagetrue: true,
           ssdliststrue: false,
@@ -66,7 +49,6 @@ const UpdateRow: FC<Props> = ({
       val =>
         (val = {
           id: updatedid,
-          datepagetrue: false,
           selectpagetrue: false,
           textpagetrue: false,
           ssdliststrue: true,
@@ -79,7 +61,6 @@ const UpdateRow: FC<Props> = ({
       val =>
         (val = {
           id: updatedid,
-          datepagetrue: false,
           selectpagetrue: false,
           textpagetrue: false,
           ssdliststrue: false,
@@ -109,8 +90,7 @@ const UpdateRow: FC<Props> = ({
       val =>
         (val = {
           id: updatedid,
-          datepagetrue: true,
-          selectpagetrue: false,
+          selectpagetrue: true,
           textpagetrue: false,
           ssdliststrue: false,
           radiobuttonstrue: false,
@@ -124,8 +104,7 @@ const UpdateRow: FC<Props> = ({
       val =>
         (val = {
           id: updatedid,
-          datepagetrue: true,
-          selectpagetrue: false,
+          selectpagetrue: true,
           textpagetrue: false,
           ssdliststrue: false,
           radiobuttonstrue: false
@@ -146,10 +125,6 @@ const UpdateRow: FC<Props> = ({
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <InputDatePicker
-            opendatepage={datepagetrue}
-            toDatePage={() => DatePage()}
-          />
           <InputSelectList
             openselectpage={selectpagetrue}
             toSelectList={() => SelectList()}

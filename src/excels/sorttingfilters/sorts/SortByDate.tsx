@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import {ObjectArray} from '../../../App';
+import {ObjectArray} from '../../../components/ADDPage';
 import {arrayofsort} from '../../../constants/UseContext';
 import _ from 'lodash';
 

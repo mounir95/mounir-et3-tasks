@@ -1,13 +1,9 @@
-import React, {FC, useState} from 'react';
+import React, {useState} from 'react';
 import {View, Text, Button, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {ObjectArray} from '../../App';
+import {ObjectArray} from '../../components/ADDPage';
 
-type Props = {
-  DatePage: Function;
-};
-
-const Datepicker: FC<Props> = ({DatePage}) => {
+const Datepicker = () => {
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
 
@@ -22,10 +18,7 @@ const Datepicker: FC<Props> = ({DatePage}) => {
     }
   };
 
-  const handlePressSubmitButton = () => {
-    ObjectArray.Mydate = JSON.stringify(date);
-    DatePage();
-  };
+  ObjectArray.Mydate = JSON.stringify(date);
 
   return (
     <View
@@ -66,9 +59,6 @@ const Datepicker: FC<Props> = ({DatePage}) => {
           }}
         />
       )}
-      <View style={{marginTop: 15}}>
-        <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
-      </View>
     </View>
   );
 };

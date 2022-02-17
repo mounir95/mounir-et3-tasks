@@ -2,7 +2,8 @@ import React, {FC} from 'react';
 import {View} from 'react-native';
 import ExcelRowInput from './ExcelRowInput';
 import FilteredRows from './FilteredRows';
-import {FilteredObjectArray, ObjectArray} from '../../App';
+import {ObjectArray} from '../../components/ADDPage';
+import {FilteredObjectArray} from '../../components/Excel';
 
 type Props = {
   filtertrue: Boolean;

@@ -1,11 +1,14 @@
-import React, {ChangeEvent} from 'react';
-import {View} from 'react-native';
+import React, {FC, ChangeEvent} from 'react';
+import {View, Button} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {useState} from 'react';
 import {ObjectArray} from '../../components/ADDPage';
 import SelectInput from '../selectlists/SelectInput';
 
-const SSDListInput = () => {
+type Props = {
+  SSDLists: Function;
+};
+const SSDListInput: FC<Props> = ({SSDLists}) => {
   const [{size, dificulity, status_list}, setChanges] = useState({
     size: globalStateContext._currentValue.Size,
     dificulity: globalStateContext._currentValue.Dificulity,
@@ -46,10 +49,12 @@ const SSDListInput = () => {
     }
   };
 
+  const handlePressSubmitButton = () => {
     ObjectArray.Mystatus_list = status_list[0];
     ObjectArray.Mysize = size[0];
     ObjectArray.Mydificulity = dificulity[0];
-
+    SSDLists();
+  };;
   return (
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
@@ -81,6 +86,9 @@ const SSDListInput = () => {
             outputEvent(event, dificulity)
           }
         />
+      </View>
+      <View style={{marginTop: 25}}>
+        <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
       </View>
     </View>
   );

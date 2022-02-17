@@ -1,10 +1,14 @@
-import React, {ChangeEvent, useState} from 'react';
-import {View} from 'react-native';
+import React, {ChangeEvent, FC, useState} from 'react';
+import {View, Button} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {ObjectArray} from '../../components/ADDPage';
 import SelectInput from './SelectInput';
 
-const InputSelectList = () => {
+type Props = {
+  SelectList: Function;
+};
+
+const InputSelectList: FC<Props> = ({SelectList}) => {
   const [{se_list, platform}, setChanges] = useState({
     se_list: globalStateContext._currentValue.SE_list,
     platform: globalStateContext._currentValue.Platform,
@@ -33,8 +37,11 @@ const InputSelectList = () => {
     }
   };
 
+  const handlePressSubmitButton = () => {
     ObjectArray.Myse_list = se_list[0];
     ObjectArray.Myplatform = platform[0];
+    SelectList();
+  };
 
   return (
     <View>
@@ -59,6 +66,9 @@ const InputSelectList = () => {
             outputEvent(event, platform)
           }
         />
+      </View>
+      <View style={{marginTop: 25}}>
+        <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
       </View>
     </View>
   );

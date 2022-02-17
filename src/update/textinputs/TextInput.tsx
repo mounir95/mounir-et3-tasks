@@ -1,15 +1,15 @@
 import React, {FC} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Button} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {useState} from 'react';
 import {ObjectArray} from '../../components/ADDPage';
 import TextInputRow from './TextInputRow';
 
 type Props = {
-  Validated: Function
-}
+  TextPage: Function;
+};
 
-const InputText: FC<Props> = ({Validated}) => {
+const InputText: FC<Props> = ({TextPage}) => {
   const [
     {
       comment,
@@ -69,10 +69,33 @@ const InputText: FC<Props> = ({Validated}) => {
           }),
       );
     }
-    ObjectArray.Mypr_Link = pr_Link;
-    ObjectArray.Mycomment = comment;
-    ObjectArray.Myrelease_version = release_version;
-    Validated([pr_link_err, comment_err, release_version_err]);
+  };
+
+  const Validated = () => {
+    if (release_version_err !== '') {
+      if (comment_err !== '') {
+        if (pr_link_err) {
+          return true;
+        } else {
+          return 'Pr Link Required';
+        }
+      } else {
+        return 'Comment Required';
+      }
+    } else {
+      return 'Release Version Required';
+    }
+  };
+
+  const handlePressSubmitButton = () => {
+    if (Validated() === true) {
+      ObjectArray.Mypr_Link = pr_Link;
+      ObjectArray.Mycomment = comment;
+      ObjectArray.Myrelease_version = release_version;
+      TextPage();
+    } else {
+      console.warn(Validated());
+    }
   };
 
   return (
@@ -100,6 +123,9 @@ const InputText: FC<Props> = ({Validated}) => {
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) => 
             onInputchange(event, pr_Link)}
         />
+      </View>
+      <View style={{marginTop: 25}}>
+        <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
       </View>
     </View>
   );
