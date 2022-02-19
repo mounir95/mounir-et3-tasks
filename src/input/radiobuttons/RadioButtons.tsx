@@ -12,9 +12,9 @@ type Props = {
 const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
   const [{reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT}, setChanges] =
     useState({
-      reveiwed_by_BY: globalStateContext._currentValue.Reveiwed_by_BY,
-      reveiwed_by_AH: globalStateContext._currentValue.Reveiwed_by_AH,
-      reveiwed_by_HT: globalStateContext._currentValue.Reveiwed_by_HT,
+      reveiwed_by_BY: globalStateContext._currentValue.ReveiwedByBY,
+      reveiwed_by_AH: globalStateContext._currentValue.ReveiwedByAH,
+      reveiwed_by_HT: globalStateContext._currentValue.ReveiwedByHT,
     });
 
   const changeHandle = (
@@ -52,9 +52,9 @@ const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
   };
 
   const handlePressSubmitButton = () => {
-    ObjectArray.Myreveiwed_by_BY = reveiwed_by_BY;
-    ObjectArray.Myreveiwed_by_AH = reveiwed_by_AH;
-    ObjectArray.Myreveiwed_by_HT = reveiwed_by_HT;
+    ObjectArray.MyreviewedbyBY = reveiwed_by_BY;
+    ObjectArray.MyreviewedbyAH = reveiwed_by_AH;
+    ObjectArray.MyreviewedbyHT = reveiwed_by_HT;
     RadioButtons();
   };
 

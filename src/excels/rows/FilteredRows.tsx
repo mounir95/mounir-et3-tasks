@@ -1,58 +1,55 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
+import {TPrObject} from '../../constants/UseContext';
 
 type Props = {
-  object: object;
+  object: TPrObject;
   index: number;
 };
 const FilteredRows: FC<Props> = ({object, index}) => {
   const objectarrayval = [
     object.Mydate,
-    object.Myse_list,
+    object.Myselist,
     object.Myid,
     object.Myplatform,
-    object.Myrelease_version,
+    object.Myreleaseversion,
     object.Mycomment,
-    object.Mypr_Link,
+    object.Myprlink,
     object.Mysize,
     object.Mydificulity,
-    object.Mystatus_list,
-    object.Myreveiwed_by_BY,
-    object.Myreveiwed_by_AH,
-    object.Myreveiwed_by_HT,
+    object.Mystatuslist,
+    object.MyreviewedbyBY,
+    object.MyreviewedbyAH,
+    object.MyreviewedbyHT,
   ];
 
-  if (object === {}) {
-    return <Text />;
-  } else {
-    return (
-      <View
-        style={{
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexDirection: 'column',
-          flex: 1,
-          marginRight: 2,
-          marginLeft: 2,
-          marginBottom: 10,
-          padding: 5,
-          height: 35,
-          borderRadius: 1,
-          backgroundColor: 'lavender',
-        }}>
-        {index <= 12 && (
-          <View>
-            <Text>{objectarrayval[index]}</Text>
-          </View>
-        )}
-        {index > 12 && (
-          <View>
-            <Text />
-          </View>
-        )}
-      </View>
-    );
-  }
+  return (
+    <View
+      style={{
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'column',
+        flex: 1,
+        marginRight: 2,
+        marginLeft: 2,
+        marginBottom: 10,
+        padding: 5,
+        height: 35,
+        borderRadius: 1,
+        backgroundColor: 'lavender',
+      }}>
+      {index <= 12 && (
+        <View>
+          <Text>{objectarrayval[index]}</Text>
+        </View>
+      )}
+      {index > 12 && (
+        <View>
+          <Text />
+        </View>
+      )}
+    </View>
+  );
 };
 
 export default FilteredRows;

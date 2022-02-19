@@ -1,14 +1,24 @@
 import React, {useState} from 'react';
 import {ScrollView, View, Button} from 'react-native';
-import _ from 'lodash';
+import orderBy from 'lodash/orderBy';
+import filter from 'lodash/filter';
 import {Context} from 'vm';
 import AddButton from './AddButton';
 import InputForm from '../input/InputForm';
-import {NavigationRouteContext} from '@react-navigation/native';
+import {TPrObject} from '../constants/UseContext';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
 
-export let ObjectArray: Context = React.createContext<object[]>([{}]);
+type RootStackParamList = {
+  Excel: undefined;
+};
 
-const ADDPage = ({navigation}) => {
+export let ObjectArray: Context = React.createContext<TPrObject | {}[]>([{}]);
+
+type mainScreenProp = StackNavigationProp<RootStackParamList, 'Excel'>;
+
+const ADDPage = () => {
+  const navigation = useNavigation<mainScreenProp>();
   const [{addbuttontrue, inputform, addtext}, setState] = useState({
     addbuttontrue: true,
     inputform: false,
@@ -27,6 +37,16 @@ const ADDPage = ({navigation}) => {
   };
 
   const setAllChanges = () => {
+    if (ObjectArray._currentValue.length >= 2) {
+      ObjectArray._currentValue = filter(
+        orderBy(ObjectArray._currentValue, (obj: TPrObject) => obj.Myid, [
+          'asc',
+        ]),
+        (c: Context) => {
+          return c.hasOwnProperty('Myid');
+        },
+      );
+    }
     ObjectArray._currentValue2 = ObjectArray._currentValue;
     ObjectArray = React.createContext<object[]>([...ObjectArray._currentValue]);
   };
@@ -40,24 +60,14 @@ const ADDPage = ({navigation}) => {
   };
 
   const checkTableIssue = () => {
-    navigation.navigate('Excel Page')
-  }
+    setAllChanges();
+    navigation.navigate('Excel');
+  };
 
   const onButtonPress = () => {
     if (addtext === 'Close') {
       resetState();
     } else {
-      if (ObjectArray._currentValue.length >= 2) {
-        ObjectArray._currentValue = _.orderBy(
-          ObjectArray._currentValue,
-          (obj: object) => {
-            obj.Myid, ['asc'];
-          },
-        );
-        ObjectArray._currentValue.unshift({});
-        ObjectArray._currentValue.pop();
-        setAllChanges();
-      }
       setState(
         val =>
           (val = {
@@ -67,10 +77,12 @@ const ADDPage = ({navigation}) => {
           }),
       );
     }
+    setAllChanges();
   };
 
   const inputCloseButton = () => {
     resetState();
+    setAllChanges();
   };
 
   return (
@@ -87,7 +99,7 @@ const ADDPage = ({navigation}) => {
         buttontext={addtext}
         buttonPressed={() => onButtonPress()}
       />
-      <Button title='Check Table Issue' onPress={() => checkTableIssue()} />
+      <Button title="Check Table Issue" onPress={() => checkTableIssue()} />
     </View>
   );
 };

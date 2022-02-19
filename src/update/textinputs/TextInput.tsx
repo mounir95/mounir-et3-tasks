@@ -22,8 +22,8 @@ const InputText: FC<Props> = ({TextPage}) => {
     setChanges,
   ] = useState({
     comment: globalStateContext._currentValue.Comment,
-    pr_Link: globalStateContext._currentValue.Pr_Link,
-    release_version: globalStateContext._currentValue.Release_Version,
+    pr_Link: globalStateContext._currentValue.PrLink,
+    release_version: globalStateContext._currentValue.ReleaseVersion,
     comment_err: '',
     pr_link_err: '',
     release_version_err: '',
@@ -89,9 +89,9 @@ const InputText: FC<Props> = ({TextPage}) => {
 
   const handlePressSubmitButton = () => {
     if (Validated() === true) {
-      ObjectArray.Mypr_Link = pr_Link;
+      ObjectArray.Myprlink = pr_Link;
       ObjectArray.Mycomment = comment;
-      ObjectArray.Myrelease_version = release_version;
+      ObjectArray.Myreleaseversion = release_version;
       TextPage();
     } else {
       console.warn(Validated());
@@ -103,7 +103,7 @@ const InputText: FC<Props> = ({TextPage}) => {
       <View>
         <Text style={{color: '#776677'}}>Release Version</Text>
         <TextInputRow
-          stringval={globalStateContext.Release_Version}
+          stringval={globalStateContext.ReleaseVersion}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
             onInputchange(event, release_version)}
         />
@@ -119,7 +119,7 @@ const InputText: FC<Props> = ({TextPage}) => {
       <View>
         <Text style={{color: '#776677'}}>PR_LINK</Text>
         <TextInputRow
-          stringval={globalStateContext.Pr_Link}
+          stringval={globalStateContext.PrLink}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) => 
             onInputchange(event, pr_Link)}
         />

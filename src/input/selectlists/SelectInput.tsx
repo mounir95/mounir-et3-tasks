@@ -10,9 +10,14 @@ type Props = {
 };
 
 const SelectInput: FC<Props> = ({onChoose, listname, arrayval, choosedval}) => {
-  const arraymap = arrayval.map(element => {
-    return {label: element, value: element};
-  });
+  let arraymap;
+  if (arrayval.length === 0) {
+    return null;
+  } else{
+    arraymap = arrayval.map(element => {
+      return {label: element, value: element};
+    });
+  }
   return (
     <View
       style={{

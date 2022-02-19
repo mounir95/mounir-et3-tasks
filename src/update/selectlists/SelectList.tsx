@@ -10,7 +10,7 @@ type Props = {
 
 const InputSelectList: FC<Props> = ({SelectList}) => {
   const [{se_list, platform}, setChanges] = useState({
-    se_list: globalStateContext._currentValue.SE_list,
+    se_list: globalStateContext._currentValue.SEList,
     platform: globalStateContext._currentValue.Platform,
   });
 
@@ -38,7 +38,7 @@ const InputSelectList: FC<Props> = ({SelectList}) => {
   };
 
   const handlePressSubmitButton = () => {
-    ObjectArray.Myse_list = se_list[0];
+    ObjectArray.Myselist = se_list[0];
     ObjectArray.Myplatform = platform[0];
     SelectList();
   };
@@ -49,7 +49,7 @@ const InputSelectList: FC<Props> = ({SelectList}) => {
         <SelectInput
           key="firstrow"
           listname={'SE List'}
-          arrayval={globalStateContext._currentValue.SE_list}
+          arrayval={globalStateContext._currentValue.SEList}
           choosedval={se_list}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, se_list)

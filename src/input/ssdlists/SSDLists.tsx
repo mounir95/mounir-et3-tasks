@@ -9,7 +9,7 @@ const SSDListInput = () => {
   const [{size, dificulity, status_list}, setChanges] = useState({
     size: globalStateContext._currentValue.Size,
     dificulity: globalStateContext._currentValue.Dificulity,
-    status_list: globalStateContext._currentValue.Status_list,
+    status_list: globalStateContext._currentValue.StatusList,
   });
 
   const outputEvent = (
@@ -46,7 +46,7 @@ const SSDListInput = () => {
     }
   };
 
-    ObjectArray.Mystatus_list = status_list[0];
+    ObjectArray.Mystatuslist = status_list[0];
     ObjectArray.Mysize = size[0];
     ObjectArray.Mydificulity = dificulity[0];
 
@@ -55,7 +55,7 @@ const SSDListInput = () => {
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
           listname={'Status List'}
-          arrayval={globalStateContext._currentValue.Status_list}
+          arrayval={globalStateContext._currentValue.StatusList}
           choosedval={status_list}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, status_list)

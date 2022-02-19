@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import ExcelRowInput from './ExcelRowInput';
 import FilteredRows from './FilteredRows';
 import {ObjectArray} from '../../components/ADDPage';
-import {FilteredObjectArray} from '../../components/Excel';
+import {TPrObject} from '../../constants/UseContext';
 
 type Props = {
   filtertrue: Boolean;
@@ -11,6 +11,7 @@ type Props = {
   onUpdateSub: Function;
   onDeletSub: Function;
   index: number;
+  FilteredArrayObject: {}[];
 };
 const ExcelRows: FC<Props> = ({
   filtertrue,
@@ -18,14 +19,15 @@ const ExcelRows: FC<Props> = ({
   onUpdateSub,
   onDeletSub,
   index,
+  FilteredArrayObject,
 }) => {
   let arrayofobjects = ObjectArray._currentValue;
-  let arrayoffilteredobjects = FilteredObjectArray._currentValue;
+  let arrayoffilteredobjects = FilteredArrayObject;
 
   return (
     <View>
       {!filtertrue &&
-        arrayofobjects.map((e: object) => {
+        arrayofobjects.map((e: TPrObject) => {
           if (e.hasOwnProperty('Mycomment')) {
             return (
               <ExcelRowInput
@@ -39,7 +41,7 @@ const ExcelRows: FC<Props> = ({
           }
         })}
       {filtertrue &&
-        arrayoffilteredobjects.map((e: object) => {
+        arrayoffilteredobjects.map((e: TPrObject) => {
           if (e.hasOwnProperty('Mycomment')) {
             return <FilteredRows object={e} index={index} />;
           }

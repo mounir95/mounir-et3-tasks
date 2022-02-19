@@ -9,7 +9,7 @@ type Props = {
 };
 
 const FilterByStatus: FC<Props> = ({statusFilter, filterchoosed}) => {
-  const arraymap = globalStateContext._currentValue.Status_list.map(
+  const arraymap = globalStateContext._currentValue.StatusList.map(
     (e: string) => {
       return {label: e, value: e};
     },

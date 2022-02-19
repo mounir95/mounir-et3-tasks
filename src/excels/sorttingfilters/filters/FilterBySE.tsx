@@ -9,7 +9,7 @@ type Props = {
 };
 
 const FilterBySE: FC<Props> = ({seListFilter, filterchoosed}) => {
-  const arraymap = globalStateContext._currentValue.SE_list.map((e: string) => {
+  const arraymap = globalStateContext._currentValue.SEList.map((e: string) => {
     return {label: e, value: e};
   });
 

@@ -73,17 +73,17 @@ const UpdateRow: FC<Props> = ({
     ObjectArray._currentValue.map((e: Context) => {
       if (e.Myid === id) {
         e.Myid = id;
-        e.Myse_list = ObjectArray.Myse_list;
+        e.Myselist = ObjectArray.Myselist;
         e.Myplatform = ObjectArray.Myplatform;
-        e.Myrelease_version = ObjectArray.Myrelease_version;
-        e.Mystatus_list = ObjectArray.Mystatus_list;
+        e.Myreleaseversion = ObjectArray.Myreleaseversion;
+        e.Mystatuslist = ObjectArray.Mystatuslist;
         e.Mysize = ObjectArray.Mysize;
         e.Mydificulity = ObjectArray.Mydificulity;
-        e.Mypr_Link = ObjectArray.Mypr_Link;
+        e.Myprlink = ObjectArray.Myprlink;
         e.Mycomment = ObjectArray.Mycomment;
-        e.Myreveiwed_by_BY = ObjectArray.Myreveiwed_by_BY;
-        e.Myreveiwed_by_AH = ObjectArray.Myreveiwed_by_AH;
-        e.Myreveiwed_by_HT = ObjectArray.Myreveiwed_by_HT;
+        e.MyreviewedbyBY = ObjectArray.MyreviewedbyBY;
+        e.MyreviewedbyAH = ObjectArray.MyreviewedbyAH;
+        e.MyreviewedbyHT = ObjectArray.MyreviewedbyHT;
       }
     });
     setNext(

@@ -15,31 +15,40 @@ type Props = {
 
 const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
   let lastIndex: number;
-  if (ObjectArray._currentValue.length - 1 <= 0) {
+  let checkobject =
+    ObjectArray._currentValue[ObjectArray._currentValue.length - 1];
+  if (!checkobject.hasOwnProperty('Myid')) {
     lastIndex = 0;
   } else {
     lastIndex =
       ObjectArray._currentValue[ObjectArray._currentValue.length - 1].Myid;
   }
-  const [
-    {id, arrayval},
-    setNext,
-  ] = useState({
+
+  const [{id}, setNext] = useState({
     id: lastIndex,
-    arrayval: ['']
   });
 
-    const checkValidation = (stringarray: string []) => {
-            setNext(
-        val =>
-          (val = {
-            id: lastIndex,
-                arrayval: stringarray
-          }),
-      );
-      if (stringarray[2] !== '') {
-      if (stringarray[1] !== '') {
-        if (stringarray[0]) {
+  const checkValidation = () => {
+    console.log(ObjectArray);
+    setNext(
+      val =>
+        (val = {
+          id: lastIndex,
+        }),
+    );
+
+    if (
+      ObjectArray.hasOwnProperty('Myreleaseversion') &&
+      ObjectArray.Myreleaseversion !== ''
+    ) {
+      if (
+        ObjectArray.hasOwnProperty('Myprlink') &&
+        ObjectArray.Myprlink !== ''
+      ) {
+        if (
+          ObjectArray.hasOwnProperty('Mycomment') &&
+          ObjectArray.Mycomment !== ''
+        ) {
           return true;
         } else {
           return 'Pr Link Required';
@@ -53,19 +62,18 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
   };
 
   const toRadioButtons = () => {
-    if (checkValidation(arrayval) === true) {
+    if (checkValidation() === true) {
       ObjectArray.Myid = id + 1;
       setNext(
         val =>
           (val = {
             id: lastIndex,
-                arrayval: ['']
           }),
       );
       inputAdd();
-    }else{
+    } else {
       console.warn(checkValidation);
-    };
+    }
   };
 
   const handlePressCloseButton = () => {
@@ -73,7 +81,6 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
       val =>
         (val = {
           id: lastIndex,
-              arrayval: ['']
         }),
     );
     inputClose();
@@ -91,24 +98,21 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-        <View
-          style={{
-            width: '90%',
-            // height: 100,
-            backgroundColor: 'white',
-            borderWidth: 1,
-            borderColor: 'yellow',
-            margin: 5
-          }}>
-          <InputDatePicker />
-          <InputSelectList />
-          <InputTextInput 
-          Validated= {(stringarray: string[]) => checkValidation(stringarray)}/>
-          <InputSSDList />
-          <InputRadioButton
-            RadioButtons={() => toRadioButtons()}
-          />
-        </View>
+          <View
+            style={{
+              width: '90%',
+              // height: 100,
+              backgroundColor: 'white',
+              borderWidth: 1,
+              borderColor: 'yellow',
+              margin: 5,
+            }}>
+            <InputDatePicker />
+            <InputSelectList />
+            <InputTextInput />
+            <InputSSDList />
+            <InputRadioButton RadioButtons={() => toRadioButtons()} />
+          </View>
         </View>
       )}
       {inptformtrue && (

@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import {ObjectArray} from '../../../components/ADDPage';
-import {arrayofsort} from '../../../constants/UseContext';
-import _ from 'lodash';
+import {arrayofsort, TPrObject} from '../../../constants/UseContext';
+import orderBy from 'lodash/orderBy';
 
 type Props = {
   setDate: Function;
@@ -17,9 +17,9 @@ const SortByDate: FC<Props> = ({setDate, choosedfilter}) => {
 
   const setDateSort = (event: React.ChangeEvent) => {
     const datesorting = event.toString() === 'desc' ? 'asc' : 'desc';
-    const newobjectarray = _.orderBy(
+    const newobjectarray = orderBy(
       ObjectArray._currentValue,
-      (obj: object) => obj.Mydate,
+      (obj: TPrObject) => obj.Mydate,
       [datesorting],
     );
     setDate(newobjectarray);

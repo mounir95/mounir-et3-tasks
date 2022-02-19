@@ -50,23 +50,39 @@ export const dayss = [
 ];
 
 export interface TPrObject {
-  Date: Date;
-  SE_list: string[];
-  Platform: string[];
-  Release_Version: string;
-  Comment: string;
-  Pr_Link: string;
-  Size: string[];
-  Dificulity: string[];
-  Status_list: string[];
-  Reveiwed_by_BY: string;
-  Reveiwed_by_AH: string;
-  Reveiwed_by_HT: string
+  Myid: number;
+  Mydate: Date;
+  Myselist: string[];
+  Myplatform: string[];
+  Myreleaseversion: string;
+  Mycomment: string;
+  Myprlink: string;
+  Mysize: string[];
+  Mydificulity: string[];
+  Mystatuslist: string[];
+  MyreviewedbyBY: string;
+  MyreviewedbyAH: string;
+  MyreviewedbyHT: string
 }
 
-const globalState: Partial<TPrObject> = {
+export interface TGlobalObject {
+  Date: Date;
+  SEList: string[];
+  Platform: string[];
+  ReleaseVersion: string;
+  Comment: string;
+  PrLink: string;
+  Size: string[];
+  Dificulity: string[];
+  StatusList: string[];
+  ReveiwedByBY: string;
+  ReveiwedByAH: string;
+  ReveiwedByHT: string
+}
+
+const globalState: Partial<TGlobalObject> = {
   Date: new Date(),
-  SE_list: ['AH', 'BY', 'HT'],
+  SEList: ['AH', 'BY', 'HT'],
   Platform: [
     'mobile-client',
     'kh-server-node',
@@ -80,16 +96,16 @@ const globalState: Partial<TPrObject> = {
     'kh-website',
     'fa-website'
   ],
-  Release_Version: '8.0.1',
+  ReleaseVersion: '8.0.1',
   Comment: 'Commit Text',
-  Pr_Link: 'https://github.com/et3/anylink',
+  PrLink: 'https://github.com/et3/anylink',
   Size: ['Easy', 'Medium', 'Hard'],
   Dificulity: ['Easy', 'Medium', 'Hard'],
-  Status_list: ['Has Comments', 'Merged', 'Needs Reveiw', 'Closed'],
-  Reveiwed_by_BY: 'no',
-  Reveiwed_by_AH: 'no',
-  Reveiwed_by_HT: 'no'
+  StatusList: ['Has Comments', 'Merged', 'Needs Reveiw', 'Closed'],
+  ReveiwedByBY: 'no',
+  ReveiwedByAH: 'no',
+  ReveiwedByHT: 'no'
 };
 
 export const globalStateContext: Context =
-  React.createContext<Partial<TPrObject>>(globalState);
+  React.createContext<Partial<TGlobalObject>>(globalState);

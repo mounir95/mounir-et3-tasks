@@ -7,16 +7,16 @@ import ExcelRows from '../excels/rows/ExcelRows';
 import UpdateForm from '../update/UpdateForm';
 import {Context} from 'vm';
 import {ObjectArray} from './ADDPage';
-import _ from 'lodash';
-
-export let FilteredObjectArray: Context = React.createContext<object[]>([{}]);
+import filter from 'lodash/filter';
 
 const Excel = () => {
-  const [{id, filterfalse, updatefalse}, setState] = useState({
-    id: -1,
-    filterfalse: false,
-    updatefalse: false,
-  });
+  let [{id, filterfalse, updatefalse, FilteredObjectArray}, setState] =
+    useState({
+      id: -1,
+      filterfalse: false,
+      updatefalse: false,
+      FilteredObjectArray: [{}],
+    });
   const resetState = () => {
     setState(
       val =>
@@ -24,16 +24,14 @@ const Excel = () => {
           id: -1,
           updatefalse: false,
           filterfalse: false,
+          FilteredObjectArray: FilteredObjectArray,
         }),
     );
   };
 
   const setAllChanges = () => {
     ObjectArray._currentValue2 = ObjectArray._currentValue;
-    FilteredObjectArray._currentValue2 = FilteredObjectArray._currentValue;
-    FilteredObjectArray = React.createContext<object[]>([
-      ...FilteredObjectArray._currentValue,
-    ]);
+    FilteredObjectArray = FilteredObjectArray;
   };
 
   const filterResetState = () => {
@@ -43,12 +41,13 @@ const Excel = () => {
           id: -1,
           updatefalse: false,
           filterfalse: filterfalse,
+          FilteredObjectArray: FilteredObjectArray,
         }),
     );
   };
 
   const onDelete = (objid: number) => {
-    ObjectArray._currentValue = _.filter(
+    ObjectArray._currentValue = filter(
       ObjectArray._currentValue,
       (c: Context) => {
         return c.Myid !== objid;
@@ -65,18 +64,19 @@ const Excel = () => {
           id: objid,
           updatefalse: true,
           filterfalse: false,
+          FilteredObjectArray: FilteredObjectArray,
         }),
     );
   };
 
-  const setDateSort = (newobjectarray: object) => {
+  const setDateSort = (newobjectarray: Date) => {
     ObjectArray._currentValue = newobjectarray;
     setAllChanges();
     resetState();
   };
 
   const filterPress = () => {
-    FilteredObjectArray = ObjectArray;
+    FilteredObjectArray = ObjectArray._currentValue;
     setAllChanges();
     setState(
       val =>
@@ -84,62 +84,46 @@ const Excel = () => {
           id: -1,
           updatefalse: false,
           filterfalse: !filterfalse,
+          FilteredObjectArray: FilteredObjectArray,
         }),
     );
   };
 
   const textChanged = (event: string) => {
-    FilteredObjectArray._currentValue = _.filter(
-      ObjectArray._currentValue,
-      (c: Context) => {
-        if (c.hasOwnProperty('Mycomment')) {
-          return c.Mycomment.includes(event) === true;
-        }
-      },
-    );
+    FilteredObjectArray = filter(ObjectArray._currentValue, (c: Context) => {
+      if (c.hasOwnProperty('Mycomment')) {
+        return c.Mycomment.includes(event) === true;
+      }
+    });
     setAllChanges();
     filterResetState();
   };
 
   const FilterByPlatform = (event: React.ChangeEvent) => {
-        console.log(ObjectArray)
-        console.log(ObjectArray._currentValue)
-    FilteredObjectArray._currentValue = _.filter(
-      ObjectArray._currentValue,
-      (c: Context) => {
-            console.log('here 1')
-        if (c.hasOwnProperty('Myplatform')) {
-          return c.Myplatform === event;
-        }
-      },
-    );
-    console.log('here 2')
+    FilteredObjectArray = filter(ObjectArray._currentValue, (c: Context) => {
+      if (c.hasOwnProperty('Myplatform')) {
+        return c.Myplatform === event;
+      }
+    });
     setAllChanges();
-    console.log(' note here')
     filterResetState();
   };
 
   const FilterBySE = (event: React.ChangeEvent) => {
-    FilteredObjectArray._currentValue = _.filter(
-      ObjectArray._currentValue,
-      (c: Context) => {
-        if (c.hasOwnProperty('Myse_list')) {
-          return c.Myse_list === event;
-        }
-      },
-    );
+    FilteredObjectArray = filter(ObjectArray._currentValue, (c: Context) => {
+      if (c.hasOwnProperty('Myselist')) {
+        return c.Myselist === event;
+      }
+    });
     setAllChanges();
     filterResetState();
   };
   const FilterByStatus = (event: React.ChangeEvent) => {
-    FilteredObjectArray._currentValue = _.filter(
-      ObjectArray._currentValue,
-      (c: Context) => {
-        if (c.hasOwnProperty('Mystatus_list')) {
-          return c.Mystatus_list === event;
-        }
-      },
-    );
+    FilteredObjectArray = filter(ObjectArray._currentValue, (c: Context) => {
+      if (c.hasOwnProperty('Mystatuslist')) {
+        return c.Mystatuslist === event;
+      }
+    });
     setAllChanges();
     filterResetState();
   };
@@ -159,9 +143,7 @@ const Excel = () => {
         <SortFilter
           filterPressed={() => filterPress()}
           filterfalse={filterfalse}
-          setDateSorting={(newobjectarray: object) =>
-            setDateSort(newobjectarray)
-          }
+          setDateSorting={(newobjectarray: Date) => setDateSort(newobjectarray)}
           changeText={(event: string) => textChanged(event)}
           platformFilter={(event: React.ChangeEvent) => FilterByPlatform(event)}
           seListFilter={(event: React.ChangeEvent) => FilterBySE(event)}
@@ -179,6 +161,7 @@ const Excel = () => {
                 onUpdateSub={(objid: number) => onUpdate(objid)}
                 onDeletSub={(objid: number) => onDelete(objid)}
                 index={index}
+                FilteredArrayObject={FilteredObjectArray}
               />
             </View>
           )}
