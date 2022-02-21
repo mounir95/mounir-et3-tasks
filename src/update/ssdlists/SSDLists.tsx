@@ -1,69 +1,53 @@
 import React, {FC, ChangeEvent} from 'react';
 import {View, Button} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
-import {useState} from 'react';
+import {globalStateContext, TPrObject} from '../../constants/UseContext';
 import {ObjectArray} from '../../components/ADDPage';
 import SelectInput from '../selectlists/SelectInput';
+import filter from 'lodash/filter';
 
 type Props = {
+  updatedid: number;
   SSDLists: Function;
 };
-const SSDListInput: FC<Props> = ({SSDLists}) => {
-  const [{size, dificulity, status_list}, setChanges] = useState({
-    size: globalStateContext._currentValue.Size,
-    dificulity: globalStateContext._currentValue.Dificulity,
-    status_list: globalStateContext._currentValue.StatusList,
-  });
+const SSDListInput: FC<Props> = ({updatedid, SSDLists}) => {
+  const updatedarray: TPrObject = filter(
+    ObjectArray._currentValue,
+    (c: TPrObject) => {
+      if (c.Myid === updatedid) {
+        return c;
+      }
+    },
+  )[0];
+
+  ObjectArray.Mysize = updatedarray.Mysize;
+  ObjectArray.Mydificulity = updatedarray.Mydificulity;
+  ObjectArray.Mystatuslist = updatedarray.Mystatuslist;
 
   const outputEvent = (
     event: React.ChangeEvent<HTMLSelectElement>,
     parentData: string,
   ): void => {
-    if (parentData === size) {
-      setChanges(
-        val =>
-          (val = {
-            dificulity: dificulity,
-            status_list: status_list,
-            size: [event],
-          }),
-      );
-    } else if (parentData === dificulity) {
-      setChanges(
-        val =>
-          (val = {
-            size: size,
-            status_list: status_list,
-            dificulity: [event],
-          }),
-      );
-    } else if (parentData === status_list) {
-      setChanges(
-        val =>
-          (val = {
-            size: size,
-            dificulity: dificulity,
-            status_list: [event],
-          }),
-      );
+    if (parentData === 'size') {
+      ObjectArray.Mysize = event;
+    } else if (parentData === 'dificulity') {
+      ObjectArray.Mydificulity = event;
+    } else if (parentData === 'status_list') {
+      ObjectArray.Mystatuslist = event;
     }
   };
 
   const handlePressSubmitButton = () => {
-    ObjectArray.Mystatuslist = status_list[0];
-    ObjectArray.Mysize = size[0];
-    ObjectArray.Mydificulity = dificulity[0];
     SSDLists();
-  };;
+  };
   return (
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
           listname={'Status List'}
           arrayval={globalStateContext._currentValue.StatusList}
-          choosedval={status_list}
+          choosedval={updatedarray.Mystatuslist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            outputEvent(event, status_list)
+            outputEvent(event, 'status_list')
           }
         />
       </View>
@@ -71,9 +55,9 @@ const SSDListInput: FC<Props> = ({SSDLists}) => {
         <SelectInput
           listname={'Size'}
           arrayval={globalStateContext._currentValue.Size}
-          choosedval={size}
+          choosedval={updatedarray.Mysize}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            outputEvent(event, size)
+            outputEvent(event, 'size')
           }
         />
       </View>
@@ -81,9 +65,9 @@ const SSDListInput: FC<Props> = ({SSDLists}) => {
         <SelectInput
           listname={'Dificulity'}
           arrayval={globalStateContext._currentValue.Dificulity}
-          choosedval={dificulity}
+          choosedval={updatedarray.Mydificulity}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            outputEvent(event, dificulity)
+            outputEvent(event, 'dificulity')
           }
         />
       </View>

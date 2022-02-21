@@ -21,10 +21,9 @@ const UpdateRow: FC<Props> = ({
   inputupdateformtrue,
 }) => {
   const [
-    {id, selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue},
+    {selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue},
     setNext,
   ] = useState({
-    id: updatedid,
     selectpagetrue: true,
     textpagetrue: false,
     ssdliststrue: false,
@@ -35,7 +34,6 @@ const UpdateRow: FC<Props> = ({
     setNext(
       val =>
         (val = {
-          id: updatedid,
           selectpagetrue: false,
           textpagetrue: true,
           ssdliststrue: false,
@@ -48,7 +46,6 @@ const UpdateRow: FC<Props> = ({
     setNext(
       val =>
         (val = {
-          id: updatedid,
           selectpagetrue: false,
           textpagetrue: false,
           ssdliststrue: true,
@@ -60,7 +57,6 @@ const UpdateRow: FC<Props> = ({
     setNext(
       val =>
         (val = {
-          id: updatedid,
           selectpagetrue: false,
           textpagetrue: false,
           ssdliststrue: false,
@@ -71,8 +67,8 @@ const UpdateRow: FC<Props> = ({
 
   const RadioButtons = () => {
     ObjectArray._currentValue.map((e: Context) => {
-      if (e.Myid === id) {
-        e.Myid = id;
+      if (e.Myid === updatedid) {
+        e.Myid = updatedid;
         e.Myselist = ObjectArray.Myselist;
         e.Myplatform = ObjectArray.Myplatform;
         e.Myreleaseversion = ObjectArray.Myreleaseversion;
@@ -89,7 +85,6 @@ const UpdateRow: FC<Props> = ({
     setNext(
       val =>
         (val = {
-          id: updatedid,
           selectpagetrue: true,
           textpagetrue: false,
           ssdliststrue: false,
@@ -99,11 +94,10 @@ const UpdateRow: FC<Props> = ({
     inputUpdate();
   };
 
-    const handlePressCloseButton = () => {
+  const handlePressCloseButton = () => {
     setNext(
       val =>
         (val = {
-          id: updatedid,
           selectpagetrue: true,
           textpagetrue: false,
           ssdliststrue: false,
@@ -126,18 +120,22 @@ const UpdateRow: FC<Props> = ({
             justifyContent: 'center',
           }}>
           <InputSelectList
+            updatedid={updatedid}
             openselectpage={selectpagetrue}
             toSelectList={() => SelectList()}
           />
           <InputTextInput
+            updatedid={updatedid}
             opentextpage={textpagetrue}
             toTextPage={() => TextPage()}
           />
           <InputSSDList
+            updatedid={updatedid}
             openssdlists={ssdliststrue}
             toSSDLists={() => SSDLists()}
           />
           <InputRadioButton
+            updatedid={updatedid}
             openradiobuttons={radiobuttonstrue}
             toRadioButtons={() => RadioButtons()}
           />

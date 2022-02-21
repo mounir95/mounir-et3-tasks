@@ -54,7 +54,7 @@ const ExcelRowInput: FC<Props> = ({
           <Text>{objectarrayval[index]}</Text>
         </View>
       )}
-      <View style={{backgroundColor: 'white', marginBottom: -5}}>
+      <View style={{marginBottom: -5}}>
         {index === 13 && (
           <TouchableOpacity
             style={{
@@ -63,10 +63,9 @@ const ExcelRowInput: FC<Props> = ({
               paddingVertical: 3,
               paddingHorizontal: 2,
               flexDirection: 'row',
-              backgroundColor: 'white',
             }}
             onPress={() => onUpdate(object.Myid)}>
-            {updateiconid !== object.Myid && (
+            {updateiconid !== object.Myid && updateiconid === -1 && (
               <Icons name="pencil" size={15} color="#900" />
             )}
             {updateiconid === object.Myid && (

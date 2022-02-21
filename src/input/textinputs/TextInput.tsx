@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
 import {ObjectArray} from '../../components/ADDPage';
 import TextInputRow from './TextInputRow';
 
@@ -23,7 +22,6 @@ const InputText = () => {
       <View>
         <Text style={{color: '#776677'}}>Release Version</Text>
         <TextInputRow
-          stringval={globalStateContext.ReleaseVersion}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
             onInputchange(event, 'release_version')
           }
@@ -32,7 +30,6 @@ const InputText = () => {
       <View>
         <Text style={{color: '#776677'}}>Comment</Text>
         <TextInputRow
-          stringval={globalStateContext.Comment}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
             onInputchange(event, 'comment')
           }
@@ -41,7 +38,6 @@ const InputText = () => {
       <View>
         <Text style={{color: '#776677'}}>PR_LINK</Text>
         <TextInputRow
-          stringval={globalStateContext.PrLink}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
             onInputchange(event, 'pr_Link')
           }

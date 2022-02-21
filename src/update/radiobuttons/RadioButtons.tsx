@@ -1,20 +1,28 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
+import {TPrObject} from '../../constants/UseContext';
 import {ObjectArray} from '../../components/ADDPage';
 import {useState} from 'react';
 import RadioButtonRow from './RadioButtonInput';
 import {booleanval} from '../../constants/UseContext';
+import {filter} from 'lodash';
 
 type Props = {
+  updatedid: number;
   RadioButtons: Function;
 };
-const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
+const RadioButtonInput: FC<Props> = ({updatedid, RadioButtons}) => {
+  const arrayval = filter(ObjectArray._currentValue, (c: TPrObject) => {
+    if (c.Myid === updatedid) {
+      return c;
+    }
+  })[0];
+
   const [{reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT}, setChanges] =
     useState({
-      reveiwed_by_BY: globalStateContext._currentValue.ReveiwedByBY,
-      reveiwed_by_AH: globalStateContext._currentValue.ReveiwedByAH,
-      reveiwed_by_HT: globalStateContext._currentValue.ReveiwedByHT,
+      reveiwed_by_BY: arrayval.MyreviewedbyBY,
+      reveiwed_by_AH: arrayval.MyreviewedbyAH,
+      reveiwed_by_HT: arrayval.MyreviewedbyHT,
     });
 
   const changeHandle = (

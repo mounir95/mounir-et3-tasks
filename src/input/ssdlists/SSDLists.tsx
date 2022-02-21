@@ -1,54 +1,27 @@
 import React, {ChangeEvent} from 'react';
 import {View} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
-import {useState} from 'react';
 import {ObjectArray} from '../../components/ADDPage';
 import SelectInput from '../selectlists/SelectInput';
 
 const SSDListInput = () => {
-  const [{size, dificulity, status_list}, setChanges] = useState({
-    size: globalStateContext._currentValue.Size,
-    dificulity: globalStateContext._currentValue.Dificulity,
-    status_list: globalStateContext._currentValue.StatusList,
-  });
-
+  ObjectArray.Mysize = globalStateContext._currentValue.Size[0].toString();
+  ObjectArray.Mydificulity =
+    globalStateContext._currentValue.Dificulity[0].toString();
+  ObjectArray.Mystatuslist =
+    globalStateContext._currentValue.StatusList[0].toString();
   const outputEvent = (
     event: React.ChangeEvent<HTMLSelectElement>,
     parentData: string,
   ): void => {
-    if (parentData === size) {
-      setChanges(
-        val =>
-          (val = {
-            dificulity: dificulity,
-            status_list: status_list,
-            size: [event],
-          }),
-      );
-    } else if (parentData === dificulity) {
-      setChanges(
-        val =>
-          (val = {
-            size: size,
-            status_list: status_list,
-            dificulity: [event],
-          }),
-      );
-    } else if (parentData === status_list) {
-      setChanges(
-        val =>
-          (val = {
-            size: size,
-            dificulity: dificulity,
-            status_list: [event],
-          }),
-      );
+    if (parentData === 'size') {
+      ObjectArray.Mysize = event;
+    } else if (parentData === 'dificulity') {
+      ObjectArray.Mydificulity = event;
+    } else if (parentData === 'status_list') {
+      ObjectArray.Mystatuslist = event;
     }
   };
-
-    ObjectArray.Mystatuslist = status_list[0];
-    ObjectArray.Mysize = size[0];
-    ObjectArray.Mydificulity = dificulity[0];
 
   return (
     <View>
@@ -56,9 +29,9 @@ const SSDListInput = () => {
         <SelectInput
           listname={'Status List'}
           arrayval={globalStateContext._currentValue.StatusList}
-          choosedval={status_list}
+          choosedval={globalStateContext._currentValue.StatusList}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            outputEvent(event, status_list)
+            outputEvent(event, 'status_list')
           }
         />
       </View>
@@ -66,9 +39,9 @@ const SSDListInput = () => {
         <SelectInput
           listname={'Size'}
           arrayval={globalStateContext._currentValue.Size}
-          choosedval={size}
+          choosedval={globalStateContext._currentValue.Size}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            outputEvent(event, size)
+            outputEvent(event, 'size')
           }
         />
       </View>
@@ -76,9 +49,9 @@ const SSDListInput = () => {
         <SelectInput
           listname={'Dificulity'}
           arrayval={globalStateContext._currentValue.Dificulity}
-          choosedval={dificulity}
+          choosedval={globalStateContext._currentValue.Dificulity}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            outputEvent(event, dificulity)
+            outputEvent(event, 'dificulity')
           }
         />
       </View>

@@ -52,14 +52,14 @@ export const dayss = [
 export interface TPrObject {
   Myid: number;
   Mydate: Date;
-  Myselist: string[];
-  Myplatform: string[];
+  Myselist: string;
+  Myplatform: string;
   Myreleaseversion: string;
   Mycomment: string;
   Myprlink: string;
-  Mysize: string[];
-  Mydificulity: string[];
-  Mystatuslist: string[];
+  Mysize: string;
+  Mydificulity: string;
+  Mystatuslist: string;
   MyreviewedbyBY: string;
   MyreviewedbyAH: string;
   MyreviewedbyHT: string

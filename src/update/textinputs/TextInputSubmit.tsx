@@ -3,11 +3,12 @@ import {View} from 'react-native';
 import InputText from './TextInput';
 
 type Props = {
+  updatedid: number;
   opentextpage: Boolean;
   toTextPage: Function;
 };
 
-const InputTextSumit: FC<Props> = ({opentextpage, toTextPage}) => {
+const InputTextSumit: FC<Props> = ({updatedid, opentextpage, toTextPage}) => {
   return (
     <View
       style={{
@@ -18,7 +19,9 @@ const InputTextSumit: FC<Props> = ({opentextpage, toTextPage}) => {
         borderColor: 'yellow',
         margin: 5
       }}>
-      {opentextpage && <InputText TextPage={() => toTextPage()} />}
+      {opentextpage && (
+        <InputText idupdate={updatedid} TextPage={() => toTextPage()} />
+      )}
     </View>
   );
 };

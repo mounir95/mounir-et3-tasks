@@ -3,10 +3,9 @@ import {SafeAreaView, TextInput} from 'react-native';
 
 type Props = {
   onchangefun: Function,
-  stringval: string,
 };
 
-const TextInputRow: FC<Props> = ({onchangefun, stringval}) => {
+const TextInputRow: FC<Props> = ({onchangefun}) => {
   return (
     <SafeAreaView>
       <TextInput

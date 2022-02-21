@@ -3,11 +3,16 @@ import {View} from 'react-native';
 import InputSelectList from './SelectList';
 
 type Props = {
+  updatedid: number;
   openselectpage: Boolean;
   toSelectList: Function;
 };
 
-const InputSelectListSumit: FC<Props> = ({openselectpage, toSelectList}) => {
+const InputSelectListSumit: FC<Props> = ({
+  updatedid,
+  openselectpage,
+  toSelectList,
+}) => {
   return (
     <View
       style={{
@@ -18,7 +23,12 @@ const InputSelectListSumit: FC<Props> = ({openselectpage, toSelectList}) => {
         borderColor: 'yellow',
         margin: 5
       }}>
-      {openselectpage && <InputSelectList SelectList={() => toSelectList()} />}
+      {openselectpage && (
+        <InputSelectList
+          updatedid={updatedid}
+          SelectList={() => toSelectList()}
+        />
+      )}
     </View>
   );
 };

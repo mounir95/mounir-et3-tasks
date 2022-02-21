@@ -1,40 +1,22 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {View} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
 import {ObjectArray} from '../../components/ADDPage';
 import SelectInput from './SelectInput';
 
 const InputSelectList = () => {
-  const [{se_list, platform}, setChanges] = useState({
-    se_list: globalStateContext._currentValue.SEList,
-    platform: globalStateContext._currentValue.Platform,
-  });
-
+  ObjectArray.Myselist = globalStateContext._currentValue.SEList[0];
+  ObjectArray.Myplatform = globalStateContext._currentValue.Platform[0];
   const outputEvent = (
     event: React.ChangeEvent<HTMLSelectElement>,
     parentData: string,
   ): void => {
-    if (parentData === se_list) {
-      setChanges(
-        val =>
-          (val = {
-            platform: platform,
-            se_list: [event],
-          }),
-      );
-    } else if (parentData === platform) {
-      setChanges(
-        val =>
-          (val = {
-            se_list: se_list,
-            platform: [event],
-          }),
-      );
+    if (parentData === 'se_list') {
+      ObjectArray.Myselist = event;
+    } else if (parentData === 'platform') {
+      ObjectArray.Myplatform = event;
     }
   };
-
-    ObjectArray.Myselist = se_list[0];
-    ObjectArray.Myplatform = platform[0];
 
   return (
     <View>
@@ -43,9 +25,9 @@ const InputSelectList = () => {
           key="firstrow"
           listname={'SE List'}
           arrayval={globalStateContext._currentValue.SEList}
-          choosedval={se_list}
+          choosedval={globalStateContext._currentValue.SEList}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            outputEvent(event, se_list)
+            outputEvent(event, 'se_list')
           }
         />
       </View>
@@ -54,9 +36,9 @@ const InputSelectList = () => {
           key="secondrow"
           listname={'Platform'}
           arrayval={globalStateContext._currentValue.Platform}
-          choosedval={platform}
+          choosedval={globalStateContext._currentValue.Platform}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            outputEvent(event, platform)
+            outputEvent(event, 'platform')
           }
         />
       </View>
