@@ -1,4 +1,5 @@
-import React, {FC, useState} from 'react';
+/* eslint-disable prettier/prettier */
+import React, {FC} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import InputSelectList from './selectlists/SelectList';
 import InputTextInput from './textinputs/TextInput';
@@ -18,25 +19,13 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
   let checkobject =
     ObjectArray._currentValue[ObjectArray._currentValue.length - 1];
   if (!checkobject.hasOwnProperty('Myid')) {
-    lastIndex = 0;
+    lastIndex = 1;
   } else {
     lastIndex =
-      ObjectArray._currentValue[ObjectArray._currentValue.length - 1].Myid;
+      ObjectArray._currentValue[ObjectArray._currentValue.length - 1].Myid + 1;
   }
 
-  const [{id}, setNext] = useState({
-    id: lastIndex,
-  });
-
   const checkValidation = () => {
-    console.log(ObjectArray);
-    setNext(
-      val =>
-        (val = {
-          id: lastIndex,
-        }),
-    );
-
     if (
       ObjectArray.hasOwnProperty('Myreleaseversion') &&
       ObjectArray.Myreleaseversion !== ''
@@ -63,13 +52,7 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
 
   const toRadioButtons = () => {
     if (checkValidation() === true) {
-      ObjectArray.Myid = id + 1;
-      setNext(
-        val =>
-          (val = {
-            id: lastIndex,
-          }),
-      );
+      ObjectArray.Myid = lastIndex;
       inputAdd();
     } else {
       console.warn(checkValidation);
@@ -77,12 +60,6 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
   };
 
   const handlePressCloseButton = () => {
-    setNext(
-      val =>
-        (val = {
-          id: lastIndex,
-        }),
-    );
     inputClose();
   };
 
