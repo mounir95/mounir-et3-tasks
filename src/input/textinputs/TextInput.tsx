@@ -1,38 +1,19 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {View, Text} from 'react-native';
 import {globalStateContext} from '../../constants/UseContext';
-import {useState} from 'react';
 import {ObjectArray} from '../../components/ADDPage';
 import TextInputRow from './TextInputRow';
 
 const InputText = () => {
-  const [
-    {
-      comment,
-      comment_err,
-      pr_Link,
-      pr_link_err,
-      release_version,
-      release_version_err,
-    },
-    setChanges,
-  ] = useState({
-    comment: globalStateContext._currentValue.Comment,
-    pr_Link: globalStateContext._currentValue.PrLink,
-    release_version: globalStateContext._currentValue.ReleaseVersion,
-    comment_err: '',
-    pr_link_err: '',
-    release_version_err: '',
-  });
   const onInputchange = (
     event: React.ChangeEvent<HTMLSelectElement>,
     Atribuite: string,
   ): void => {
-    if (Atribuite === comment) {
+    if (Atribuite === 'comment') {
       ObjectArray.Mycomment = event;
-    } else if (Atribuite === pr_Link) {
+    } else if (Atribuite === 'pr_Link') {
       ObjectArray.Myprlink = event;
-    } else if (Atribuite === release_version) {
+    } else if (Atribuite === 'release_version') {
       ObjectArray.Myreleaseversion = event;
     }
   };
@@ -44,7 +25,7 @@ const InputText = () => {
         <TextInputRow
           stringval={globalStateContext.ReleaseVersion}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            onInputchange(event, release_version)
+            onInputchange(event, 'release_version')
           }
         />
       </View>
@@ -53,7 +34,7 @@ const InputText = () => {
         <TextInputRow
           stringval={globalStateContext.Comment}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            onInputchange(event, comment)
+            onInputchange(event, 'comment')
           }
         />
       </View>
@@ -62,7 +43,7 @@ const InputText = () => {
         <TextInputRow
           stringval={globalStateContext.PrLink}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            onInputchange(event, pr_Link)
+            onInputchange(event, 'pr_Link')
           }
         />
       </View>

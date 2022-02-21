@@ -2,7 +2,6 @@ import React, {FC, useState} from 'react';
 import {View} from 'react-native';
 import Filters from './filters/Filters';
 import SortByDate from './sorts/SortByDate';
-import SortById from './sorts/SortById';
 
 type Props = {
   setDateSorting: Function;
