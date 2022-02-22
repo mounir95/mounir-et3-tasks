@@ -9,7 +9,12 @@ import {Context} from 'vm';
 import {ObjectArray} from './ADDPage';
 import filter from 'lodash/filter';
 
-const Excel = () => {
+type Props = {
+  route: any;
+}
+
+const Excel: React.FC<Props> = ({route}) => {
+  console.log(route.params);
   let [{id, filterfalse, updatefalse, FilteredObjectArray}, setState] =
     useState({
       id: -1,

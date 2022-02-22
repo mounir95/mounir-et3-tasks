@@ -10,7 +10,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 
 type RootStackParamList = {
-  Excel: undefined;
+  Excel: {studentID: string};
 };
 
 export let ObjectArray: Context = React.createContext<TPrObject | {}[]>([{}]);
@@ -61,7 +61,7 @@ const ADDPage = () => {
 
   const checkTableIssue = () => {
     setAllChanges();
-    navigation.navigate('Excel');
+    navigation.navigate('Excel', {studentID: addtext});
   };
 
   const onButtonPress = () => {
