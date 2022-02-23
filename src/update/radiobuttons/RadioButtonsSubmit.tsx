@@ -1,17 +1,22 @@
 import React, {FC} from 'react';
 import {View} from 'react-native';
+import {TPrObject} from '../../constants/UseContext';
 import RadioButtonInput from './RadioButtons';
 
 type Props = {
   updatedid: number;
   openradiobuttons: Boolean;
   toRadioButtons: Function;
+  objectval: TPrObject;
+  arrayobjectval: TPrObject[];
 };
 
 const RadioButtonInputSumit: FC<Props> = ({
   updatedid,
   openradiobuttons,
   toRadioButtons,
+  objectval,
+  arrayobjectval,
 }) => {
   return (
     <View
@@ -27,6 +32,8 @@ const RadioButtonInputSumit: FC<Props> = ({
         <RadioButtonInput
           updatedid={updatedid}
           RadioButtons={() => toRadioButtons()}
+          objectval={objectval}
+          arrayobjectval={arrayobjectval}
         />
       )}
     </View>

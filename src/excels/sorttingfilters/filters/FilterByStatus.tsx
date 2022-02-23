@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPicker from 'react-native-picker-select';
-import {globalStateContext} from '../../../constants/UseContext';
+import {globalStateObject} from '../../../constants/UseContext';
 
 type Props = {
   statusFilter: Function;
@@ -9,11 +9,9 @@ type Props = {
 };
 
 const FilterByStatus: FC<Props> = ({statusFilter, filterchoosed}) => {
-  const arraymap = globalStateContext._currentValue.StatusList.map(
-    (e: string) => {
-      return {label: e, value: e};
-    },
-  );
+  const arraymap = globalStateObject.StatusList.map((e: string) => {
+    return {label: e, value: e};
+  });
 
   return (
     <View>

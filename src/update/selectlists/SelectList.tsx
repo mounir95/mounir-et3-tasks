@@ -1,36 +1,40 @@
 import React, {ChangeEvent, FC} from 'react';
 import {View, Button} from 'react-native';
-import {globalStateContext, TPrObject} from '../../constants/UseContext';
-import {ObjectArray} from '../../components/ADDPage';
+import {globalStateObject, TPrObject} from '../../constants/UseContext';
 import SelectInput from './SelectInput';
 import filter from 'lodash/filter';
+import {Context} from 'vm';
 
 type Props = {
   updatedid: number;
   SelectList: Function;
+  objectval: TPrObject;
+  arrayobjectval: Context;
 };
 
-const InputSelectList: FC<Props> = ({updatedid, SelectList}) => {
-  const updatedarray: TPrObject = filter(
-    ObjectArray._currentValue,
-    (c: TPrObject) => {
-      if (c.Myid === updatedid) {
-        return c;
-      }
-    },
-  )[0];
+const InputSelectList: FC<Props> = ({
+  updatedid,
+  SelectList,
+  objectval,
+  arrayobjectval,
+}) => {
+  const updatedarray: TPrObject = filter(arrayobjectval, (c: TPrObject) => {
+    if (c.Myid === updatedid) {
+      return c;
+    }
+  })[0];
 
-  ObjectArray.Myselist = updatedarray.Myselist;
-  ObjectArray.Myplatform = updatedarray.Myplatform;
+  objectval.Myselist = updatedarray.Myselist;
+  objectval.Myplatform = updatedarray.Myplatform;
 
   const outputEvent = (
     event: React.ChangeEvent<HTMLSelectElement>,
     parentData: string,
   ): void => {
     if (parentData === 'se_list') {
-      ObjectArray.Myselist = event;
+      objectval.Myselist = event.toString();
     } else if (parentData === 'platform') {
-      ObjectArray.Myplatform = event;
+      objectval.Myplatform = event.toString();
     }
   };
 
@@ -44,7 +48,7 @@ const InputSelectList: FC<Props> = ({updatedid, SelectList}) => {
         <SelectInput
           key="firstrow"
           listname={'SE List'}
-          arrayval={globalStateContext._currentValue.SEList}
+          arrayval={globalStateObject.SEList}
           choosedval={updatedarray.Myselist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'se_list')
@@ -55,7 +59,7 @@ const InputSelectList: FC<Props> = ({updatedid, SelectList}) => {
         <SelectInput
           key="secondrow"
           listname={'Platform'}
-          arrayval={globalStateContext._currentValue.Platform}
+          arrayval={globalStateObject.Platform}
           choosedval={updatedarray.Myplatform}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'platform')

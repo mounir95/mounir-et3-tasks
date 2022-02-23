@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import {View} from 'react-native';
 import ExcelRowInput from './ExcelRowInput';
 import FilteredRows from './FilteredRows';
-import {ObjectArray} from '../../components/ADDPage';
 import {TPrObject} from '../../constants/UseContext';
+import filter from 'lodash/filter';
 
 type Props = {
   filtertrue: Boolean;
@@ -12,6 +12,7 @@ type Props = {
   onDeletSub: Function;
   index: number;
   FilteredArrayObject: {}[];
+  arrayobject: TPrObject[];
 };
 const ExcelRows: FC<Props> = ({
   filtertrue,
@@ -20,8 +21,11 @@ const ExcelRows: FC<Props> = ({
   onDeletSub,
   index,
   FilteredArrayObject,
+  arrayobject,
 }) => {
-  let arrayofobjects = ObjectArray._currentValue;
+  let arrayofobjects = filter(arrayobject, (c: TPrObject) => {
+    return c.Myid > 0;
+  });
   let arrayoffilteredobjects = FilteredArrayObject;
 
   return (

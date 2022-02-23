@@ -1,17 +1,22 @@
 import React, {FC} from 'react';
 import {View} from 'react-native';
+import {TPrObject} from '../../constants/UseContext';
 import InputSelectList from './SelectList';
 
 type Props = {
   updatedid: number;
   openselectpage: Boolean;
   toSelectList: Function;
+  objectval: TPrObject;
+  arrayobjectval: TPrObject[];
 };
 
 const InputSelectListSumit: FC<Props> = ({
   updatedid,
   openselectpage,
   toSelectList,
+  objectval,
+  arrayobjectval,
 }) => {
   return (
     <View
@@ -27,6 +32,8 @@ const InputSelectListSumit: FC<Props> = ({
         <InputSelectList
           updatedid={updatedid}
           SelectList={() => toSelectList()}
+          objectval={objectval}
+          arrayobjectval={arrayobjectval}
         />
       )}
     </View>

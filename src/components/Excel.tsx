@@ -1,27 +1,27 @@
 import React, {useState} from 'react';
 import {View, ScrollView, FlatList, SafeAreaView} from 'react-native';
 import FirstRow from '../excels/ExcelRowFirst';
-import {days} from '../constants/UseContext';
+import {days, TPrObject} from '../constants/UseContext';
 import SortFilter from '../excels/sorttingfilters/SortFilter';
 import ExcelRows from '../excels/rows/ExcelRows';
 import UpdateForm from '../update/UpdateForm';
-import {Context} from 'vm';
-import {ObjectArray} from './ADDPage';
 import filter from 'lodash/filter';
 
 type Props = {
   route: any;
-}
+};
 
 const Excel: React.FC<Props> = ({route}) => {
-  console.log(route.params);
-  let [{id, filterfalse, updatefalse, FilteredObjectArray}, setState] =
-    useState({
-      id: -1,
-      filterfalse: false,
-      updatefalse: false,
-      FilteredObjectArray: [{}],
-    });
+  let [
+    {id, filterfalse, updatefalse, Filteredobjectarray, ObjectArray},
+    setState,
+  ] = useState({
+    id: -1,
+    filterfalse: false,
+    updatefalse: false,
+    ObjectArray: route.params.arrayofobjects,
+    Filteredobjectarray: [{}],
+  });
   const resetState = () => {
     setState(
       val =>
@@ -29,14 +29,10 @@ const Excel: React.FC<Props> = ({route}) => {
           id: -1,
           updatefalse: false,
           filterfalse: false,
-          FilteredObjectArray: FilteredObjectArray,
+          ObjectArray: ObjectArray,
+          Filteredobjectarray: Filteredobjectarray,
         }),
     );
-  };
-
-  const setAllChanges = () => {
-    ObjectArray._currentValue2 = ObjectArray._currentValue;
-    FilteredObjectArray = FilteredObjectArray;
   };
 
   const filterResetState = () => {
@@ -46,20 +42,25 @@ const Excel: React.FC<Props> = ({route}) => {
           id: -1,
           updatefalse: false,
           filterfalse: filterfalse,
-          FilteredObjectArray: FilteredObjectArray,
+          ObjectArray: ObjectArray,
+          Filteredobjectarray: Filteredobjectarray,
         }),
     );
   };
 
   const onDelete = (objid: number) => {
-    ObjectArray._currentValue = filter(
-      ObjectArray._currentValue,
-      (c: Context) => {
-        return c.Myid !== objid;
-      },
+    setState(
+      val =>
+        (val = {
+          id: -1,
+          updatefalse: false,
+          filterfalse: false,
+          ObjectArray: filter(ObjectArray, (c: TPrObject) => {
+            return c.Myid !== objid;
+          }),
+          Filteredobjectarray: Filteredobjectarray,
+        }),
     );
-    setAllChanges();
-    resetState();
   };
 
   const onUpdate = (objid: number) => {
@@ -69,73 +70,75 @@ const Excel: React.FC<Props> = ({route}) => {
           id: objid,
           updatefalse: true,
           filterfalse: false,
-          FilteredObjectArray: FilteredObjectArray,
+          ObjectArray: ObjectArray,
+          Filteredobjectarray: Filteredobjectarray,
         }),
     );
   };
 
-  const setDateSort = (newobjectarray: Date) => {
-    ObjectArray._currentValue = newobjectarray;
-    setAllChanges();
-    resetState();
+  const setDateSort = (newobjectarray: TPrObject[]) => {
+    setState(
+      val =>
+        (val = {
+          id: -1,
+          updatefalse: false,
+          filterfalse: false,
+          ObjectArray: newobjectarray,
+          Filteredobjectarray: Filteredobjectarray,
+        }),
+    );
   };
 
   const filterPress = () => {
-    FilteredObjectArray = ObjectArray._currentValue;
-    setAllChanges();
     setState(
       val =>
         (val = {
           id: -1,
           updatefalse: false,
           filterfalse: !filterfalse,
-          FilteredObjectArray: FilteredObjectArray,
+          ObjectArray: ObjectArray,
+          Filteredobjectarray: ObjectArray,
         }),
     );
   };
 
   const textChanged = (event: string) => {
-    FilteredObjectArray = filter(ObjectArray._currentValue, (c: Context) => {
+    Filteredobjectarray = filter(ObjectArray, (c: TPrObject) => {
       if (c.hasOwnProperty('Mycomment')) {
         return c.Mycomment.includes(event) === true;
       }
     });
-    setAllChanges();
     filterResetState();
   };
 
   const FilterByPlatform = (event: React.ChangeEvent) => {
-    FilteredObjectArray = filter(ObjectArray._currentValue, (c: Context) => {
+    Filteredobjectarray = filter(ObjectArray, (c: TPrObject) => {
       if (c.hasOwnProperty('Myplatform')) {
-        return c.Myplatform === event;
+        return c.Myplatform === event.toString();
       }
     });
-    setAllChanges();
     filterResetState();
   };
 
   const FilterBySE = (event: React.ChangeEvent) => {
-    FilteredObjectArray = filter(ObjectArray._currentValue, (c: Context) => {
+    Filteredobjectarray = filter(ObjectArray, (c: TPrObject) => {
       if (c.hasOwnProperty('Myselist')) {
-        return c.Myselist === event;
+        return c.Myselist === event.toString();
       }
     });
-    setAllChanges();
     filterResetState();
   };
   const FilterByStatus = (event: React.ChangeEvent) => {
-    FilteredObjectArray = filter(ObjectArray._currentValue, (c: Context) => {
+    Filteredobjectarray = filter(ObjectArray, (c: TPrObject) => {
       if (c.hasOwnProperty('Mystatuslist')) {
-        return c.Mystatuslist === event;
+        return c.Mystatuslist === event.toString();
       }
     });
-    setAllChanges();
     filterResetState();
   };
 
   const inputUpdateButton = () => {
     resetState();
-    setAllChanges();
   };
 
   const inputCloseButton = () => {
@@ -148,11 +151,14 @@ const Excel: React.FC<Props> = ({route}) => {
         <SortFilter
           filterPressed={() => filterPress()}
           filterfalse={filterfalse}
-          setDateSorting={(newobjectarray: Date) => setDateSort(newobjectarray)}
+          setDateSorting={(newobjectarray: TPrObject[]) =>
+            setDateSort(newobjectarray)
+          }
           changeText={(event: string) => textChanged(event)}
           platformFilter={(event: React.ChangeEvent) => FilterByPlatform(event)}
           seListFilter={(event: React.ChangeEvent) => FilterBySE(event)}
           statusFilter={(event: React.ChangeEvent) => FilterByStatus(event)}
+          arrayobject={ObjectArray}
         />
         <FlatList
           horizontal={true}
@@ -166,7 +172,8 @@ const Excel: React.FC<Props> = ({route}) => {
                 onUpdateSub={(objid: number) => onUpdate(objid)}
                 onDeletSub={(objid: number) => onDelete(objid)}
                 index={index}
-                FilteredArrayObject={FilteredObjectArray}
+                FilteredArrayObject={Filteredobjectarray}
+                arrayobject={ObjectArray}
               />
             </View>
           )}
@@ -178,6 +185,7 @@ const Excel: React.FC<Props> = ({route}) => {
           updatedid={id}
           inputUpdate={() => inputUpdateButton()}
           inputClose={() => inputCloseButton()}
+          arrayobjectval={ObjectArray}
         />
       </ScrollView>
     </SafeAreaView>

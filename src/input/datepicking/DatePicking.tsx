@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
 import {View, Text, Button, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {ObjectArray} from '../../components/ADDPage';
+import {TPrObject} from '../../constants/UseContext';
 
-const Datepicker = () => {
+type Props = {
+  newobjectvalue: TPrObject;
+};
+
+const Datepicker: React.FC<Props> = ({newobjectvalue}) => {
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
 
@@ -18,7 +22,7 @@ const Datepicker = () => {
     }
   };
 
-  ObjectArray.Mydate = JSON.stringify(date);
+  newobjectvalue.Mydate = date.toString();
 
   return (
     <View

@@ -1,19 +1,23 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {ObjectArray} from '../../components/ADDPage';
+import {TPrObject} from '../../constants/UseContext';
 import TextInputRow from './TextInputRow';
 
-const InputText = () => {
+type Props = {
+  newobjectvalue: TPrObject;
+};
+
+const InputText: React.FC<Props> = ({newobjectvalue}) => {
   const onInputchange = (
     event: React.ChangeEvent<HTMLSelectElement>,
     Atribuite: string,
   ): void => {
     if (Atribuite === 'comment') {
-      ObjectArray.Mycomment = event;
+      newobjectvalue.Mycomment = event.toString();
     } else if (Atribuite === 'pr_Link') {
-      ObjectArray.Myprlink = event;
+      newobjectvalue.Myprlink = event.toString();
     } else if (Atribuite === 'release_version') {
-      ObjectArray.Myreleaseversion = event;
+      newobjectvalue.Myreleaseversion = event.toString();
     }
   };
 

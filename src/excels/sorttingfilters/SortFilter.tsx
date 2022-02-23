@@ -1,5 +1,6 @@
 import React, {FC, useState} from 'react';
 import {View} from 'react-native';
+import {TPrObject} from '../../constants/UseContext';
 import Filters from './filters/Filters';
 import SortByDate from './sorts/SortByDate';
 
@@ -11,6 +12,7 @@ type Props = {
   platformFilter: Function;
   seListFilter: Function;
   statusFilter: Function;
+  arrayobject: TPrObject[];
 };
 
 const SortFilter: FC<Props> = ({
@@ -21,12 +23,13 @@ const SortFilter: FC<Props> = ({
   platformFilter,
   seListFilter,
   statusFilter,
+  arrayobject,
 }) => {
   const [{date, id}, setSatetDate] = useState({
     date: true,
     id: true,
   });
-  const setDateSortingFun = (newobjectarray: Date) => {
+  const setDateSortingFun = (newobjectarray: TPrObject[]) => {
     setSatetDate({date: !date, id: !id});
     setDateSorting(newobjectarray);
   };
@@ -42,8 +45,11 @@ const SortFilter: FC<Props> = ({
       />
       <View style={{marginTop: 5, backgroundColor: 'white'}}>
         <SortByDate
-          setDate={(newobjectarray: Date) => setDateSortingFun(newobjectarray)}
+          setDate={(newobjectarray: TPrObject[]) =>
+            setDateSortingFun(newobjectarray)
+          }
           choosedfilter={date}
+          arrayobject={arrayobject}
         />
       </View>
     </View>

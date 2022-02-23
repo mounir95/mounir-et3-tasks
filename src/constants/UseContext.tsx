@@ -1,6 +1,3 @@
-import React from 'react';
-import {Context} from 'vm';
-
 export let zero = 0;
 export const days = [
   {name: 'Date'},
@@ -17,7 +14,7 @@ export const days = [
   {name: 'Reveiwed By AH'},
   {name: 'Reveiwed By HT'},
   {name: ''},
-  {name: ''}
+  {name: ''},
 ];
 
 export const arrayofsort = ['asc', 'desc'];
@@ -25,12 +22,12 @@ export const arrayofsort = ['asc', 'desc'];
 export const booleanval = [
   {
     key: 'yes',
-    text: 'yes'
+    text: 'yes',
   },
   {
     key: 'no',
-    text: 'no'
-  }
+    text: 'no',
+  },
 ];
 
 export const dayss = [
@@ -46,12 +43,12 @@ export const dayss = [
   {name: 'Status List'},
   {name: 'Reveiwed By BY'},
   {name: 'Reveiwed By AH'},
-  {name: 'Reveiwed By HT'}
+  {name: 'Reveiwed By HT'},
 ];
 
 export interface TPrObject {
   Myid: number;
-  Mydate: Date;
+  Mydate: string;
   Myselist: string;
   Myplatform: string;
   Myreleaseversion: string;
@@ -62,7 +59,7 @@ export interface TPrObject {
   Mystatuslist: string;
   MyreviewedbyBY: string;
   MyreviewedbyAH: string;
-  MyreviewedbyHT: string
+  MyreviewedbyHT: string;
 }
 
 export interface TGlobalObject {
@@ -77,10 +74,10 @@ export interface TGlobalObject {
   StatusList: string[];
   ReveiwedByBY: string;
   ReveiwedByAH: string;
-  ReveiwedByHT: string
+  ReveiwedByHT: string;
 }
 
-const globalState: Partial<TGlobalObject> = {
+export const globalStateObject: Partial<TGlobalObject> = {
   Date: new Date(),
   SEList: ['AH', 'BY', 'HT'],
   Platform: [
@@ -94,7 +91,7 @@ const globalState: Partial<TGlobalObject> = {
     'fa-mobile-client',
     'fa-server-firebase',
     'kh-website',
-    'fa-website'
+    'fa-website',
   ],
   ReleaseVersion: '8.0.1',
   Comment: 'Commit Text',
@@ -104,8 +101,21 @@ const globalState: Partial<TGlobalObject> = {
   StatusList: ['Has Comments', 'Merged', 'Needs Reveiw', 'Closed'],
   ReveiwedByBY: 'no',
   ReveiwedByAH: 'no',
-  ReveiwedByHT: 'no'
+  ReveiwedByHT: 'no',
 };
 
-export const globalStateContext: Context =
-  React.createContext<Partial<TGlobalObject>>(globalState);
+export let emptyobject: TPrObject = {
+  Myid: 0,
+  Mydate: '',
+  Myselist: '',
+  Myplatform: '',
+  Myreleaseversion: '',
+  Mycomment: '',
+  Myprlink: '',
+  Mysize: '',
+  Mydificulity: '',
+  Mystatuslist: '',
+  MyreviewedbyBY: '',
+  MyreviewedbyAH: '',
+  MyreviewedbyHT: '',
+};

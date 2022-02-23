@@ -1,36 +1,46 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
 import {TPrObject} from '../../constants/UseContext';
-import {ObjectArray} from '../../components/ADDPage';
 import TextInputRow from './TextInputRow';
 import filter from 'lodash/filter';
+import {Context} from 'vm';
 
 type Props = {
   idupdate: number;
   TextPage: Function;
+  objectval: TPrObject;
+  arrayobjectval: Context;
 };
 
-const InputText: FC<Props> = ({idupdate, TextPage}) => {
-  const updatedarray = filter(ObjectArray._currentValue, (c: TPrObject) => {
-    if (c.Myid === idupdate) {
-      return c;
-    }
-  })[0];
+const InputText: FC<Props> = ({
+  idupdate,
+  TextPage,
+  objectval,
+  arrayobjectval,
+}) => {
+  const updatedarray: TPrObject = filter(
+    arrayobjectval,
+    (c: TPrObject): TPrObject => {
+      if (c.Myid === idupdate) {
+        return c;
+      }
+    },
+  )[0];
 
-  ObjectArray.Mycomment = updatedarray.Mycomment;
-  ObjectArray.Myprlink = updatedarray.Myprlink;
-  ObjectArray.Myreleaseversion = updatedarray.Myreleaseversion;
+  objectval.Mycomment = updatedarray.Mycomment;
+  objectval.Myprlink = updatedarray.Myprlink;
+  objectval.Myreleaseversion = updatedarray.Myreleaseversion;
 
   const onInputchange = (
     event: React.ChangeEvent<HTMLSelectElement>,
     Atribuite: string,
   ): void => {
     if (Atribuite === 'comment') {
-      ObjectArray.Mycomment = event;
+      objectval.Mycomment = event.toString();
     } else if (Atribuite === 'pr_Link') {
-      ObjectArray.Myprlink = event;
+      objectval.Myprlink = event.toString();
     } else if (Atribuite === 'release_version') {
-      ObjectArray.Myreleaseversion = event;
+      objectval.Myreleaseversion = event.toString();
     }
   };
 

@@ -1,16 +1,16 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import {ObjectArray} from '../../../components/ADDPage';
 import {arrayofsort, TPrObject} from '../../../constants/UseContext';
 import orderBy from 'lodash/orderBy';
 
 type Props = {
   setDate: Function;
   choosedfilter: Boolean;
+  arrayobject: TPrObject[];
 };
 
-const SortByDate: FC<Props> = ({setDate, choosedfilter}) => {
+const SortByDate: FC<Props> = ({setDate, choosedfilter, arrayobject}) => {
   const itemarray = arrayofsort.map(item => {
     return {label: item, value: item};
   });
@@ -18,10 +18,10 @@ const SortByDate: FC<Props> = ({setDate, choosedfilter}) => {
   const setDateSort = (event: React.ChangeEvent) => {
     const datesorting = event.toString() === 'desc' ? 'asc' : 'desc';
     const newobjectarray = orderBy(
-      ObjectArray._currentValue,
+      arrayobject,
       (obj: TPrObject) => obj.Mydate,
       [datesorting],
-    );
+    )
     setDate(newobjectarray);
   };
 

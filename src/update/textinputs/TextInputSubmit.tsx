@@ -1,14 +1,23 @@
 import React, {FC} from 'react';
 import {View} from 'react-native';
+import {TPrObject} from '../../constants/UseContext';
 import InputText from './TextInput';
 
 type Props = {
   updatedid: number;
   opentextpage: Boolean;
   toTextPage: Function;
+  objectval: TPrObject;
+  arrayobjectval: TPrObject[];
 };
 
-const InputTextSumit: FC<Props> = ({updatedid, opentextpage, toTextPage}) => {
+const InputTextSumit: FC<Props> = ({
+  updatedid,
+  opentextpage,
+  toTextPage,
+  objectval,
+  arrayobjectval,
+}) => {
   return (
     <View
       style={{
@@ -20,7 +29,12 @@ const InputTextSumit: FC<Props> = ({updatedid, opentextpage, toTextPage}) => {
         margin: 5
       }}>
       {opentextpage && (
-        <InputText idupdate={updatedid} TextPage={() => toTextPage()} />
+        <InputText
+          idupdate={updatedid}
+          TextPage={() => toTextPage()}
+          objectval={objectval}
+          arrayobjectval={arrayobjectval}
+        />
       )}
     </View>
   );

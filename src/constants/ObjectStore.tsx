@@ -2,7 +2,7 @@ import {observable, action, computed} from 'mobx';
 
 export interface TPrObject {
   Myid: number;
-  Mydate: Date;
+  Mydate: string;
   Myselist: string;
   Myplatform: string;
   Myreleaseversion: string;

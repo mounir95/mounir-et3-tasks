@@ -1,18 +1,25 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
 import {TPrObject} from '../../constants/UseContext';
-import {ObjectArray} from '../../components/ADDPage';
 import {useState} from 'react';
 import RadioButtonRow from './RadioButtonInput';
 import {booleanval} from '../../constants/UseContext';
 import {filter} from 'lodash';
+import {Context} from 'vm';
 
 type Props = {
   updatedid: number;
   RadioButtons: Function;
+  objectval: TPrObject;
+  arrayobjectval: Context;
 };
-const RadioButtonInput: FC<Props> = ({updatedid, RadioButtons}) => {
-  const arrayval = filter(ObjectArray._currentValue, (c: TPrObject) => {
+const RadioButtonInput: FC<Props> = ({
+  updatedid,
+  RadioButtons,
+  objectval,
+  arrayobjectval,
+}) => {
+  const arrayval: TPrObject = filter(arrayobjectval, (c: TPrObject) => {
     if (c.Myid === updatedid) {
       return c;
     }
@@ -35,7 +42,7 @@ const RadioButtonInput: FC<Props> = ({updatedid, RadioButtons}) => {
           (val = {
             reveiwed_by_AH: reveiwed_by_AH,
             reveiwed_by_HT: reveiwed_by_HT,
-            reveiwed_by_BY: booleanstring,
+            reveiwed_by_BY: booleanstring.toString(),
           }),
       );
     } else if (attribute === 'reveiwed_by_AH') {
@@ -44,7 +51,7 @@ const RadioButtonInput: FC<Props> = ({updatedid, RadioButtons}) => {
           (val = {
             reveiwed_by_HT: reveiwed_by_HT,
             reveiwed_by_BY: reveiwed_by_BY,
-            reveiwed_by_AH: booleanstring,
+            reveiwed_by_AH: booleanstring.toString(),
           }),
       );
     } else if (attribute === 'reveiwed_by_HT') {
@@ -53,16 +60,16 @@ const RadioButtonInput: FC<Props> = ({updatedid, RadioButtons}) => {
           (val = {
             reveiwed_by_BY: reveiwed_by_BY,
             reveiwed_by_AH: reveiwed_by_AH,
-            reveiwed_by_HT: booleanstring,
+            reveiwed_by_HT: booleanstring.toString(),
           }),
       );
     }
   };
 
   const handlePressSubmitButton = () => {
-    ObjectArray.MyreviewedbyBY = reveiwed_by_BY;
-    ObjectArray.MyreviewedbyAH = reveiwed_by_AH;
-    ObjectArray.MyreviewedbyHT = reveiwed_by_HT;
+    objectval.MyreviewedbyBY = reveiwed_by_BY;
+    objectval.MyreviewedbyAH = reveiwed_by_AH;
+    objectval.MyreviewedbyHT = reveiwed_by_HT;
     RadioButtons();
   };
 

@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, View, Button} from 'react-native';
 import orderBy from 'lodash/orderBy';
 import filter from 'lodash/filter';
-import {Context} from 'vm';
 import AddButton from './AddButton';
 import InputForm from '../input/InputForm';
 import {TPrObject} from '../constants/UseContext';
@@ -10,10 +9,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 
 type RootStackParamList = {
-  Excel: {studentID: string};
+  Excel: {arrayofobjects: TPrObject[]};
 };
-
-export let ObjectArray: Context = React.createContext<TPrObject | {}[]>([{}]);
 
 type mainScreenProp = StackNavigationProp<RootStackParamList, 'Excel'>;
 
@@ -24,6 +21,8 @@ const ADDPage = () => {
     inputform: false,
     addtext: 'ADD',
   });
+
+  let [objectarray, setArrayObject] = useState<TPrObject[]>([]);
 
   const resetState = () => {
     setState(
@@ -37,31 +36,26 @@ const ADDPage = () => {
   };
 
   const setAllChanges = () => {
-    if (ObjectArray._currentValue.length >= 2) {
-      ObjectArray._currentValue = filter(
-        orderBy(ObjectArray._currentValue, (obj: TPrObject) => obj.Myid, [
-          'asc',
-        ]),
-        (c: Context) => {
-          return c.hasOwnProperty('Myid');
-        },
-      );
-    }
-    ObjectArray._currentValue2 = ObjectArray._currentValue;
-    ObjectArray = React.createContext<object[]>([...ObjectArray._currentValue]);
+    objectarray = filter(
+      orderBy(objectarray, (obj: TPrObject) => obj.Myid, ['asc']),
+      (c: TPrObject) => {
+        return c.hasOwnProperty('Myid');
+      },
+    );
+    setArrayObject(objectarray);
   };
 
-  const inputAddButton = () => {
-    resetState();
-    ObjectArray = React.createContext<Array<number>>([
-      ...ObjectArray._currentValue,
-      ObjectArray,
-    ]);
+  const inputAddButton = (lastarrayobject: TPrObject) => {
+    console.log('before', objectarray);
+    const newobjearray: TPrObject[] = objectarray.push(lastarrayobject);
+    setArrayObject(newobjearray);
+    console.log('after', objectarray);
   };
 
   const checkTableIssue = () => {
     setAllChanges();
-    navigation.navigate('Excel', {studentID: addtext});
+    resetState();
+    navigation.navigate('Excel', {arrayofobjects: objectarray});
   };
 
   const onButtonPress = () => {
@@ -82,7 +76,7 @@ const ADDPage = () => {
 
   const inputCloseButton = () => {
     resetState();
-    setAllChanges();
+    setArrayObject(objectarray);
   };
 
   return (
@@ -90,8 +84,9 @@ const ADDPage = () => {
       <ScrollView>
         <InputForm
           inptformtrue={inputform}
-          inputAdd={() => inputAddButton()}
+          inputAdd={(objectval: TPrObject) => inputAddButton(objectval)}
           inputClose={() => inputCloseButton()}
+          lastobject={objectarray[objectarray.length - 1]}
         />
       </ScrollView>
       <AddButton

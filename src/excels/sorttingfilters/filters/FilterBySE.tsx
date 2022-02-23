@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPicker from 'react-native-picker-select';
-import {globalStateContext} from '../../../constants/UseContext';
+import {globalStateObject} from '../../../constants/UseContext';
 
 type Props = {
   seListFilter: Function;
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const FilterBySE: FC<Props> = ({seListFilter, filterchoosed}) => {
-  const arraymap = globalStateContext._currentValue.SEList.map((e: string) => {
+  const arraymap = globalStateObject.SEList.map((e: string) => {
     return {label: e, value: e};
   });
 

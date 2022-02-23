@@ -4,14 +4,14 @@ import InputSelectList from './selectlists/SelectListSubmit';
 import InputTextInput from './textinputs/TextInputSubmit';
 import InputSSDList from './ssdlists/SSDListsSubmit';
 import InputRadioButton from './radiobuttons/RadioButtonsSubmit';
-import {ObjectArray} from '../components/ADDPage';
-import {Context} from 'vm';
+import {emptyobject, TPrObject} from '../constants/UseContext';
 
 type Props = {
   inputUpdate: Function;
   inputClose: Function;
   updatedid: number;
   inputupdateformtrue: Boolean;
+  arrayobjectval: TPrObject[];
 };
 
 const UpdateRow: FC<Props> = ({
@@ -19,15 +19,17 @@ const UpdateRow: FC<Props> = ({
   inputClose,
   updatedid,
   inputupdateformtrue,
+  arrayobjectval
 }) => {
   const [
-    {selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue},
+    {selectpagetrue, textpagetrue, ssdliststrue, radiobuttonstrue, objectval},
     setNext,
   ] = useState({
     selectpagetrue: true,
     textpagetrue: false,
     ssdliststrue: false,
     radiobuttonstrue: false,
+    objectval: emptyobject,
   });
 
   const SelectList = () => {
@@ -38,6 +40,7 @@ const UpdateRow: FC<Props> = ({
           textpagetrue: true,
           ssdliststrue: false,
           radiobuttonstrue: false,
+          objectval: objectval,
         }),
     );
   };
@@ -50,6 +53,7 @@ const UpdateRow: FC<Props> = ({
           textpagetrue: false,
           ssdliststrue: true,
           radiobuttonstrue: false,
+          objectval: objectval,
         }),
     );
   };
@@ -61,25 +65,26 @@ const UpdateRow: FC<Props> = ({
           textpagetrue: false,
           ssdliststrue: false,
           radiobuttonstrue: true,
+          objectval: objectval,
         }),
     );
   };
 
   const RadioButtons = () => {
-    ObjectArray._currentValue.map((e: Context) => {
+    arrayobjectval.map((e: TPrObject) => {
       if (e.Myid === updatedid) {
         e.Myid = updatedid;
-        e.Myselist = ObjectArray.Myselist;
-        e.Myplatform = ObjectArray.Myplatform;
-        e.Myreleaseversion = ObjectArray.Myreleaseversion;
-        e.Mystatuslist = ObjectArray.Mystatuslist;
-        e.Mysize = ObjectArray.Mysize;
-        e.Mydificulity = ObjectArray.Mydificulity;
-        e.Myprlink = ObjectArray.Myprlink;
-        e.Mycomment = ObjectArray.Mycomment;
-        e.MyreviewedbyBY = ObjectArray.MyreviewedbyBY;
-        e.MyreviewedbyAH = ObjectArray.MyreviewedbyAH;
-        e.MyreviewedbyHT = ObjectArray.MyreviewedbyHT;
+        e.Myselist = objectval.Myselist;
+        e.Myplatform = objectval.Myplatform;
+        e.Myreleaseversion = objectval.Myreleaseversion;
+        e.Mystatuslist = objectval.Mystatuslist;
+        e.Mysize = objectval.Mysize;
+        e.Mydificulity = objectval.Mydificulity;
+        e.Myprlink = objectval.Myprlink;
+        e.Mycomment = objectval.Mycomment;
+        e.MyreviewedbyBY = objectval.MyreviewedbyBY;
+        e.MyreviewedbyAH = objectval.MyreviewedbyAH;
+        e.MyreviewedbyHT = objectval.MyreviewedbyHT;
       }
     });
     setNext(
@@ -89,6 +94,7 @@ const UpdateRow: FC<Props> = ({
           textpagetrue: false,
           ssdliststrue: false,
           radiobuttonstrue: false,
+          objectval: objectval,
         }),
     );
     inputUpdate();
@@ -101,7 +107,8 @@ const UpdateRow: FC<Props> = ({
           selectpagetrue: true,
           textpagetrue: false,
           ssdliststrue: false,
-          radiobuttonstrue: false
+          radiobuttonstrue: false,
+          objectval: emptyobject,
         }),
     );
     inputClose();
@@ -123,21 +130,29 @@ const UpdateRow: FC<Props> = ({
             updatedid={updatedid}
             openselectpage={selectpagetrue}
             toSelectList={() => SelectList()}
+            objectval={objectval}
+            arrayobjectval={arrayobjectval}
           />
           <InputTextInput
             updatedid={updatedid}
             opentextpage={textpagetrue}
             toTextPage={() => TextPage()}
+            objectval={objectval}
+            arrayobjectval={arrayobjectval}
           />
           <InputSSDList
             updatedid={updatedid}
             openssdlists={ssdliststrue}
             toSSDLists={() => SSDLists()}
+            objectval={objectval}
+            arrayobjectval={arrayobjectval}
           />
           <InputRadioButton
             updatedid={updatedid}
             openradiobuttons={radiobuttonstrue}
             toRadioButtons={() => RadioButtons()}
+            objectval={objectval}
+            arrayobjectval={arrayobjectval}
           />
         </View>
       )}

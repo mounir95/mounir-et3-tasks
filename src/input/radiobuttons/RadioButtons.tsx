@@ -1,20 +1,21 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
-import {ObjectArray} from '../../components/ADDPage';
+import {globalStateObject} from '../../constants/UseContext';
 import {useState} from 'react';
 import RadioButtonRow from './RadioButtonInput';
 import {booleanval} from '../../constants/UseContext';
+import {TPrObject} from '../../constants/UseContext';
 
 type Props = {
   RadioButtons: Function;
+  newobjectvalue: TPrObject
 };
-const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
+const RadioButtonInput: FC<Props> = ({RadioButtons, newobjectvalue}) => {
   const [{reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT}, setChanges] =
     useState({
-      reveiwed_by_BY: globalStateContext._currentValue.ReveiwedByBY,
-      reveiwed_by_AH: globalStateContext._currentValue.ReveiwedByAH,
-      reveiwed_by_HT: globalStateContext._currentValue.ReveiwedByHT,
+      reveiwed_by_BY: globalStateObject.ReveiwedByBY,
+      reveiwed_by_AH: globalStateObject.ReveiwedByAH,
+      reveiwed_by_HT: globalStateObject.ReveiwedByHT,
     });
 
   const changeHandle = (
@@ -27,7 +28,7 @@ const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
           (val = {
             reveiwed_by_AH: reveiwed_by_AH,
             reveiwed_by_HT: reveiwed_by_HT,
-            reveiwed_by_BY: booleanstring,
+            reveiwed_by_BY: booleanstring.toString(),
           }),
       );
     } else if (attribute === 'reveiwed_by_AH') {
@@ -36,7 +37,7 @@ const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
           (val = {
             reveiwed_by_HT: reveiwed_by_HT,
             reveiwed_by_BY: reveiwed_by_BY,
-            reveiwed_by_AH: booleanstring,
+            reveiwed_by_AH: booleanstring.toString(),
           }),
       );
     } else if (attribute === 'reveiwed_by_HT') {
@@ -45,16 +46,16 @@ const RadioButtonInput: FC<Props> = ({RadioButtons}) => {
           (val = {
             reveiwed_by_BY: reveiwed_by_BY,
             reveiwed_by_AH: reveiwed_by_AH,
-            reveiwed_by_HT: booleanstring,
+            reveiwed_by_HT: booleanstring.toString(),
           }),
       );
     }
   };
 
   const handlePressSubmitButton = () => {
-    ObjectArray.MyreviewedbyBY = reveiwed_by_BY;
-    ObjectArray.MyreviewedbyAH = reveiwed_by_AH;
-    ObjectArray.MyreviewedbyHT = reveiwed_by_HT;
+    newobjectvalue.MyreviewedbyBY = reveiwed_by_BY;
+    newobjectvalue.MyreviewedbyAH = reveiwed_by_AH;
+    newobjectvalue.MyreviewedbyHT = reveiwed_by_HT;
     RadioButtons();
   };
 

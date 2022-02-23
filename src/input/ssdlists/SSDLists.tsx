@@ -1,25 +1,26 @@
 import React, {ChangeEvent} from 'react';
 import {View} from 'react-native';
-import {globalStateContext} from '../../constants/UseContext';
-import {ObjectArray} from '../../components/ADDPage';
+import {globalStateObject, TPrObject} from '../../constants/UseContext';
 import SelectInput from '../selectlists/SelectInput';
 
-const SSDListInput = () => {
-  ObjectArray.Mysize = globalStateContext._currentValue.Size[0].toString();
-  ObjectArray.Mydificulity =
-    globalStateContext._currentValue.Dificulity[0].toString();
-  ObjectArray.Mystatuslist =
-    globalStateContext._currentValue.StatusList[0].toString();
+type Props = {
+  newobjectvalue: TPrObject;
+};
+
+const SSDListInput: React.FC<Props> = ({newobjectvalue}) => {
+  newobjectvalue.Mysize = globalStateObject.Size[0].toString();
+  newobjectvalue.Mydificulity = globalStateObject.Dificulity[0].toString();
+  newobjectvalue.Mystatuslist = globalStateObject.StatusList[0].toString();
   const outputEvent = (
     event: React.ChangeEvent<HTMLSelectElement>,
     parentData: string,
   ): void => {
     if (parentData === 'size') {
-      ObjectArray.Mysize = event;
+      newobjectvalue.Mysize = event.toString();
     } else if (parentData === 'dificulity') {
-      ObjectArray.Mydificulity = event;
+      newobjectvalue.Mydificulity = event.toString();
     } else if (parentData === 'status_list') {
-      ObjectArray.Mystatuslist = event;
+      newobjectvalue.Mystatuslist = event.toString();
     }
   };
 
@@ -28,8 +29,8 @@ const SSDListInput = () => {
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
           listname={'Status List'}
-          arrayval={globalStateContext._currentValue.StatusList}
-          choosedval={globalStateContext._currentValue.StatusList}
+          arrayval={globalStateObject.StatusList}
+          choosedval={globalStateObject.StatusList}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'status_list')
           }
@@ -38,8 +39,8 @@ const SSDListInput = () => {
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
           listname={'Size'}
-          arrayval={globalStateContext._currentValue.Size}
-          choosedval={globalStateContext._currentValue.Size}
+          arrayval={globalStateObject.Size}
+          choosedval={globalStateObject.Size}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'size')
           }
@@ -48,8 +49,8 @@ const SSDListInput = () => {
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
           listname={'Dificulity'}
-          arrayval={globalStateContext._currentValue.Dificulity}
-          choosedval={globalStateContext._currentValue.Dificulity}
+          arrayval={globalStateObject.Dificulity}
+          choosedval={globalStateObject.Dificulity}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'dificulity')
           }

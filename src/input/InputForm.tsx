@@ -5,38 +5,39 @@ import InputSelectList from './selectlists/SelectList';
 import InputTextInput from './textinputs/TextInput';
 import InputSSDList from './ssdlists/SSDLists';
 import InputRadioButton from './radiobuttons/RadioButtons';
-import {ObjectArray} from '../components/ADDPage';
 import InputDatePicker from './datepicking/DatePicking';
+import {TPrObject} from '../constants/ObjectStore';
+import {emptyobject} from '../constants/UseContext';
 
 type Props = {
   inptformtrue: Boolean;
   inputAdd: Function;
   inputClose: Function;
+  lastobject: TPrObject;
 };
 
-const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
+const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose, lastobject}) => {
   let lastIndex: number;
-  let checkobject =
-    ObjectArray._currentValue[ObjectArray._currentValue.length - 1];
-  if (!checkobject.hasOwnProperty('Myid')) {
+  if (lastobject === undefined) {
+    lastobject = emptyobject;
     lastIndex = 1;
   } else {
     lastIndex =
-      ObjectArray._currentValue[ObjectArray._currentValue.length - 1].Myid + 1;
+      lastobject.Myid + 1;
   }
 
   const checkValidation = () => {
     if (
-      ObjectArray.hasOwnProperty('Myreleaseversion') &&
-      ObjectArray.Myreleaseversion !== ''
+      lastobject.hasOwnProperty('Myreleaseversion') &&
+      lastobject.Myreleaseversion !== ''
     ) {
       if (
-        ObjectArray.hasOwnProperty('Myprlink') &&
-        ObjectArray.Myprlink !== ''
+        lastobject.hasOwnProperty('Myprlink') &&
+        lastobject.Myprlink !== ''
       ) {
         if (
-          ObjectArray.hasOwnProperty('Mycomment') &&
-          ObjectArray.Mycomment !== ''
+          lastobject.hasOwnProperty('Mycomment') &&
+          lastobject.Mycomment !== ''
         ) {
           return true;
         } else {
@@ -52,8 +53,9 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
 
   const toRadioButtons = () => {
     if (checkValidation() === true) {
-      ObjectArray.Myid = lastIndex;
-      inputAdd();
+      lastobject.Myid = lastIndex;
+        console.log(lastobject)
+      inputAdd(lastobject);
     } else {
       console.warn(checkValidation);
     }
@@ -84,11 +86,11 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose}) => {
               borderColor: 'yellow',
               margin: 5,
             }}>
-            <InputDatePicker />
-            <InputSelectList />
-            <InputTextInput />
-            <InputSSDList />
-            <InputRadioButton RadioButtons={() => toRadioButtons()} />
+            <InputDatePicker newobjectvalue={lastobject}/>
+            <InputSelectList newobjectvalue={lastobject}/>
+            <InputTextInput newobjectvalue={lastobject}/>
+            <InputSSDList newobjectvalue={lastobject}/>
+            <InputRadioButton newobjectvalue={lastobject} RadioButtons={() => toRadioButtons()} />
           </View>
         </View>
       )}
