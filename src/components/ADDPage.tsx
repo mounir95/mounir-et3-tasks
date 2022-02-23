@@ -22,7 +22,7 @@ const ADDPage = () => {
     addtext: 'ADD',
   });
 
-  let [objectarray, setArrayObject] = useState<TPrObject[]>([]);
+  let [objectarray, setArrayObject] = useState([]);
 
   const resetState = () => {
     setState(
@@ -47,8 +47,8 @@ const ADDPage = () => {
 
   const inputAddButton = (lastarrayobject: TPrObject) => {
     console.log('before', objectarray);
-    const newobjearray: TPrObject[] = objectarray.push(lastarrayobject);
-    setArrayObject(newobjearray);
+    // const newobjearray = objectarray.push(lastarrayobject);
+    setArrayObject([...objectarray, lastarrayobject]);
     console.log('after', objectarray);
   };
 
