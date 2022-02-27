@@ -1,23 +1,10 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {View} from 'react-native';
+import {UpdateFormMobx} from '../../constants/UseContext';
 import SSDListInput from './SSDLists';
-import {TPrObject} from '../../constants/UseContext';
+import {observer} from 'mobx-react';
 
-type Props = {
-  updatedid: number;
-  openssdlists: Boolean;
-  toSSDLists: Function;
-  objectval: TPrObject;
-  arrayobjectval: TPrObject[];
-};
-
-const SSDListInputSumit: FC<Props> = ({
-  updatedid,
-  openssdlists,
-  toSSDLists,
-  objectval,
-  arrayobjectval
-}) => {
+const SSDListInputSumit = observer(() => {
   return (
     <View
       style={{
@@ -28,16 +15,9 @@ const SSDListInputSumit: FC<Props> = ({
         borderColor: 'yellow',
         margin: 5
       }}>
-      {openssdlists && (
-        <SSDListInput
-          updatedid={updatedid}
-          SSDLists={() => toSSDLists()}
-          objectval={objectval}
-          arrayobjectval={arrayobjectval}
-        />
-      )}
+      {UpdateFormMobx.ssdliststrue && <SSDListInput />}
     </View>
   );
-};
+});
 
 export default SSDListInputSumit;

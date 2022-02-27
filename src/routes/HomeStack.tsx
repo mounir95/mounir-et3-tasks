@@ -8,10 +8,10 @@ const Stack = createNativeStackNavigator();
 const MyHomeStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Add Page" component={ADDPage} />
+      <Stack.Screen name="ADDPage" component={ADDPage} />
       <Stack.Screen name="Excel" component={Excel} />
     </Stack.Navigator>
   );
-}
+};
 
 export default MyHomeStack;

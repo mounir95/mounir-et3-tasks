@@ -1,45 +1,34 @@
-import React, {ChangeEvent, FC} from 'react';
+import React, {ChangeEvent} from 'react';
 import {View, Button} from 'react-native';
-import {globalStateObject, TPrObject} from '../../constants/UseContext';
+import {
+  ExcelMobx,
+  globalStateObject,
+  TPrObject,
+  UpdateFormMobx,
+} from '../../constants/UseContext';
 import SelectInput from './SelectInput';
 import filter from 'lodash/filter';
-import {Context} from 'vm';
+import globalObj from '../../constants/ObjectStore';
+import {observer} from 'mobx-react';
 
-type Props = {
-  updatedid: number;
-  SelectList: Function;
-  objectval: TPrObject;
-  arrayobjectval: Context;
-};
-
-const InputSelectList: FC<Props> = ({
-  updatedid,
-  SelectList,
-  objectval,
-  arrayobjectval,
-}) => {
-  const updatedarray: TPrObject = filter(arrayobjectval, (c: TPrObject) => {
-    if (c.Myid === updatedid) {
+const InputSelectList = observer(() => {
+  const updatedarray: any = filter(globalObj.arrayofobjects, (c: TPrObject) => {
+    if (c.Myid === ExcelMobx.id) {
       return c;
     }
   })[0];
-
-  objectval.Myselist = updatedarray.Myselist;
-  objectval.Myplatform = updatedarray.Myplatform;
 
   const outputEvent = (
     event: React.ChangeEvent<HTMLSelectElement>,
     parentData: string,
   ): void => {
     if (parentData === 'se_list') {
-      objectval.Myselist = event.toString();
+      UpdateFormMobx.objectval.Myselist = event.toString();
+      updatedarray.Myselist = event.toString();
     } else if (parentData === 'platform') {
-      objectval.Myplatform = event.toString();
+      UpdateFormMobx.objectval.Myplatform = event.toString();
+      updatedarray.Myplatform = event.toString();
     }
-  };
-
-  const handlePressSubmitButton = () => {
-    SelectList();
   };
 
   return (
@@ -67,10 +56,10 @@ const InputSelectList: FC<Props> = ({
         />
       </View>
       <View style={{marginTop: 25}}>
-        <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
+        <Button title={'Next'} onPress={() => UpdateFormMobx.selectList()} />
       </View>
     </View>
   );
-};
+});
 
 export default InputSelectList;

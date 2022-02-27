@@ -1,51 +1,35 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {View, Text, Button} from 'react-native';
-import {TPrObject} from '../../constants/UseContext';
+import {ExcelMobx, TPrObject, UpdateFormMobx} from '../../constants/UseContext';
 import TextInputRow from './TextInputRow';
 import filter from 'lodash/filter';
-import {Context} from 'vm';
+import globalObj from '../../constants/ObjectStore';
+import {observer} from 'mobx-react';
 
-type Props = {
-  idupdate: number;
-  TextPage: Function;
-  objectval: TPrObject;
-  arrayobjectval: Context;
-};
-
-const InputText: FC<Props> = ({
-  idupdate,
-  TextPage,
-  objectval,
-  arrayobjectval,
-}) => {
-  const updatedarray: TPrObject = filter(
-    arrayobjectval,
+const InputText = observer(() => {
+  const updatedarray: any = filter(
+    globalObj.arrayofobjects,
     (c: TPrObject): TPrObject => {
-      if (c.Myid === idupdate) {
+      if (c.Myid === ExcelMobx.id) {
         return c;
       }
     },
   )[0];
-
-  objectval.Mycomment = updatedarray.Mycomment;
-  objectval.Myprlink = updatedarray.Myprlink;
-  objectval.Myreleaseversion = updatedarray.Myreleaseversion;
 
   const onInputchange = (
     event: React.ChangeEvent<HTMLSelectElement>,
     Atribuite: string,
   ): void => {
     if (Atribuite === 'comment') {
-      objectval.Mycomment = event.toString();
+      UpdateFormMobx.objectval.Mycomment = event.toString();
+      updatedarray.Mycomment = event.toString();
     } else if (Atribuite === 'pr_Link') {
-      objectval.Myprlink = event.toString();
+      UpdateFormMobx.objectval.Myprlink = event.toString();
+      updatedarray.Myprlink = event.toString();
     } else if (Atribuite === 'release_version') {
-      objectval.Myreleaseversion = event.toString();
+      UpdateFormMobx.objectval.Myreleaseversion = event.toString();
+      updatedarray.Myreleaseversion = event.toString();
     }
-  };
-
-  const handlePressSubmitButton = () => {
-    TextPage();
   };
 
   return (
@@ -78,9 +62,10 @@ const InputText: FC<Props> = ({
         />
       </View>
       <View style={{marginTop: 25}}>
-        <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
+        <Button title={'Next'} onPress={() => UpdateFormMobx.textPage()} />
       </View>
     </View>
   );
-};
+});
+
 export default InputText;

@@ -1,28 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, Button, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {TPrObject} from '../../constants/UseContext';
+import {observer} from 'mobx-react';
+import globalObj from '../../constants/ObjectStore';
 
-type Props = {
-  newobjectvalue: TPrObject;
-};
-
-const Datepicker: React.FC<Props> = ({newobjectvalue}) => {
-  const [isPickerShow, setIsPickerShow] = useState(false);
-  const [date, setDate] = useState(new Date(Date.now()));
-
+const Datepicker = observer(() => {
   const showPicker = () => {
-    setIsPickerShow(true);
+    globalObj.setIsPickerShow(true);
   };
 
   const onChange = (event: any, date?: Date) => {
-    setDate(date);
+    globalObj.setDate(date);
     if (Platform.OS === 'android') {
-      setIsPickerShow(false);
+      globalObj.setIsPickerShow(false);
     }
   };
-
-  newobjectvalue.Mydate = date.toString();
 
   return (
     <View
@@ -34,22 +26,19 @@ const Datepicker: React.FC<Props> = ({newobjectvalue}) => {
         justifyContent: 'center',
         padding: 20,
       }}>
-      {/* Display the selected date */}
       <View style={{padding: 20, backgroundColor: '#eee', borderRadius: 10}}>
-        <Text style={{fontSize: 18, color: 'black'}}>{date.toUTCString()}</Text>
+        <Text style={{fontSize: 18, color: 'black'}}>
+          {globalObj.emptyobject.Mydate}
+        </Text>
       </View>
-
-      {/* The button that used to trigger the date picker */}
-      {!isPickerShow && (
+      {!globalObj.isPickerShow && (
         <View style={{padding: 25}}>
           <Button title="Show Picker" color="purple" onPress={showPicker} />
         </View>
       )}
-
-      {/* The date picker */}
-      {isPickerShow && (
+      {globalObj.isPickerShow && (
         <DateTimePicker
-          value={date}
+          value={globalObj.date}
           mode={'date'}
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
           is24Hour={true}
@@ -65,6 +54,6 @@ const Datepicker: React.FC<Props> = ({newobjectvalue}) => {
       )}
     </View>
   );
-};
+});
 
 export default Datepicker;

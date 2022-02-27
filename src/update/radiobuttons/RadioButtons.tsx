@@ -1,75 +1,39 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
-import {TPrObject} from '../../constants/UseContext';
-import {useState} from 'react';
+import {ExcelMobx, TPrObject, UpdateFormMobx} from '../../constants/UseContext';
 import RadioButtonRow from './RadioButtonInput';
 import {booleanval} from '../../constants/UseContext';
 import {filter} from 'lodash';
-import {Context} from 'vm';
+import globalObj from '../../constants/ObjectStore';
+import {observer} from 'mobx-react';
 
 type Props = {
-  updatedid: number;
   RadioButtons: Function;
-  objectval: TPrObject;
-  arrayobjectval: Context;
 };
-const RadioButtonInput: FC<Props> = ({
-  updatedid,
-  RadioButtons,
-  objectval,
-  arrayobjectval,
-}) => {
-  const arrayval: TPrObject = filter(arrayobjectval, (c: TPrObject) => {
-    if (c.Myid === updatedid) {
+const RadioButtonInput: FC<Props> = observer(({RadioButtons}) => {
+  const updatedarray: any = filter(globalObj.arrayofobjects, (c: TPrObject) => {
+    if (c.Myid === ExcelMobx.id) {
       return c;
     }
   })[0];
 
-  const [{reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT}, setChanges] =
-    useState({
-      reveiwed_by_BY: arrayval.MyreviewedbyBY,
-      reveiwed_by_AH: arrayval.MyreviewedbyAH,
-      reveiwed_by_HT: arrayval.MyreviewedbyHT,
-    });
-
-  const changeHandle = (
+  const setRadioButton = (
     booleanstring: React.ChangeEvent<HTMLInputElement>,
     attribute: string,
-  ): void => {
+  ) => {
     if (attribute === 'reveiwed_by_BY') {
-      setChanges(
-        val =>
-          (val = {
-            reveiwed_by_AH: reveiwed_by_AH,
-            reveiwed_by_HT: reveiwed_by_HT,
-            reveiwed_by_BY: booleanstring.toString(),
-          }),
-      );
+      UpdateFormMobx.objectval.MyreviewedbyBY = booleanstring.toString();
+      updatedarray.MyreviewedbyBY = booleanstring.toString();
     } else if (attribute === 'reveiwed_by_AH') {
-      setChanges(
-        val =>
-          (val = {
-            reveiwed_by_HT: reveiwed_by_HT,
-            reveiwed_by_BY: reveiwed_by_BY,
-            reveiwed_by_AH: booleanstring.toString(),
-          }),
-      );
+      UpdateFormMobx.objectval.MyreviewedbyAH = booleanstring.toString();
+      updatedarray.MyreviewedbyAH = booleanstring.toString();
     } else if (attribute === 'reveiwed_by_HT') {
-      setChanges(
-        val =>
-          (val = {
-            reveiwed_by_BY: reveiwed_by_BY,
-            reveiwed_by_AH: reveiwed_by_AH,
-            reveiwed_by_HT: booleanstring.toString(),
-          }),
-      );
+      UpdateFormMobx.objectval.MyreviewedbyHT = booleanstring.toString();
+      updatedarray.MyreviewedbyHT = booleanstring.toString();
     }
   };
 
   const handlePressSubmitButton = () => {
-    objectval.MyreviewedbyBY = reveiwed_by_BY;
-    objectval.MyreviewedbyAH = reveiwed_by_AH;
-    objectval.MyreviewedbyHT = reveiwed_by_HT;
     RadioButtons();
   };
 
@@ -91,8 +55,8 @@ const RadioButtonInput: FC<Props> = ({
             getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
-            ) => changeHandle(booleanstring, 'reveiwed_by_BY')}
-            value={reveiwed_by_BY}
+            ) => setRadioButton(booleanstring, 'reveiwed_by_BY')}
+            value={updatedarray.MyreviewedbyBY}
           />
         </View>
         <View
@@ -110,8 +74,8 @@ const RadioButtonInput: FC<Props> = ({
             getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
-            ) => changeHandle(booleanstring, 'reveiwed_by_AH')}
-            value={reveiwed_by_AH}
+            ) => setRadioButton(booleanstring, 'reveiwed_by_AH')}
+            value={updatedarray.MyreviewedbyAH}
           />
         </View>
         <View
@@ -129,8 +93,8 @@ const RadioButtonInput: FC<Props> = ({
             getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
-            ) => changeHandle(booleanstring, 'reveiwed_by_HT')}
-            value={reveiwed_by_HT}
+            ) => setRadioButton(booleanstring, 'reveiwed_by_HT')}
+            value={updatedarray.MyreviewedbyHT}
           />
         </View>
       </View>
@@ -139,6 +103,6 @@ const RadioButtonInput: FC<Props> = ({
       </View>
     </View>
   );
-};
+});
 
 export default RadioButtonInput;

@@ -3,14 +3,15 @@ import {Text, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import {arrayofsort, TPrObject} from '../../../constants/UseContext';
 import orderBy from 'lodash/orderBy';
+import globalObj from '../../../constants/ObjectStore';
+import {observer} from 'mobx-react';
 
 type Props = {
   setDate: Function;
   choosedfilter: Boolean;
-  arrayobject: TPrObject[];
 };
 
-const SortByDate: FC<Props> = ({setDate, choosedfilter, arrayobject}) => {
+const SortByDate: FC<Props> = observer(({setDate, choosedfilter}) => {
   const itemarray = arrayofsort.map(item => {
     return {label: item, value: item};
   });
@@ -18,7 +19,7 @@ const SortByDate: FC<Props> = ({setDate, choosedfilter, arrayobject}) => {
   const setDateSort = (event: React.ChangeEvent) => {
     const datesorting = event.toString() === 'desc' ? 'asc' : 'desc';
     const newobjectarray = orderBy(
-      arrayobject,
+      globalObj.arrayofobjects,
       (obj: TPrObject) => obj.Mydate,
       [datesorting],
     )
@@ -66,6 +67,6 @@ const SortByDate: FC<Props> = ({setDate, choosedfilter, arrayobject}) => {
       )}
     </View>
   );
-};
+});
 
 export default SortByDate;

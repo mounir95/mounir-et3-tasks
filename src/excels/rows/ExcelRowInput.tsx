@@ -2,22 +2,15 @@ import React, {FC} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import Icons from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {TPrObject} from '../../constants/UseContext';
+import globalObj from '../../constants/ObjectStore';
+import {ExcelMobx, TPrObject} from '../../constants/UseContext';
+import {observer} from 'mobx-react';
 
 type Props = {
   object: TPrObject;
   index: number;
-  onDelete: any;
-  onUpdate: any;
-  updateiconid: number;
 };
-const ExcelRowInput: FC<Props> = ({
-  object,
-  index,
-  onDelete,
-  onUpdate,
-  updateiconid,
-}) => {
+const ExcelRowInput: FC<Props> = observer(({object, index}) => {
   const objectarrayval = [
     object.Mydate,
     object.Myselist,
@@ -64,11 +57,11 @@ const ExcelRowInput: FC<Props> = ({
               paddingHorizontal: 2,
               flexDirection: 'row',
             }}
-            onPress={() => onUpdate(object.Myid)}>
-            {updateiconid !== object.Myid && updateiconid === -1 && (
+            onPress={() => ExcelMobx.onUpdateFun(object.Myid)}>
+            {ExcelMobx.id !== object.Myid && ExcelMobx.id === -1 && (
               <Icons name="pencil" size={15} color="#900" />
             )}
-            {updateiconid === object.Myid && (
+            {ExcelMobx.id === object.Myid && (
               <FontAwesome name="save" size={20} color="#900" />
             )}
           </TouchableOpacity>
@@ -82,13 +75,13 @@ const ExcelRowInput: FC<Props> = ({
               paddingVertical: 3,
               backgroundColor: 'white',
             }}
-            onPress={() => onDelete(object.Myid)}>
+            onPress={() => globalObj.onDelete(object.Myid)}>
             <Text>X</Text>
           </TouchableOpacity>
         )}
       </View>
     </View>
   );
-};
+});
 
 export default ExcelRowInput;

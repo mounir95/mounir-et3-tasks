@@ -1,20 +1,23 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
+import {AddPageMobx} from '../constants/UseContext';
+import globalObj from '../constants/ObjectStore';
+import {observer} from 'mobx-react';
 
-type Props = {
-  addbuttontrue: Boolean;
-  buttonPressed: Function;
-  buttontext: string;
-};
-
-const AddButton: FC<Props> = ({addbuttontrue, buttonPressed, buttontext}) => {
+const AddButton = observer(() => {
   const onPressSubmit = () => {
-    buttonPressed();
+    if (AddPageMobx.addtext === 'Close') {
+      AddPageMobx.setAddPageMobx();
+    } else {
+      AddPageMobx.resetAddPageMobx();
+    }
+    globalObj.setAllChanges();
+    globalObj.resetObject();
   };
 
   return (
     <View style={{alignItems: 'center'}}>
-      {addbuttontrue && (
+      {AddPageMobx.addbuttontrue && (
         <TouchableOpacity onPress={() => onPressSubmit()}>
           <Text
             style={{
@@ -26,12 +29,12 @@ const AddButton: FC<Props> = ({addbuttontrue, buttonPressed, buttontext}) => {
               color: '#776677',
               backgroundColor: 'white',
             }}>
-            {buttontext}
+            {AddPageMobx.addtext}
           </Text>
         </TouchableOpacity>
       )}
     </View>
   );
-};
+});
 
 export default AddButton;

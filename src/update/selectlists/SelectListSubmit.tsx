@@ -1,23 +1,10 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {View} from 'react-native';
-import {TPrObject} from '../../constants/UseContext';
+import {UpdateFormMobx} from '../../constants/UseContext';
 import InputSelectList from './SelectList';
+import {observer} from 'mobx-react';
 
-type Props = {
-  updatedid: number;
-  openselectpage: Boolean;
-  toSelectList: Function;
-  objectval: TPrObject;
-  arrayobjectval: TPrObject[];
-};
-
-const InputSelectListSumit: FC<Props> = ({
-  updatedid,
-  openselectpage,
-  toSelectList,
-  objectval,
-  arrayobjectval,
-}) => {
+const InputSelectListSumit = observer(() => {
   return (
     <View
       style={{
@@ -28,16 +15,9 @@ const InputSelectListSumit: FC<Props> = ({
         borderColor: 'yellow',
         margin: 5
       }}>
-      {openselectpage && (
-        <InputSelectList
-          updatedid={updatedid}
-          SelectList={() => toSelectList()}
-          objectval={objectval}
-          arrayobjectval={arrayobjectval}
-        />
-      )}
+      {UpdateFormMobx.selectpagetrue && <InputSelectList />}
     </View>
   );
-};
+});
 
 export default InputSelectListSumit;

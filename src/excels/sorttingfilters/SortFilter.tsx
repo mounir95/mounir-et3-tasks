@@ -1,59 +1,29 @@
-import React, {FC, useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
-import {TPrObject} from '../../constants/UseContext';
+import {ExcelMobx, TPrObject} from '../../constants/UseContext';
 import Filters from './filters/Filters';
 import SortByDate from './sorts/SortByDate';
+import {SortFilterMobx} from '../../constants/UseContext';
+import globalObj from '../../constants/ObjectStore';
+import {observer} from 'mobx-react';
 
-type Props = {
-  setDateSorting: Function;
-  filterPressed: Function;
-  filterfalse: Boolean;
-  changeText: Function;
-  platformFilter: Function;
-  seListFilter: Function;
-  statusFilter: Function;
-  arrayobject: TPrObject[];
-};
-
-const SortFilter: FC<Props> = ({
-  setDateSorting,
-  filterfalse,
-  filterPressed,
-  changeText,
-  platformFilter,
-  seListFilter,
-  statusFilter,
-  arrayobject,
-}) => {
-  const [{date, id}, setSatetDate] = useState({
-    date: true,
-    id: true,
-  });
-  const setDateSortingFun = (newobjectarray: TPrObject[]) => {
-    setSatetDate({date: !date, id: !id});
-    setDateSorting(newobjectarray);
+const SortFilter = observer(() => {
+  const setDateSort = (newobjectarray: TPrObject[]) => {
+    SortFilterMobx.setDateFun();
+    globalObj.arrayofobjects = newobjectarray;
+    ExcelMobx.resetStore();
   };
   return (
     <View>
-      <Filters
-        openfilter={filterfalse}
-        pressfilter={filterPressed}
-        textChanged={(event: string) => changeText(event)}
-        filterPlatform={(event: React.ChangeEvent) => platformFilter(event)}
-        filterSElist={(event: React.ChangeEvent) => seListFilter(event)}
-        filterStatus={(event: React.ChangeEvent) => statusFilter(event)}
-      />
+      <Filters />
       <View style={{marginTop: 5, backgroundColor: 'white'}}>
         <SortByDate
-          setDate={(newobjectarray: TPrObject[]) =>
-            setDateSortingFun(newobjectarray)
-          }
-          choosedfilter={date}
-          arrayobject={arrayobject}
+          setDate={(newobjectarray: TPrObject[]) => setDateSort(newobjectarray)}
+          choosedfilter={SortFilterMobx.date}
         />
       </View>
     </View>
   );
-};
+});
 
 export default SortFilter;

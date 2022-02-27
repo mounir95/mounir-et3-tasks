@@ -1,62 +1,23 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
-import {globalStateObject} from '../../constants/UseContext';
-import {useState} from 'react';
 import RadioButtonRow from './RadioButtonInput';
 import {booleanval} from '../../constants/UseContext';
-import {TPrObject} from '../../constants/UseContext';
+import {observer} from 'mobx-react';
+import globalObj from '../../constants/ObjectStore';
 
 type Props = {
-  RadioButtons: Function;
-  newobjectvalue: TPrObject
+  radioButtons: Function;
 };
-const RadioButtonInput: FC<Props> = ({RadioButtons, newobjectvalue}) => {
-  const [{reveiwed_by_BY, reveiwed_by_AH, reveiwed_by_HT}, setChanges] =
-    useState({
-      reveiwed_by_BY: globalStateObject.ReveiwedByBY,
-      reveiwed_by_AH: globalStateObject.ReveiwedByAH,
-      reveiwed_by_HT: globalStateObject.ReveiwedByHT,
-    });
-
+const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
   const changeHandle = (
     booleanstring: React.ChangeEvent<HTMLInputElement>,
     attribute: string,
   ): void => {
-    if (attribute === 'reveiwed_by_BY') {
-      setChanges(
-        val =>
-          (val = {
-            reveiwed_by_AH: reveiwed_by_AH,
-            reveiwed_by_HT: reveiwed_by_HT,
-            reveiwed_by_BY: booleanstring.toString(),
-          }),
-      );
-    } else if (attribute === 'reveiwed_by_AH') {
-      setChanges(
-        val =>
-          (val = {
-            reveiwed_by_HT: reveiwed_by_HT,
-            reveiwed_by_BY: reveiwed_by_BY,
-            reveiwed_by_AH: booleanstring.toString(),
-          }),
-      );
-    } else if (attribute === 'reveiwed_by_HT') {
-      setChanges(
-        val =>
-          (val = {
-            reveiwed_by_BY: reveiwed_by_BY,
-            reveiwed_by_AH: reveiwed_by_AH,
-            reveiwed_by_HT: booleanstring.toString(),
-          }),
-      );
-    }
+    globalObj.setReveiwwedBy(booleanstring, attribute);
   };
 
   const handlePressSubmitButton = () => {
-    newobjectvalue.MyreviewedbyBY = reveiwed_by_BY;
-    newobjectvalue.MyreviewedbyAH = reveiwed_by_AH;
-    newobjectvalue.MyreviewedbyHT = reveiwed_by_HT;
-    RadioButtons();
+    radioButtons();
   };
 
   return (
@@ -78,7 +39,7 @@ const RadioButtonInput: FC<Props> = ({RadioButtons, newobjectvalue}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => changeHandle(booleanstring, 'reveiwed_by_BY')}
-            value={reveiwed_by_BY}
+            value={globalObj.emptyobject.MyreviewedbyBY}
           />
         </View>
         <View
@@ -97,7 +58,7 @@ const RadioButtonInput: FC<Props> = ({RadioButtons, newobjectvalue}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => changeHandle(booleanstring, 'reveiwed_by_AH')}
-            value={reveiwed_by_AH}
+            value={globalObj.emptyobject.MyreviewedbyAH}
           />
         </View>
         <View
@@ -116,7 +77,7 @@ const RadioButtonInput: FC<Props> = ({RadioButtons, newobjectvalue}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => changeHandle(booleanstring, 'reveiwed_by_HT')}
-            value={reveiwed_by_HT}
+            value={globalObj.emptyobject.MyreviewedbyHT}
           />
         </View>
       </View>
@@ -125,6 +86,6 @@ const RadioButtonInput: FC<Props> = ({RadioButtons, newobjectvalue}) => {
       </View>
     </View>
   );
-};
+});
 
 export default RadioButtonInput;

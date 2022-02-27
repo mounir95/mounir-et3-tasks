@@ -2,23 +2,18 @@ import React, {ChangeEvent} from 'react';
 import {View} from 'react-native';
 import {globalStateObject} from '../../constants/UseContext';
 import SelectInput from './SelectInput';
-import {TPrObject} from '../../constants/UseContext';
+import {observer} from 'mobx-react';
+import globalObj from '../../constants/ObjectStore';
 
-type Props = {
-  newobjectvalue: TPrObject;
-};
-
-const InputSelectList: React.FC<Props> = ({newobjectvalue}) => {
-  newobjectvalue.Myselist = globalStateObject.SEList[0];
-  newobjectvalue.Myplatform = globalStateObject.Platform[0];
+const InputSelectList = observer(() => {
   const outputEvent = (
     event: React.ChangeEvent<HTMLSelectElement>,
     parentData: string,
   ): void => {
     if (parentData === 'se_list') {
-      newobjectvalue.Myselist = event.toString();
+      globalObj.emptyobject.Myselist = event.toString();
     } else if (parentData === 'platform') {
-      newobjectvalue.Myplatform = event.toString();
+      globalObj.emptyobject.Myplatform = event.toString();
     }
   };
 
@@ -29,7 +24,7 @@ const InputSelectList: React.FC<Props> = ({newobjectvalue}) => {
           key="firstrow"
           listname={'SE List'}
           arrayval={globalStateObject.SEList}
-          choosedval={globalStateObject.SEList}
+          choosedval={globalObj.emptyobject.Myselist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'se_list')
           }
@@ -40,7 +35,7 @@ const InputSelectList: React.FC<Props> = ({newobjectvalue}) => {
           key="secondrow"
           listname={'Platform'}
           arrayval={globalStateObject.Platform}
-          choosedval={globalStateObject.Platform}
+          choosedval={globalObj.emptyobject.Myplatform}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'platform')
           }
@@ -48,6 +43,6 @@ const InputSelectList: React.FC<Props> = ({newobjectvalue}) => {
       </View>
     </View>
   );
-};
+});
 
 export default InputSelectList;

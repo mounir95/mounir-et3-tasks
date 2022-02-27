@@ -1,43 +1,33 @@
 /* eslint-disable prettier/prettier */
-import React, {FC} from 'react';
+import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import InputSelectList from './selectlists/SelectList';
 import InputTextInput from './textinputs/TextInput';
 import InputSSDList from './ssdlists/SSDLists';
 import InputRadioButton from './radiobuttons/RadioButtons';
 import InputDatePicker from './datepicking/DatePicking';
-import {TPrObject} from '../constants/ObjectStore';
-import {emptyobject} from '../constants/UseContext';
+import globalObj from '../constants/ObjectStore';
+import {AddPageMobx} from '../constants/UseContext';
+import {observer} from 'mobx-react';
 
-type Props = {
-  inptformtrue: Boolean;
-  inputAdd: Function;
-  inputClose: Function;
-  lastobject: TPrObject;
-};
-
-const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose, lastobject}) => {
+const InputRow = observer(() => {
   let lastIndex: number;
-  if (lastobject === undefined) {
-    lastobject = emptyobject;
+  if (globalObj.arrayofobjects[globalObj.objectarrayCount - 1] === undefined) {
     lastIndex = 1;
   } else {
     lastIndex =
-      lastobject.Myid + 1;
+      globalObj.arrayofobjects[globalObj.objectarrayCount - 1].Myid + 1;
   }
 
   const checkValidation = () => {
     if (
-      lastobject.hasOwnProperty('Myreleaseversion') &&
-      lastobject.Myreleaseversion !== ''
+      globalObj.emptyobject.Myreleaseversion !== ''
     ) {
       if (
-        lastobject.hasOwnProperty('Myprlink') &&
-        lastobject.Myprlink !== ''
+        globalObj.emptyobject.Myprlink !== ''
       ) {
         if (
-          lastobject.hasOwnProperty('Mycomment') &&
-          lastobject.Mycomment !== ''
+          globalObj.emptyobject.Mycomment !== ''
         ) {
           return true;
         } else {
@@ -53,21 +43,21 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose, lastobject}) =
 
   const toRadioButtons = () => {
     if (checkValidation() === true) {
-      lastobject.Myid = lastIndex;
-        console.log(lastobject)
-      inputAdd(lastobject);
+      globalObj.emptyobject.Myid = lastIndex;
+      AddPageMobx.setAddPageMobx();
+      globalObj.addObjectArray(globalObj.emptyobject);
     } else {
       console.warn(checkValidation);
     }
   };
 
   const handlePressCloseButton = () => {
-    inputClose();
+    AddPageMobx.setAddPageMobx();
   };
 
   return (
     <View>
-      {inptformtrue && (
+      {AddPageMobx.inputform && (
         <View
           style={{
             flexDirection: 'column',
@@ -86,15 +76,15 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose, lastobject}) =
               borderColor: 'yellow',
               margin: 5,
             }}>
-            <InputDatePicker newobjectvalue={lastobject}/>
-            <InputSelectList newobjectvalue={lastobject}/>
-            <InputTextInput newobjectvalue={lastobject}/>
-            <InputSSDList newobjectvalue={lastobject}/>
-            <InputRadioButton newobjectvalue={lastobject} RadioButtons={() => toRadioButtons()} />
+            <InputDatePicker />
+            <InputSelectList />
+            <InputTextInput />
+            <InputSSDList />
+            <InputRadioButton radioButtons={() => toRadioButtons()} />
           </View>
         </View>
       )}
-      {inptformtrue && (
+      {AddPageMobx.inputform && (
         <TouchableOpacity onPress={() => handlePressCloseButton()}>
           <View style={{alignItems: 'center'}}>
             <Text
@@ -115,6 +105,6 @@ const InputRow: FC<Props> = ({inptformtrue, inputAdd, inputClose, lastobject}) =
       )}
     </View>
   );
-};
+});
 
 export default InputRow;

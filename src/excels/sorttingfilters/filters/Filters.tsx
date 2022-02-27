@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -6,82 +6,88 @@ import FilterByComment from './FitlerByComment';
 import FilterByStatus from './FilterByStatus';
 import FilterBySE from './FilterBySE';
 import FilterByPlatform from './FilterByPlatform';
+import {ExcelMobx, FilterMobx, TPrObject} from '../../../constants/UseContext';
+import globalObj from '../../../constants/ObjectStore';
+import filter from 'lodash/filter';
+import {observer} from 'mobx-react';
 
-type Props = {
-  pressfilter: Function;
-  openfilter: Boolean;
-  textChanged: Function;
-  filterPlatform: Function;
-  filterSElist: Function;
-  filterStatus: Function;
-};
-
-const Filters: FC<Props> = ({
-  openfilter,
-  pressfilter,
-  textChanged,
-  filterPlatform,
-  filterSElist,
-  filterStatus,
-}) => {
-  const [{platform, se, status, comment}, changefilter] = useState({
-    platform: true,
-    se: true,
-    status: true,
-    comment: true,
-  });
-
+const Filters = observer(() => {
   const filterStatusFun = (event: React.ChangeEvent) => {
-    filterStatus(event);
-    changefilter(
-      val =>
-        (val = {
-          platform: !platform,
-          se: !se,
-          status: status,
-          comment: !comment,
-        }),
+    globalObj.filteredarrayofobjects = filter(
+      globalObj.arrayofobjects,
+      (c: TPrObject) => {
+        if (c.hasOwnProperty('Mystatuslist')) {
+          return c.Mystatuslist === event.toString();
+        }
+      },
+    );
+    ExcelMobx.filterResetStore();
+    FilterMobx.changefilter(
+      !FilterMobx.platform,
+      !FilterMobx.se,
+      FilterMobx.status,
+      !FilterMobx.comment,
     );
   };
 
   const filterSElistFun = (event: React.ChangeEvent) => {
-    filterSElist(event);
-    changefilter(
-      val =>
-        (val = {
-          platform: !platform,
-          se: se,
-          status: !status,
-          comment: !comment,
-        }),
+    globalObj.filteredarrayofobjects = filter(
+      globalObj.arrayofobjects,
+      (c: TPrObject) => {
+        if (c.hasOwnProperty('Myselist')) {
+          return c.Myselist === event.toString();
+        }
+      },
+    );
+    ExcelMobx.filterResetStore();
+    FilterMobx.changefilter(
+      !FilterMobx.platform,
+      FilterMobx.se,
+      !FilterMobx.status,
+      !FilterMobx.comment,
     );
   };
 
   const filterPlatformFun = (event: React.ChangeEvent) => {
-    filterPlatform(event);
-    changefilter(
-      val =>
-        (val = {
-          platform: platform,
-          se: !se,
-          status: !status,
-          comment: !comment,
-        }),
+    globalObj.filteredarrayofobjects = filter(
+      globalObj.arrayofobjects,
+      (c: TPrObject) => {
+        if (c.hasOwnProperty('Myplatform')) {
+          return c.Myplatform === event.toString();
+        }
+      },
+    );
+    ExcelMobx.filterResetStore();
+    FilterMobx.changefilter(
+      FilterMobx.platform,
+      !FilterMobx.se,
+      !FilterMobx.status,
+      !FilterMobx.comment,
     );
   };
 
   const textChangedFun = (event: string) => {
-    textChanged(event)
-      changefilter(
-      val =>
-        (val = {
-          platform: !platform,
-          se: !se,
-          status: !status,
-          comment: comment,
-        }),
+    globalObj.filteredarrayofobjects = filter(
+      globalObj.arrayofobjects,
+      (c: TPrObject) => {
+        if (c.hasOwnProperty('Mycomment')) {
+          return c.Mycomment.includes(event) === true;
+        }
+      },
+    );
+    ExcelMobx.filterResetStore();
+    FilterMobx.changefilter(
+      !FilterMobx.platform,
+      !FilterMobx.se,
+      !FilterMobx.status,
+      FilterMobx.comment,
     );
   };
+
+  const pressFilter = () => {
+    ExcelMobx.filterPressFun();
+    globalObj.filteredarrayofobjects = globalObj.arrayofobjects;
+  }
 
   return (
     <View>
@@ -91,8 +97,8 @@ const Filters: FC<Props> = ({
           paddingHorizontal: 3,
           backgroundColor: 'white',
         }}
-        onPress={() => pressfilter()}>
-        {openfilter && (
+        onPress={() => pressFilter()}>
+        {ExcelMobx.filterfalse && (
           <FontAwesome
             style={{textAlign: 'right'}}
             name="window-minimize"
@@ -100,7 +106,7 @@ const Filters: FC<Props> = ({
             color="#900"
           />
         )}
-        {!openfilter && (
+        {!ExcelMobx.filterfalse && (
           <Icon
             style={{textAlign: 'right'}}
             name="md-add"
@@ -109,7 +115,7 @@ const Filters: FC<Props> = ({
           />
         )}
       </TouchableOpacity>
-      {openfilter && (
+      {ExcelMobx.filterfalse && (
         <View style={{marginBottom: 5, backgroundColor: 'lavender'}}>
           <View
             style={{
@@ -128,7 +134,7 @@ const Filters: FC<Props> = ({
                 statusFilter={(event: React.ChangeEvent) =>
                   filterStatusFun(event)
                 }
-                filterchoosed={status}
+                filterchoosed={FilterMobx.status}
               />
             </View>
             <View
@@ -141,7 +147,7 @@ const Filters: FC<Props> = ({
                 seListFilter={(event: React.ChangeEvent) =>
                   filterSElistFun(event)
                 }
-                filterchoosed={se}
+                filterchoosed={FilterMobx.se}
               />
             </View>
             <View
@@ -150,18 +156,18 @@ const Filters: FC<Props> = ({
                 platformFilter={(event: React.ChangeEvent) =>
                   filterPlatformFun(event)
                 }
-                filterchoosed={platform}
+                filterchoosed={FilterMobx.platform}
               />
             </View>
           </View>
           <FilterByComment
             textChanged={(event: string) => textChangedFun(event)}
-            filterchoosed={comment}
+            filterchoosed={FilterMobx.comment}
           />
         </View>
       )}
     </View>
   );
-};
+});
 
 export default Filters;

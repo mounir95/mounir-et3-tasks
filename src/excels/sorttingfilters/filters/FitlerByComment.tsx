@@ -1,12 +1,13 @@
 import React, {FC} from 'react';
 import {TextInput, View, Text} from 'react-native';
+import {observer} from 'mobx-react';
 
 type Props = {
   textChanged: Function;
   filterchoosed: Boolean;
 };
 
-const FilterByComment: FC<Props> = ({textChanged, filterchoosed}) => {
+const FilterByComment: FC<Props> = observer(({textChanged, filterchoosed}) => {
   return (
     <View>
       <Text>Search By Comment</Text>
@@ -24,6 +25,6 @@ const FilterByComment: FC<Props> = ({textChanged, filterchoosed}) => {
       )}
     </View>
   );
-};
+});
 
 export default FilterByComment;

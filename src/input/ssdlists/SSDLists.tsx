@@ -1,26 +1,21 @@
 import React, {ChangeEvent} from 'react';
 import {View} from 'react-native';
-import {globalStateObject, TPrObject} from '../../constants/UseContext';
+import globalObj from '../../constants/ObjectStore';
+import {globalStateObject} from '../../constants/UseContext';
 import SelectInput from '../selectlists/SelectInput';
+import {observer} from 'mobx-react';
 
-type Props = {
-  newobjectvalue: TPrObject;
-};
-
-const SSDListInput: React.FC<Props> = ({newobjectvalue}) => {
-  newobjectvalue.Mysize = globalStateObject.Size[0].toString();
-  newobjectvalue.Mydificulity = globalStateObject.Dificulity[0].toString();
-  newobjectvalue.Mystatuslist = globalStateObject.StatusList[0].toString();
+const SSDListInput = observer(() => {
   const outputEvent = (
     event: React.ChangeEvent<HTMLSelectElement>,
     parentData: string,
   ): void => {
     if (parentData === 'size') {
-      newobjectvalue.Mysize = event.toString();
+      globalObj.emptyobject.Mysize = event.toString();
     } else if (parentData === 'dificulity') {
-      newobjectvalue.Mydificulity = event.toString();
+      globalObj.emptyobject.Mydificulity = event.toString();
     } else if (parentData === 'status_list') {
-      newobjectvalue.Mystatuslist = event.toString();
+      globalObj.emptyobject.Mystatuslist = event.toString();
     }
   };
 
@@ -30,7 +25,7 @@ const SSDListInput: React.FC<Props> = ({newobjectvalue}) => {
         <SelectInput
           listname={'Status List'}
           arrayval={globalStateObject.StatusList}
-          choosedval={globalStateObject.StatusList}
+          choosedval={globalObj.emptyobject.Mystatuslist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'status_list')
           }
@@ -40,7 +35,7 @@ const SSDListInput: React.FC<Props> = ({newobjectvalue}) => {
         <SelectInput
           listname={'Size'}
           arrayval={globalStateObject.Size}
-          choosedval={globalStateObject.Size}
+          choosedval={globalObj.emptyobject.Mysize}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'size')
           }
@@ -50,7 +45,7 @@ const SSDListInput: React.FC<Props> = ({newobjectvalue}) => {
         <SelectInput
           listname={'Dificulity'}
           arrayval={globalStateObject.Dificulity}
-          choosedval={globalStateObject.Dificulity}
+          choosedval={globalObj.emptyobject.Mydificulity}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'dificulity')
           }
@@ -58,6 +53,6 @@ const SSDListInput: React.FC<Props> = ({newobjectvalue}) => {
       </View>
     </View>
   );
-};
+});
 
 export default SSDListInput;

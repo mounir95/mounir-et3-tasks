@@ -1,3 +1,166 @@
+import {observable, action, makeObservable} from 'mobx';
+import globalObj from './ObjectStore';
+
+class AddPageStore {
+  addbuttontrue: Boolean = true;
+  inputform: Boolean = false;
+  addtext: string = 'ADD';
+  constructor() {
+    makeObservable(this, {
+      addbuttontrue: observable,
+      inputform: observable,
+      addtext: observable,
+      setAddPageMobx: action,
+      resetAddPageMobx: action,
+    });
+  }
+  setAddPageMobx = () => {
+    this.addbuttontrue = true;
+    this.inputform = false;
+    this.addtext = 'ADD';
+  };
+  resetAddPageMobx = () => {
+    this.addbuttontrue = false;
+    this.inputform = true;
+    this.addtext = 'Close';
+  };
+}
+export const AddPageMobx = new AddPageStore();
+
+class FilterStore {
+  platform: Boolean = true;
+  se: Boolean = true;
+  status: Boolean = true;
+  comment: Boolean = true;
+  date: Date = new Date(Date.now());
+  constructor() {
+    makeObservable(this, {
+      platform: observable,
+      se: observable,
+      status: observable,
+      comment: observable,
+      changefilter: action,
+    });
+  }
+  changefilter = (pl: Boolean, se: Boolean, st: Boolean, cm: Boolean) => {
+    this.platform = pl;
+    this.se = se;
+    this.status = st;
+    this.comment = cm;
+  };
+}
+export const FilterMobx = new FilterStore();
+
+class SortFilterStore {
+  date: Boolean = true;
+  id: Boolean = true;
+  constructor() {
+    makeObservable(this, {
+      date: observable,
+      id: observable,
+      setDateFun: action,
+    });
+  }
+  setDateFun = () => {
+    this.date = !this.date;
+    this.id = !this.id;
+  };
+}
+export const SortFilterMobx = new SortFilterStore();
+
+class ExcelStore {
+  id: number = -1;
+  filterfalse: Boolean = false;
+  updatefalse: Boolean = false;
+  constructor() {
+    makeObservable(this, {
+      id: observable,
+      filterfalse: observable,
+      updatefalse: observable,
+      resetStore: action,
+      filterResetStore: action,
+      onUpdateFun: action,
+      filterPressFun: action,
+    });
+  }
+  resetStore = () => {
+    this.id = -1;
+    this.updatefalse = false;
+    this.filterfalse = false;
+  };
+  filterResetStore = () => {
+    this.id = -1;
+    this.updatefalse = false;
+  };
+  onUpdateFun = (objid: number) => {
+    this.id = objid;
+    this.updatefalse = true;
+    this.filterfalse = false;
+  };
+  filterPressFun = () => {
+    this.id = -1;
+    this.updatefalse = false;
+    this.filterfalse = !this.filterfalse;
+  };
+}
+export const ExcelMobx = new ExcelStore();
+
+class UpdateFormStore {
+  selectpagetrue: Boolean = true;
+  textpagetrue: Boolean = false;
+  ssdliststrue: Boolean = false;
+  radiobuttonstrue: Boolean = false;
+  objectval: TPrObject = globalObj.emptyobject;
+  constructor() {
+    makeObservable(this, {
+      selectpagetrue: observable,
+      textpagetrue: observable,
+      ssdliststrue: observable,
+      radiobuttonstrue: observable,
+      objectval: observable,
+      selectList: action,
+      ssdLists: action,
+      textPage: action,
+    });
+  }
+  selectList = () => {
+    (this.selectpagetrue = false),
+      (this.textpagetrue = true),
+      (this.ssdliststrue = false),
+      (this.radiobuttonstrue = false),
+      (this.objectval = this.objectval);
+  };
+  ssdLists = () => {
+    (this.selectpagetrue = false),
+      (this.textpagetrue = false),
+      (this.ssdliststrue = false),
+      (this.radiobuttonstrue = true),
+      (this.objectval = this.objectval);
+  };
+  textPage = () => {
+    (this.selectpagetrue = false),
+      (this.textpagetrue = false),
+      (this.ssdliststrue = true),
+      (this.radiobuttonstrue = false),
+      (this.objectval = this.objectval);
+  };
+  radioButtons = () => {
+    (this.selectpagetrue = true),
+      (this.textpagetrue = false),
+      (this.ssdliststrue = false),
+      (this.radiobuttonstrue = false),
+      (this.objectval = this.objectval);
+  };
+  resetStore = () => {
+    (this.selectpagetrue = true),
+      (this.textpagetrue = false),
+      (this.ssdliststrue = false),
+      (this.radiobuttonstrue = false),
+      (this.objectval = globalObj.emptyobject);
+  };
+}
+export const UpdateFormMobx = new UpdateFormStore();
+
 export let zero = 0;
 export const days = [
   {name: 'Date'},
@@ -102,20 +265,4 @@ export const globalStateObject: Partial<TGlobalObject> = {
   ReveiwedByBY: 'no',
   ReveiwedByAH: 'no',
   ReveiwedByHT: 'no',
-};
-
-export let emptyobject: TPrObject = {
-  Myid: 0,
-  Mydate: '',
-  Myselist: '',
-  Myplatform: '',
-  Myreleaseversion: '',
-  Mycomment: '',
-  Myprlink: '',
-  Mysize: '',
-  Mydificulity: '',
-  Mystatuslist: '',
-  MyreviewedbyBY: '',
-  MyreviewedbyAH: '',
-  MyreviewedbyHT: '',
 };

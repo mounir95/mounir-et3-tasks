@@ -1,48 +1,42 @@
-import React, {FC, ChangeEvent} from 'react';
+import React, {ChangeEvent} from 'react';
 import {View, Button} from 'react-native';
-import {globalStateObject, TPrObject} from '../../constants/UseContext';
+import {
+  ExcelMobx,
+  globalStateObject,
+  TPrObject,
+  UpdateFormMobx,
+} from '../../constants/UseContext';
 import SelectInput from '../selectlists/SelectInput';
 import filter from 'lodash/filter';
-import {Context} from 'vm';
+import globalObj from '../../constants/ObjectStore';
+import {observer} from 'mobx-react';
 
-type Props = {
-  updatedid: number;
-  SSDLists: Function;
-  objectval: TPrObject;
-  arrayobjectval: Context;
-};
-const SSDListInput: FC<Props> = ({
-  updatedid,
-  SSDLists,
-  objectval,
-  arrayobjectval,
-}) => {
-  const updatedarray: TPrObject = filter(arrayobjectval, (c: TPrObject) => {
-    if (c.Myid === updatedid) {
-      return c;
-    }
-  })[0];
-
-  objectval.Mysize = updatedarray.Mysize;
-  objectval.Mydificulity = updatedarray.Mydificulity;
-  objectval.Mystatuslist = updatedarray.Mystatuslist;
+const SSDListInput = observer(() => {
+  const updatedarray: any = filter(
+    globalObj.arrayofobjects,
+    (c: TPrObject): TPrObject => {
+      if (c.Myid === ExcelMobx.id) {
+        return c;
+      }
+    },
+  )[0];
 
   const outputEvent = (
     event: React.ChangeEvent<HTMLSelectElement>,
     parentData: string,
   ): void => {
     if (parentData === 'size') {
-      objectval.Mysize = event.toString();
+      UpdateFormMobx.objectval.Mysize = event.toString();
+      updatedarray.Mysize = event.toString();
     } else if (parentData === 'dificulity') {
-      objectval.Mydificulity = event.toString();
+      UpdateFormMobx.objectval.Mydificulity = event.toString();
+      updatedarray.Mydificulity = event.toString();
     } else if (parentData === 'status_list') {
-      objectval.Mystatuslist = event.toString();
+      UpdateFormMobx.objectval.Mystatuslist = event.toString();
+      updatedarray.Mystatuslist = event.toString();
     }
   };
 
-  const handlePressSubmitButton = () => {
-    SSDLists();
-  };
   return (
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
@@ -76,10 +70,10 @@ const SSDListInput: FC<Props> = ({
         />
       </View>
       <View style={{marginTop: 25}}>
-        <Button title={'Next'} onPress={() => handlePressSubmitButton()} />
+        <Button title={'Next'} onPress={() => UpdateFormMobx.ssdLists()} />
       </View>
     </View>
   );
-};
+});
 
 export default SSDListInput;

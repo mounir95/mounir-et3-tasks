@@ -2,13 +2,14 @@ import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPicker from 'react-native-picker-select';
 import {globalStateObject} from '../../../constants/UseContext';
+import {observer} from 'mobx-react';
 
 type Props = {
   seListFilter: Function;
   filterchoosed: Boolean;
 };
 
-const FilterBySE: FC<Props> = ({seListFilter, filterchoosed}) => {
+const FilterBySE: FC<Props> = observer(({seListFilter, filterchoosed}) => {
   const arraymap = globalStateObject.SEList.map((e: string) => {
     return {label: e, value: e};
   });
@@ -54,6 +55,6 @@ const FilterBySE: FC<Props> = ({seListFilter, filterchoosed}) => {
       )}
     </View>
   );
-};
+});
 
 export default FilterBySE;

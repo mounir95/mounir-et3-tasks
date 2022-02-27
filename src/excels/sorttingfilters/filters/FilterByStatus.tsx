@@ -2,13 +2,14 @@ import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPicker from 'react-native-picker-select';
 import {globalStateObject} from '../../../constants/UseContext';
+import {observer} from 'mobx-react';
 
 type Props = {
   statusFilter: Function;
   filterchoosed: Boolean;
 };
 
-const FilterByStatus: FC<Props> = ({statusFilter, filterchoosed}) => {
+const FilterByStatus: FC<Props> = observer(({statusFilter, filterchoosed}) => {
   const arraymap = globalStateObject.StatusList.map((e: string) => {
     return {label: e, value: e};
   });
@@ -54,6 +55,6 @@ const FilterByStatus: FC<Props> = ({statusFilter, filterchoosed}) => {
       )}
     </View>
   );
-};
+});
 
 export default FilterByStatus;

@@ -1,23 +1,14 @@
 import React, {FC} from 'react';
 import {View} from 'react-native';
-import {TPrObject} from '../../constants/UseContext';
+import {UpdateFormMobx} from '../../constants/UseContext';
 import RadioButtonInput from './RadioButtons';
+import {observer} from 'mobx-react';
 
 type Props = {
-  updatedid: number;
-  openradiobuttons: Boolean;
   toRadioButtons: Function;
-  objectval: TPrObject;
-  arrayobjectval: TPrObject[];
 };
 
-const RadioButtonInputSumit: FC<Props> = ({
-  updatedid,
-  openradiobuttons,
-  toRadioButtons,
-  objectval,
-  arrayobjectval,
-}) => {
+const RadioButtonInputSumit: FC<Props> = observer(({toRadioButtons}) => {
   return (
     <View
       style={{
@@ -28,16 +19,11 @@ const RadioButtonInputSumit: FC<Props> = ({
         borderColor: 'yellow',
         margin: 5,
       }}>
-      {openradiobuttons && (
-        <RadioButtonInput
-          updatedid={updatedid}
-          RadioButtons={() => toRadioButtons()}
-          objectval={objectval}
-          arrayobjectval={arrayobjectval}
-        />
+      {UpdateFormMobx.radiobuttonstrue && (
+        <RadioButtonInput RadioButtons={() => toRadioButtons()} />
       )}
     </View>
   );
-};
+});
 
 export default RadioButtonInputSumit;

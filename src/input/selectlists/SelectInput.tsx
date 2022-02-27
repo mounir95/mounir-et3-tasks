@@ -6,14 +6,14 @@ type Props = {
   onChoose: Function;
   listname: string;
   arrayval: string[];
-  choosedval: string[];
+  choosedval: string;
 };
 
 const SelectInput: FC<Props> = ({onChoose, listname, arrayval, choosedval}) => {
   let arraymap;
   if (arrayval.length === 0) {
     return null;
-  } else{
+  } else {
     arraymap = arrayval.map(element => {
       return {label: element, value: element};
     });
@@ -28,7 +28,7 @@ const SelectInput: FC<Props> = ({onChoose, listname, arrayval, choosedval}) => {
       <Text style={{color: '#776677'}}>Please select a {listname}</Text>
       <RNPickerSelect
         onValueChange={event => onChoose(event)}
-        value={choosedval[0]}
+        value={choosedval}
         items={arraymap}
         style={{
           inputIOS: {

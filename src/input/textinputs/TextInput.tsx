@@ -1,23 +1,20 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {TPrObject} from '../../constants/UseContext';
 import TextInputRow from './TextInputRow';
+import {observer} from 'mobx-react';
+import globalObj from '../../constants/ObjectStore';
 
-type Props = {
-  newobjectvalue: TPrObject;
-};
-
-const InputText: React.FC<Props> = ({newobjectvalue}) => {
+const InputText = observer(() => {
   const onInputchange = (
     event: React.ChangeEvent<HTMLSelectElement>,
     Atribuite: string,
   ): void => {
     if (Atribuite === 'comment') {
-      newobjectvalue.Mycomment = event.toString();
+      globalObj.emptyobject.Mycomment = event.toString();
     } else if (Atribuite === 'pr_Link') {
-      newobjectvalue.Myprlink = event.toString();
+      globalObj.emptyobject.Myprlink = event.toString();
     } else if (Atribuite === 'release_version') {
-      newobjectvalue.Myreleaseversion = event.toString();
+      globalObj.emptyobject.Myreleaseversion = event.toString();
     }
   };
 
@@ -49,5 +46,5 @@ const InputText: React.FC<Props> = ({newobjectvalue}) => {
       </View>
     </View>
   );
-};
+});
 export default InputText;
