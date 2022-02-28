@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import {arrayofsort, TPrObject} from '../../../constants/UseContext';
+import {arrayofsort, TPrObject} from '../../../constant/constants';
 import orderBy from 'lodash/orderBy';
-import globalObj from '../../../constants/ObjectStore';
+import globalObject from '../../../stores/GlobalObjectStore';
 import {observer} from 'mobx-react';
 
 type Props = {
@@ -19,7 +19,7 @@ const SortByDate: FC<Props> = observer(({setDate, choosedfilter}) => {
   const setDateSort = (event: React.ChangeEvent) => {
     const datesorting = event.toString() === 'desc' ? 'asc' : 'desc';
     const newobjectarray = orderBy(
-      globalObj.arrayofobjects,
+      globalObject.arrayofobjects,
       (obj: TPrObject) => obj.Mydate,
       [datesorting],
     )

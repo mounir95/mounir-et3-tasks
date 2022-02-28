@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import {View} from 'react-native';
-import globalObj from '../../constants/ObjectStore';
-import {globalStateObject} from '../../constants/UseContext';
+import globalObject from '../../stores/GlobalObjectStore';
+import {globalStateObject} from '../../constant/constants';
 import SelectInput from '../selectlists/SelectInput';
 import {observer} from 'mobx-react';
 
@@ -11,11 +11,11 @@ const SSDListInput = observer(() => {
     parentData: string,
   ): void => {
     if (parentData === 'size') {
-      globalObj.emptyobject.Mysize = event.toString();
+      globalObject.emptyobject.Mysize = event.toString();
     } else if (parentData === 'dificulity') {
-      globalObj.emptyobject.Mydificulity = event.toString();
+      globalObject.emptyobject.Mydificulity = event.toString();
     } else if (parentData === 'status_list') {
-      globalObj.emptyobject.Mystatuslist = event.toString();
+      globalObject.emptyobject.Mystatuslist = event.toString();
     }
   };
 
@@ -25,7 +25,7 @@ const SSDListInput = observer(() => {
         <SelectInput
           listname={'Status List'}
           arrayval={globalStateObject.StatusList}
-          choosedval={globalObj.emptyobject.Mystatuslist}
+          choosedval={globalObject.emptyobject.Mystatuslist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'status_list')
           }
@@ -35,7 +35,7 @@ const SSDListInput = observer(() => {
         <SelectInput
           listname={'Size'}
           arrayval={globalStateObject.Size}
-          choosedval={globalObj.emptyobject.Mysize}
+          choosedval={globalObject.emptyobject.Mysize}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'size')
           }
@@ -45,7 +45,7 @@ const SSDListInput = observer(() => {
         <SelectInput
           listname={'Dificulity'}
           arrayval={globalStateObject.Dificulity}
-          choosedval={globalObj.emptyobject.Mydificulity}
+          choosedval={globalObject.emptyobject.Mydificulity}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'dificulity')
           }

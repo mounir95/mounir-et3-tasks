@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {UpdateFormMobx} from '../../constants/UseContext';
+import {updateFormMobx} from '../../stores/UpdateFormStore';
 import InputText from './TextInput';
 import {observer} from 'mobx-react';
 
@@ -15,7 +15,7 @@ const InputTextSumit = observer(() => {
         borderColor: 'yellow',
         margin: 5
       }}>
-      {UpdateFormMobx.textpagetrue && <InputText />}
+      {updateFormMobx.textpagetrue && <InputText />}
     </View>
   );
 });

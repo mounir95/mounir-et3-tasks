@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {UpdateFormMobx} from '../../constants/UseContext';
+import {updateFormMobx} from '../../stores/UpdateFormStore';
 import InputSelectList from './SelectList';
 import {observer} from 'mobx-react';
 
@@ -15,7 +15,7 @@ const InputSelectListSumit = observer(() => {
         borderColor: 'yellow',
         margin: 5
       }}>
-      {UpdateFormMobx.selectpagetrue && <InputSelectList />}
+      {updateFormMobx.selectpagetrue && <InputSelectList />}
     </View>
   );
 });

@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPicker from 'react-native-picker-select';
-import {globalStateObject} from '../../../constants/UseContext';
+import {globalStateObject} from '../../../constant/constants';
 import {observer} from 'mobx-react';
 
 type Props = {

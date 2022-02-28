@@ -2,7 +2,8 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import TextInputRow from './TextInputRow';
 import {observer} from 'mobx-react';
-import globalObj from '../../constants/ObjectStore';
+import globalObject from '../../stores/GlobalObjectStore';
+import {requiredMobx} from '../../stores/RequiredStore';
 
 const InputText = observer(() => {
   const onInputchange = (
@@ -10,17 +11,19 @@ const InputText = observer(() => {
     Atribuite: string,
   ): void => {
     if (Atribuite === 'comment') {
-      globalObj.emptyobject.Mycomment = event.toString();
+      globalObject.emptyobject.Mycomment = event.toString();
     } else if (Atribuite === 'pr_Link') {
-      globalObj.emptyobject.Myprlink = event.toString();
+      globalObject.emptyobject.Myprlink = event.toString();
     } else if (Atribuite === 'release_version') {
-      globalObj.emptyobject.Myreleaseversion = event.toString();
+      globalObject.emptyobject.Myreleaseversion = event.toString();
     }
+    requiredMobx.checkInputValidation();
   };
 
   return (
     <View>
       <View>
+        {!requiredMobx.released && <Text style={{color: 'red'}}>Required</Text>}
         <Text style={{color: '#776677'}}>Release Version</Text>
         <TextInputRow
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
@@ -29,6 +32,7 @@ const InputText = observer(() => {
         />
       </View>
       <View>
+        {!requiredMobx.comment && <Text style={{color: 'red'}}>Required</Text>}
         <Text style={{color: '#776677'}}>Comment</Text>
         <TextInputRow
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
@@ -37,6 +41,7 @@ const InputText = observer(() => {
         />
       </View>
       <View>
+        {!requiredMobx.prlink && <Text style={{color: 'red'}}>Required</Text>}
         <Text style={{color: '#776677'}}>PR_LINK</Text>
         <TextInputRow
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>

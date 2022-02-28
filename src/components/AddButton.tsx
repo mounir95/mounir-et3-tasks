@@ -1,23 +1,23 @@
 import React from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
-import {AddPageMobx} from '../constants/UseContext';
-import globalObj from '../constants/ObjectStore';
+import {addPageMobx} from '../stores/AddPageStore';
+import globalObject from '../stores/GlobalObjectStore';
 import {observer} from 'mobx-react';
 
 const AddButton = observer(() => {
   const onPressSubmit = () => {
-    if (AddPageMobx.addtext === 'Close') {
-      AddPageMobx.setAddPageMobx();
+    if (addPageMobx.addtext === 'Close') {
+      addPageMobx.setAddPageMobx();
     } else {
-      AddPageMobx.resetAddPageMobx();
+      addPageMobx.resetAddPageMobx();
     }
-    globalObj.setAllChanges();
-    globalObj.resetObject();
+    globalObject.setAllChanges();
+    globalObject.resetObject();
   };
 
   return (
     <View style={{alignItems: 'center'}}>
-      {AddPageMobx.addbuttontrue && (
+      {addPageMobx.addbuttontrue && (
         <TouchableOpacity onPress={() => onPressSubmit()}>
           <Text
             style={{
@@ -29,7 +29,7 @@ const AddButton = observer(() => {
               color: '#776677',
               backgroundColor: 'white',
             }}>
-            {AddPageMobx.addtext}
+            {addPageMobx.addtext}
           </Text>
         </TouchableOpacity>
       )}

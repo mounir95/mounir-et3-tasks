@@ -4,7 +4,7 @@ import AddButton from './AddButton';
 import InputForm from '../input/InputForm';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
-import {AddPageMobx} from '../constants/UseContext';
+import {addPageMobx} from '../stores/AddPageStore';
 import {observer} from 'mobx-react';
 
 type RootStackParamList = {
@@ -16,7 +16,7 @@ const ADDPage = observer(() => {
   const navigation = useNavigation<mainScreenProp>();
 
   const checkTableIssue = () => {
-    AddPageMobx.setAddPageMobx();
+    addPageMobx.setAddPageMobx();
     navigation.navigate('Excel');
   };
 

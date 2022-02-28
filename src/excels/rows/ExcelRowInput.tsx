@@ -2,30 +2,43 @@ import React, {FC} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import Icons from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import globalObj from '../../constants/ObjectStore';
-import {ExcelMobx, TPrObject} from '../../constants/UseContext';
+import globalObject from '../../stores/GlobalObjectStore';
+import {setObjectArrayFun, TPrObject} from '../../constant/constants';
+import {updateFormMobx} from '../../stores/UpdateFormStore';
+import {excelMobx} from '../../stores/ExcelStore';
 import {observer} from 'mobx-react';
+import {requiredMobx} from '../../stores/RequiredStore';
 
 type Props = {
   object: TPrObject;
   index: number;
 };
 const ExcelRowInput: FC<Props> = observer(({object, index}) => {
-  const objectarrayval = [
-    object.Mydate,
-    object.Myselist,
-    object.Myid,
-    object.Myplatform,
-    object.Myreleaseversion,
-    object.Mycomment,
-    object.Myprlink,
-    object.Mysize,
-    object.Mydificulity,
-    object.Mystatuslist,
-    object.MyreviewedbyBY,
-    object.MyreviewedbyAH,
-    object.MyreviewedbyHT,
-  ];
+
+  const onUpdate = (objectid: number) => {
+    globalObject.arrayofobjects.map((e: TPrObject) => {
+      if (e.Myid === excelMobx.id) {
+        e.Myid = excelMobx.id;
+        e.Myselist = updateFormMobx.objectval.Myselist;
+        e.Myplatform = updateFormMobx.objectval.Myplatform;
+        e.Myreleaseversion = updateFormMobx.objectval.Myreleaseversion;
+        e.Mystatuslist = updateFormMobx.objectval.Mystatuslist;
+        e.Mysize = updateFormMobx.objectval.Mysize;
+        e.Mydificulity = updateFormMobx.objectval.Mydificulity;
+        e.Myprlink = updateFormMobx.objectval.Myprlink;
+        e.Mycomment = updateFormMobx.objectval.Mycomment;
+        e.MyreviewedbyBY = updateFormMobx.objectval.MyreviewedbyBY;
+        e.MyreviewedbyAH = updateFormMobx.objectval.MyreviewedbyAH;
+        e.MyreviewedbyHT = updateFormMobx.objectval.MyreviewedbyHT;
+      }
+    });
+    if (requiredMobx.checkUpdateValidation() === true) {
+      excelMobx.onUpdateFun(objectid);
+      updateFormMobx.resetStore();
+    }
+  };
+  
+  const objectarrayval = setObjectArrayFun(object);
 
   return (
     <View
@@ -57,11 +70,11 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
               paddingHorizontal: 2,
               flexDirection: 'row',
             }}
-            onPress={() => ExcelMobx.onUpdateFun(object.Myid)}>
-            {ExcelMobx.id !== object.Myid && ExcelMobx.id === -1 && (
+            onPress={() => onUpdate(object.Myid)}>
+            {!excelMobx.updatefalse && (
               <Icons name="pencil" size={15} color="#900" />
             )}
-            {ExcelMobx.id === object.Myid && (
+            {excelMobx.updatefalse && excelMobx.id === object.Myid && (
               <FontAwesome name="save" size={20} color="#900" />
             )}
           </TouchableOpacity>
@@ -75,7 +88,7 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
               paddingVertical: 3,
               backgroundColor: 'white',
             }}
-            onPress={() => globalObj.onDelete(object.Myid)}>
+            onPress={() => globalObject.onDelete(object.Myid)}>
             <Text>X</Text>
           </TouchableOpacity>
         )}

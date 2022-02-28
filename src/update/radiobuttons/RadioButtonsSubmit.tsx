@@ -1,14 +1,10 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {View} from 'react-native';
-import {UpdateFormMobx} from '../../constants/UseContext';
+import {updateFormMobx} from '../../stores/UpdateFormStore';
 import RadioButtonInput from './RadioButtons';
 import {observer} from 'mobx-react';
 
-type Props = {
-  toRadioButtons: Function;
-};
-
-const RadioButtonInputSumit: FC<Props> = observer(({toRadioButtons}) => {
+const RadioButtonInputSumit = observer(() => {
   return (
     <View
       style={{
@@ -19,9 +15,7 @@ const RadioButtonInputSumit: FC<Props> = observer(({toRadioButtons}) => {
         borderColor: 'yellow',
         margin: 5,
       }}>
-      {UpdateFormMobx.radiobuttonstrue && (
-        <RadioButtonInput RadioButtons={() => toRadioButtons()} />
-      )}
+      {updateFormMobx.radiobuttonstrue && <RadioButtonInput />}
     </View>
   );
 });

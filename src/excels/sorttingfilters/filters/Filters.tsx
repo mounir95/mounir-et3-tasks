@@ -6,87 +6,89 @@ import FilterByComment from './FitlerByComment';
 import FilterByStatus from './FilterByStatus';
 import FilterBySE from './FilterBySE';
 import FilterByPlatform from './FilterByPlatform';
-import {ExcelMobx, FilterMobx, TPrObject} from '../../../constants/UseContext';
-import globalObj from '../../../constants/ObjectStore';
+import {TPrObject} from '../../../constant/constants';
+import {excelMobx} from '../../../stores/ExcelStore';
+import {filterMobx} from '../../../stores/FilterStore';
+import globalObject from '../../../stores/GlobalObjectStore';
 import filter from 'lodash/filter';
 import {observer} from 'mobx-react';
 
 const Filters = observer(() => {
   const filterStatusFun = (event: React.ChangeEvent) => {
-    globalObj.filteredarrayofobjects = filter(
-      globalObj.arrayofobjects,
+    globalObject.filteredarrayofobjects = filter(
+      globalObject.arrayofobjects,
       (c: TPrObject) => {
         if (c.hasOwnProperty('Mystatuslist')) {
           return c.Mystatuslist === event.toString();
         }
       },
     );
-    ExcelMobx.filterResetStore();
-    FilterMobx.changefilter(
-      !FilterMobx.platform,
-      !FilterMobx.se,
-      FilterMobx.status,
-      !FilterMobx.comment,
+    excelMobx.filterResetStore();
+    filterMobx.changefilter(
+      !filterMobx.platform,
+      !filterMobx.se,
+      filterMobx.status,
+      !filterMobx.comment,
     );
   };
 
   const filterSElistFun = (event: React.ChangeEvent) => {
-    globalObj.filteredarrayofobjects = filter(
-      globalObj.arrayofobjects,
+    globalObject.filteredarrayofobjects = filter(
+      globalObject.arrayofobjects,
       (c: TPrObject) => {
         if (c.hasOwnProperty('Myselist')) {
           return c.Myselist === event.toString();
         }
       },
     );
-    ExcelMobx.filterResetStore();
-    FilterMobx.changefilter(
-      !FilterMobx.platform,
-      FilterMobx.se,
-      !FilterMobx.status,
-      !FilterMobx.comment,
+    excelMobx.filterResetStore();
+    filterMobx.changefilter(
+      !filterMobx.platform,
+      filterMobx.se,
+      !filterMobx.status,
+      !filterMobx.comment,
     );
   };
 
   const filterPlatformFun = (event: React.ChangeEvent) => {
-    globalObj.filteredarrayofobjects = filter(
-      globalObj.arrayofobjects,
+    globalObject.filteredarrayofobjects = filter(
+      globalObject.arrayofobjects,
       (c: TPrObject) => {
         if (c.hasOwnProperty('Myplatform')) {
           return c.Myplatform === event.toString();
         }
       },
     );
-    ExcelMobx.filterResetStore();
-    FilterMobx.changefilter(
-      FilterMobx.platform,
-      !FilterMobx.se,
-      !FilterMobx.status,
-      !FilterMobx.comment,
+    excelMobx.filterResetStore();
+    filterMobx.changefilter(
+      filterMobx.platform,
+      !filterMobx.se,
+      !filterMobx.status,
+      !filterMobx.comment,
     );
   };
 
   const textChangedFun = (event: string) => {
-    globalObj.filteredarrayofobjects = filter(
-      globalObj.arrayofobjects,
+    globalObject.filteredarrayofobjects = filter(
+      globalObject.arrayofobjects,
       (c: TPrObject) => {
         if (c.hasOwnProperty('Mycomment')) {
           return c.Mycomment.includes(event) === true;
         }
       },
     );
-    ExcelMobx.filterResetStore();
-    FilterMobx.changefilter(
-      !FilterMobx.platform,
-      !FilterMobx.se,
-      !FilterMobx.status,
-      FilterMobx.comment,
+    excelMobx.filterResetStore();
+    filterMobx.changefilter(
+      !filterMobx.platform,
+      !filterMobx.se,
+      !filterMobx.status,
+      filterMobx.comment,
     );
   };
 
   const pressFilter = () => {
-    ExcelMobx.filterPressFun();
-    globalObj.filteredarrayofobjects = globalObj.arrayofobjects;
+    excelMobx.filterPressFun();
+    globalObject.filteredarrayofobjects = globalObject.arrayofobjects;
   }
 
   return (
@@ -98,7 +100,7 @@ const Filters = observer(() => {
           backgroundColor: 'white',
         }}
         onPress={() => pressFilter()}>
-        {ExcelMobx.filterfalse && (
+        {excelMobx.filterfalse && (
           <FontAwesome
             style={{textAlign: 'right'}}
             name="window-minimize"
@@ -106,7 +108,7 @@ const Filters = observer(() => {
             color="#900"
           />
         )}
-        {!ExcelMobx.filterfalse && (
+        {!excelMobx.filterfalse && (
           <Icon
             style={{textAlign: 'right'}}
             name="md-add"
@@ -115,7 +117,7 @@ const Filters = observer(() => {
           />
         )}
       </TouchableOpacity>
-      {ExcelMobx.filterfalse && (
+      {excelMobx.filterfalse && (
         <View style={{marginBottom: 5, backgroundColor: 'lavender'}}>
           <View
             style={{
@@ -134,7 +136,7 @@ const Filters = observer(() => {
                 statusFilter={(event: React.ChangeEvent) =>
                   filterStatusFun(event)
                 }
-                filterchoosed={FilterMobx.status}
+                filterchoosed={filterMobx.status}
               />
             </View>
             <View
@@ -147,7 +149,7 @@ const Filters = observer(() => {
                 seListFilter={(event: React.ChangeEvent) =>
                   filterSElistFun(event)
                 }
-                filterchoosed={FilterMobx.se}
+                filterchoosed={filterMobx.se}
               />
             </View>
             <View
@@ -156,13 +158,13 @@ const Filters = observer(() => {
                 platformFilter={(event: React.ChangeEvent) =>
                   filterPlatformFun(event)
                 }
-                filterchoosed={FilterMobx.platform}
+                filterchoosed={filterMobx.platform}
               />
             </View>
           </View>
           <FilterByComment
             textChanged={(event: string) => textChangedFun(event)}
-            filterchoosed={FilterMobx.comment}
+            filterchoosed={filterMobx.comment}
           />
         </View>
       )}

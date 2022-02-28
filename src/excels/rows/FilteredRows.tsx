@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
-import {TPrObject} from '../../constants/UseContext';
+import {TPrObject} from '../../constant/constants';
 
 type Props = {
   object: TPrObject;

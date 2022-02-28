@@ -1,9 +1,9 @@
 import {observable, action, computed, makeObservable} from 'mobx';
 import orderBy from 'lodash/orderBy';
 import filter from 'lodash/filter';
-import {TPrObject} from './UseContext';
+import {TPrObject} from '../constant/constants';
 
-class GlobalObject {
+class GlobalObjectStore {
   arrayofobjects: TPrObject[] = [];
   filteredarrayofobjects: TPrObject[] = [];
   isPickerShow: Boolean = false;
@@ -109,5 +109,5 @@ class GlobalObject {
     return this.arrayofobjects[this.arrayofobjects.length];
   }
 }
-const globalObj = new GlobalObject();
-export default globalObj;
+const globalObject = new GlobalObjectStore();
+export default globalObject;

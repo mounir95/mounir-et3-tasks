@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {UpdateFormMobx} from '../../constants/UseContext';
+import {updateFormMobx} from '../../stores/UpdateFormStore';
 import SSDListInput from './SSDLists';
 import {observer} from 'mobx-react';
 
@@ -15,7 +15,7 @@ const SSDListInputSumit = observer(() => {
         borderColor: 'yellow',
         margin: 5
       }}>
-      {UpdateFormMobx.ssdliststrue && <SSDListInput />}
+      {updateFormMobx.ssdliststrue && <SSDListInput />}
     </View>
   );
 });

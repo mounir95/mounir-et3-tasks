@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
 import RadioButtonRow from './RadioButtonInput';
-import {booleanval} from '../../constants/UseContext';
+import {booleanval} from '../../constant/constants';
 import {observer} from 'mobx-react';
-import globalObj from '../../constants/ObjectStore';
+import globalObject from '../../stores/GlobalObjectStore';
 
 type Props = {
   radioButtons: Function;
@@ -13,7 +13,7 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
     booleanstring: React.ChangeEvent<HTMLInputElement>,
     attribute: string,
   ): void => {
-    globalObj.setReveiwwedBy(booleanstring, attribute);
+    globalObject.setReveiwwedBy(booleanstring, attribute);
   };
 
   const handlePressSubmitButton = () => {
@@ -39,7 +39,7 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => changeHandle(booleanstring, 'reveiwed_by_BY')}
-            value={globalObj.emptyobject.MyreviewedbyBY}
+            value={globalObject.emptyobject.MyreviewedbyBY}
           />
         </View>
         <View
@@ -58,7 +58,7 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => changeHandle(booleanstring, 'reveiwed_by_AH')}
-            value={globalObj.emptyobject.MyreviewedbyAH}
+            value={globalObject.emptyobject.MyreviewedbyAH}
           />
         </View>
         <View
@@ -77,7 +77,7 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => changeHandle(booleanstring, 'reveiwed_by_HT')}
-            value={globalObj.emptyobject.MyreviewedbyHT}
+            value={globalObject.emptyobject.MyreviewedbyHT}
           />
         </View>
       </View>

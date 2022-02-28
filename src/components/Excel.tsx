@@ -1,14 +1,13 @@
 import React from 'react';
 import {View, ScrollView, FlatList, SafeAreaView} from 'react-native';
 import FirstRow from '../excels/ExcelRowFirst';
-import {days} from '../constants/UseContext';
+import {days} from '../constant/constants';
 import SortFilter from '../excels/sorttingfilters/SortFilter';
 import ExcelRows from '../excels/rows/ExcelRows';
 import UpdateForm from '../update/UpdateForm';
 import {observer} from 'mobx-react';
 
 const Excel = observer(() => {
-
   return (
     <SafeAreaView style={{flex: 1, marginTop: 22}}>
       <ScrollView>

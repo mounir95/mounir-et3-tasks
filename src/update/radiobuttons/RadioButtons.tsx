@@ -1,40 +1,22 @@
-import React, {FC} from 'react';
-import {View, Text, Button} from 'react-native';
-import {ExcelMobx, TPrObject, UpdateFormMobx} from '../../constants/UseContext';
+import React from 'react';
+import {View, Text} from 'react-native';
+import {updateFormMobx} from '../../stores/UpdateFormStore';
 import RadioButtonRow from './RadioButtonInput';
-import {booleanval} from '../../constants/UseContext';
-import {filter} from 'lodash';
-import globalObj from '../../constants/ObjectStore';
+import {booleanval} from '../../constant/constants';
 import {observer} from 'mobx-react';
 
-type Props = {
-  RadioButtons: Function;
-};
-const RadioButtonInput: FC<Props> = observer(({RadioButtons}) => {
-  const updatedarray: any = filter(globalObj.arrayofobjects, (c: TPrObject) => {
-    if (c.Myid === ExcelMobx.id) {
-      return c;
-    }
-  })[0];
-
+const RadioButtonInput = observer(() => {
   const setRadioButton = (
     booleanstring: React.ChangeEvent<HTMLInputElement>,
     attribute: string,
   ) => {
     if (attribute === 'reveiwed_by_BY') {
-      UpdateFormMobx.objectval.MyreviewedbyBY = booleanstring.toString();
-      updatedarray.MyreviewedbyBY = booleanstring.toString();
+      updateFormMobx.objectval.MyreviewedbyBY = booleanstring.toString();
     } else if (attribute === 'reveiwed_by_AH') {
-      UpdateFormMobx.objectval.MyreviewedbyAH = booleanstring.toString();
-      updatedarray.MyreviewedbyAH = booleanstring.toString();
+      updateFormMobx.objectval.MyreviewedbyAH = booleanstring.toString();
     } else if (attribute === 'reveiwed_by_HT') {
-      UpdateFormMobx.objectval.MyreviewedbyHT = booleanstring.toString();
-      updatedarray.MyreviewedbyHT = booleanstring.toString();
+      updateFormMobx.objectval.MyreviewedbyHT = booleanstring.toString();
     }
-  };
-
-  const handlePressSubmitButton = () => {
-    RadioButtons();
   };
 
   return (
@@ -56,7 +38,7 @@ const RadioButtonInput: FC<Props> = observer(({RadioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => setRadioButton(booleanstring, 'reveiwed_by_BY')}
-            value={updatedarray.MyreviewedbyBY}
+            value={updateFormMobx.objectval.MyreviewedbyBY}
           />
         </View>
         <View
@@ -75,7 +57,7 @@ const RadioButtonInput: FC<Props> = observer(({RadioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => setRadioButton(booleanstring, 'reveiwed_by_AH')}
-            value={updatedarray.MyreviewedbyAH}
+            value={updateFormMobx.objectval.MyreviewedbyAH}
           />
         </View>
         <View
@@ -94,12 +76,9 @@ const RadioButtonInput: FC<Props> = observer(({RadioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => setRadioButton(booleanstring, 'reveiwed_by_HT')}
-            value={updatedarray.MyreviewedbyHT}
+            value={updateFormMobx.objectval.MyreviewedbyHT}
           />
         </View>
-      </View>
-      <View style={{marginTop: 35}}>
-        <Button title={'Done'} onPress={() => handlePressSubmitButton()} />
       </View>
     </View>
   );

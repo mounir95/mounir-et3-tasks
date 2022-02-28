@@ -6,58 +6,35 @@ import InputTextInput from './textinputs/TextInput';
 import InputSSDList from './ssdlists/SSDLists';
 import InputRadioButton from './radiobuttons/RadioButtons';
 import InputDatePicker from './datepicking/DatePicking';
-import globalObj from '../constants/ObjectStore';
-import {AddPageMobx} from '../constants/UseContext';
+import globalObject from '../stores/GlobalObjectStore';
+import {addPageMobx} from '../stores/AddPageStore';
 import {observer} from 'mobx-react';
+import {requiredMobx} from '../stores/RequiredStore';
 
 const InputRow = observer(() => {
   let lastIndex: number;
-  if (globalObj.arrayofobjects[globalObj.objectarrayCount - 1] === undefined) {
+  if (globalObject.arrayofobjects[globalObject.objectarrayCount - 1] === undefined) {
     lastIndex = 1;
   } else {
     lastIndex =
-      globalObj.arrayofobjects[globalObj.objectarrayCount - 1].Myid + 1;
+      globalObject.arrayofobjects[globalObject.objectarrayCount - 1].Myid + 1;
   }
 
-  const checkValidation = () => {
-    if (
-      globalObj.emptyobject.Myreleaseversion !== ''
-    ) {
-      if (
-        globalObj.emptyobject.Myprlink !== ''
-      ) {
-        if (
-          globalObj.emptyobject.Mycomment !== ''
-        ) {
-          return true;
-        } else {
-          return 'Pr Link Required';
-        }
-      } else {
-        return 'Comment Required';
-      }
-    } else {
-      return 'Release Version Required';
-    }
-  };
-
   const toRadioButtons = () => {
-    if (checkValidation() === true) {
-      globalObj.emptyobject.Myid = lastIndex;
-      AddPageMobx.setAddPageMobx();
-      globalObj.addObjectArray(globalObj.emptyobject);
-    } else {
-      console.warn(checkValidation);
+    if (requiredMobx.checkInputValidation() === true) {
+      globalObject.emptyobject.Myid = lastIndex;
+      addPageMobx.setAddPageMobx();
+      globalObject.addObjectArray(globalObject.emptyobject);
     }
   };
 
   const handlePressCloseButton = () => {
-    AddPageMobx.setAddPageMobx();
+    addPageMobx.setAddPageMobx();
   };
 
   return (
     <View>
-      {AddPageMobx.inputform && (
+      {addPageMobx.inputform && (
         <View
           style={{
             flexDirection: 'column',
@@ -84,7 +61,7 @@ const InputRow = observer(() => {
           </View>
         </View>
       )}
-      {AddPageMobx.inputform && (
+      {addPageMobx.inputform && (
         <TouchableOpacity onPress={() => handlePressCloseButton()}>
           <View style={{alignItems: 'center'}}>
             <Text
