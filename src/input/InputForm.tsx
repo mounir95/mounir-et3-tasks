@@ -6,35 +6,35 @@ import InputTextInput from './textinputs/TextInput';
 import InputSSDList from './ssdlists/SSDLists';
 import InputRadioButton from './radiobuttons/RadioButtons';
 import InputDatePicker from './datepicking/DatePicking';
-import globalObject from '../stores/GlobalObjectStore';
-import {addPageMobx} from '../stores/AddPageStore';
+import getGlobalObjectStore from '../stores/GlobalObjectStore';
+import getAddPageStore from '../stores/AddPageStore';
 import {observer} from 'mobx-react';
-import {requiredMobx} from '../stores/RequiredStore';
+import getRequiredStore from '../stores/RequiredStore';
 
 const InputRow = observer(() => {
   let lastIndex: number;
-  if (globalObject.arrayofobjects[globalObject.objectarrayCount - 1] === undefined) {
+  if (getGlobalObjectStore().arrayofobjects.get()[getGlobalObjectStore().arrayobjectCount - 1] === undefined) {
     lastIndex = 1;
   } else {
     lastIndex =
-      globalObject.arrayofobjects[globalObject.objectarrayCount - 1].Myid + 1;
+      getGlobalObjectStore().arrayofobjects.get()[getGlobalObjectStore().arrayobjectCount - 1].Myid + 1;
   }
 
   const toRadioButtons = () => {
-    if (requiredMobx.checkInputValidation() === true) {
-      globalObject.emptyobject.Myid = lastIndex;
-      addPageMobx.setAddPageMobx();
-      globalObject.addObjectArray(globalObject.emptyobject);
+    if (getRequiredStore().checkInputValidation() === true) {
+      getGlobalObjectStore().emptyobject.get().Myid = lastIndex;
+      getAddPageStore().openInputForm();
+      getGlobalObjectStore().addObjectToArray(getGlobalObjectStore().emptyobject.get());
     }
   };
 
   const handlePressCloseButton = () => {
-    addPageMobx.setAddPageMobx();
+    getAddPageStore().openInputForm();
   };
 
   return (
     <View>
-      {addPageMobx.inputform && (
+      {getAddPageStore().inputform.get() && (
         <View
           style={{
             flexDirection: 'column',
@@ -61,7 +61,7 @@ const InputRow = observer(() => {
           </View>
         </View>
       )}
-      {addPageMobx.inputform && (
+      {getAddPageStore().inputform.get() && (
         <TouchableOpacity onPress={() => handlePressCloseButton()}>
           <View style={{alignItems: 'center'}}>
             <Text

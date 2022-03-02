@@ -2,42 +2,67 @@ import React, {FC} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import Icons from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import globalObject from '../../stores/GlobalObjectStore';
+import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 import {setObjectArrayFun, TPrObject} from '../../constant/constants';
-import {updateFormMobx} from '../../stores/UpdateFormStore';
-import {excelMobx} from '../../stores/ExcelStore';
+import getUpdateFormStore from '../../stores/UpdateFormStore';
+import getExcelStore from '../../stores/ExcelStore';
 import {observer} from 'mobx-react';
-import {requiredMobx} from '../../stores/RequiredStore';
+import getRequiredStore from '../../stores/RequiredStore';
+import getSortFilterStore from '../../stores/SortFilterStore';
 
 type Props = {
   object: TPrObject;
   index: number;
 };
 const ExcelRowInput: FC<Props> = observer(({object, index}) => {
-
   const onUpdate = (objectid: number) => {
-    globalObject.arrayofobjects.map((e: TPrObject) => {
-      if (e.Myid === excelMobx.id) {
-        e.Myid = excelMobx.id;
-        e.Myselist = updateFormMobx.objectval.Myselist;
-        e.Myplatform = updateFormMobx.objectval.Myplatform;
-        e.Myreleaseversion = updateFormMobx.objectval.Myreleaseversion;
-        e.Mystatuslist = updateFormMobx.objectval.Mystatuslist;
-        e.Mysize = updateFormMobx.objectval.Mysize;
-        e.Mydificulity = updateFormMobx.objectval.Mydificulity;
-        e.Myprlink = updateFormMobx.objectval.Myprlink;
-        e.Mycomment = updateFormMobx.objectval.Mycomment;
-        e.MyreviewedbyBY = updateFormMobx.objectval.MyreviewedbyBY;
-        e.MyreviewedbyAH = updateFormMobx.objectval.MyreviewedbyAH;
-        e.MyreviewedbyHT = updateFormMobx.objectval.MyreviewedbyHT;
+    if (getExcelStore().id.get() !== objectid) {
+      getExcelStore().id.set(objectid);
+      getGlobalObjectStore()
+        .arrayofobjects.get()
+        .map((e: TPrObject) => {
+          if (e.Myid === getExcelStore().id.get()) {
+            getUpdateFormStore().Myselist.set(e.Myselist);
+            getUpdateFormStore().Myplatform.set(e.Myplatform);
+            getUpdateFormStore().Myreleaseversion.set(e.Myreleaseversion);
+            getUpdateFormStore().Mystatuslist.set(e.Mystatuslist);
+            getUpdateFormStore().Mysize.set(e.Mysize);
+            getUpdateFormStore().Mydificulity.set(e.Mydificulity);
+            getUpdateFormStore().Myprlink.set(e.Myprlink);
+            getUpdateFormStore().Mycomment.set(e.Mycomment);
+            getUpdateFormStore().MyreviewedbyBY.set(e.MyreviewedbyBY);
+            getUpdateFormStore().MyreviewedbyAH.set(e.MyreviewedbyAH);
+            getUpdateFormStore().MyreviewedbyHT.set(e.MyreviewedbyHT);
+          }
+        });
+      getRequiredStore().setValidationTrue();
+    }
+    if (getExcelStore().id.get() === objectid) {
+      if (getRequiredStore().checkUpdateValidation() === true) {
+        getGlobalObjectStore()
+          .arrayofobjects.get()
+          .map((e: TPrObject) => {
+            if (e.Myid === getExcelStore().id.get()) {
+              e.Myselist = getUpdateFormStore().Myselist.get();
+              e.Myplatform = getUpdateFormStore().Myplatform.get();
+              e.Myreleaseversion = getUpdateFormStore().Myreleaseversion.get();
+              e.Mystatuslist = getUpdateFormStore().Mystatuslist.get();
+              e.Mysize = getUpdateFormStore().Mysize.get();
+              e.Mydificulity = getUpdateFormStore().Mydificulity.get();
+              e.Myprlink = getUpdateFormStore().Myprlink.get();
+              e.Mycomment = getUpdateFormStore().Mycomment.get();
+              e.MyreviewedbyBY = getUpdateFormStore().MyreviewedbyBY.get();
+              e.MyreviewedbyAH = getUpdateFormStore().MyreviewedbyAH.get();
+              e.MyreviewedbyHT = getUpdateFormStore().MyreviewedbyHT.get();
+            }
+          });
+        getExcelStore().openUpdateForm(objectid);
+        getUpdateFormStore().resetStore();
+        getSortFilterStore().closeopenFilter();
       }
-    });
-    if (requiredMobx.checkUpdateValidation() === true) {
-      excelMobx.onUpdateFun(objectid);
-      updateFormMobx.resetStore();
     }
   };
-  
+
   const objectarrayval = setObjectArrayFun(object);
 
   return (
@@ -71,15 +96,16 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
               flexDirection: 'row',
             }}
             onPress={() => onUpdate(object.Myid)}>
-            {!excelMobx.updatefalse && (
+            {!getExcelStore().updatefalse.get() && (
               <Icons name="pencil" size={15} color="#900" />
             )}
-            {excelMobx.updatefalse && excelMobx.id === object.Myid && (
-              <FontAwesome name="save" size={20} color="#900" />
-            )}
+            {getExcelStore().updatefalse.get() &&
+              getExcelStore().id.get() === object.Myid && (
+                <FontAwesome name="save" size={20} color="#900" />
+              )}
           </TouchableOpacity>
         )}
-        {index === 14 && (
+        {index === 14 && getSortFilterStore().filtercontainertrue.get() && (
           <TouchableOpacity
             style={{
               marginRight: 5,
@@ -88,7 +114,9 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
               paddingVertical: 3,
               backgroundColor: 'white',
             }}
-            onPress={() => globalObject.onDelete(object.Myid)}>
+            onPress={() =>
+              getGlobalObjectStore().deletObjectWithId(object.Myid)
+            }>
             <Text>X</Text>
           </TouchableOpacity>
         )}

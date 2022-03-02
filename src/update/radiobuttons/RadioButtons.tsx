@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {updateFormMobx} from '../../stores/UpdateFormStore';
+import getUpdateFormStore from '../../stores/UpdateFormStore';
 import RadioButtonRow from './RadioButtonInput';
 import {booleanval} from '../../constant/constants';
 import {observer} from 'mobx-react';
@@ -11,11 +11,11 @@ const RadioButtonInput = observer(() => {
     attribute: string,
   ) => {
     if (attribute === 'reveiwed_by_BY') {
-      updateFormMobx.objectval.MyreviewedbyBY = booleanstring.toString();
+      getUpdateFormStore().MyreviewedbyBY.set(booleanstring.toString());
     } else if (attribute === 'reveiwed_by_AH') {
-      updateFormMobx.objectval.MyreviewedbyAH = booleanstring.toString();
+      getUpdateFormStore().MyreviewedbyAH.set(booleanstring.toString());
     } else if (attribute === 'reveiwed_by_HT') {
-      updateFormMobx.objectval.MyreviewedbyHT = booleanstring.toString();
+      getUpdateFormStore().MyreviewedbyHT.set(booleanstring.toString());
     }
   };
 
@@ -38,7 +38,7 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => setRadioButton(booleanstring, 'reveiwed_by_BY')}
-            value={updateFormMobx.objectval.MyreviewedbyBY}
+            value={getUpdateFormStore().MyreviewedbyBY.get()}
           />
         </View>
         <View
@@ -57,7 +57,7 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => setRadioButton(booleanstring, 'reveiwed_by_AH')}
-            value={updateFormMobx.objectval.MyreviewedbyAH}
+            value={getUpdateFormStore().MyreviewedbyAH.get()}
           />
         </View>
         <View
@@ -76,7 +76,7 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) => setRadioButton(booleanstring, 'reveiwed_by_HT')}
-            value={updateFormMobx.objectval.MyreviewedbyHT}
+            value={getUpdateFormStore().MyreviewedbyHT.get()}
           />
         </View>
       </View>

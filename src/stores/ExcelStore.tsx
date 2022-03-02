@@ -1,38 +1,40 @@
-import {observable, action, makeObservable} from 'mobx';
+import {memoize} from 'lodash';
+import {observable, runInAction} from 'mobx';
 
 class ExcelStore {
-  id: number = -1;
-  filterfalse: Boolean = false;
-  updatefalse: Boolean = false;
-  constructor() {
-    makeObservable(this, {
-      id: observable,
-      filterfalse: observable,
-      updatefalse: observable,
-      resetStore: action,
-      filterResetStore: action,
-      onUpdateFun: action,
-      filterPressFun: action,
-    });
-  }
+  id = observable.box<number>(-1);
+  filterfalse = observable.box<Boolean>(false);
+  updatefalse = observable.box<Boolean>(false);
   resetStore = () => {
-    this.id = 0;
-    this.updatefalse = false;
-    this.filterfalse = false;
+    runInAction(() => {
+      this.id.set(0);
+      this.updatefalse.set(false);
+      this.filterfalse.set(false);
+    });
   };
-  filterResetStore = () => {
-    this.id = 0;
-    this.updatefalse = false;
+
+  openUpdateForm = (objid: number) => {
+    runInAction(() => {
+      this.id.set(objid);
+      this.updatefalse.set(!this.updatefalse.get());
+      this.filterfalse.set(false);
+    });
   };
-  onUpdateFun = (objid: number) => {
-    this.id = objid;
-    this.updatefalse = !this.updatefalse;
-    this.filterfalse = false;
-  };
-  filterPressFun = () => {
-    this.id = 0;
-    this.updatefalse = false;
-    this.filterfalse = !this.filterfalse;
+  openFilterForm = () => {
+    runInAction(() => {
+      this.id.set(0);
+      this.updatefalse.set(false);
+      this.filterfalse.set(!this.filterfalse.get());
+    });
   };
 }
-export const excelMobx = new ExcelStore();
+
+const getExcelStore = memoize(
+  () => {
+    const excelMobx = new ExcelStore();
+    return excelMobx;
+  },
+  () => 1,
+);
+
+export default getExcelStore;

@@ -1,14 +1,15 @@
-import {observable, action, computed, makeObservable} from 'mobx';
+import {observable, runInAction} from 'mobx';
 import orderBy from 'lodash/orderBy';
 import filter from 'lodash/filter';
 import {TPrObject} from '../constant/constants';
+import {memoize} from 'lodash';
 
 class GlobalObjectStore {
-  arrayofobjects: TPrObject[] = [];
-  filteredarrayofobjects: TPrObject[] = [];
-  isPickerShow: Boolean = false;
-  date: Date = new Date(Date.now());
-  emptyobject: TPrObject = {
+  arrayofobjects = observable.box<TPrObject[]>([]);
+  filteredarrayofobjects = observable.box<TPrObject[]>([]);
+  isPickerShow = observable.box<Boolean>(false);
+  date = observable.box<Date>(new Date(Date.now()));
+  emptyobject = observable.box<TPrObject>({
     Myid: 0,
     Mydate: new Date(Date.now()).toUTCString(),
     Myselist: 'AH',
@@ -22,92 +23,98 @@ class GlobalObjectStore {
     MyreviewedbyBY: 'no',
     MyreviewedbyAH: 'no',
     MyreviewedbyHT: 'no'
-  };
-  constructor() {
-    makeObservable(this, {
-      arrayofobjects: observable,
-      filteredarrayofobjects: observable,
-      emptyobject: observable,
-      date: observable,
-      isPickerShow: observable,
-      addObjectArray: action,
-      onDelete: action,
-      setAllChanges: action,
-      resetObject: action,
-      setReveiwwedBy: action,
-      setIsPickerShow: action,
-      setDate: action,
-      objectarrayCount: computed,
-      objectLastElemet: computed
-    });
-  }
+  });
 
-  addObjectArray = (lastarrayobject: TPrObject) => {
-    this.arrayofobjects.push({...lastarrayobject});
-  };
-
-  onDelete = (objid: number) => {
-    this.arrayofobjects = filter(this.arrayofobjects, (c: TPrObject) => {
-      return c.Myid !== objid;
+  addObjectToArray = (lastarrayobject: TPrObject) => {
+    runInAction(() => {
+      this.arrayofobjects.get().push({...lastarrayobject});
     });
   };
 
-  setAllChanges = () => {
-    this.arrayofobjects = filter(
-      orderBy(this.arrayofobjects, (obj: TPrObject) => obj.Myid, ['asc']),
-      (c: TPrObject) => {
-        return c.hasOwnProperty('Myid');
-      },
-    );
+  deletObjectWithId = (objid: number) => {
+    runInAction(() => {
+      this.arrayofobjects.set(
+        filter(this.arrayofobjects.get(), (c: TPrObject) => {
+          return c.Myid !== objid;
+        }),
+      );
+    });
   };
 
-  resetObject = () => {
-    this.emptyobject = {
-      Myid: 0,
-      Mydate: new Date(Date.now()).toUTCString(),
-      Myselist: 'AH',
-      Myplatform: 'mobile-client',
-      Myreleaseversion: '',
-      Mycomment: '',
-      Myprlink: '',
-      Mysize: 'Easy',
-      Mydificulity: 'Easy',
-      Mystatuslist: 'Has Comments',
-      MyreviewedbyBY: 'no',
-      MyreviewedbyAH: 'no',
-      MyreviewedbyHT: 'no',
-    };
+  orderingArrayOfObject = () => {
+    runInAction(() => {
+      this.arrayofobjects.set(
+        filter(
+          orderBy(this.arrayofobjects.get(), (obj: TPrObject) => obj.Myid, [
+            'asc',
+          ]),
+          (c: TPrObject) => {
+            return c.hasOwnProperty('Myid');
+          },
+        ),
+      );
+    });
   };
 
-  setIsPickerShow = (booleanval: Boolean) => {
-    this.isPickerShow = booleanval;
+  clearemptyObject = () => {
+    runInAction(() => {
+      this.emptyobject.set({
+        Myid: 0,
+        Mydate: new Date(Date.now()).toUTCString(),
+        Myselist: 'AH',
+        Myplatform: 'mobile-client',
+        Myreleaseversion: '',
+        Mycomment: '',
+        Myprlink: '',
+        Mysize: 'Easy',
+        Mydificulity: 'Easy',
+        Mystatuslist: 'Has Comments',
+        MyreviewedbyBY: 'no',
+        MyreviewedbyAH: 'no',
+        MyreviewedbyHT: 'no',
+      });
+    });
   };
 
-  setDate = (dateval: Date) => {
-    this.emptyobject.Mydate = dateval.toUTCString();
-    this.date = dateval;
+  inputIsPickerShow = (booleanval: Boolean) => {
+    runInAction(() => {
+      this.isPickerShow.set(booleanval);
+    });
   };
 
-  setReveiwwedBy = (
+  inputDate = (dateval: Date) => {
+    runInAction(() => {
+      this.emptyobject.get().Mydate = dateval.toUTCString();
+      this.date.set(dateval);
+    });
+  };
+
+  inputReveiwwedBy = (
     booleanstring: React.ChangeEvent<HTMLInputElement>,
     attribute: string,
   ) => {
-    if (attribute === 'reveiwed_by_BY') {
-      this.emptyobject.MyreviewedbyBY = booleanstring.toString();
-    } else if (attribute === 'reveiwed_by_AH') {
-      this.emptyobject.MyreviewedbyAH = booleanstring.toString();
-    } else if (attribute === 'reveiwed_by_HT') {
-      this.emptyobject.MyreviewedbyHT = booleanstring.toString();
-    }
+    runInAction(() => {
+      if (attribute === 'reveiwed_by_BY') {
+        this.emptyobject.get().MyreviewedbyBY = booleanstring.toString();
+      } else if (attribute === 'reveiwed_by_AH') {
+        this.emptyobject.get().MyreviewedbyAH = booleanstring.toString();
+      } else if (attribute === 'reveiwed_by_HT') {
+        this.emptyobject.get().MyreviewedbyHT = booleanstring.toString();
+      }
+    });
   };
 
-  get objectarrayCount() {
-    return this.arrayofobjects.length;
-  }
-
-  get objectLastElemet() {
-    return this.arrayofobjects[this.arrayofobjects.length];
+  get arrayobjectCount() {
+    return this.arrayofobjects.get().length;
   }
 }
-const globalObject = new GlobalObjectStore();
-export default globalObject;
+
+const getGlobalObjectStore = memoize(
+  () => {
+    const globalObject = new GlobalObjectStore();
+    return globalObject;
+  },
+  () => 1,
+);
+
+export default getGlobalObjectStore;

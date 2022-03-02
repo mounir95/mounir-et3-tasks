@@ -1,18 +1,21 @@
-import React from 'react';
+import React, {SyntheticEvent} from 'react';
 import {View, Text, Button, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {observer} from 'mobx-react';
-import globalObject from '../../stores/GlobalObjectStore';
+import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 
 const Datepicker = observer(() => {
   const showPicker = () => {
-    globalObject.setIsPickerShow(true);
+    getGlobalObjectStore().inputIsPickerShow(true);
   };
 
-  const onChange = (event: any, date?: Date) => {
-    globalObject.setDate(date);
+  const onChange = (
+    event: SyntheticEvent<Readonly<{timestamp: number}>, Event>,
+    date?: Date,
+  ) => {
+    getGlobalObjectStore().inputDate(date);
     if (Platform.OS === 'android') {
-      globalObject.setIsPickerShow(false);
+      getGlobalObjectStore().inputIsPickerShow(false);
     }
   };
 
@@ -28,17 +31,17 @@ const Datepicker = observer(() => {
       }}>
       <View style={{padding: 20, backgroundColor: '#eee', borderRadius: 10}}>
         <Text style={{fontSize: 18, color: 'black'}}>
-          {globalObject.emptyobject.Mydate}
+          {getGlobalObjectStore().emptyobject.get().Mydate}
         </Text>
       </View>
-      {!globalObject.isPickerShow && (
+      {!getGlobalObjectStore().isPickerShow.get() && (
         <View style={{padding: 25}}>
           <Button title="Show Picker" color="purple" onPress={showPicker} />
         </View>
       )}
-      {globalObject.isPickerShow && (
+      {getGlobalObjectStore().isPickerShow.get() && (
         <DateTimePicker
-          value={globalObject.date}
+          value={getGlobalObjectStore().date.get()}
           mode={'date'}
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
           is24Hour={true}

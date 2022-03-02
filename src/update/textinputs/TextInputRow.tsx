@@ -3,7 +3,7 @@ import {SafeAreaView, TextInput} from 'react-native';
 
 type Props = {
   onchangefun: Function;
-  stringval: any;
+  stringval: string;
 };
 
 const TextInputRow: FC<Props> = ({onchangefun, stringval}) => {
@@ -12,7 +12,7 @@ const TextInputRow: FC<Props> = ({onchangefun, stringval}) => {
       <TextInput
         style={{height: 30, margin: 12, borderWidth: 1, padding: 5}}
         onChangeText={event => onchangefun(event)}
-        placeholder={stringval}
+        value={stringval}
       />
     </SafeAreaView>
   );

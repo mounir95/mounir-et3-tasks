@@ -1,27 +1,33 @@
-import {observable, action, makeObservable} from 'mobx';
+import {memoize} from 'lodash';
+import {observable, runInAction} from 'mobx';
 
 class AddPageStore {
-  addbuttontrue: Boolean = true;
-  inputform: Boolean = false;
-  addtext: string = 'ADD';
-  constructor() {
-    makeObservable(this, {
-      addbuttontrue: observable,
-      inputform: observable,
-      addtext: observable,
-      setAddPageMobx: action,
-      resetAddPageMobx: action,
+  textinput = observable.box<string>('mytest');
+  addbuttontrue = observable.box<Boolean>(true);
+  inputform = observable.box<Boolean>(false);
+  addtext = observable.box<string>('ADD');
+  openInputForm = () => {
+    runInAction(() => {
+      this.addbuttontrue.set(true);
+      this.inputform.set(false);
+      this.addtext.set('ADD');
     });
-  }
-  setAddPageMobx = () => {
-    this.addbuttontrue = true;
-    this.inputform = false;
-    this.addtext = 'ADD';
   };
-  resetAddPageMobx = () => {
-    this.addbuttontrue = false;
-    this.inputform = true;
-    this.addtext = 'Close';
+  closeInputForm = () => {
+    runInAction(() => {
+      this.addbuttontrue.set(false);
+      this.inputform.set(true);
+      this.addtext.set('Close');
+    });
   };
 }
-export const addPageMobx = new AddPageStore();
+
+const getAddPageStore = memoize(
+  () => {
+    const addPageMobx = new AddPageStore();
+    return addPageMobx;
+  },
+  () => 1
+);
+
+export default getAddPageStore;

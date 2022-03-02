@@ -1,17 +1,14 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import {arrayofsort, TPrObject} from '../../../constant/constants';
 import orderBy from 'lodash/orderBy';
-import globalObject from '../../../stores/GlobalObjectStore';
+import getGlobalObjectStore from '../../../stores/GlobalObjectStore';
 import {observer} from 'mobx-react';
+import getSortFilterStore from '../../../stores/SortFilterStore';
+import getExcelStore from '../../../stores/ExcelStore';
 
-type Props = {
-  setDate: Function;
-  choosedfilter: Boolean;
-};
-
-const SortByDate: FC<Props> = observer(({setDate, choosedfilter}) => {
+const SortByDate = observer(() => {
   const itemarray = arrayofsort.map(item => {
     return {label: item, value: item};
   });
@@ -19,17 +16,19 @@ const SortByDate: FC<Props> = observer(({setDate, choosedfilter}) => {
   const setDateSort = (event: React.ChangeEvent) => {
     const datesorting = event.toString() === 'desc' ? 'asc' : 'desc';
     const newobjectarray = orderBy(
-      globalObject.arrayofobjects,
+      getGlobalObjectStore().arrayofobjects.get(),
       (obj: TPrObject) => obj.Mydate,
       [datesorting],
     )
-    setDate(newobjectarray);
+    getSortFilterStore().setDateFun();
+    getGlobalObjectStore().arrayofobjects.set(newobjectarray);
+    getExcelStore().resetStore();
   };
 
   return (
     <View style={{marginBottom: 20, marginTop: 10}}>
       <Text>Sort By Date: </Text>
-      {choosedfilter && (
+      {getSortFilterStore().dateTrueFalse.get() && (
         <RNPickerSelect
           style={{
             inputAndroid: {
@@ -47,7 +46,7 @@ const SortByDate: FC<Props> = observer(({setDate, choosedfilter}) => {
           onValueChange={(event: React.ChangeEvent) => setDateSort(event)}
         />
       )}
-      {!choosedfilter && (
+      {!getSortFilterStore().dateTrueFalse.get() && (
         <RNPickerSelect
           style={{
             inputAndroid: {

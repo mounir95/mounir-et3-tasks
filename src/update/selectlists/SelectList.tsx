@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import {View, Button} from 'react-native';
 import {globalStateObject} from '../../constant/constants';
-import {updateFormMobx} from '../../stores/UpdateFormStore';
+import getUpdateFormStore from '../../stores/UpdateFormStore';
 import SelectInput from './SelectInput';
 import {observer} from 'mobx-react';
 
@@ -11,9 +11,9 @@ const InputSelectList = observer(() => {
     parentData: string,
   ): void => {
     if (parentData === 'se_list') {
-      updateFormMobx.objectval.Myselist = event.toString();
+      getUpdateFormStore().Myselist.set(event.toString());
     } else if (parentData === 'platform') {
-      updateFormMobx.objectval.Myplatform = event.toString();
+      getUpdateFormStore().Myplatform.set(event.toString());
     }
   };
 
@@ -24,7 +24,7 @@ const InputSelectList = observer(() => {
           key="firstrow"
           listname={'SE List'}
           arrayval={globalStateObject.SEList}
-          choosedval={updateFormMobx.objectval.Myselist}
+          choosedval={getUpdateFormStore().Myselist.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'se_list')
           }
@@ -35,14 +35,17 @@ const InputSelectList = observer(() => {
           key="secondrow"
           listname={'Platform'}
           arrayval={globalStateObject.Platform}
-          choosedval={updateFormMobx.objectval.Myplatform}
+          choosedval={getUpdateFormStore().Myplatform.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'platform')
           }
         />
       </View>
       <View style={{marginTop: 25}}>
-        <Button title={'Next'} onPress={() => updateFormMobx.selectList()} />
+        <Button
+          title={'Next'}
+          onPress={() => getUpdateFormStore().selectList()}
+        />
       </View>
     </View>
   );

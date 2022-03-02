@@ -4,13 +4,13 @@ import InputSelectList from './selectlists/SelectListSubmit';
 import InputTextInput from './textinputs/TextInputSubmit';
 import InputSSDList from './ssdlists/SSDListsSubmit';
 import InputRadioButton from './radiobuttons/RadioButtonsSubmit';
-import {excelMobx} from '../stores/ExcelStore';
+import getExcelStore from '../stores/ExcelStore';
 import {observer} from 'mobx-react';
 
 const UpdateRow = observer(() => {
   return (
     <View>
-      {excelMobx.updatefalse && (
+      {getExcelStore().updatefalse.get() && (
         <View
           style={{
             flexDirection: 'column',

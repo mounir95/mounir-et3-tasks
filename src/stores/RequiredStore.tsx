@@ -1,45 +1,45 @@
-import {observable, action, makeObservable} from 'mobx';
-import globalObject from './GlobalObjectStore';
-import {updateFormMobx} from './UpdateFormStore';
+import {memoize} from 'lodash';
+import {observable, runInAction} from 'mobx';
+import getGlobalObjectStore from './GlobalObjectStore';
+import getUpdateFormStore from './UpdateFormStore';
 
 class RequiredStore {
-  comment: Boolean = false;
-  released: Boolean = false;
-  prlink: Boolean = false;
-  constructor() {
-    makeObservable(this, {
-      comment: observable,
-      released: observable,
-      prlink: observable,
-      checkUpdateValidation: action,
-      checkInputValidation: action,
-    });
-  }
+  comment = observable.box<Boolean>(false);
+  released = observable.box<Boolean>(false);
+  prlink = observable.box<Boolean>(false);
 
-  resetTextInput = () => {
-    this.comment = false;
-    this.released = false;
-    this.prlink = false;
-  }
+  resetValidationTrue = () => {
+    runInAction(() => {
+      this.comment.set(false);
+      this.released.set(false);
+      this.prlink.set(false);
+    });
+  };
+
+  setValidationTrue = () => {
+    runInAction(() => {
+      this.comment.set(true);
+      this.released.set(true);
+      this.prlink.set(true);
+    });
+  };
 
   checkUpdateValidation = () => {
-    this.released = false;
-    this.comment = false;
-    this.prlink = false;
-    if (updateFormMobx.objectval.Myreleaseversion.match('^[A-Za-z0-9]+$')) {
-      this.released = true;
-    }
-    if (updateFormMobx.objectval.Myprlink.match('^[A-Za-z0-9]+$')) {
-      this.prlink = true;
-    }
-    if (updateFormMobx.objectval.Mycomment.match('^[A-Za-z0-9]+$')) {
-      this.comment = true;
-    }
-
+    runInAction(() => {
+      if (getUpdateFormStore().Myreleaseversion.get().match('^[A-Za-z0-9]+$')) {
+        this.released.set(true);
+      }
+      if (getUpdateFormStore().Myprlink.get().match('^[A-Za-z0-9]+$')) {
+        this.prlink.set(true);
+      }
+      if (getUpdateFormStore().Mycomment.get().match('^[A-Za-z0-9]+$')) {
+        this.comment.set(true);
+      }
+    });
     if (
-      this.released === true &&
-      this.prlink === true &&
-      this.comment === true
+      this.released.get() === true &&
+      this.prlink.get() === true &&
+      this.comment.get() === true
     ) {
       return true;
     } else {
@@ -48,23 +48,33 @@ class RequiredStore {
   };
 
   checkInputValidation = () => {
-    this.released = false;
-    this.comment = false;
-    this.prlink = false;
-    if (globalObject.emptyobject.Myreleaseversion.match('^[A-Za-z0-9]+$')) {
-      this.released = true;
-    }
-    if (globalObject.emptyobject.Myprlink.match('^[A-Za-z0-9]+$')) {
-      this.prlink = true;
-    }
-    if (globalObject.emptyobject.Mycomment.match('^[A-Za-z0-9]+$')) {
-      this.comment = true;
-    }
-
+    runInAction(() => {
+      if (
+        getGlobalObjectStore()
+          .emptyobject.get()
+          .Myreleaseversion.match('^[A-Za-z0-9]+$')
+      ) {
+        this.released.set(true);
+      }
+      if (
+        getGlobalObjectStore()
+          .emptyobject.get()
+          .Myprlink.match('^[A-Za-z0-9]+$')
+      ) {
+        this.prlink.set(true);
+      }
+      if (
+        getGlobalObjectStore()
+          .emptyobject.get()
+          .Mycomment.match('^[A-Za-z0-9]+$')
+      ) {
+        this.comment.set(true);
+      }
+    });
     if (
-      this.released === true &&
-      this.prlink === true &&
-      this.comment === true
+      this.released.get() === true &&
+      this.prlink.get() === true &&
+      this.comment.get() === true
     ) {
       return true;
     } else {
@@ -72,4 +82,13 @@ class RequiredStore {
     }
   };
 }
-export const requiredMobx = new RequiredStore();
+
+const getRequiredStore = memoize(
+  () => {
+    const requiredMobx = new RequiredStore();
+    return requiredMobx;
+  },
+  () => 1,
+);
+
+export default getRequiredStore;

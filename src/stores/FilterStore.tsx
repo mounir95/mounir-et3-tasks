@@ -1,25 +1,20 @@
-import {observable, action, makeObservable} from 'mobx';
+import {memoize} from 'lodash';
+import {observable} from 'mobx';
 
 class FilterStore {
-  platform: Boolean = true;
-  se: Boolean = true;
-  status: Boolean = true;
-  comment: Boolean = true;
-  date: Date = new Date(Date.now());
-  constructor() {
-    makeObservable(this, {
-      platform: observable,
-      se: observable,
-      status: observable,
-      comment: observable,
-      changefilter: action,
-    });
-  }
-  changefilter = (pl: Boolean, se: Boolean, st: Boolean, cm: Boolean) => {
-    this.platform = pl;
-    this.se = se;
-    this.status = st;
-    this.comment = cm;
-  };
+  platform = observable.box<Boolean>(true);
+  se = observable.box<Boolean>(true);
+  status = observable.box<Boolean>(true);
+  comment = observable.box<Boolean>(true);
+  date = observable.box<Date>(new Date(Date.now()));
 }
-export const filterMobx = new FilterStore();
+
+const getFilterStore = memoize(
+  () => {
+    const filterMobx = new FilterStore();
+    return filterMobx;
+  },
+  () => 1,
+);
+
+export default getFilterStore;

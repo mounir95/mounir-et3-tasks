@@ -1,56 +1,64 @@
-import {observable, action, makeObservable} from 'mobx';
-import {TPrObject} from '../constant/constants';
-import globalObject from './GlobalObjectStore';
-import {requiredMobx} from './RequiredStore';
+import {memoize} from 'lodash';
+import {observable, runInAction} from 'mobx';
+import getRequiredStore from './RequiredStore';
 
 class UpdateFormStore {
-  selectpagetrue: Boolean = true;
-  textpagetrue: Boolean = false;
-  ssdliststrue: Boolean = false;
-  radiobuttonstrue: Boolean = false;
-  objectval: TPrObject = globalObject.emptyobject;
-  constructor() {
-    makeObservable(this, {
-      selectpagetrue: observable,
-      textpagetrue: observable,
-      ssdliststrue: observable,
-      radiobuttonstrue: observable,
-      objectval: observable,
-      selectList: action,
-      ssdLists: action,
-      textPage: action,
-    });
-  }
+  selectpagetrue = observable.box<Boolean>(true);
+  textpagetrue = observable.box<Boolean>(false);
+  ssdliststrue = observable.box<Boolean>(false);
+  radiobuttonstrue = observable.box<Boolean>(false);
+  Myselist = observable.box<string>('');
+  Myplatform = observable.box<string>('');
+  Myreleaseversion = observable.box<string>('');
+  Mycomment = observable.box<string>('');
+  Myprlink = observable.box<string>('');
+  Mystatuslist = observable.box<string>('');
+  Mysize = observable.box<string>('');
+  Mydificulity = observable.box<string>('');
+  MyreviewedbyAH = observable.box<string>('');
+  MyreviewedbyHT = observable.box<string>('');
+  MyreviewedbyBY = observable.box<string>('');
   selectList = () => {
-    this.selectpagetrue = false;
-    this.textpagetrue = true;
-    this.ssdliststrue = false;
-    this.radiobuttonstrue = false;
-    this.objectval = this.objectval;
+    runInAction(() => {
+      this.selectpagetrue.set(false);
+      this.textpagetrue.set(true);
+      this.ssdliststrue.set(false);
+      this.radiobuttonstrue.set(false);
+    });
   };
   ssdLists = () => {
-    this.selectpagetrue = false;
-    this.textpagetrue = false;
-    this.ssdliststrue = false;
-    this.radiobuttonstrue = true;
-    this.objectval = this.objectval;
+    runInAction(() => {
+      this.selectpagetrue.set(false);
+      this.textpagetrue.set(false);
+      this.ssdliststrue.set(false);
+      this.radiobuttonstrue.set(true);
+    });
   };
   textPage = () => {
-    if (requiredMobx.checkUpdateValidation() === true) {
-      this.selectpagetrue = false;
-      this.textpagetrue = false;
-      this.ssdliststrue = true;
-      this.radiobuttonstrue = false;
-      this.objectval = this.objectval;
-      requiredMobx.resetTextInput();
-    }
+    runInAction(() => {
+      if (getRequiredStore().checkUpdateValidation() === true) {
+        this.selectpagetrue.set(false);
+        this.textpagetrue.set(false);
+        this.ssdliststrue.set(true);
+        this.radiobuttonstrue.set(false);
+      }
+    });
   };
   resetStore = () => {
-    this.selectpagetrue = true;
-    this.textpagetrue = false;
-    this.ssdliststrue = false;
-    this.radiobuttonstrue = false;
-    this.objectval = globalObject.emptyobject;
+    runInAction(() => {
+      this.selectpagetrue.set(true);
+      this.textpagetrue.set(false);
+      this.ssdliststrue.set(false);
+      this.radiobuttonstrue.set(false);
+    });
   };
 }
-export const updateFormMobx = new UpdateFormStore();
+const getUpdateFormStore = memoize(
+  () => {
+    const updateFormMobx = new UpdateFormStore();
+    return updateFormMobx;
+  },
+  () => 1,
+);
+
+export default getUpdateFormStore;

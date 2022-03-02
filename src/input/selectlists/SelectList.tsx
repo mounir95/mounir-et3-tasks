@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {globalStateObject} from '../../constant/constants';
 import SelectInput from './SelectInput';
 import {observer} from 'mobx-react';
-import globalObject from '../../stores/GlobalObjectStore';
+import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 
 const InputSelectList = observer(() => {
   const outputEvent = (
@@ -11,9 +11,9 @@ const InputSelectList = observer(() => {
     parentData: string,
   ): void => {
     if (parentData === 'se_list') {
-      globalObject.emptyobject.Myselist = event.toString();
+      getGlobalObjectStore().emptyobject.get().Myselist = event.toString();
     } else if (parentData === 'platform') {
-      globalObject.emptyobject.Myplatform = event.toString();
+      getGlobalObjectStore().emptyobject.get().Myplatform = event.toString();
     }
   };
 
@@ -24,7 +24,7 @@ const InputSelectList = observer(() => {
           key="firstrow"
           listname={'SE List'}
           arrayval={globalStateObject.SEList}
-          choosedval={globalObject.emptyobject.Myselist}
+          choosedval={getGlobalObjectStore().emptyobject.get().Myselist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'se_list')
           }
@@ -35,7 +35,7 @@ const InputSelectList = observer(() => {
           key="secondrow"
           listname={'Platform'}
           arrayval={globalStateObject.Platform}
-          choosedval={globalObject.emptyobject.Myplatform}
+          choosedval={getGlobalObjectStore().emptyobject.get().Myplatform}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             outputEvent(event, 'platform')
           }
