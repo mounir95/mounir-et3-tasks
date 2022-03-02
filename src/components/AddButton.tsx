@@ -17,42 +17,8 @@ const AddButton = observer(() => {
     getGlobalObjectStore().clearemptyObject();
   };
 
-  const changeLanguage = (val: string) => {
-    console.log(val);
-  };
-
   return (
     <View style={{alignItems: 'center'}}>
-      <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity onPress={() => changeLanguage('EN')}>
-          <Text
-            style={{
-              borderWidth: 2,
-              borderRadius: 5,
-              padding: 5,
-              marginBottom: 5,
-              borderColor: '#776677',
-              color: '#776677',
-              backgroundColor: 'white',
-            }}>
-            EN
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => changeLanguage('AR')}>
-          <Text
-            style={{
-              borderWidth: 2,
-              borderRadius: 5,
-              padding: 5,
-              marginBottom: 5,
-              borderColor: '#776677',
-              color: '#776677',
-              backgroundColor: 'white',
-            }}>
-            AR
-          </Text>
-        </TouchableOpacity>
-      </View>
       {getAddPageStore().addbuttontrue.get() && (
         <TouchableOpacity onPress={() => onPressSubmit()}>
           <Text
