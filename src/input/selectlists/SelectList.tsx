@@ -6,17 +6,6 @@ import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 
 const InputSelectList = observer(() => {
-  const outputEvent = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-    parentData: string,
-  ): void => {
-    if (parentData === 'se_list') {
-      getGlobalObjectStore().emptyobject.get().Myselist = event.toString();
-    } else if (parentData === 'platform') {
-      getGlobalObjectStore().emptyobject.get().Myplatform = event.toString();
-    }
-  };
-
   return (
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
@@ -26,7 +15,8 @@ const InputSelectList = observer(() => {
           arrayval={globalStateObject.SEList}
           choosedval={getGlobalObjectStore().emptyobject.get().Myselist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            outputEvent(event, 'se_list')
+            (getGlobalObjectStore().emptyobject.get().Myselist =
+              event.toString())
           }
         />
       </View>
@@ -37,7 +27,8 @@ const InputSelectList = observer(() => {
           arrayval={globalStateObject.Platform}
           choosedval={getGlobalObjectStore().emptyobject.get().Myplatform}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            outputEvent(event, 'platform')
+            (getGlobalObjectStore().emptyobject.get().Myplatform =
+              event.toString())
           }
         />
       </View>

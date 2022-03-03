@@ -6,19 +6,6 @@ import TextInputRow from './TextInputRow';
 import {observer} from 'mobx-react';
 
 const InputText = observer(() => {
-  const onInputchange = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-    Atribuite: string,
-  ): void => {
-    if (Atribuite === 'comment') {
-      getUpdateFormStore().Mycomment.set(event.toString());
-    } else if (Atribuite === 'pr_Link') {
-      getUpdateFormStore().Myprlink.set(event.toString());
-    } else if (Atribuite === 'release_version') {
-      getUpdateFormStore().Myreleaseversion.set(event.toString());
-    }
-  };
-
   return (
     <View>
       <View>
@@ -29,7 +16,7 @@ const InputText = observer(() => {
         <TextInputRow
           stringval={getUpdateFormStore().Myreleaseversion.get()}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            onInputchange(event, 'release_version')
+            getUpdateFormStore().Myreleaseversion.set(event.toString())
           }
         />
       </View>
@@ -41,7 +28,7 @@ const InputText = observer(() => {
         <TextInputRow
           stringval={getUpdateFormStore().Mycomment.get()}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            onInputchange(event, 'comment')
+            getUpdateFormStore().Mycomment.set(event.toString())
           }
         />
       </View>
@@ -53,7 +40,7 @@ const InputText = observer(() => {
         <TextInputRow
           stringval={getUpdateFormStore().Myprlink.get()}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            onInputchange(event, 'pr_Link')
+            getUpdateFormStore().Myprlink.set(event.toString())
           }
         />
       </View>

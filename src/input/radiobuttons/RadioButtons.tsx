@@ -9,13 +9,6 @@ type Props = {
   radioButtons: Function;
 };
 const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
-  const changeHandle = (
-    booleanstring: React.ChangeEvent<HTMLInputElement>,
-    attribute: string,
-  ): void => {
-    getGlobalObjectStore().inputReveiwwedBy(booleanstring, attribute);
-  };
-
   const handlePressSubmitButton = () => {
     radioButtons();
   };
@@ -38,7 +31,10 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
-            ) => changeHandle(booleanstring, 'reveiwed_by_BY')}
+            ) =>
+              (getGlobalObjectStore().emptyobject.get().MyreviewedbyBY =
+                booleanstring.toString())
+            }
             value={getGlobalObjectStore().emptyobject.get().MyreviewedbyBY}
           />
         </View>
@@ -57,7 +53,10 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
-            ) => changeHandle(booleanstring, 'reveiwed_by_AH')}
+            ) =>
+              (getGlobalObjectStore().emptyobject.get().MyreviewedbyAH =
+                booleanstring.toString())
+            }
             value={getGlobalObjectStore().emptyobject.get().MyreviewedbyAH}
           />
         </View>
@@ -76,7 +75,10 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
-            ) => changeHandle(booleanstring, 'reveiwed_by_HT')}
+            ) =>
+              (getGlobalObjectStore().emptyobject.get().MyreviewedbyHT =
+                booleanstring.toString())
+            }
             value={getGlobalObjectStore().emptyobject.get().MyreviewedbyHT}
           />
         </View>

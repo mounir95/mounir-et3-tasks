@@ -1,4 +1,4 @@
-import {observable, runInAction} from 'mobx';
+import {computed, observable, runInAction} from 'mobx';
 import orderBy from 'lodash/orderBy';
 import filter from 'lodash/filter';
 import {TPrObject} from '../constant/constants';
@@ -7,6 +7,7 @@ import {memoize} from 'lodash';
 class GlobalObjectStore {
   arrayofobjects = observable.box<TPrObject[]>([]);
   filteredarrayofobjects = observable.box<TPrObject[]>([]);
+  ShowPopUp = observable.box<boolean>(true);
   isPickerShow = observable.box<Boolean>(false);
   date = observable.box<Date>(new Date(Date.now()));
   emptyobject = observable.box<TPrObject>({
@@ -89,24 +90,26 @@ class GlobalObjectStore {
     });
   };
 
-  inputReveiwwedBy = (
-    booleanstring: React.ChangeEvent<HTMLInputElement>,
-    attribute: string,
-  ) => {
-    runInAction(() => {
-      if (attribute === 'reveiwed_by_BY') {
-        this.emptyobject.get().MyreviewedbyBY = booleanstring.toString();
-      } else if (attribute === 'reveiwed_by_AH') {
-        this.emptyobject.get().MyreviewedbyAH = booleanstring.toString();
-      } else if (attribute === 'reveiwed_by_HT') {
-        this.emptyobject.get().MyreviewedbyHT = booleanstring.toString();
-      }
-    });
-  };
+  lastIndexpopUp = computed(() => {
+    if (this.arrayofobjects.get().length >= 1) {
+      return this.arrayofobjects.get().length;
+    } else {
+      return 0;
+    }
+  });
 
-  get arrayobjectCount() {
-    return this.arrayofobjects.get().length;
-  }
+  lastIndexToUse = computed(() => {
+    if (
+      this.arrayofobjects.get()[this.arrayofobjects.get().length - 1] ===
+      undefined
+    ) {
+      return 1;
+    } else {
+      return (
+        this.arrayofobjects.get()[this.arrayofobjects.get().length - 1].Myid + 1
+      );
+    }
+  });
 }
 
 const getGlobalObjectStore = memoize(

@@ -37,29 +37,27 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
         });
       getRequiredStore().setValidationTrue();
     }
-    if (getExcelStore().id.get() === objectid) {
-      if (getRequiredStore().checkUpdateValidation() === true) {
-        getGlobalObjectStore()
-          .arrayofobjects.get()
-          .map((e: TPrObject) => {
-            if (e.Myid === getExcelStore().id.get()) {
-              e.Myselist = getUpdateFormStore().Myselist.get();
-              e.Myplatform = getUpdateFormStore().Myplatform.get();
-              e.Myreleaseversion = getUpdateFormStore().Myreleaseversion.get();
-              e.Mystatuslist = getUpdateFormStore().Mystatuslist.get();
-              e.Mysize = getUpdateFormStore().Mysize.get();
-              e.Mydificulity = getUpdateFormStore().Mydificulity.get();
-              e.Myprlink = getUpdateFormStore().Myprlink.get();
-              e.Mycomment = getUpdateFormStore().Mycomment.get();
-              e.MyreviewedbyBY = getUpdateFormStore().MyreviewedbyBY.get();
-              e.MyreviewedbyAH = getUpdateFormStore().MyreviewedbyAH.get();
-              e.MyreviewedbyHT = getUpdateFormStore().MyreviewedbyHT.get();
-            }
-          });
-        getExcelStore().openUpdateForm(objectid);
-        getUpdateFormStore().resetStore();
-        getSortFilterStore().closeopenFilter();
-      }
+    if (getRequiredStore().checkUpdateValidation() === true) {
+      getGlobalObjectStore()
+        .arrayofobjects.get()
+        .map((e: TPrObject) => {
+          if (e.Myid === getExcelStore().id.get()) {
+            e.Myselist = getUpdateFormStore().Myselist.get();
+            e.Myplatform = getUpdateFormStore().Myplatform.get();
+            e.Myreleaseversion = getUpdateFormStore().Myreleaseversion.get();
+            e.Mystatuslist = getUpdateFormStore().Mystatuslist.get();
+            e.Mysize = getUpdateFormStore().Mysize.get();
+            e.Mydificulity = getUpdateFormStore().Mydificulity.get();
+            e.Myprlink = getUpdateFormStore().Myprlink.get();
+            e.Mycomment = getUpdateFormStore().Mycomment.get();
+            e.MyreviewedbyBY = getUpdateFormStore().MyreviewedbyBY.get();
+            e.MyreviewedbyAH = getUpdateFormStore().MyreviewedbyAH.get();
+            e.MyreviewedbyHT = getUpdateFormStore().MyreviewedbyHT.get();
+          }
+        });
+      getExcelStore().openUpdateForm(objectid);
+      getUpdateFormStore().resetStore();
+      getSortFilterStore().closeopenFilter();
     }
   };
 

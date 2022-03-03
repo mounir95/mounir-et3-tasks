@@ -12,17 +12,9 @@ import {observer} from 'mobx-react';
 import getRequiredStore from '../stores/RequiredStore';
 
 const InputRow = observer(() => {
-  let lastIndex: number;
-  if (getGlobalObjectStore().arrayofobjects.get()[getGlobalObjectStore().arrayobjectCount - 1] === undefined) {
-    lastIndex = 1;
-  } else {
-    lastIndex =
-      getGlobalObjectStore().arrayofobjects.get()[getGlobalObjectStore().arrayobjectCount - 1].Myid + 1;
-  }
-
   const toRadioButtons = () => {
     if (getRequiredStore().checkInputValidation() === true) {
-      getGlobalObjectStore().emptyobject.get().Myid = lastIndex;
+      getGlobalObjectStore().emptyobject.get().Myid = getGlobalObjectStore().lastIndexToUse.get();
       getAddPageStore().openInputForm();
       getGlobalObjectStore().addObjectToArray(getGlobalObjectStore().emptyobject.get());
     }
