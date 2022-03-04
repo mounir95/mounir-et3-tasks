@@ -18,39 +18,18 @@ const AddButton = observer(() => {
     getGlobalObjectStore().clearemptyObject();
   };
 
-  const changeLanguage = (val: string) => {
-    console.log(val);
-  };
-
-  // function delay(ms: number) {
-  //   return new Promise(resolve => setInterval(resolve, ms));
-  // }
-
-  // async function setFalse() {
-  //   await delay(5 * 2 * 1000);
-  //   await getGlobalObjectStore().ShowPopUp.set(false);
-  //   await delay(5 * 60 * 1000);
-  //   await getGlobalObjectStore().ShowPopUp.set(true);
-  // }
-  // setFalse();
+  React.useEffect(() => {
+    setInterval(async () => {
+      getGlobalObjectStore().ShowPopUp.set(true);
+      setTimeout(() => {
+        getGlobalObjectStore().ShowPopUp.set(false);
+      }, 5 * 2 * 1000);
+    }, 5 * 60 * 1000);
+  }, []);
 
   return (
     <View style={{alignItems: 'center'}}>
       <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity onPress={() => changeLanguage('EN')}>
-          <Text
-            style={{
-              borderWidth: 2,
-              borderRadius: 5,
-              padding: 5,
-              marginBottom: 5,
-              borderColor: '#776677',
-              color: '#776677',
-              backgroundColor: 'white',
-            }}>
-            EN
-          </Text>
-        </TouchableOpacity>
         <Dialog
           visible={getGlobalObjectStore().ShowPopUp.get()}
           dialogTitle={<DialogTitle title="PRS" />}>
@@ -60,20 +39,6 @@ const AddButton = observer(() => {
             </Text>
           </DialogContent>
         </Dialog>
-        <TouchableOpacity onPress={() => changeLanguage('AR')}>
-          <Text
-            style={{
-              borderWidth: 2,
-              borderRadius: 5,
-              padding: 5,
-              marginBottom: 5,
-              borderColor: '#776677',
-              color: '#776677',
-              backgroundColor: 'white',
-            }}>
-            AR
-          </Text>
-        </TouchableOpacity>
       </View>
       {getAddPageStore().addbuttontrue.get() && (
         <TouchableOpacity onPress={() => onPressSubmit()}>

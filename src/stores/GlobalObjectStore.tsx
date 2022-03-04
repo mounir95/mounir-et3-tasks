@@ -7,7 +7,7 @@ import {memoize} from 'lodash';
 class GlobalObjectStore {
   arrayofobjects = observable.box<TPrObject[]>([]);
   filteredarrayofobjects = observable.box<TPrObject[]>([]);
-  ShowPopUp = observable.box<boolean>(true);
+  ShowPopUp = observable.box<boolean>(false);
   isPickerShow = observable.box<Boolean>(false);
   date = observable.box<Date>(new Date(Date.now()));
   emptyobject = observable.box<TPrObject>({
