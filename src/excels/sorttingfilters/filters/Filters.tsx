@@ -6,7 +6,7 @@ import FilterByComment from './FitlerByComment';
 import FilterByStatus from './FilterByStatus';
 import FilterBySE from './FilterBySE';
 import FilterByPlatform from './FilterByPlatform';
-import {TPrObject} from '../../../constant/constants';
+import {TPrObject} from '../../../interfaces/interfaces';
 import getExcelStore from '../../../stores/ExcelStore';
 import getFilterStore from '../../../stores/FilterStore';
 import getGlobalObjectStore from '../../../stores/GlobalObjectStore';

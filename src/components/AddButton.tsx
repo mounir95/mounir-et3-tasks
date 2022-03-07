@@ -5,10 +5,17 @@ import getAddPageStore from '../stores/AddPageStore';
 import getGlobalObjectStore from '../stores/GlobalObjectStore';
 import {observer} from 'mobx-react';
 import getRequiredStore from '../stores/RequiredStore';
+import getLanguageStore from '../stores/LanguageStore';
 
 const AddButton = observer(() => {
+  getAddPageStore().addtext.set(
+    getLanguageStore().translatedlang.get().addtext,
+  );
   const onPressSubmit = () => {
-    if (getAddPageStore().addtext.get() === 'Close') {
+    if (
+      getAddPageStore().addtext.get() ===
+      getLanguageStore().translatedlang.get().closetext
+    ) {
       getAddPageStore().openInputForm();
     } else {
       getAddPageStore().closeInputForm();
@@ -30,12 +37,41 @@ const AddButton = observer(() => {
   return (
     <View style={{alignItems: 'center'}}>
       <View style={{flexDirection: 'row'}}>
+        <TouchableOpacity onPress={() => getLanguageStore().setLanguage('EN')}>
+          <Text
+            style={{
+              borderWidth: 2,
+              borderRadius: 5,
+              padding: 5,
+              marginBottom: 5,
+              borderColor: '#776677',
+              color: '#776677',
+              backgroundColor: 'white',
+            }}>
+            {getLanguageStore().translatedlang.get().enlang}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => getLanguageStore().setLanguage('AR')}>
+          <Text
+            style={{
+              borderWidth: 2,
+              borderRadius: 5,
+              padding: 5,
+              marginBottom: 5,
+              borderColor: '#776677',
+              color: '#776677',
+              backgroundColor: 'white',
+            }}>
+            {getLanguageStore().translatedlang.get().arlang}
+          </Text>
+        </TouchableOpacity>
         <Dialog
           visible={getGlobalObjectStore().ShowPopUp.get()}
           dialogTitle={<DialogTitle title="PRS" />}>
           <DialogContent>
             <Text>
-              The PRS Count is : {getGlobalObjectStore().lastIndexpopUp.get()}
+              {getLanguageStore().translatedlang.get().prcount}
+              {getGlobalObjectStore().lastIndexpopUp.get()}
             </Text>
           </DialogContent>
         </Dialog>

@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from 'react';
 import {View} from 'react-native';
-import {globalStateObject} from '../../constant/constants';
 import SelectInput from './SelectInput';
 import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
+import getLanguageStore from '../../stores/LanguageStore';
 
 const InputSelectList = observer(() => {
   return (
@@ -11,8 +11,10 @@ const InputSelectList = observer(() => {
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
           key="firstrow"
-          listname={'SE List'}
-          arrayval={globalStateObject.SEList}
+          listname={getLanguageStore().translatedlang.get().setext}
+          arrayval={
+            getLanguageStore().translatedlang.get().globalStateObject.SEList
+          }
           choosedval={getGlobalObjectStore().emptyobject.get().Myselist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             (getGlobalObjectStore().emptyobject.get().Myselist =
@@ -23,8 +25,10 @@ const InputSelectList = observer(() => {
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
           key="secondrow"
-          listname={'Platform'}
-          arrayval={globalStateObject.Platform}
+          listname={getLanguageStore().translatedlang.get().platformtext}
+          arrayval={
+            getLanguageStore().translatedlang.get().globalStateObject.Platform
+          }
           choosedval={getGlobalObjectStore().emptyobject.get().Myplatform}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             (getGlobalObjectStore().emptyobject.get().Myplatform =

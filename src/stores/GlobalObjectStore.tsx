@@ -1,7 +1,7 @@
 import {computed, observable, runInAction} from 'mobx';
 import orderBy from 'lodash/orderBy';
 import filter from 'lodash/filter';
-import {TPrObject} from '../constant/constants';
+import {TPrObject} from '../interfaces/interfaces';
 import {memoize} from 'lodash';
 
 class GlobalObjectStore {
@@ -77,9 +77,9 @@ class GlobalObjectStore {
     });
   };
 
-  inputIsPickerShow = (booleanval: Boolean) => {
+  inputIsPickerShow = (boolval: Boolean) => {
     runInAction(() => {
-      this.isPickerShow.set(booleanval);
+      this.isPickerShow.set(boolval);
     });
   };
 

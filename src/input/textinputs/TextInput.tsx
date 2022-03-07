@@ -4,6 +4,7 @@ import TextInputRow from './TextInputRow';
 import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 import getRequiredStore from '../../stores/RequiredStore';
+import getLanguageStore from '../../stores/LanguageStore';
 
 const InputText = observer(() => {
   const onInputchange = (
@@ -25,9 +26,13 @@ const InputText = observer(() => {
     <View>
       <View>
         {!getRequiredStore().released.get() && (
-          <Text style={{color: 'red'}}>Required</Text>
+          <Text style={{color: 'red'}}>
+            {getLanguageStore().translatedlang.get().required}
+          </Text>
         )}
-        <Text style={{color: '#776677'}}>Release Version</Text>
+        <Text style={{color: '#776677'}}>
+          {getLanguageStore().translatedlang.get().releaseversion}
+        </Text>
         <TextInputRow
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
             onInputchange(event, 'release_version')
@@ -36,9 +41,13 @@ const InputText = observer(() => {
       </View>
       <View>
         {!getRequiredStore().comment.get() && (
-          <Text style={{color: 'red'}}>Required</Text>
+          <Text style={{color: 'red'}}>
+            {getLanguageStore().translatedlang.get().required}
+          </Text>
         )}
-        <Text style={{color: '#776677'}}>Comment</Text>
+        <Text style={{color: '#776677'}}>
+          {getLanguageStore().translatedlang.get().comment}
+        </Text>
         <TextInputRow
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
             onInputchange(event, 'comment')
@@ -47,9 +56,13 @@ const InputText = observer(() => {
       </View>
       <View>
         {!getRequiredStore().prlink.get() && (
-          <Text style={{color: 'red'}}>Required</Text>
+          <Text style={{color: 'red'}}>
+            {getLanguageStore().translatedlang.get().required}
+          </Text>
         )}
-        <Text style={{color: '#776677'}}>PR_LINK</Text>
+        <Text style={{color: '#776677'}}>
+          {getLanguageStore().translatedlang.get().prlink}
+        </Text>
         <TextInputRow
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
             onInputchange(event, 'pr_Link')

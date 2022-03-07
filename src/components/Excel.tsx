@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, ScrollView, FlatList, SafeAreaView} from 'react-native';
 import FirstRow from '../excels/ExcelRowFirst';
-import {days} from '../constant/constants';
 import SortFilter from '../excels/sorttingfilters/SortFilter';
 import ExcelRows from '../excels/rows/ExcelRows';
 import UpdateForm from '../update/UpdateForm';
 import {observer} from 'mobx-react';
+import getLanguageStore from '../stores/LanguageStore';
 
 const Excel = observer(() => {
   return (
@@ -14,7 +14,7 @@ const Excel = observer(() => {
         <SortFilter />
         <FlatList
           horizontal={true}
-          data={days}
+          data={getLanguageStore().translatedlang.get().excelcol}
           renderItem={({index}) => (
             <View>
               <FirstRow index={index} />
@@ -22,7 +22,7 @@ const Excel = observer(() => {
             </View>
           )}
           keyExtractor={item => item.name}
-          extraData={days}
+          extraData={getLanguageStore().translatedlang.get().excelcol}
         />
         <UpdateForm />
       </ScrollView>

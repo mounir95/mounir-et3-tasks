@@ -1,25 +1,38 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import {arrayofsort, TPrObject} from '../../../constant/constants';
+import {TPrObject} from '../../../interfaces/interfaces';
 import orderBy from 'lodash/orderBy';
 import getGlobalObjectStore from '../../../stores/GlobalObjectStore';
 import {observer} from 'mobx-react';
 import getSortFilterStore from '../../../stores/SortFilterStore';
 import getExcelStore from '../../../stores/ExcelStore';
+import getLanguageStore from '../../../stores/LanguageStore';
 
 const SortByDate = observer(() => {
-  const itemarray = arrayofsort.map(item => {
-    return {label: item, value: item};
-  });
+  const itemarray = getLanguageStore()
+    .translatedlang.get()
+    .arrayofsort.map(item => {
+      return {label: item, value: item};
+    });
 
   const setDateSort = (event: React.ChangeEvent) => {
-    const datesorting = event.toString() === 'desc' ? 'asc' : 'desc';
-    const newobjectarray = orderBy(
-      getGlobalObjectStore().arrayofobjects.get(),
-      (obj: TPrObject) => obj.Mydate,
-      [datesorting],
-    )
+    let newobjectarray;
+    if (event.toString() === 'تنازلي' || event.toString() === 'desc') {
+      let x = 'desc';
+      newobjectarray = orderBy(
+        getGlobalObjectStore().arrayofobjects.get(),
+        (obj: TPrObject) => obj.Mydate,
+        [x === 'desc' ? 'desc' : 'asc'],
+      );
+    } else {
+      let x = 'asc';
+      newobjectarray = orderBy(
+        getGlobalObjectStore().arrayofobjects.get(),
+        (obj: TPrObject) => obj.Mydate,
+        [x === 'asc' ? 'asc' : 'desc'],
+      );
+    }
     getSortFilterStore().setDateFun();
     getGlobalObjectStore().arrayofobjects.set(newobjectarray);
     getExcelStore().resetStore();
@@ -27,7 +40,7 @@ const SortByDate = observer(() => {
 
   return (
     <View style={{marginBottom: 20, marginTop: 10}}>
-      <Text>Sort By Date: </Text>
+      <Text>{getLanguageStore().translatedlang.get().sortbydate}</Text>
       {getSortFilterStore().dateTrueFalse.get() && (
         <RNPickerSelect
           style={{

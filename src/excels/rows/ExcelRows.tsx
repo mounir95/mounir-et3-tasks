@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {View} from 'react-native';
 import ExcelRowInput from './ExcelRowInput';
 import FilteredRows from './FilteredRows';
-import {TPrObject} from '../../constant/constants';
+import {TPrObject} from '../../interfaces/interfaces';
 import getExcelStore from '../../stores/ExcelStore';
 import filter from 'lodash/filter';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
