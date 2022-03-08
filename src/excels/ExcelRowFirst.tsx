@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
-import {days} from '../constant/constants';
+import getLanguageStore from '../stores/LanguageStore';
 
 type Props = {
   index: number;
@@ -41,7 +41,9 @@ const FirstRow: FC<Props> = ({index}) => {
             borderRadius: 1,
             backgroundColor: '#776677',
           }}>
-          <Text style={{color: 'white'}}>{days[index].name}</Text>
+          <Text style={{color: 'white'}}>
+            {getLanguageStore.get('excelcol')[index].name}
+          </Text>
         </View>
       )}
     </View>

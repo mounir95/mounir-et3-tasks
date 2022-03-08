@@ -3,6 +3,7 @@ import {View, Text, Button, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
+import getLanguageStore from '../../stores/LanguageStore';
 
 const Datepicker = observer(() => {
   const showPicker = () => {
@@ -36,7 +37,11 @@ const Datepicker = observer(() => {
       </View>
       {!getGlobalObjectStore().isPickerShow.get() && (
         <View style={{padding: 25}}>
-          <Button title="Show Picker" color="purple" onPress={showPicker} />
+          <Button
+            title={getLanguageStore.get('showpicker')}
+            color="purple"
+            onPress={showPicker}
+          />
         </View>
       )}
       {getGlobalObjectStore().isPickerShow.get() && (

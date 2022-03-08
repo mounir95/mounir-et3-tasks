@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPicker from 'react-native-picker-select';
-import {globalStateObject} from '../../../constant/constants';
 import {observer} from 'mobx-react';
+import getLanguageStore from '../../../stores/LanguageStore';
+import {globalStateObject} from '../../../constants/constants';
 
 type Props = {
   statusFilter: Function;
@@ -16,7 +17,7 @@ const FilterByStatus: FC<Props> = observer(({statusFilter, filterchoosed}) => {
 
   return (
     <View>
-      <Text>Status_List Filter: </Text>
+      <Text>{getLanguageStore.get('searchbystatus')}</Text>
       {filterchoosed && (
         <RNPicker
           items={arraymap}

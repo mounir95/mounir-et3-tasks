@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import {Text, View} from 'react-native';
+import getLanguageStore from '../../stores/LanguageStore';
 
 type Props = {
   onChoose: Function;
@@ -20,7 +21,10 @@ const SelectInput: FC<Props> = ({onChoose, listname, arrayval, choosedval}) => {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Text style={{color: '#776677'}}>Please select a {listname}</Text>
+      <Text style={{color: '#776677'}}>
+        {getLanguageStore.get('pleaseselect')}
+        {listname}
+      </Text>
       <RNPickerSelect
         onValueChange={event => onChoose(event)}
         value={choosedval}

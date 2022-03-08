@@ -6,6 +6,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import getAddPageStore from '../stores/AddPageStore';
 import {observer} from 'mobx-react';
+import getLanguageStore from '../stores/LanguageStore';
 
 type RootStackParamList = {
   Excel: undefined;
@@ -25,7 +26,10 @@ const ADDPage = observer(() => {
         <InputForm />
       </ScrollView>
       <AddButton />
-      <Button title="Check the table Issue" onPress={() => checkTableIssue()} />
+      <Button
+        title={getLanguageStore.get('checktable')}
+        onPress={() => checkTableIssue()}
+      />
     </View>
   );
 });

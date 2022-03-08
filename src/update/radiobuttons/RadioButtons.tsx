@@ -2,8 +2,9 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import getUpdateFormStore from '../../stores/UpdateFormStore';
 import RadioButtonRow from './RadioButtonInput';
-import {booleanval} from '../../constant/constants';
 import {observer} from 'mobx-react';
+import getLanguageStore from '../../stores/LanguageStore';
+import {booleanval} from '../../constants/constants';
 
 const RadioButtonInput = observer(() => {
   return (
@@ -18,7 +19,9 @@ const RadioButtonInput = observer(() => {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>BY Approve:</Text>
+          <Text style={{fontSize: 15, fontWeight: '700'}}>
+            {getLanguageStore.get('byapprove')}
+          </Text>
           <RadioButtonRow
             key="firstrow"
             getboolean={booleanval}
@@ -39,7 +42,9 @@ const RadioButtonInput = observer(() => {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>AH Approve:</Text>
+          <Text style={{fontSize: 15, fontWeight: '700'}}>
+            {getLanguageStore.get('ahapprove')}
+          </Text>
           <RadioButtonRow
             key="secondrow"
             getboolean={booleanval}
@@ -60,7 +65,9 @@ const RadioButtonInput = observer(() => {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>HT Approve:</Text>
+          <Text style={{fontSize: 15, fontWeight: '700'}}>
+            {getLanguageStore.get('htapprove')}
+          </Text>
           <RadioButtonRow
             key="thirdrow"
             getboolean={booleanval}

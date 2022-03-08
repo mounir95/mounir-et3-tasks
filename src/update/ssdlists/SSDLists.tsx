@@ -1,16 +1,17 @@
 import React, {ChangeEvent} from 'react';
 import {View, Button} from 'react-native';
-import {globalStateObject} from '../../constant/constants';
 import getUpdateFormStore from '../../stores/UpdateFormStore';
 import SelectInput from '../selectlists/SelectInput';
 import {observer} from 'mobx-react';
+import getLanguageStore from '../../stores/LanguageStore';
+import {globalStateObject} from '../../constants/constants';
 
 const SSDListInput = observer(() => {
   return (
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          listname={'Status List'}
+          listname={getLanguageStore.get('statustext')}
           arrayval={globalStateObject.StatusList}
           choosedval={getUpdateFormStore().Mystatuslist.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
@@ -20,7 +21,7 @@ const SSDListInput = observer(() => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          listname={'Size'}
+          listname={getLanguageStore.get('sizetext')}
           arrayval={globalStateObject.Size}
           choosedval={getUpdateFormStore().Mysize.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
@@ -30,7 +31,7 @@ const SSDListInput = observer(() => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          listname={'Dificulity'}
+          listname={getLanguageStore.get('dificulitytext')}
           arrayval={globalStateObject.Dificulity}
           choosedval={getUpdateFormStore().Mydificulity.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
@@ -40,7 +41,7 @@ const SSDListInput = observer(() => {
       </View>
       <View style={{marginTop: 25}}>
         <Button
-          title={'Next'}
+          title={getLanguageStore.get('nexttext')}
           onPress={() => getUpdateFormStore().ssdLists()}
         />
       </View>

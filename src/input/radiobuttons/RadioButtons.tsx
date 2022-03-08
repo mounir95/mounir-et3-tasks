@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 import {View, Text, Button} from 'react-native';
 import RadioButtonRow from './RadioButtonInput';
-import {booleanval} from '../../constant/constants';
 import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
+import getLanguageStore from '../../stores/LanguageStore';
+import {booleanval} from '../../constants/constants';
 
 type Props = {
   radioButtons: Function;
@@ -25,7 +26,9 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>BY Approve:</Text>
+          <Text style={{fontSize: 15, fontWeight: '700'}}>
+            {getLanguageStore.get('byapprove')}
+          </Text>
           <RadioButtonRow
             key="firstrow"
             getboolean={booleanval}
@@ -47,7 +50,9 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>AH Approve:</Text>
+          <Text style={{fontSize: 15, fontWeight: '700'}}>
+            {getLanguageStore.get('ahapprove')}
+          </Text>
           <RadioButtonRow
             key="secondrow"
             getboolean={booleanval}
@@ -69,7 +74,9 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>HT Approve:</Text>
+          <Text style={{fontSize: 15, fontWeight: '700'}}>
+            {getLanguageStore.get('htapprove')}
+          </Text>
           <RadioButtonRow
             key="thirdrow"
             getboolean={booleanval}
@@ -84,7 +91,10 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
         </View>
       </View>
       <View style={{marginTop: 35}}>
-        <Button title={'Done'} onPress={() => handlePressSubmitButton()} />
+        <Button
+          title={getLanguageStore.get('donetext')}
+          onPress={() => handlePressSubmitButton()}
+        />
       </View>
     </View>
   );

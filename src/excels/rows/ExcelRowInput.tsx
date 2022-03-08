@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Text} from 'react-native';
 import Icons from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
-import {setObjectArrayFun, TPrObject} from '../../constant/constants';
+import {setObjectArrayFun, TPrObject} from '../../interfaces/interfaces';
 import getUpdateFormStore from '../../stores/UpdateFormStore';
 import getExcelStore from '../../stores/ExcelStore';
 import {observer} from 'mobx-react';
@@ -35,7 +35,7 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
             getUpdateFormStore().MyreviewedbyHT.set(e.MyreviewedbyHT);
           }
         });
-      getRequiredStore().setValidationTrue();
+      // getRequiredStore().setValidationTrue();
     }
     if (getRequiredStore().checkUpdateValidation() === true) {
       getGlobalObjectStore()

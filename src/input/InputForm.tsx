@@ -10,6 +10,7 @@ import getGlobalObjectStore from '../stores/GlobalObjectStore';
 import getAddPageStore from '../stores/AddPageStore';
 import {observer} from 'mobx-react';
 import getRequiredStore from '../stores/RequiredStore';
+import getLanguageStore from '../stores/LanguageStore';
 
 const InputRow = observer(() => {
   const toRadioButtons = () => {
@@ -67,7 +68,7 @@ const InputRow = observer(() => {
                 color: '#776677',
                 backgroundColor: 'white',
               }}>
-              Close
+              {getLanguageStore.get('closetext')}
             </Text>
           </View>
         </TouchableOpacity>

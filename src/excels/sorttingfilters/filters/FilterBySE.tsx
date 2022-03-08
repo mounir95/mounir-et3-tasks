@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPicker from 'react-native-picker-select';
-import {globalStateObject} from '../../../constant/constants';
 import {observer} from 'mobx-react';
+import getLanguageStore from '../../../stores/LanguageStore';
+import {globalStateObject} from '../../../constants/constants';
 
 type Props = {
   seListFilter: Function;
@@ -16,7 +17,7 @@ const FilterBySE: FC<Props> = observer(({seListFilter, filterchoosed}) => {
 
   return (
     <View>
-      <Text>SE_List Filter: </Text>
+      <Text>{getLanguageStore.get('searchbyse')}</Text>
       {filterchoosed && (
         <RNPicker
           items={arraymap}

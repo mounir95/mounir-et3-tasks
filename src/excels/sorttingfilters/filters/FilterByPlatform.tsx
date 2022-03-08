@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPicker from 'react-native-picker-select';
-import {globalStateObject} from '../../../constant/constants';
 import {observer} from 'mobx-react';
+import getLanguageStore from '../../../stores/LanguageStore';
+import {globalStateObject} from '../../../constants/constants';
 
 type Props = {
   platformFilter: Function;
@@ -17,7 +18,7 @@ const FilterByPlatform: FC<Props> = observer(
 
     return (
       <View>
-        <Text>Platform Filter: </Text>
+        <Text>{getLanguageStore.get('searchbyplatform')}</Text>
         {filterchoosed && (
           <RNPicker
             items={arraymap}
