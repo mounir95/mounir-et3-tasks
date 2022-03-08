@@ -38,7 +38,7 @@ const Datepicker = observer(() => {
       {!getGlobalObjectStore().isPickerShow.get() && (
         <View style={{padding: 25}}>
           <Button
-            title={getLanguageStore.get('showpicker')}
+            title={getLanguageStore().translatedlang.get().showpicker}
             color="purple"
             onPress={showPicker}
           />

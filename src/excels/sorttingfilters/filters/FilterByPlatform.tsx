@@ -18,7 +18,7 @@ const FilterByPlatform: FC<Props> = observer(
 
     return (
       <View>
-        <Text>{getLanguageStore.get('searchbyplatform')}</Text>
+        <Text>{getLanguageStore().translatedlang.get().searchbyplatform}</Text>
         {filterchoosed && (
           <RNPicker
             items={arraymap}

@@ -26,10 +26,12 @@ const InputText = observer(() => {
     <View>
       <View>
         {!getRequiredStore().released.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: 'red'}}>
+            {getLanguageStore().translatedlang.get().required}
+          </Text>
         )}
         <Text style={{color: '#776677'}}>
-          {getLanguageStore.get('releaseversion')}
+          {getLanguageStore().translatedlang.get().releaseversion}
         </Text>
         <TextInputRow
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
@@ -39,10 +41,12 @@ const InputText = observer(() => {
       </View>
       <View>
         {!getRequiredStore().comment.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: 'red'}}>
+            {getLanguageStore().translatedlang.get().required}
+          </Text>
         )}
         <Text style={{color: '#776677'}}>
-          {getLanguageStore.get('comment')}
+          {getLanguageStore().translatedlang.get().comment}
         </Text>
         <TextInputRow
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
@@ -52,9 +56,13 @@ const InputText = observer(() => {
       </View>
       <View>
         {!getRequiredStore().prlink.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: 'red'}}>
+            {getLanguageStore().translatedlang.get().required}
+          </Text>
         )}
-        <Text style={{color: '#776677'}}>{getLanguageStore.get('prlink')}</Text>
+        <Text style={{color: '#776677'}}>
+          {getLanguageStore().translatedlang.get().prlink}
+        </Text>
         <TextInputRow
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
             onInputchange(event, 'pr_Link')

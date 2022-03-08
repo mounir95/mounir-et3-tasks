@@ -17,7 +17,7 @@ const FilterByStatus: FC<Props> = observer(({statusFilter, filterchoosed}) => {
 
   return (
     <View>
-      <Text>{getLanguageStore.get('searchbystatus')}</Text>
+      <Text>{getLanguageStore().translatedlang.get().searchbystatus}</Text>
       {filterchoosed && (
         <RNPicker
           items={arraymap}

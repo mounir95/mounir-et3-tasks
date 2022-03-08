@@ -11,10 +11,12 @@ const InputText = observer(() => {
     <View>
       <View>
         {!getRequiredStore().released.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: 'red'}}>
+            {getLanguageStore().translatedlang.get().required}
+          </Text>
         )}
         <Text style={{color: '#776677'}}>
-          {getLanguageStore.get('releaseversion')}
+          {getLanguageStore().translatedlang.get().releaseversion}
         </Text>
         <TextInputRow
           stringval={getUpdateFormStore().Myreleaseversion.get()}
@@ -22,15 +24,15 @@ const InputText = observer(() => {
             getUpdateFormStore().Myreleaseversion.set(event.toString())
           }
         />
-        {console.log(getUpdateFormStore().Myreleaseversion.get())}
-        {console.log(getRequiredStore().checkUpdateValidation())}
       </View>
       <View>
         {!getRequiredStore().comment.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: 'red'}}>
+            {getLanguageStore().translatedlang.get().required}
+          </Text>
         )}
         <Text style={{color: '#776677'}}>
-          {getLanguageStore.get('comment')}
+          {getLanguageStore().translatedlang.get().comment}
         </Text>
         <TextInputRow
           stringval={getUpdateFormStore().Mycomment.get()}
@@ -41,10 +43,12 @@ const InputText = observer(() => {
       </View>
       <View>
         {!getRequiredStore().prlink.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: 'red'}}>
+            {getLanguageStore().translatedlang.get().required}
+          </Text>
         )}
         <Text style={{color: '#776677'}}>
-          {getLanguageStore.get('prcount')}
+          {getLanguageStore().translatedlang.get().prcount}
         </Text>
         <TextInputRow
           stringval={getUpdateFormStore().Myprlink.get()}
@@ -55,7 +59,7 @@ const InputText = observer(() => {
       </View>
       <View style={{marginTop: 25}}>
         <Button
-          title={getLanguageStore.get('nexttext')}
+          title={getLanguageStore().translatedlang.get().nexttext}
           onPress={() => getUpdateFormStore().textPage()}
         />
       </View>

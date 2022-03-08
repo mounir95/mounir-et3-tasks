@@ -11,7 +11,7 @@ type Props = {
 const FilterByComment: FC<Props> = observer(({textChanged, filterchoosed}) => {
   return (
     <View>
-      <Text>{getLanguageStore.get('searchbycomment')}</Text>
+      <Text>{getLanguageStore().translatedlang.get().searchbycomment}</Text>
       {filterchoosed && (
         <TextInput
           style={{height: 30, margin: 12, borderWidth: 1, padding: 5}}

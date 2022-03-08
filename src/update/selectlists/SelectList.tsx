@@ -12,7 +12,7 @@ const InputSelectList = observer(() => {
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
           key="firstrow"
-          listname={getLanguageStore.get('setext')}
+          listname={getLanguageStore().translatedlang.get().setext}
           arrayval={globalStateObject.SEList}
           choosedval={getUpdateFormStore().Myselist.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
@@ -23,7 +23,7 @@ const InputSelectList = observer(() => {
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
           key="secondrow"
-          listname={getLanguageStore.get('platformtext')}
+          listname={getLanguageStore().translatedlang.get().platformtext}
           arrayval={globalStateObject.Platform}
           choosedval={getUpdateFormStore().Myplatform.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
@@ -33,7 +33,7 @@ const InputSelectList = observer(() => {
       </View>
       <View style={{marginTop: 25}}>
         <Button
-          title={getLanguageStore.get('nexttext')}
+          title={getLanguageStore().translatedlang.get().nexttext}
           onPress={() => getUpdateFormStore().selectList()}
         />
       </View>
