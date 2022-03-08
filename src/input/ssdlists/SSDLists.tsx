@@ -3,7 +3,8 @@ import {View} from 'react-native';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 import SelectInput from '../selectlists/SelectInput';
 import {observer} from 'mobx-react';
-import getLanguageStore, {globalStateObject} from '../../stores/LanguageStore';
+import getLanguageStore from '../../stores/LanguageStore';
+import {globalStateObject} from '../../constants/constants';
 
 const SSDListInput = observer(() => {
   return (
@@ -31,7 +32,7 @@ const SSDListInput = observer(() => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          listname={getLanguageStore.get('dificulitytex')}
+          listname={getLanguageStore.get('dificulitytext')}
           arrayval={globalStateObject.Dificulity}
           choosedval={getGlobalObjectStore().emptyobject.get().Mydificulity}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>

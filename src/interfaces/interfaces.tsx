@@ -54,44 +54,6 @@ export const setObjectArrayFun = (object: TPrObject) => {
   ];
 };
 
-export interface TLanguageObj {
-  addpage: string;
-  excelpage: string;
-  arlang: string;
-  enlang: string;
-  addtext: string;
-  closetext: string;
-  donetext: string;
-  nexttext: string;
-  platformtext: string;
-  setext: string;
-  dificulitytext: string;
-  sizetext: string;
-  statustext: string;
-  prcount: string;
-  checktable: string;
-  sortbydate: string;
-  searchbycomment: string;
-  searchbystatus: string;
-  searchbyse: string;
-  searchbyplatform: string;
-  showpicker: string;
-  byapprove: string;
-  ahapprove: string;
-  htapprove: string;
-  pleaseselect: string;
-  required: string;
-  releaseversion: string;
-  comment: string;
-  prlink: string;
-  desc: string;
-  asc: string;
-  arrayofsort: string[];
-  booleanval: {key: string; text: string}[];
-  excelcol: {name: string}[];
-  globalStateObject: Partial<globalObject>;
-}
-
 export interface TTrans {
   language: IObservableValue<string>;
   LG: {

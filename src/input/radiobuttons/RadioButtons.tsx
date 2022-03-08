@@ -3,7 +3,8 @@ import {View, Text, Button} from 'react-native';
 import RadioButtonRow from './RadioButtonInput';
 import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
-import getLanguageStore, {booleanval} from '../../stores/LanguageStore';
+import getLanguageStore from '../../stores/LanguageStore';
+import {booleanval} from '../../constants/constants';
 
 type Props = {
   radioButtons: Function;

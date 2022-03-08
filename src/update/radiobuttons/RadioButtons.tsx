@@ -3,7 +3,8 @@ import {View, Text} from 'react-native';
 import getUpdateFormStore from '../../stores/UpdateFormStore';
 import RadioButtonRow from './RadioButtonInput';
 import {observer} from 'mobx-react';
-import getLanguageStore, {booleanval} from '../../stores/LanguageStore';
+import getLanguageStore from '../../stores/LanguageStore';
+import {booleanval} from '../../constants/constants';
 
 const RadioButtonInput = observer(() => {
   return (

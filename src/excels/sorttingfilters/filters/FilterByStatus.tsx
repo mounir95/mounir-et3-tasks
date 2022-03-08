@@ -2,9 +2,8 @@ import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPicker from 'react-native-picker-select';
 import {observer} from 'mobx-react';
-import getLanguageStore, {
-  globalStateObject,
-} from '../../../stores/LanguageStore';
+import getLanguageStore from '../../../stores/LanguageStore';
+import {globalStateObject} from '../../../constants/constants';
 
 type Props = {
   statusFilter: Function;

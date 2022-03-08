@@ -3,7 +3,8 @@ import {View} from 'react-native';
 import SelectInput from './SelectInput';
 import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
-import getLanguageStore, {globalStateObject} from '../../stores/LanguageStore';
+import getLanguageStore from '../../stores/LanguageStore';
+import {globalStateObject} from '../../constants/constants';
 
 const InputSelectList = observer(() => {
   return (
