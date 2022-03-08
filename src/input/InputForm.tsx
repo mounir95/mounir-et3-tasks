@@ -68,7 +68,7 @@ const InputRow = observer(() => {
                 color: '#776677',
                 backgroundColor: 'white',
               }}>
-              {getLanguageStore().translatedlang.get().closetext}
+              {getLanguageStore.get('closetext')}
             </Text>
           </View>
         </TouchableOpacity>

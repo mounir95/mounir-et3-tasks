@@ -28,12 +28,18 @@ class RequiredStore {
     runInAction(() => {
       if (getUpdateFormStore().Myreleaseversion.get().match('^[A-Za-z0-9]+$')) {
         this.released.set(true);
+      } else {
+        this.released.set(false);
       }
       if (getUpdateFormStore().Myprlink.get().match('^[A-Za-z0-9]+$')) {
         this.prlink.set(true);
+      } else {
+        this.prlink.set(false);
       }
       if (getUpdateFormStore().Mycomment.get().match('^[A-Za-z0-9]+$')) {
         this.comment.set(true);
+      } else {
+        this.comment.set(false);
       }
     });
     if (

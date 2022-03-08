@@ -14,7 +14,7 @@ const Excel = observer(() => {
         <SortFilter />
         <FlatList
           horizontal={true}
-          data={getLanguageStore().translatedlang.get().excelcol}
+          data={getLanguageStore.get('excelcol')}
           renderItem={({index}) => (
             <View>
               <FirstRow index={index} />
@@ -22,7 +22,7 @@ const Excel = observer(() => {
             </View>
           )}
           keyExtractor={item => item.name}
-          extraData={getLanguageStore().translatedlang.get().excelcol}
+          extraData={getLanguageStore.get('excelcol')}
         />
         <UpdateForm />
       </ScrollView>

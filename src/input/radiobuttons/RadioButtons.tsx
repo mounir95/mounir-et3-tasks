@@ -3,7 +3,7 @@ import {View, Text, Button} from 'react-native';
 import RadioButtonRow from './RadioButtonInput';
 import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
-import getLanguageStore from '../../stores/LanguageStore';
+import getLanguageStore, {booleanval} from '../../stores/LanguageStore';
 
 type Props = {
   radioButtons: Function;
@@ -26,11 +26,11 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             flexDirection: 'column',
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>
-            {getLanguageStore().translatedlang.get().byapprove}
+            {getLanguageStore.get('byapprove')}
           </Text>
           <RadioButtonRow
             key="firstrow"
-            getboolean={getLanguageStore().translatedlang.get().booleanval}
+            getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
@@ -50,11 +50,11 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             flexDirection: 'column',
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>
-            {getLanguageStore().translatedlang.get().ahapprove}
+            {getLanguageStore.get('ahapprove')}
           </Text>
           <RadioButtonRow
             key="secondrow"
-            getboolean={getLanguageStore().translatedlang.get().booleanval}
+            getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
@@ -74,11 +74,11 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             flexDirection: 'column',
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>
-            {getLanguageStore().translatedlang.get().htapprove}
+            {getLanguageStore.get('htapprove')}
           </Text>
           <RadioButtonRow
             key="thirdrow"
-            getboolean={getLanguageStore().translatedlang.get().booleanval}
+            getboolean={booleanval}
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
@@ -91,7 +91,7 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
       </View>
       <View style={{marginTop: 35}}>
         <Button
-          title={getLanguageStore().translatedlang.get().donetext}
+          title={getLanguageStore.get('donetext')}
           onPress={() => handlePressSubmitButton()}
         />
       </View>

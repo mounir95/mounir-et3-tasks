@@ -2,7 +2,9 @@ import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import RNPicker from 'react-native-picker-select';
 import {observer} from 'mobx-react';
-import getLanguageStore from '../../../stores/LanguageStore';
+import getLanguageStore, {
+  globalStateObject,
+} from '../../../stores/LanguageStore';
 
 type Props = {
   seListFilter: Function;
@@ -10,15 +12,13 @@ type Props = {
 };
 
 const FilterBySE: FC<Props> = observer(({seListFilter, filterchoosed}) => {
-  const arraymap = getLanguageStore()
-    .translatedlang.get()
-    .globalStateObject.SEList.map((e: string) => {
-      return {label: e, value: e};
-    });
+  const arraymap = globalStateObject.SEList.map((e: string) => {
+    return {label: e, value: e};
+  });
 
   return (
     <View>
-      <Text>{getLanguageStore().translatedlang.get().searchbyse}</Text>
+      <Text>{getLanguageStore.get('searchbyse')}</Text>
       {filterchoosed && (
         <RNPicker
           items={arraymap}

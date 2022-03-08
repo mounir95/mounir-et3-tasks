@@ -3,17 +3,15 @@ import {View} from 'react-native';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 import SelectInput from '../selectlists/SelectInput';
 import {observer} from 'mobx-react';
-import getLanguageStore from '../../stores/LanguageStore';
+import getLanguageStore, {globalStateObject} from '../../stores/LanguageStore';
 
 const SSDListInput = observer(() => {
   return (
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          listname={getLanguageStore().translatedlang.get().statustext}
-          arrayval={
-            getLanguageStore().translatedlang.get().globalStateObject.StatusList
-          }
+          listname={getLanguageStore.get('statustext')}
+          arrayval={globalStateObject.StatusList}
           choosedval={getGlobalObjectStore().emptyobject.get().Mystatuslist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             (getGlobalObjectStore().emptyobject.get().Mystatuslist =
@@ -23,10 +21,8 @@ const SSDListInput = observer(() => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          listname={getLanguageStore().translatedlang.get().sizetext}
-          arrayval={
-            getLanguageStore().translatedlang.get().globalStateObject.Size
-          }
+          listname={getLanguageStore.get('sizetext')}
+          arrayval={globalStateObject.Size}
           choosedval={getGlobalObjectStore().emptyobject.get().Mysize}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             (getGlobalObjectStore().emptyobject.get().Mysize = event.toString())
@@ -35,10 +31,8 @@ const SSDListInput = observer(() => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          listname={getLanguageStore().translatedlang.get().dificulitytext}
-          arrayval={
-            getLanguageStore().translatedlang.get().globalStateObject.Dificulity
-          }
+          listname={getLanguageStore.get('dificulitytex')}
+          arrayval={globalStateObject.Dificulity}
           choosedval={getGlobalObjectStore().emptyobject.get().Mydificulity}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
             (getGlobalObjectStore().emptyobject.get().Mydificulity =

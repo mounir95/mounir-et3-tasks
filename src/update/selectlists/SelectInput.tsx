@@ -22,7 +22,7 @@ const SelectInput: FC<Props> = ({onChoose, listname, arrayval, choosedval}) => {
         justifyContent: 'center',
       }}>
       <Text style={{color: '#776677'}}>
-        {getLanguageStore().translatedlang.get().pleaseselect}
+        {getLanguageStore.get('pleaseselect')}
         {listname}
       </Text>
       <RNPickerSelect

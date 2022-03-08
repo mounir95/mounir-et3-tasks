@@ -27,7 +27,7 @@ const ADDPage = observer(() => {
       </ScrollView>
       <AddButton />
       <Button
-        title={getLanguageStore().translatedlang.get().checktable}
+        title={getLanguageStore.get('checktable')}
         onPress={() => checkTableIssue()}
       />
     </View>
