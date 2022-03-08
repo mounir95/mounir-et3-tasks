@@ -35,7 +35,7 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
             getUpdateFormStore().MyreviewedbyHT.set(e.MyreviewedbyHT);
           }
         });
-      getRequiredStore().setValidationTrue();
+      // getRequiredStore().setValidationTrue();
     }
     if (getRequiredStore().checkUpdateValidation() === true) {
       getGlobalObjectStore()

@@ -10,15 +10,13 @@ import getExcelStore from '../../../stores/ExcelStore';
 import getLanguageStore from '../../../stores/LanguageStore';
 
 const SortByDate = observer(() => {
-  const itemarray = getLanguageStore()
-    .translatedlang.get()
-    .arrayofsort.map(item => {
-      return {label: item, value: item};
-    });
+  const itemarray = getLanguageStore.get('arrayofsort').map((item: string) => {
+    return {label: item, value: item};
+  });
 
   const setDateSort = (event: React.ChangeEvent) => {
     let newobjectarray;
-    if (event.toString() === getLanguageStore().translatedlang.get().desc) {
+    if (event.toString() === 'تنازلي' || event.toString() === 'desc') {
       let x = 'desc';
       newobjectarray = orderBy(
         getGlobalObjectStore().arrayofobjects.get(),
@@ -40,7 +38,7 @@ const SortByDate = observer(() => {
 
   return (
     <View style={{marginBottom: 20, marginTop: 10}}>
-      <Text>{getLanguageStore().translatedlang.get().sortbydate}</Text>
+      <Text>{getLanguageStore.get('sortbydate')}</Text>
       {getSortFilterStore().dateTrueFalse.get() && (
         <RNPickerSelect
           style={{

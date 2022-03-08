@@ -11,7 +11,7 @@ const SSDListInput = observer(() => {
     <View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          listname={getLanguageStore().translatedlang.get().statustext}
+          listname={getLanguageStore.get('statustext')}
           arrayval={globalStateObject.StatusList}
           choosedval={getUpdateFormStore().Mystatuslist.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
@@ -21,7 +21,7 @@ const SSDListInput = observer(() => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          listname={getLanguageStore().translatedlang.get().sizetext}
+          listname={getLanguageStore.get('sizetext')}
           arrayval={globalStateObject.Size}
           choosedval={getUpdateFormStore().Mysize.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
@@ -31,7 +31,7 @@ const SSDListInput = observer(() => {
       </View>
       <View style={{marginBottom: 20, marginTop: 10}}>
         <SelectInput
-          listname={getLanguageStore().translatedlang.get().dificulitytext}
+          listname={getLanguageStore.get('dificulitytext')}
           arrayval={globalStateObject.Dificulity}
           choosedval={getUpdateFormStore().Mydificulity.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
@@ -41,7 +41,7 @@ const SSDListInput = observer(() => {
       </View>
       <View style={{marginTop: 25}}>
         <Button
-          title={getLanguageStore().translatedlang.get().nexttext}
+          title={getLanguageStore.get('nexttext')}
           onPress={() => getUpdateFormStore().ssdLists()}
         />
       </View>

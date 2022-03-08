@@ -20,7 +20,7 @@ const RadioButtonInput = observer(() => {
             flexDirection: 'column',
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>
-            {getLanguageStore().translatedlang.get().byapprove}
+            {getLanguageStore.get('byapprove')}
           </Text>
           <RadioButtonRow
             key="firstrow"
@@ -43,7 +43,7 @@ const RadioButtonInput = observer(() => {
             flexDirection: 'column',
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>
-            {getLanguageStore().translatedlang.get().ahapprove}
+            {getLanguageStore.get('ahapprove')}
           </Text>
           <RadioButtonRow
             key="secondrow"
@@ -66,7 +66,7 @@ const RadioButtonInput = observer(() => {
             flexDirection: 'column',
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>
-            {getLanguageStore().translatedlang.get().htapprove}
+            {getLanguageStore.get('htapprove')}
           </Text>
           <RadioButtonRow
             key="thirdrow"

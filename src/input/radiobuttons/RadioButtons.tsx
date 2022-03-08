@@ -27,7 +27,7 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             flexDirection: 'column',
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>
-            {getLanguageStore().translatedlang.get().byapprove}
+            {getLanguageStore.get('byapprove')}
           </Text>
           <RadioButtonRow
             key="firstrow"
@@ -51,7 +51,7 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             flexDirection: 'column',
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>
-            {getLanguageStore().translatedlang.get().ahapprove}
+            {getLanguageStore.get('ahapprove')}
           </Text>
           <RadioButtonRow
             key="secondrow"
@@ -75,7 +75,7 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             flexDirection: 'column',
           }}>
           <Text style={{fontSize: 15, fontWeight: '700'}}>
-            {getLanguageStore().translatedlang.get().htapprove}
+            {getLanguageStore.get('htapprove')}
           </Text>
           <RadioButtonRow
             key="thirdrow"
@@ -92,7 +92,7 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
       </View>
       <View style={{marginTop: 35}}>
         <Button
-          title={getLanguageStore().translatedlang.get().donetext}
+          title={getLanguageStore.get('donetext')}
           onPress={() => handlePressSubmitButton()}
         />
       </View>

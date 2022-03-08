@@ -1,4 +1,16 @@
-export const globalStateObject = {
+import {globalObject, TBoolval} from '../interfaces/interfaces';
+
+export const booleanval: [TBoolval, TBoolval] = [
+  {
+    key: 'yes',
+    text: 'yes',
+  },
+  {
+    key: 'no',
+    text: 'no',
+  },
+];
+export const globalStateObject: globalObject = {
   Date: new Date(),
   SEList: ['AH', 'BY', 'HT'],
   Platform: [
@@ -24,14 +36,3 @@ export const globalStateObject = {
   ReveiwedByAH: 'no',
   ReveiwedByHT: 'no',
 };
-
-export const booleanval = [
-  {
-    key: 'yes',
-    text: 'yes',
-  },
-  {
-    key: 'no',
-    text: 'no',
-  },
-];

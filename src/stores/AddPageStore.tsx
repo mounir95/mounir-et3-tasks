@@ -11,14 +11,14 @@ class AddPageStore {
     runInAction(() => {
       this.addbuttontrue.set(true);
       this.inputform.set(false);
-      this.addtext.set(getLanguageStore().translatedlang.get().addtext);
+      this.addtext.set(getLanguageStore.get('addtext'));
     });
   };
   closeInputForm = () => {
     runInAction(() => {
       this.addbuttontrue.set(false);
       this.inputform.set(true);
-      this.addtext.set(getLanguageStore().translatedlang.get().closetext);
+      this.addtext.set(getLanguageStore.get('closetext'));
     });
   };
 }

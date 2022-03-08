@@ -20,6 +20,8 @@ const ADDPage = observer(() => {
     navigation.navigate('Excel');
   };
 
+  getLanguageStore.setAsyncData();
+
   return (
     <View style={{flex: 1}}>
       <ScrollView>
@@ -27,7 +29,7 @@ const ADDPage = observer(() => {
       </ScrollView>
       <AddButton />
       <Button
-        title={getLanguageStore().translatedlang.get().checktable}
+        title={getLanguageStore.get('checktable')}
         onPress={() => checkTableIssue()}
       />
     </View>

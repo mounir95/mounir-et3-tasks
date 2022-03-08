@@ -17,7 +17,7 @@ const FilterBySE: FC<Props> = observer(({seListFilter, filterchoosed}) => {
 
   return (
     <View>
-      <Text>{getLanguageStore().translatedlang.get().searchbyse}</Text>
+      <Text>{getLanguageStore.get('searchbyse')}</Text>
       {filterchoosed && (
         <RNPicker
           items={arraymap}
