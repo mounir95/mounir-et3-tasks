@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
+import {windowHeight} from '../../constants/constants';
 import {TPrObject} from '../../interfaces/interfaces';
 
 type Props = {
@@ -34,7 +35,7 @@ const FilteredRows: FC<Props> = ({object, index}) => {
         marginLeft: 2,
         marginBottom: 10,
         padding: 5,
-        height: 35,
+        height: windowHeight * 0.05,
         borderRadius: 1,
         backgroundColor: 'lavender',
       }}>

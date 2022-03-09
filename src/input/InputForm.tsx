@@ -11,6 +11,7 @@ import getAddPageStore from '../stores/AddPageStore';
 import {observer} from 'mobx-react';
 import getRequiredStore from '../stores/RequiredStore';
 import getLanguageStore from '../stores/LanguageStore';
+import {windowWidth} from '../constants/constants';
 
 const InputRow = observer(() => {
   const toRadioButtons = () => {
@@ -39,8 +40,7 @@ const InputRow = observer(() => {
           }}>
           <View
             style={{
-              width: '90%',
-              // height: 100,
+              width: windowWidth * 0.9,
               backgroundColor: 'white',
               borderWidth: 1,
               borderColor: 'yellow',

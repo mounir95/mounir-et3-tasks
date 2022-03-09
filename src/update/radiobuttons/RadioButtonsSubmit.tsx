@@ -3,13 +3,13 @@ import {View} from 'react-native';
 import getUpdateFormStore from '../../stores/UpdateFormStore';
 import RadioButtonInput from './RadioButtons';
 import {observer} from 'mobx-react';
+import {windowWidth} from '../../constants/constants';
 
 const RadioButtonInputSumit = observer(() => {
   return (
     <View
       style={{
-        width: '90%',
-        // height: 100,
+        width: windowWidth * 0.9,
         backgroundColor: 'white',
         borderWidth: 1,
         borderColor: 'yellow',

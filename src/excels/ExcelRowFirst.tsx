@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
+import {windowHeight} from '../constants/constants';
 import getLanguageStore from '../stores/LanguageStore';
 
 type Props = {
@@ -19,7 +20,7 @@ const FirstRow: FC<Props> = ({index}) => {
             marginLeft: 2,
             marginBottom: 10,
             padding: 5,
-            height: 60,
+            height: windowHeight * 0.1,
             borderRadius: 1,
             backgroundColor: 'white',
           }}>
@@ -37,7 +38,7 @@ const FirstRow: FC<Props> = ({index}) => {
             marginLeft: 2,
             marginBottom: 10,
             padding: 5,
-            height: 60,
+            height: windowHeight * 0.1,
             borderRadius: 1,
             backgroundColor: '#776677',
           }}>

@@ -3,13 +3,13 @@ import {View} from 'react-native';
 import getUpdateFormStore from '../../stores/UpdateFormStore';
 import InputText from './TextInput';
 import {observer} from 'mobx-react';
+import {windowWidth} from '../../constants/constants';
 
 const InputTextSumit = observer(() => {
   return (
     <View
       style={{
-        width: '90%',
-        // height: 100,
+        width: windowWidth * 0.9,
         backgroundColor: 'white',
         borderWidth: 1,
         borderColor: 'yellow',

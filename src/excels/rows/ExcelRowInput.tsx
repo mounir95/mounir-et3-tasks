@@ -9,6 +9,7 @@ import getExcelStore from '../../stores/ExcelStore';
 import {observer} from 'mobx-react';
 import getRequiredStore from '../../stores/RequiredStore';
 import getSortFilterStore from '../../stores/SortFilterStore';
+import {windowHeight} from '../../constants/constants';
 
 type Props = {
   object: TPrObject;
@@ -74,7 +75,7 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
         marginLeft: 2,
         marginBottom: 10,
         padding: 5,
-        height: 35,
+        height: windowHeight * 0.05,
         borderRadius: 1,
         backgroundColor: 'lavender',
       }}>

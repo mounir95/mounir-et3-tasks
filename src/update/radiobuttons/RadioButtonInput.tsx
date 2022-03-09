@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
+import {windowHeight, windowWidth} from '../../constants/constants';
 
 type Props = {
   getboolean: {key: string; text: string}[];
@@ -24,8 +25,8 @@ const RadioButtonRow: FC<Props> = ({getboolean, radiobuttonfun, value}) => {
             </Text>
             <TouchableOpacity
               style={{
-                height: 18,
-                width: 18,
+                height: windowHeight * 0.03,
+                width: windowWidth * 0.05,
                 borderRadius: 110,
                 borderWidth: 2,
                 borderColor: '#2750aa',
@@ -36,8 +37,8 @@ const RadioButtonRow: FC<Props> = ({getboolean, radiobuttonfun, value}) => {
               {value === res.key && (
                 <View
                   style={{
-                    width: 18,
-                    height: 18,
+                    height: windowHeight * 0.03,
+                    width: windowWidth * 0.05,
                     borderRadius: 2,
                     backgroundColor: '#776677',
                   }}

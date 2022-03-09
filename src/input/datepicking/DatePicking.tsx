@@ -4,6 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 import getLanguageStore from '../../stores/LanguageStore';
+import {windowHeight} from '../../constants/constants';
 
 const Datepicker = observer(() => {
   const showPicker = () => {
@@ -52,8 +53,8 @@ const Datepicker = observer(() => {
           is24Hour={true}
           onChange={onChange}
           style={{
-            width: 320,
-            height: 260,
+            width: windowHeight * 0.88,
+            height: windowHeight * 0.43,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'flex-start',
