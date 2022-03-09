@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {TextInput, View, Text} from 'react-native';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../../stores/LanguageStore';
-import {windowHeight} from '../../../constants/constants';
+import {windowHeight, windowWidth} from '../../../constants/constants';
 
 type Props = {
   textChanged: Function;
@@ -17,9 +17,9 @@ const FilterByComment: FC<Props> = observer(({textChanged, filterchoosed}) => {
         <TextInput
           style={{
             height: windowHeight * 0.05,
-            margin: 12,
-            borderWidth: 1,
-            padding: 5,
+            margin: windowWidth * 0.033,
+            borderWidth: windowWidth * 0.002,
+            padding: windowWidth * 0.013,
           }}
           onChangeText={(event: string) => textChanged(event)}
         />
@@ -28,9 +28,9 @@ const FilterByComment: FC<Props> = observer(({textChanged, filterchoosed}) => {
         <TextInput
           style={{
             height: windowHeight * 0.05,
-            margin: 12,
-            borderWidth: 1,
-            padding: 5,
+            margin: windowWidth * 0.033,
+            borderWidth: windowWidth * 0.002,
+            padding: windowWidth * 0.013,
           }}
           onChangeText={(event: string) => textChanged(event)}
         />

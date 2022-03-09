@@ -12,6 +12,7 @@ import getFilterStore from '../../../stores/FilterStore';
 import getGlobalObjectStore from '../../../stores/GlobalObjectStore';
 import filter from 'lodash/filter';
 import {observer} from 'mobx-react';
+import {colors, windowWidth} from '../../../constants/constants';
 
 const Filters = observer(() => {
   const filterStatusFun = (event: React.ChangeEvent) => {
@@ -81,42 +82,46 @@ const Filters = observer(() => {
     <View>
       <TouchableOpacity
         style={{
-          paddingVertical: 3,
-          paddingHorizontal: 3,
-          backgroundColor: 'white',
+          paddingVertical: windowWidth * 0.0084,
+          paddingHorizontal: windowWidth * 0.0084,
+          backgroundColor: colors.white,
         }}
         onPress={() => pressFilter()}>
         {getExcelStore().filterfalse.get() && (
           <FontAwesome
             style={{textAlign: 'right'}}
             name="window-minimize"
-            size={15}
-            color="#900"
+            size={windowWidth * 0.042}
+            color={colors.ninehund}
           />
         )}
         {!getExcelStore().filterfalse.get() && (
           <Icon
             style={{textAlign: 'right'}}
             name="md-add"
-            size={20}
-            color="#900"
+            size={windowWidth * 0.056}
+            color={colors.ninehund}
           />
         )}
       </TouchableOpacity>
       {getExcelStore().filterfalse.get() && (
-        <View style={{marginBottom: 5, backgroundColor: 'lavender'}}>
+        <View
+          style={{
+            marginBottom: windowWidth * 0.013,
+            backgroundColor: colors.lavender,
+          }}>
           <View
             style={{
               flex: 1,
               flexDirection: 'row',
-              marginTop: 15,
-              marginBottom: 15,
+              marginTop: windowWidth * 0.041,
+              marginBottom: windowWidth * 0.041,
             }}>
             <View
               style={{
                 flexDirection: 'column',
-                marginLeft: 15,
-                marginRight: 10,
+                marginLeft: windowWidth * 0.041,
+                marginRight: windowWidth * 0.03,
               }}>
               <FilterByStatus
                 statusFilter={(event: React.ChangeEvent) =>
@@ -128,8 +133,8 @@ const Filters = observer(() => {
             <View
               style={{
                 flexDirection: 'column',
-                marginLeft: 10,
-                marginRight: 10,
+                marginLeft: windowWidth * 0.03,
+                marginRight: windowWidth * 0.03,
               }}>
               <FilterBySE
                 seListFilter={(event: React.ChangeEvent) =>
@@ -139,7 +144,11 @@ const Filters = observer(() => {
               />
             </View>
             <View
-              style={{flexDirection: 'column', marginLeft: 10, marginRight: 5}}>
+              style={{
+                flexDirection: 'column',
+                marginLeft: windowWidth * 0.03,
+                marginRight: windowWidth * 0.0014,
+              }}>
               <FilterByPlatform
                 platformFilter={(event: React.ChangeEvent) =>
                   filterPlatformFun(event)

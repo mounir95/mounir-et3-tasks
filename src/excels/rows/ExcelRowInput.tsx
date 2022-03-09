@@ -9,7 +9,7 @@ import getExcelStore from '../../stores/ExcelStore';
 import {observer} from 'mobx-react';
 import getRequiredStore from '../../stores/RequiredStore';
 import getSortFilterStore from '../../stores/SortFilterStore';
-import {windowHeight} from '../../constants/constants';
+import {colors, windowHeight, windowWidth} from '../../constants/constants';
 
 type Props = {
   object: TPrObject;
@@ -71,13 +71,13 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
         alignItems: 'center',
         flexDirection: 'column',
         flex: 1,
-        marginRight: 2,
-        marginLeft: 2,
-        marginBottom: 10,
-        padding: 5,
+        marginRight: windowWidth * 0.006,
+        marginLeft: windowWidth * 0.006,
+        marginBottom: windowWidth * 0.03,
+        padding: windowWidth * 0.013,
         height: windowHeight * 0.05,
-        borderRadius: 1,
-        backgroundColor: 'lavender',
+        borderRadius: windowWidth * 0.002,
+        backgroundColor: colors.lavender,
       }}>
       {index <= 12 && (
         <View>
@@ -88,30 +88,38 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
         {index === 13 && (
           <TouchableOpacity
             style={{
-              marginRight: 5,
-              marginLeft: 5,
-              paddingVertical: 3,
-              paddingHorizontal: 2,
+              marginRight: windowWidth * 0.013,
+              marginLeft: windowWidth * 0.013,
+              paddingVertical: windowWidth * 0.0084,
+              paddingHorizontal: windowWidth * 0.006,
               flexDirection: 'row',
             }}
             onPress={() => onUpdate(object.Myid)}>
             {!getExcelStore().updatefalse.get() && (
-              <Icons name="pencil" size={15} color="#900" />
+              <Icons
+                name="pencil"
+                size={windowWidth * 0.042}
+                color={colors.ninehund}
+              />
             )}
             {getExcelStore().updatefalse.get() &&
               getExcelStore().id.get() === object.Myid && (
-                <FontAwesome name="save" size={20} color="#900" />
+                <FontAwesome
+                  name="save"
+                  size={windowWidth * 0.056}
+                  color={colors.ninehund}
+                />
               )}
           </TouchableOpacity>
         )}
         {index === 14 && getSortFilterStore().filtercontainertrue.get() && (
           <TouchableOpacity
             style={{
-              marginRight: 5,
-              marginLeft: 5,
-              paddingHorizontal: 2,
-              paddingVertical: 3,
-              backgroundColor: 'white',
+              marginRight: windowWidth * 0.013,
+              marginLeft: windowWidth * 0.013,
+              paddingHorizontal: windowWidth * 0.006,
+              paddingVertical: windowWidth * 0.0084,
+              backgroundColor: colors.white,
             }}
             onPress={() =>
               getGlobalObjectStore().deletObjectWithId(object.Myid)

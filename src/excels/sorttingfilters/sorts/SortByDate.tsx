@@ -8,6 +8,7 @@ import {observer} from 'mobx-react';
 import getSortFilterStore from '../../../stores/SortFilterStore';
 import getExcelStore from '../../../stores/ExcelStore';
 import getLanguageStore from '../../../stores/LanguageStore';
+import {colors, windowWidth} from '../../../constants/constants';
 
 const SortByDate = observer(() => {
   const itemarray = getLanguageStore.get('arrayofsort').map((item: string) => {
@@ -37,20 +38,24 @@ const SortByDate = observer(() => {
   };
 
   return (
-    <View style={{marginBottom: 20, marginTop: 10}}>
+    <View
+      style={{
+        marginBottom: windowWidth * 0.055,
+        marginTop: windowWidth * 0.027,
+      }}>
       <Text>{getLanguageStore.get('sortbydate')}</Text>
       {getSortFilterStore().dateTrueFalse.get() && (
         <RNPickerSelect
           style={{
             inputAndroid: {
               fontSize: 16,
-              paddingHorizontal: 10,
-              paddingVertical: 10,
-              borderWidth: 0.5,
-              borderColor: 'purple',
-              borderRadius: 8,
-              color: 'black',
-              paddingRight: 30, // to ensure the text is never behind the icon
+              paddingHorizontal: windowWidth * 0.03,
+              paddingVertical: windowWidth * 0.03,
+              borderWidth: windowWidth * 0.0013,
+              borderColor: colors.purple,
+              borderRadius: windowWidth * 0.022,
+              color: colors.black,
+              paddingRight: windowWidth * 0.083, // to ensure the text is never behind the icon
             },
           }}
           items={itemarray}
@@ -62,13 +67,13 @@ const SortByDate = observer(() => {
           style={{
             inputAndroid: {
               fontSize: 16,
-              paddingHorizontal: 10,
-              paddingVertical: 10,
-              borderWidth: 0.5,
-              borderColor: 'purple',
-              borderRadius: 8,
-              color: 'black',
-              paddingRight: 30, // to ensure the text is never behind the icon
+              paddingHorizontal: windowWidth * 0.03,
+              paddingVertical: windowWidth * 0.03,
+              borderWidth: windowWidth * 0.0013,
+              borderColor: colors.purple,
+              borderRadius: windowWidth * 0.022,
+              color: colors.black,
+              paddingRight: windowWidth * 0.083, // to ensure the text is never behind the icon
             },
           }}
           items={itemarray}

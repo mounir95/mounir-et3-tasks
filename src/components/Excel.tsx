@@ -6,10 +6,11 @@ import ExcelRows from '../excels/rows/ExcelRows';
 import UpdateForm from '../update/UpdateForm';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../stores/LanguageStore';
+import {windowWidth} from '../constants/constants';
 
 const Excel = observer(() => {
   return (
-    <SafeAreaView style={{flex: 1, marginTop: 22}}>
+    <SafeAreaView style={{flex: 1, marginTop: windowWidth * 0.06}}>
       <ScrollView>
         <SortFilter />
         <FlatList

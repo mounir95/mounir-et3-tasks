@@ -40,3 +40,19 @@ export const globalStateObject: globalObject = {
   ReveiwedByAH: 'no',
   ReveiwedByHT: 'no',
 };
+
+export const colors = {
+  white: 'white',
+  red: 'red',
+  black: 'black',
+  purple: 'purple',
+  lightpurple: '#776677',
+  eee: '#eee',
+  lavender: 'lavender',
+  yellow: 'yellow',
+  fff: '#fff',
+  gray: 'gray',
+  darkgrey: '#2750aa',
+  ninehund: '#900',
+  lightnavy: '#2750aa',
+}

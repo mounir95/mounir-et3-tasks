@@ -91,7 +91,6 @@ export interface TTrans {
     arrayofsort: {AR: [string, string]; ENG: [string, string]};
     excelcol: {AR: object[]; ENG: object[]};
   };
-  setAsyncData(): void;
   setLanguage(language: string): void;
   get(message: string): any;
 }

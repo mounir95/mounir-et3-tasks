@@ -11,7 +11,7 @@ import getAddPageStore from '../stores/AddPageStore';
 import {observer} from 'mobx-react';
 import getRequiredStore from '../stores/RequiredStore';
 import getLanguageStore from '../stores/LanguageStore';
-import {windowWidth} from '../constants/constants';
+import {colors, windowWidth} from '../constants/constants';
 
 const InputRow = observer(() => {
   const toRadioButtons = () => {
@@ -32,19 +32,19 @@ const InputRow = observer(() => {
         <View
           style={{
             flexDirection: 'column',
-            marginTop: 15,
-            marginBottom: 5,
-            backgroundColor: '#776677',
+            marginTop: windowWidth * 0.041,
+            marginBottom: windowWidth * 0.013,
+            backgroundColor: colors.lightpurple,
             alignItems: 'center',
             justifyContent: 'center',
           }}>
           <View
             style={{
               width: windowWidth * 0.9,
-              backgroundColor: 'white',
-              borderWidth: 1,
-              borderColor: 'yellow',
-              margin: 5,
+              backgroundColor: colors.white,
+              borderWidth: windowWidth * 0.002,
+              borderColor: colors.yellow,
+              margin: windowWidth * 0.013,
             }}>
             <InputDatePicker />
             <InputSelectList />
@@ -59,14 +59,14 @@ const InputRow = observer(() => {
           <View style={{alignItems: 'center'}}>
             <Text
               style={{
-                borderWidth: 2,
-                borderRadius: 25,
-                padding: 10,
-                marginTop: 25,
-                marginBottom: 5,
-                borderColor: '#776677',
-                color: '#776677',
-                backgroundColor: 'white',
+                borderWidth: windowWidth * 0.006,
+                borderRadius: windowWidth * 0.07,
+                padding: windowWidth * 0.03,
+                marginTop: windowWidth * 0.07,
+                marginBottom: windowWidth * 0.013,
+                borderColor: colors.lightpurple,
+                color: colors.lightpurple,
+                backgroundColor: colors.white,
               }}>
               {getLanguageStore.get('closetext')}
             </Text>

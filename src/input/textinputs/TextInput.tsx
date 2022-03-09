@@ -5,6 +5,7 @@ import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 import getRequiredStore from '../../stores/RequiredStore';
 import getLanguageStore from '../../stores/LanguageStore';
+import {colors} from '../../constants/constants';
 
 const InputText = observer(() => {
   const onInputchange = (
@@ -26,9 +27,11 @@ const InputText = observer(() => {
     <View>
       <View>
         {!getRequiredStore().released.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: colors.red}}>
+            {getLanguageStore.get('required')}
+          </Text>
         )}
-        <Text style={{color: '#776677'}}>
+        <Text style={{color: colors.lightpurple}}>
           {getLanguageStore.get('releaseversion')}
         </Text>
         <TextInputRow
@@ -39,9 +42,11 @@ const InputText = observer(() => {
       </View>
       <View>
         {!getRequiredStore().comment.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: colors.red}}>
+            {getLanguageStore.get('required')}
+          </Text>
         )}
-        <Text style={{color: '#776677'}}>
+        <Text style={{color: colors.lightpurple}}>
           {getLanguageStore.get('comment')}
         </Text>
         <TextInputRow
@@ -52,9 +57,13 @@ const InputText = observer(() => {
       </View>
       <View>
         {!getRequiredStore().prlink.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: colors.red}}>
+            {getLanguageStore.get('required')}
+          </Text>
         )}
-        <Text style={{color: '#776677'}}>{getLanguageStore.get('prlink')}</Text>
+        <Text style={{color: colors.lightpurple}}>
+          {getLanguageStore.get('prlink')}
+        </Text>
         <TextInputRow
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
             onInputchange(event, 'pr_Link')

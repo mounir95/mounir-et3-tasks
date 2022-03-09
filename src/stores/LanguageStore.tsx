@@ -1,7 +1,6 @@
 import {TTrans} from '../interfaces/interfaces';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {observable, runInAction} from 'mobx';
-import getGlobalObjectStore from './GlobalObjectStore';
 
 const getLanguageStore: TTrans = {
   language: observable.box<string>('Not Necessary At Begin'),
@@ -170,29 +169,6 @@ const getLanguageStore: TTrans = {
         {name: ''},
       ],
     },
-  },
-
-  setAsyncData() {
-    const getDefaultLang = async () => {
-      const value = await AsyncStorage.getItem('language');
-      if (value !== null) {
-        getLanguageStore.language.set(value);
-      } else {
-        await AsyncStorage.setItem('language', 'ENG');
-        getLanguageStore.language.set('EN');
-      }
-    };
-    const getDefaultObj = async () => {
-      const jsonValue = await AsyncStorage.getItem('object');
-      if (jsonValue !== null) {
-        getGlobalObjectStore().arrayofobjects.set(JSON.parse(jsonValue));
-      } else {
-        const jsonValue = JSON.stringify([]);
-        await AsyncStorage.setItem('object', jsonValue);
-      }
-    };
-    getDefaultLang();
-    getDefaultObj();
   },
 
   setLanguage(language: string) {
