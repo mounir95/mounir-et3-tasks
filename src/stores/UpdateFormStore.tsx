@@ -46,20 +46,17 @@ class UpdateFormStore {
       }
     });
   };
-  resetStore = () => {
+  resetStore = async () => {
     runInAction(() => {
       this.selectpagetrue.set(true);
       this.textpagetrue.set(false);
       this.ssdliststrue.set(false);
       this.radiobuttonstrue.set(false);
-      const setData = async () => {
-        const jsonValue = JSON.stringify(
-          getGlobalObjectStore().arrayofobjects.get(),
-        );
-        await AsyncStorage.setItem('object', jsonValue);
-      };
-      setData();
     });
+    const jsonValue = JSON.stringify(
+      getGlobalObjectStore().arrayofobjects.get(),
+    );
+    await AsyncStorage.setItem('object', jsonValue);
   };
 }
 const getUpdateFormStore = memoize(
