@@ -1,0 +1,87 @@
+import React from 'react';
+import {Text, View} from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
+import {TPrObject} from '../../../../../interfaces/interfaces';
+import orderBy from 'lodash/orderBy';
+import getGlobalObjectStore from '../../../../../stores/GlobalObjectStore';
+import {observer} from 'mobx-react';
+import getSortFilterStore from '../../../../../stores/SortFilterStore';
+import getExcelStore from '../../../../../stores/ExcelStore';
+import getLanguageStore from '../../../../../stores/LanguageStore';
+import {colors, windowWidth} from '../../../../../constants/constants';
+
+const SortByDate = observer(() => {
+  const itemarray = getLanguageStore.get('arrayofsort').map((item: string) => {
+    return {label: item, value: item};
+  });
+
+  const setDateSort = (event: React.ChangeEvent) => {
+    let newobjectarray;
+    if (event.toString() === getLanguageStore.get('desc')) {
+      let x = 'desc';
+      newobjectarray = orderBy(
+        getGlobalObjectStore().arrayofobjects.get(),
+        (obj: TPrObject) => obj.Mydate,
+        [x === 'desc' ? 'desc' : 'asc'],
+      );
+    } else {
+      let x = 'asc';
+      newobjectarray = orderBy(
+        getGlobalObjectStore().arrayofobjects.get(),
+        (obj: TPrObject) => obj.Mydate,
+        [x === 'asc' ? 'asc' : 'desc'],
+      );
+    }
+    getSortFilterStore().setDateFun();
+    getGlobalObjectStore().arrayofobjects.set(newobjectarray);
+    getExcelStore().resetStore();
+  };
+
+  return (
+    <View
+      style={{
+        marginBottom: windowWidth * 0.055,
+        marginTop: windowWidth * 0.027,
+      }}>
+      <Text>{getLanguageStore.get('sortbydate')}</Text>
+      {getSortFilterStore().dateTrueFalse.get() && (
+        <RNPickerSelect
+          style={{
+            inputAndroid: {
+              fontSize: 16,
+              paddingHorizontal: windowWidth * 0.03,
+              paddingVertical: windowWidth * 0.03,
+              borderWidth: windowWidth * 0.0013,
+              borderColor: colors.purple,
+              borderRadius: windowWidth * 0.022,
+              color: colors.black,
+              paddingRight: windowWidth * 0.083, // to ensure the text is never behind the icon
+            },
+          }}
+          items={itemarray}
+          onValueChange={(event: React.ChangeEvent) => setDateSort(event)}
+        />
+      )}
+      {!getSortFilterStore().dateTrueFalse.get() && (
+        <RNPickerSelect
+          style={{
+            inputAndroid: {
+              fontSize: 16,
+              paddingHorizontal: windowWidth * 0.03,
+              paddingVertical: windowWidth * 0.03,
+              borderWidth: windowWidth * 0.0013,
+              borderColor: colors.purple,
+              borderRadius: windowWidth * 0.022,
+              color: colors.black,
+              paddingRight: windowWidth * 0.083, // to ensure the text is never behind the icon
+            },
+          }}
+          items={itemarray}
+          onValueChange={(event: React.ChangeEvent) => setDateSort(event)}
+        />
+      )}
+    </View>
+  );
+});
+
+export default SortByDate;
