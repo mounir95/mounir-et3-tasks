@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {observable, runInAction} from 'mobx';
 
 const getLanguageStore: TTrans = {
-  language: observable.box<string>('Not Necessary At Begin'),
+  language: observable.box<string>('ENG'),
   LG: {
     addpage: {
       AR: 'صفحة الإضافة',
@@ -174,11 +174,11 @@ const getLanguageStore: TTrans = {
   setLanguage(language: string) {
     runInAction(() => {
       this.language.set(language);
-      const setData = async () => {
-        await AsyncStorage.setItem('language', language);
-      };
-      setData();
     });
+    const setData = async () => {
+      await AsyncStorage.setItem('language', language);
+    };
+    setData();
   },
 
   get(message: string) {

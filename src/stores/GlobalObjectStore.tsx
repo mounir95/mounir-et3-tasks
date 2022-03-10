@@ -27,43 +27,32 @@ class GlobalObjectStore {
     MyreviewedbyHT: 'no'
   });
 
-  addObjectToArray = (lastarrayobject: TPrObject) => {
+  addObjectToArray = async (lastarrayobject: TPrObject) => {
     runInAction(() => {
       this.arrayofobjects.get().push({...lastarrayobject});
-      const setData = async () => {
-        const jsonValue = JSON.stringify(this.arrayofobjects.get());
-        await AsyncStorage.setItem('object', jsonValue);
-      };
-      setData();
     });
+    const jsonValue = JSON.stringify(this.arrayofobjects.get());
+    await AsyncStorage.setItem('object', jsonValue);
   };
 
-  deletObjectWithId = (objid: number) => {
+  deletObjectWithId = async (objid: number) => {
     runInAction(() => {
       this.arrayofobjects.set(
         filter(this.arrayofobjects.get(), (c: TPrObject) => {
           return c.Myid !== objid;
         }),
       );
-      const setData = async () => {
-        const jsonValue = JSON.stringify(this.arrayofobjects.get());
-        await AsyncStorage.setItem('object', jsonValue);
-      };
-      setData();
     });
+    const jsonValue = JSON.stringify(this.arrayofobjects.get());
+    await AsyncStorage.setItem('object', jsonValue);
   };
 
   orderingArrayOfObject = () => {
     runInAction(() => {
       this.arrayofobjects.set(
-        filter(
-          orderBy(this.arrayofobjects.get(), (obj: TPrObject) => obj.Myid, [
-            'asc',
-          ]),
-          (c: TPrObject) => {
-            return c.hasOwnProperty('Myid');
-          },
-        ),
+        orderBy(this.arrayofobjects.get(), (obj: TPrObject) => obj.Myid, [
+          'asc',
+        ]),
       );
     });
   };
