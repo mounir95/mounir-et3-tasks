@@ -4,7 +4,7 @@ import getUpdateFormStore from '../../stores/UpdateFormStore';
 import RadioButtonRow from './RadioButtonInput';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../stores/LanguageStore';
-import {booleanval} from '../../constants/constants';
+import {booleanval, windowWidth} from '../../constants/constants';
 
 const RadioButtonInput = observer(() => {
   return (
@@ -14,12 +14,12 @@ const RadioButtonInput = observer(() => {
           style={{
             flex: 1,
             alignItems: 'center',
-            marginLeft: 2,
-            marginRight: 2,
+            marginLeft: windowWidth * 0.006,
+            marginRight: windowWidth * 0.006,
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>
+          <Text style={{fontSize: windowWidth * 0.041, fontWeight: '700'}}>
             {getLanguageStore.get('byapprove')}
           </Text>
           <RadioButtonRow
@@ -37,12 +37,12 @@ const RadioButtonInput = observer(() => {
           style={{
             flex: 1,
             alignItems: 'center',
-            marginLeft: 2,
-            marginRight: 2,
+            marginLeft: windowWidth * 0.006,
+            marginRight: windowWidth * 0.006,
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>
+          <Text style={{fontSize: windowWidth * 0.041, fontWeight: '700'}}>
             {getLanguageStore.get('ahapprove')}
           </Text>
           <RadioButtonRow
@@ -60,12 +60,12 @@ const RadioButtonInput = observer(() => {
           style={{
             flex: 1,
             alignItems: 'center',
-            marginLeft: 2,
-            marginRight: 2,
+            marginLeft: windowWidth * 0.006,
+            marginRight: windowWidth * 0.006,
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>
+          <Text style={{fontSize: windowWidth * 0.041, fontWeight: '700'}}>
             {getLanguageStore.get('htapprove')}
           </Text>
           <RadioButtonRow

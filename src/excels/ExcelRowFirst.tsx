@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
+import {colors, windowHeight, windowWidth} from '../constants/constants';
 import getLanguageStore from '../stores/LanguageStore';
 
 type Props = {
@@ -15,13 +16,13 @@ const FirstRow: FC<Props> = ({index}) => {
             justifyContent: 'space-between',
             alignItems: 'center',
             flex: 1,
-            marginRight: 2,
-            marginLeft: 2,
-            marginBottom: 10,
-            padding: 5,
-            height: 60,
-            borderRadius: 1,
-            backgroundColor: 'white',
+            marginRight: windowWidth * 0.006,
+            marginLeft: windowWidth * 0.006,
+            marginBottom: windowWidth * 0.03,
+            padding: windowWidth * 0.013,
+            height: windowHeight * 0.1,
+            borderRadius: windowWidth * 0.002,
+            backgroundColor: colors.white,
           }}>
           <Text />
         </View>
@@ -33,15 +34,15 @@ const FirstRow: FC<Props> = ({index}) => {
             justifyContent: 'space-between',
             alignItems: 'center',
             flex: 1,
-            marginRight: 2,
-            marginLeft: 2,
-            marginBottom: 10,
-            padding: 5,
-            height: 60,
-            borderRadius: 1,
-            backgroundColor: '#776677',
+            marginRight: windowWidth * 0.006,
+            marginLeft: windowWidth * 0.006,
+            marginBottom: windowWidth * 0.03,
+            padding: windowWidth * 0.013,
+            height: windowHeight * 0.1,
+            borderRadius: windowWidth * 0.002,
+            backgroundColor: colors.lightpurple,
           }}>
-          <Text style={{color: 'white'}}>
+          <Text style={{color: colors.white}}>
             {getLanguageStore.get('excelcol')[index].name}
           </Text>
         </View>

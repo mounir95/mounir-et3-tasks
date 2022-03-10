@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 import {Text, View} from 'react-native';
 import getLanguageStore from '../../stores/LanguageStore';
+import {colors, windowWidth} from '../../constants/constants';
 
 type Props = {
   onChoose: Function;
@@ -17,11 +18,11 @@ const SelectInput: FC<Props> = ({onChoose, listname, arrayval, choosedval}) => {
   return (
     <View
       style={{
-        backgroundColor: '#fff',
+        backgroundColor: colors.fff,
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Text style={{color: '#776677'}}>
+      <Text style={{color: colors.lightpurple}}>
         {getLanguageStore.get('pleaseselect')}
         {listname}
       </Text>
@@ -32,23 +33,23 @@ const SelectInput: FC<Props> = ({onChoose, listname, arrayval, choosedval}) => {
         style={{
           inputIOS: {
             fontSize: 16,
-            paddingVertical: 10,
-            paddingHorizontal: 10,
-            borderWidth: 1,
-            borderColor: 'gray',
-            borderRadius: 4,
-            color: 'black',
-            paddingRight: 30, // to ensure the text is never behind the icon
+            paddingVertical: windowWidth * 0.03,
+            paddingHorizontal: windowWidth * 0.03,
+            borderWidth: windowWidth * 0.002,
+            borderColor: colors.gray,
+            borderRadius: windowWidth * 0.011,
+            color: colors.black,
+            paddingRight: windowWidth * 0.083, // to ensure the text is never behind the icon
           },
           inputAndroid: {
             fontSize: 16,
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-            borderWidth: 0.5,
-            borderColor: 'purple',
-            borderRadius: 8,
-            color: 'black',
-            paddingRight: 30, // to ensure the text is never behind the icon
+            paddingHorizontal: windowWidth * 0.03,
+            paddingVertical: windowWidth * 0.03,
+            borderWidth: windowWidth * 0.0013,
+            borderColor: colors.purple,
+            borderRadius: windowWidth * 0.022,
+            color: colors.black,
+            paddingRight: windowWidth * 0.083, // to ensure the text is never behind the icon
           },
         }}
       />

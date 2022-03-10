@@ -4,12 +4,16 @@ import getUpdateFormStore from '../../stores/UpdateFormStore';
 import SelectInput from './SelectInput';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../stores/LanguageStore';
-import {globalStateObject} from '../../constants/constants';
+import {globalStateObject, windowWidth} from '../../constants/constants';
 
 const InputSelectList = observer(() => {
   return (
     <View>
-      <View style={{marginBottom: 20, marginTop: 10}}>
+      <View
+        style={{
+          marginBottom: windowWidth * 0.055,
+          marginTop: windowWidth * 0.027,
+        }}>
         <SelectInput
           key="firstrow"
           listname={getLanguageStore.get('setext')}
@@ -20,7 +24,11 @@ const InputSelectList = observer(() => {
           }
         />
       </View>
-      <View style={{marginBottom: 20, marginTop: 10}}>
+      <View
+        style={{
+          marginBottom: windowWidth * 0.055,
+          marginTop: windowWidth * 0.027,
+        }}>
         <SelectInput
           key="secondrow"
           listname={getLanguageStore.get('platformtext')}
@@ -31,7 +39,7 @@ const InputSelectList = observer(() => {
           }
         />
       </View>
-      <View style={{marginTop: 25}}>
+      <View style={{marginTop: windowWidth * 0.07}}>
         <Button
           title={getLanguageStore.get('nexttext')}
           onPress={() => getUpdateFormStore().selectList()}

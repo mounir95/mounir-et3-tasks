@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
+import {colors, windowHeight, windowWidth} from '../../constants/constants';
 import {TPrObject} from '../../interfaces/interfaces';
 
 type Props = {
@@ -30,13 +31,13 @@ const FilteredRows: FC<Props> = ({object, index}) => {
         alignItems: 'center',
         flexDirection: 'column',
         flex: 1,
-        marginRight: 2,
-        marginLeft: 2,
-        marginBottom: 10,
-        padding: 5,
-        height: 35,
-        borderRadius: 1,
-        backgroundColor: 'lavender',
+        marginRight: windowWidth * 0.006,
+        marginLeft: windowWidth * 0.006,
+        marginBottom: windowWidth * 0.03,
+        padding: windowWidth * 0.013,
+        height: windowHeight * 0.05,
+        borderRadius: windowWidth * 0.002,
+        backgroundColor: colors.lavender,
       }}>
       {index <= 12 && (
         <View>

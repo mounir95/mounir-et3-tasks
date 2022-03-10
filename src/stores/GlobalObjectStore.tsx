@@ -3,6 +3,7 @@ import orderBy from 'lodash/orderBy';
 import filter from 'lodash/filter';
 import {TPrObject} from '../interfaces/interfaces';
 import {memoize} from 'lodash';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class GlobalObjectStore {
   arrayofobjects = observable.box<TPrObject[]>([]);
@@ -29,6 +30,11 @@ class GlobalObjectStore {
   addObjectToArray = (lastarrayobject: TPrObject) => {
     runInAction(() => {
       this.arrayofobjects.get().push({...lastarrayobject});
+      const setData = async () => {
+        const jsonValue = JSON.stringify(this.arrayofobjects.get());
+        await AsyncStorage.setItem('object', jsonValue);
+      };
+      setData();
     });
   };
 
@@ -39,6 +45,11 @@ class GlobalObjectStore {
           return c.Myid !== objid;
         }),
       );
+      const setData = async () => {
+        const jsonValue = JSON.stringify(this.arrayofobjects.get());
+        await AsyncStorage.setItem('object', jsonValue);
+      };
+      setData();
     });
   };
 

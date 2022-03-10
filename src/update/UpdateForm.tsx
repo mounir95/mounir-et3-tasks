@@ -6,6 +6,7 @@ import InputSSDList from './ssdlists/SSDListsSubmit';
 import InputRadioButton from './radiobuttons/RadioButtonsSubmit';
 import getExcelStore from '../stores/ExcelStore';
 import {observer} from 'mobx-react';
+import {colors, windowWidth} from '../constants/constants';
 
 const UpdateRow = observer(() => {
   return (
@@ -14,9 +15,9 @@ const UpdateRow = observer(() => {
         <View
           style={{
             flexDirection: 'column',
-            marginTop: 15,
-            marginBottom: 5,
-            backgroundColor: '#776677',
+            marginTop: windowWidth * 0.041,
+            marginBottom: windowWidth * 0.013,
+            backgroundColor: colors.lightpurple,
             alignItems: 'center',
             justifyContent: 'center',
           }}>

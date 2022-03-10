@@ -6,6 +6,7 @@ import getGlobalObjectStore from '../stores/GlobalObjectStore';
 import {observer} from 'mobx-react';
 import getRequiredStore from '../stores/RequiredStore';
 import getLanguageStore from '../stores/LanguageStore';
+import {colors, windowWidth} from '../constants/constants';
 
 const AddButton = observer(() => {
   getAddPageStore().addtext.set(getLanguageStore.get('addtext'));
@@ -35,13 +36,13 @@ const AddButton = observer(() => {
         <TouchableOpacity onPress={() => getLanguageStore.setLanguage('ENG')}>
           <Text
             style={{
-              borderWidth: 2,
-              borderRadius: 5,
-              padding: 5,
-              marginBottom: 5,
-              borderColor: '#776677',
-              color: '#776677',
-              backgroundColor: 'white',
+              borderWidth: windowWidth * 0.006,
+              borderRadius: windowWidth * 0.013,
+              padding: windowWidth * 0.013,
+              marginBottom: windowWidth * 0.013,
+              borderColor: colors.lightpurple,
+              color: colors.lightpurple,
+              backgroundColor: colors.white,
             }}>
             {getLanguageStore.get('enlang')}
           </Text>
@@ -49,13 +50,13 @@ const AddButton = observer(() => {
         <TouchableOpacity onPress={() => getLanguageStore.setLanguage('AR')}>
           <Text
             style={{
-              borderWidth: 2,
-              borderRadius: 5,
-              padding: 5,
-              marginBottom: 5,
-              borderColor: '#776677',
-              color: '#776677',
-              backgroundColor: 'white',
+              borderWidth: windowWidth * 0.006,
+              borderRadius: windowWidth * 0.013,
+              padding: windowWidth * 0.013,
+              marginBottom: windowWidth * 0.013,
+              borderColor: colors.lightpurple,
+              color: colors.lightpurple,
+              backgroundColor: colors.white,
             }}>
             {getLanguageStore.get('arlang')}
           </Text>
@@ -75,13 +76,13 @@ const AddButton = observer(() => {
         <TouchableOpacity onPress={() => onPressSubmit()}>
           <Text
             style={{
-              borderWidth: 2,
-              borderRadius: 25,
-              padding: 10,
-              marginBottom: 10,
-              borderColor: '#776677',
-              color: '#776677',
-              backgroundColor: 'white',
+              borderWidth: windowWidth * 0.006,
+              borderRadius: windowWidth * 0.07,
+              padding: windowWidth * 0.03,
+              marginBottom: windowWidth * 0.03,
+              borderColor: colors.lightpurple,
+              color: colors.lightpurple,
+              backgroundColor: colors.white,
             }}>
             {getAddPageStore().addtext.get()}
           </Text>
