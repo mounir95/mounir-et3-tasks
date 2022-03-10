@@ -1,6 +1,6 @@
-import {observable, runInAction} from 'mobx';
 import {TTrans} from '../interfaces/interfaces';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {observable, runInAction} from 'mobx';
 
 const getLanguageStore: TTrans = {
   language: observable.box<string>('ENG'),
