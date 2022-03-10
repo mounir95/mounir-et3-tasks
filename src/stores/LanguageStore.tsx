@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {observable, runInAction} from 'mobx';
 
 const getLanguageStore: TTrans = {
-  language: observable.box<string>('ENG'),
+  language: observable.box<string>('Not Necessary At Begin'),
   LG: {
     addpage: {
       AR: 'صفحة الإضافة',
