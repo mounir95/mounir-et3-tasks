@@ -4,7 +4,7 @@ import RadioButtonRow from './RadioButtonInput';
 import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 import getLanguageStore from '../../stores/LanguageStore';
-import {booleanval} from '../../constants/constants';
+import {booleanval, windowWidth} from '../../constants/constants';
 
 type Props = {
   radioButtons: Function;
@@ -21,12 +21,12 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
           style={{
             flex: 1,
             alignItems: 'center',
-            marginLeft: 2,
-            marginRight: 2,
+            marginLeft: windowWidth * 0.006,
+            marginRight: windowWidth * 0.006,
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>
+          <Text style={{fontSize: windowWidth * 0.041, fontWeight: '700'}}>
             {getLanguageStore.get('byapprove')}
           </Text>
           <RadioButtonRow
@@ -45,12 +45,12 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
           style={{
             flex: 1,
             alignItems: 'center',
-            marginLeft: 2,
-            marginRight: 2,
+            marginLeft: windowWidth * 0.006,
+            marginRight: windowWidth * 0.006,
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>
+          <Text style={{fontSize: windowWidth * 0.041, fontWeight: '700'}}>
             {getLanguageStore.get('ahapprove')}
           </Text>
           <RadioButtonRow
@@ -69,12 +69,12 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
           style={{
             flex: 1,
             alignItems: 'center',
-            marginLeft: 2,
-            marginRight: 2,
+            marginLeft: windowWidth * 0.006,
+            marginRight: windowWidth * 0.006,
             justifyContent: 'center',
             flexDirection: 'column',
           }}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>
+          <Text style={{fontSize: windowWidth * 0.041, fontWeight: '700'}}>
             {getLanguageStore.get('htapprove')}
           </Text>
           <RadioButtonRow
@@ -90,7 +90,7 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
           />
         </View>
       </View>
-      <View style={{marginTop: 35}}>
+      <View style={{marginTop: windowWidth * 0.097}}>
         <Button
           title={getLanguageStore.get('donetext')}
           onPress={() => handlePressSubmitButton()}

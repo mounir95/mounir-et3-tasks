@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
+import {colors, windowHeight, windowWidth} from '../../constants/constants';
 
 type Props = {
   getboolean: {key: string; text: string}[];
@@ -12,23 +13,28 @@ const RadioButtonRow: FC<Props> = ({getboolean, radiobuttonfun, value}) => {
     <View>
       {getboolean.map(res => {
         return (
-          <View style={{flexDirection: 'row', marginBottom: 15, marginTop: 25}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginBottom: windowWidth * 0.041,
+              marginTop: windowWidth * 0.07,
+            }}>
             <Text
               style={{
-                marginLeft: 10,
-                marginRight: 10,
-                color: '#2750aa',
+                marginLeft: windowWidth * 0.03,
+                marginRight: windowWidth * 0.03,
+                color: colors.lightnavy,
                 fontWeight: '700',
               }}>
               {res.text}
             </Text>
             <TouchableOpacity
               style={{
-                height: 18,
-                width: 18,
-                borderRadius: 110,
-                borderWidth: 2,
-                borderColor: '#2750aa',
+                height: windowHeight * 0.03,
+                width: windowWidth * 0.05,
+                borderRadius: windowWidth * 0.301,
+                borderWidth: windowWidth * 0.006,
+                borderColor: colors.lightnavy,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -36,10 +42,10 @@ const RadioButtonRow: FC<Props> = ({getboolean, radiobuttonfun, value}) => {
               {value === res.key && (
                 <View
                   style={{
-                    width: 18,
-                    height: 18,
-                    borderRadius: 2,
-                    backgroundColor: '#776677',
+                    height: windowHeight * 0.03,
+                    width: windowWidth * 0.05,
+                    borderRadius: windowWidth * 0.006,
+                    backgroundColor: colors.lightpurple,
                   }}
                 />
               )}

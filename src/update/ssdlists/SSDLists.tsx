@@ -4,12 +4,16 @@ import getUpdateFormStore from '../../stores/UpdateFormStore';
 import SelectInput from '../selectlists/SelectInput';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../stores/LanguageStore';
-import {globalStateObject} from '../../constants/constants';
+import {globalStateObject, windowWidth} from '../../constants/constants';
 
 const SSDListInput = observer(() => {
   return (
     <View>
-      <View style={{marginBottom: 20, marginTop: 10}}>
+      <View
+        style={{
+          marginBottom: windowWidth * 0.055,
+          marginTop: windowWidth * 0.027,
+        }}>
         <SelectInput
           listname={getLanguageStore.get('statustext')}
           arrayval={globalStateObject.StatusList}
@@ -19,7 +23,11 @@ const SSDListInput = observer(() => {
           }
         />
       </View>
-      <View style={{marginBottom: 20, marginTop: 10}}>
+      <View
+        style={{
+          marginBottom: windowWidth * 0.055,
+          marginTop: windowWidth * 0.027,
+        }}>
         <SelectInput
           listname={getLanguageStore.get('sizetext')}
           arrayval={globalStateObject.Size}
@@ -29,7 +37,11 @@ const SSDListInput = observer(() => {
           }
         />
       </View>
-      <View style={{marginBottom: 20, marginTop: 10}}>
+      <View
+        style={{
+          marginBottom: windowWidth * 0.055,
+          marginTop: windowWidth * 0.027,
+        }}>
         <SelectInput
           listname={getLanguageStore.get('dificulitytext')}
           arrayval={globalStateObject.Dificulity}
@@ -39,7 +51,7 @@ const SSDListInput = observer(() => {
           }
         />
       </View>
-      <View style={{marginTop: 25}}>
+      <View style={{marginTop: windowWidth * 0.07}}>
         <Button
           title={getLanguageStore.get('nexttext')}
           onPress={() => getUpdateFormStore().ssdLists()}

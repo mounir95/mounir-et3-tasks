@@ -5,15 +5,18 @@ import getRequiredStore from '../../stores/RequiredStore';
 import TextInputRow from './TextInputRow';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../stores/LanguageStore';
+import {colors, windowWidth} from '../../constants/constants';
 
 const InputText = observer(() => {
   return (
     <View>
       <View>
         {!getRequiredStore().released.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: colors.red}}>
+            {getLanguageStore.get('required')}
+          </Text>
         )}
-        <Text style={{color: '#776677'}}>
+        <Text style={{color: colors.lightpurple}}>
           {getLanguageStore.get('releaseversion')}
         </Text>
         <TextInputRow
@@ -27,9 +30,11 @@ const InputText = observer(() => {
       </View>
       <View>
         {!getRequiredStore().comment.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: colors.red}}>
+            {getLanguageStore.get('required')}
+          </Text>
         )}
-        <Text style={{color: '#776677'}}>
+        <Text style={{color: colors.lightpurple}}>
           {getLanguageStore.get('comment')}
         </Text>
         <TextInputRow
@@ -41,9 +46,11 @@ const InputText = observer(() => {
       </View>
       <View>
         {!getRequiredStore().prlink.get() && (
-          <Text style={{color: 'red'}}>{getLanguageStore.get('required')}</Text>
+          <Text style={{color: colors.red}}>
+            {getLanguageStore.get('required')}
+          </Text>
         )}
-        <Text style={{color: '#776677'}}>
+        <Text style={{color: colors.lightpurple}}>
           {getLanguageStore.get('prcount')}
         </Text>
         <TextInputRow
@@ -53,7 +60,7 @@ const InputText = observer(() => {
           }
         />
       </View>
-      <View style={{marginTop: 25}}>
+      <View style={{marginTop: windowWidth * 0.07}}>
         <Button
           title={getLanguageStore.get('nexttext')}
           onPress={() => getUpdateFormStore().textPage()}
