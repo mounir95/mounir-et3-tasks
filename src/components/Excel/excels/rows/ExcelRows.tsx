@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {View} from 'react-native';
 import ExcelRowInput from './ExcelRowInput';
 import FilteredRows from './FilteredRows';
-import {TPrObject} from '../../../../interfaces/interfaces';
+import {TSQLObject} from '../../../../interfaces/interfaces';
 import getExcelStore from '../../../../stores/ExcelStore';
 import filter from 'lodash/filter';
 import getGlobalObjectStore from '../../../../stores/GlobalObjectStore';
@@ -14,23 +14,21 @@ type Props = {
 const ExcelRows: FC<Props> = observer(({index}) => {
   const arrayofobjects = filter(
     getGlobalObjectStore().arrayofobjects.get(),
-    (c: TPrObject) => {
-      return c.Myid > 0;
+    (c: TSQLObject) => {
+      return c.id > 0;
     },
   );
 
   return (
     <View>
       {!getExcelStore().filterfalse.get() &&
-        arrayofobjects.map((e: TPrObject) => {
-          if (e.hasOwnProperty('Mycomment')) {
-            return <ExcelRowInput object={e} index={index} />;
-          }
+        arrayofobjects.map((e: TSQLObject) => {
+          return <ExcelRowInput object={e} index={index} />;
         })}
       {getExcelStore().filterfalse.get() &&
         getGlobalObjectStore()
           .filteredarrayofobjects.get()
-          .map((e: TPrObject) => {
+          .map((e: TSQLObject) => {
             if (e.hasOwnProperty('Mycomment')) {
               return <FilteredRows object={e} index={index} />;
             }

@@ -3,6 +3,7 @@ import {observable, runInAction} from 'mobx';
 
 class ExcelStore {
   id = observable.box<number>(-1);
+  sqlobject = observable.box<Promise<void>>(null);
   filterfalse = observable.box<Boolean>(false);
   updatefalse = observable.box<Boolean>(false);
   resetStore = () => {

@@ -21,8 +21,14 @@ const ADDPage = observer(() => {
     getAddPageStore().openInputForm();
     navigation.navigate('Excel');
   };
-  
+
   React.useEffect(() => {
+    fetch('http://192.168.42.231:3001/api/get', {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+    }).then(async res => {
+      getGlobalObjectStore().arrayofobjects.set(await res.json());
+    });
     const getDefaultLang = async () => {
       const value = await AsyncStorage.getItem('language');
       if (value !== null) {
@@ -32,17 +38,7 @@ const ADDPage = observer(() => {
         getLanguageStore.language.set('EN');
       }
     };
-    const getDefaultObj = async () => {
-      const jsonValue = await AsyncStorage.getItem('object');
-      if (jsonValue !== null) {
-        getGlobalObjectStore().arrayofobjects.set(JSON.parse(jsonValue));
-      } else {
-        const jsonValue = JSON.stringify([]);
-        await AsyncStorage.setItem('object', jsonValue);
-      }
-    };
     getDefaultLang();
-    getDefaultObj();
   }, []);
 
   return (

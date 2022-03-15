@@ -18,12 +18,30 @@ const InputRow = observer(() => {
     if (getRequiredStore().checkInputValidation() === true) {
       getGlobalObjectStore().emptyobject.get().Myid = getGlobalObjectStore().lastIndexToUse.get();
       getAddPageStore().openInputForm();
-      getGlobalObjectStore().addObjectToArray(getGlobalObjectStore().emptyobject.get());
+      const data = { 
+        date: getGlobalObjectStore().emptyobject.get().Mydate,
+        selist: getGlobalObjectStore().emptyobject.get().Myselist,
+        id: getGlobalObjectStore().emptyobject.get().Myid,
+        platform: getGlobalObjectStore().emptyobject.get().Myplatform,
+        releaseVerion: getGlobalObjectStore().emptyobject.get().Myreleaseversion,
+        comment: getGlobalObjectStore().emptyobject.get().Mycomment,
+        prlink: getGlobalObjectStore().emptyobject.get().Myprlink,
+        size: getGlobalObjectStore().emptyobject.get().Mysize,
+        difficulity: getGlobalObjectStore().emptyobject.get().Mydificulity,
+        statuslist: getGlobalObjectStore().emptyobject.get().Mystatuslist,
+        reveiwedbyby: getGlobalObjectStore().emptyobject.get().MyreviewedbyBY,
+        reveiwedbyah: getGlobalObjectStore().emptyobject.get().MyreviewedbyAH,
+        reveiwedbyht: getGlobalObjectStore().emptyobject.get().MyreviewedbyHT
+      };
+      fetch('http://192.168.42.231:3001/api/insert', { 
+        method: 'POST', 
+        headers:{ 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      .then(async res => await res.json())
+      .catch(error => console.error('Error:', error))
+      .then(async response => console.log('Success:', await response));
     }
-  };
-
-  const handlePressCloseButton = () => {
-    getAddPageStore().openInputForm();
   };
 
   return (
@@ -55,7 +73,7 @@ const InputRow = observer(() => {
         </View>
       )}
       {getAddPageStore().inputform.get() && (
-        <TouchableOpacity onPress={() => handlePressCloseButton()}>
+        <TouchableOpacity onPress={() => getAddPageStore().openInputForm()}>
           <View style={{alignItems: 'center'}}>
             <Text
               style={{

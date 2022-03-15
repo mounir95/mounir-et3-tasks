@@ -1,13 +1,13 @@
 import {computed, observable, runInAction} from 'mobx';
 import orderBy from 'lodash/orderBy';
 import filter from 'lodash/filter';
-import {TPrObject} from '../interfaces/interfaces';
+import {TPrObject, TSQLObject} from '../interfaces/interfaces';
 import {memoize} from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class GlobalObjectStore {
-  arrayofobjects = observable.box<TPrObject[]>([]);
-  filteredarrayofobjects = observable.box<TPrObject[]>([]);
+  arrayofobjects = observable.box<TSQLObject[]>([]);
+  filteredarrayofobjects = observable.box<TSQLObject[]>([]);
   ShowPopUp = observable.box<boolean>(false);
   isPickerShow = observable.box<Boolean>(false);
   date = observable.box<Date>(new Date(Date.now()));
@@ -27,21 +27,22 @@ class GlobalObjectStore {
     MyreviewedbyHT: 'no'
   });
 
-  addObjectToArray = async (lastarrayobject: TPrObject) => {
-    runInAction(() => {
-      this.arrayofobjects.get().push({...lastarrayobject});
-    });
-    const jsonValue = JSON.stringify(this.arrayofobjects.get());
-    await AsyncStorage.setItem('object', jsonValue);
-  };
-
   deletObjectWithId = async (objid: number) => {
     runInAction(() => {
-      this.arrayofobjects.set(
-        filter(this.arrayofobjects.get(), (c: TPrObject) => {
-          return c.Myid !== objid;
-        }),
-      );
+      filter(this.arrayofobjects.get(), (c: TSQLObject) => {
+        if (c.id === objid){
+          fetch('http://192.168.42.231:3001/api/delete', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: objid,
+            }),
+          })
+            .then(async res => await res.json())
+            .catch(error => console.error('Error:', error))
+            .then(async response => console.log('Success:', await response));
+        }
+      });
     });
     const jsonValue = JSON.stringify(this.arrayofobjects.get());
     await AsyncStorage.setItem('object', jsonValue);
@@ -50,7 +51,7 @@ class GlobalObjectStore {
   orderingArrayOfObject = () => {
     runInAction(() => {
       this.arrayofobjects.set(
-        orderBy(this.arrayofobjects.get(), (obj: TPrObject) => obj.Myid, [
+        orderBy(this.arrayofobjects.get(), (obj: TSQLObject) => obj.id, [
           'asc',
         ]),
       );
