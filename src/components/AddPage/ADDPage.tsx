@@ -8,7 +8,6 @@ import getAddPageStore from '../../stores/AddPageStore';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../stores/LanguageStore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 
 type RootStackParamList = {
   Excel: undefined;
@@ -23,6 +22,12 @@ const ADDPage = observer(() => {
   };
 
   React.useEffect(() => {
+    console.log('ipconfig | find "IPv4 Address" > getip.txt')
+    fetch('../../../../test/getip.txt')
+      .then(async res => await res.text())
+      .then(async data => {
+        console.log(await data);
+      });
     const getDefaultLang = async () => {
       const value = await AsyncStorage.getItem('language');
       if (value !== null) {

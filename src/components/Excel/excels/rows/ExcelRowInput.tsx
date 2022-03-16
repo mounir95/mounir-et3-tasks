@@ -14,6 +14,7 @@ import {
   windowHeight,
   windowWidth,
 } from '../../../../constants/constants';
+import getSqlQueryStore from '../../../../stores/SqlQuery';
 
 type Props = {
   object: TSQLObject;
@@ -61,35 +62,19 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
               reveiwedbyah: getUpdateFormStore().MyreviewedbyAH.get(),
               reveiwedbyht: getUpdateFormStore().MyreviewedbyHT.get(),
             };
-            fetch('http://192.168.42.231:3001/api/update', {
-              method: 'POST',
-              headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify(data),
-            }).then(async res => await res.json());
-            // .catch(error => console.error('Error:', error));
-            // .then(async response => console.log('Success:', await response));
+            getSqlQueryStore().sqlUpdate(data);
           }
         });
       getExcelStore().openUpdateForm(objectid);
       getUpdateFormStore().resetStore();
       getSortFilterStore().closeopenFilter();
-      fetch('http://192.168.42.231:3001/api/get', {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'},
-      }).then(async res => {
-        getGlobalObjectStore().arrayofobjects.set(await res.json());
-      });
+      getSqlQueryStore().sqlGet();
     }
   };
 
   const onDeleteFun = () => {
     getGlobalObjectStore().deletObjectWithId(object.id);
-    fetch('http://192.168.42.231:3001/api/get', {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'},
-    }).then(async res => {
-      getGlobalObjectStore().arrayofobjects.set(await res.json());
-    });
+    getSqlQueryStore().sqlGet();
   };
 
   const objectarrayval = setObjectArrayFun(object);

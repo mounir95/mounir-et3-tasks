@@ -4,6 +4,7 @@ import filter from 'lodash/filter';
 import {TPrObject, TSQLObject} from '../interfaces/interfaces';
 import {memoize} from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import getSqlQueryStore from './SqlQuery';
 
 class GlobalObjectStore {
   arrayofobjects = observable.box<TSQLObject[]>([]);
@@ -31,15 +32,7 @@ class GlobalObjectStore {
     runInAction(() => {
       filter(this.arrayofobjects.get(), (c: TSQLObject) => {
         if (c.id === objid){
-          fetch('http://192.168.42.231:3001/api/delete', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              id: objid,
-            }),
-          }).then(async res => await res.json());
-          // .catch(error => console.error('Error:', error))
-          // .then(async response => console.log('Success:', await response));
+          getSqlQueryStore().sqlDelete(objid);
         }
       });
     });
