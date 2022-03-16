@@ -37,10 +37,9 @@ class GlobalObjectStore {
             body: JSON.stringify({
               id: objid,
             }),
-          })
-            .then(async res => await res.json())
-            .catch(error => console.error('Error:', error))
-            .then(async response => console.log('Success:', await response));
+          }).then(async res => await res.json());
+          // .catch(error => console.error('Error:', error))
+          // .then(async response => console.log('Success:', await response));
         }
       });
     });
@@ -107,7 +106,7 @@ class GlobalObjectStore {
       return 1;
     } else {
       return (
-        this.arrayofobjects.get()[this.arrayofobjects.get().length - 1].Myid + 1
+        this.arrayofobjects.get()[this.arrayofobjects.get().length - 1].id + 1
       );
     }
   });

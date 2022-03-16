@@ -7,8 +7,19 @@ import UpdateForm from './update/UpdateForm';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../stores/LanguageStore';
 import {windowWidth} from '../../constants/constants';
+import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 
 const Excel = observer(() => {
+  React.useEffect(() => {
+    fetch('http://192.168.42.231:3001/api/get', {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+    }).then(async res => {
+      getGlobalObjectStore().arrayofobjects.set(await res.json());
+    });
+  }, []);
+  
+  
   return (
     <SafeAreaView style={{flex: 1, marginTop: windowWidth * 0.06}}>
       <ScrollView>

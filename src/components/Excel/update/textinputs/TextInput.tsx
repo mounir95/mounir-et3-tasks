@@ -25,8 +25,8 @@ const InputText = observer(() => {
             getUpdateFormStore().Myreleaseversion.set(event.toString())
           }
         />
-        {console.log(getUpdateFormStore().Myreleaseversion.get())}
-        {console.log(getRequiredStore().checkUpdateValidation())}
+        {/* {console.log(getUpdateFormStore().Myreleaseversion.get())} */}
+        {/* {console.log(getRequiredStore().checkUpdateValidation())} */}
       </View>
       <View>
         {!getRequiredStore().comment.get() && (

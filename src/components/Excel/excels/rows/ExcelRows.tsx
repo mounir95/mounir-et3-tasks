@@ -29,9 +29,7 @@ const ExcelRows: FC<Props> = observer(({index}) => {
         getGlobalObjectStore()
           .filteredarrayofobjects.get()
           .map((e: TSQLObject) => {
-            if (e.hasOwnProperty('Mycomment')) {
-              return <FilteredRows object={e} index={index} />;
-            }
+            return <FilteredRows object={e} index={index} />;
           })}
     </View>
   );

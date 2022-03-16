@@ -14,6 +14,15 @@ import getLanguageStore from '../../../stores/LanguageStore';
 import {colors, windowWidth} from '../../../constants/constants';
 
 const InputRow = observer(() => {
+  React.useEffect(() => {
+    fetch('http://192.168.42.231:3001/api/get', {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+    }).then(async res => {
+      getGlobalObjectStore().arrayofobjects.set(await res.json());
+    });
+  }, []);
+  
   const toRadioButtons = () => {
     if (getRequiredStore().checkInputValidation() === true) {
       getGlobalObjectStore().emptyobject.get().Myid = getGlobalObjectStore().lastIndexToUse.get();
@@ -38,9 +47,9 @@ const InputRow = observer(() => {
         headers:{ 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
-      .then(async res => await res.json())
-      .catch(error => console.error('Error:', error))
-      .then(async response => console.log('Success:', await response));
+      .then(async res => await res.json());
+      // .catch(error => console.error('Error:', error))
+      // .then(async response => console.log('Success:', await response));
     }
   };
 

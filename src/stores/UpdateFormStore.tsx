@@ -1,7 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {memoize} from 'lodash';
 import {observable, runInAction} from 'mobx';
-import getGlobalObjectStore from './GlobalObjectStore';
 import getRequiredStore from './RequiredStore';
 
 class UpdateFormStore {
@@ -53,10 +51,6 @@ class UpdateFormStore {
       this.ssdliststrue.set(false);
       this.radiobuttonstrue.set(false);
     });
-    const jsonValue = JSON.stringify(
-      getGlobalObjectStore().arrayofobjects.get(),
-    );
-    await AsyncStorage.setItem('object', jsonValue);
   };
 }
 const getUpdateFormStore = memoize(

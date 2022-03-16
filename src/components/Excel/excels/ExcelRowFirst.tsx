@@ -7,6 +7,7 @@ type Props = {
   index: number;
 };
 const FirstRow: FC<Props> = ({index}) => {
+
   return (
     <View>
       {index >= 13 && (

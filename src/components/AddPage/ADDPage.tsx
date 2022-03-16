@@ -23,12 +23,6 @@ const ADDPage = observer(() => {
   };
 
   React.useEffect(() => {
-    fetch('http://192.168.42.231:3001/api/get', {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'},
-    }).then(async res => {
-      getGlobalObjectStore().arrayofobjects.set(await res.json());
-    });
     const getDefaultLang = async () => {
       const value = await AsyncStorage.getItem('language');
       if (value !== null) {

@@ -47,23 +47,49 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
         .arrayofobjects.get()
         .map((e: TSQLObject) => {
           if (e.id === getExcelStore().id.get()) {
-            e.selist = getUpdateFormStore().Myselist.get();
-            e.platform = getUpdateFormStore().Myplatform.get();
-            e.releaseVerion = getUpdateFormStore().Myreleaseversion.get();
-            e.statuslist = getUpdateFormStore().Mystatuslist.get();
-            e.size = getUpdateFormStore().Mysize.get();
-            e.difficulity = getUpdateFormStore().Mydificulity.get();
-            e.prlink = getUpdateFormStore().Myprlink.get();
-            e.comment = getUpdateFormStore().Mycomment.get();
-            e.reveiwedbyby = getUpdateFormStore().MyreviewedbyBY.get();
-            e.reveiwedbyah = getUpdateFormStore().MyreviewedbyAH.get();
-            e.reveiwedbyht = getUpdateFormStore().MyreviewedbyHT.get();
+            const data = {
+              id: getExcelStore().id.get(),
+              selist: getUpdateFormStore().Myselist.get(),
+              platform: getUpdateFormStore().Myplatform.get(),
+              releaseVerion: getUpdateFormStore().Myreleaseversion.get(),
+              comment: getUpdateFormStore().Mycomment.get(),
+              prlink: getUpdateFormStore().Myprlink.get(),
+              size: getUpdateFormStore().Mysize.get(),
+              difficulity: getUpdateFormStore().Mydificulity.get(),
+              statuslist: getUpdateFormStore().Mystatuslist.get(),
+              reveiwedbyby: getUpdateFormStore().MyreviewedbyBY.get(),
+              reveiwedbyah: getUpdateFormStore().MyreviewedbyAH.get(),
+              reveiwedbyht: getUpdateFormStore().MyreviewedbyHT.get(),
+            };
+            fetch('http://192.168.42.231:3001/api/update', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify(data),
+            }).then(async res => await res.json());
+            // .catch(error => console.error('Error:', error));
+            // .then(async response => console.log('Success:', await response));
           }
         });
       getExcelStore().openUpdateForm(objectid);
       getUpdateFormStore().resetStore();
       getSortFilterStore().closeopenFilter();
+      fetch('http://192.168.42.231:3001/api/get', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+      }).then(async res => {
+        getGlobalObjectStore().arrayofobjects.set(await res.json());
+      });
     }
+  };
+
+  const onDeleteFun = () => {
+    getGlobalObjectStore().deletObjectWithId(object.id);
+    fetch('http://192.168.42.231:3001/api/get', {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+    }).then(async res => {
+      getGlobalObjectStore().arrayofobjects.set(await res.json());
+    });
   };
 
   const objectarrayval = setObjectArrayFun(object);
@@ -125,7 +151,7 @@ const ExcelRowInput: FC<Props> = observer(({object, index}) => {
               paddingVertical: windowWidth * 0.0084,
               backgroundColor: colors.white,
             }}
-            onPress={() => getGlobalObjectStore().deletObjectWithId(object.id)}>
+            onPress={() => onDeleteFun()}>
             <Text>X</Text>
           </TouchableOpacity>
         )}
