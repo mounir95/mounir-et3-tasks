@@ -22,13 +22,7 @@ const ADDPage = observer(() => {
   };
 
   React.useEffect(() => {
-    console.log('ipconfig | find "IPv4 Address" > getip.txt')
-    fetch('../../../../test/getip.txt')
-      .then(async res => await res.text())
-      .then(async data => {
-        console.log(await data);
-      });
-    const getDefaultLang = async () => {
+    async () => {
       const value = await AsyncStorage.getItem('language');
       if (value !== null) {
         getLanguageStore.language.set(value);
@@ -37,7 +31,6 @@ const ADDPage = observer(() => {
         getLanguageStore.language.set('EN');
       }
     };
-    getDefaultLang();
   }, []);
 
   return (

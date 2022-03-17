@@ -1,12 +1,12 @@
 import {memoize} from 'lodash';
-import {observable} from 'mobx';
+import {ipaddress} from '../constants/constants';
 import getGlobalObjectStore from './GlobalObjectStore';
 
 class SqlQueryStore {
-  link = observable.box<string>('http://192.168.42.231:3001');
+
   sqlDelete = (objid: number) => {
-    fetch(`${this.link}/api/delete`, {
-      method: 'DELETE',
+    fetch(`${ipaddress}/api/delete`, {
+      method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         id: objid,
@@ -18,9 +18,7 @@ class SqlQueryStore {
   };
 
   sqlGet = () => {
-    console.log(' i am here');
-    console.log(`${this.link}/api/get`);
-    fetch(`${this.link}/api/get`, {
+    fetch(`${ipaddress}/api/get`, {
       method: 'GET',
       headers: {'Content-Type': 'application/json'},
     }).then(async res => {
@@ -29,25 +27,19 @@ class SqlQueryStore {
   };
 
   sqlInsert = (data: object) => {
-    fetch(`${this.link}/api/insert`, {
+    fetch(`${ipaddress}/api/insert`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data),
     });
-    // .then(async res => await res.json());
-    // .catch(error => console.error('Error:', error))
-    // .then(async response => console.log('Success:', await response));
   };
 
   sqlUpdate = (data: object) => {
-    fetch(`${this.link}/api/insert`, {
+    fetch(`${ipaddress}/api/update`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data),
     });
-    // .then(async res => await res.json());
-    // .catch(error => console.error('Error:', error))
-    // .then(async response => console.log('Success:', await response));
   };
 }
 
