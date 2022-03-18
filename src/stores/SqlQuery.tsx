@@ -3,43 +3,65 @@ import {ipaddress} from '../constants/constants';
 import getGlobalObjectStore from './GlobalObjectStore';
 
 class SqlQueryStore {
+  fetchFun = (
+    geturl: string,
+    getmethod: string,
+    getheader: HeadersInit,
+    getbody: object,
+  ) => {
+    if (getmethod === 'GET') {
+      return fetch(geturl, {
+        method: getmethod,
+        headers: getheader,
+      });
+    } else {
+      return fetch(geturl, {
+        method: getmethod,
+        headers: getheader,
+        body: JSON.stringify(getbody),
+      });
+      // .then(async res => await res.json());
+      // .catch(error => console.error('Error:', error))
+      // .then(async response => console.log('Success:', await response));
+    }
+  };
 
   sqlDelete = (objid: number) => {
-    fetch(`${ipaddress}/api/delete`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        id: objid,
-      }),
-    });
-    // .then(async res => await res.json());
-    // .catch(error => console.error('Error:', error))
-    // .then(async response => console.log('Success:', await response));
+    this.fetchFun(
+      `${ipaddress}/api/delete`,
+      'POST',
+      {'Content-Type': 'application/json'},
+      {id: objid},
+    );
   };
 
   sqlGet = () => {
-    fetch(`${ipaddress}/api/get`, {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'},
-    }).then(async res => {
+    this.fetchFun(
+      `${ipaddress}/api/get`,
+      'GET',
+      {'Content-Type': 'application/json'},
+      {id: 'id'},
+    ).then(async res => {
       getGlobalObjectStore().arrayofobjects.set(await res.json());
     });
   };
 
   sqlInsert = (data: object) => {
-    fetch(`${ipaddress}/api/insert`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
-    });
+    this.fetchFun(
+      `${ipaddress}/api/insert`,
+      'POST',
+      {'Content-Type': 'application/json'},
+      data,
+    );
   };
 
   sqlUpdate = (data: object) => {
-    fetch(`${ipaddress}/api/update`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
-    });
+    this.fetchFun(
+      `${ipaddress}/api/update`,
+      'POST',
+      {'Content-Type': 'application/json'},
+      data,
+    );
   };
 }
 

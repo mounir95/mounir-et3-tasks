@@ -38,6 +38,7 @@ const InputRow = observer(() => {
         reveiwedbyah: getGlobalObjectStore().emptyobject.get().MyreviewedbyAH,
         reveiwedbyht: getGlobalObjectStore().emptyobject.get().MyreviewedbyHT
       };
+            console.log('my data////', data)
       getSqlQueryStore().sqlInsert(data);
     }
   };
