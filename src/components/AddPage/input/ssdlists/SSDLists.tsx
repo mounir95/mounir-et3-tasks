@@ -5,6 +5,7 @@ import SelectInput from '../selectlists/SelectInput';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../../../stores/LanguageStore';
 import {globalStateObject, windowWidth} from '../../../../constants/constants';
+import {runInAction} from 'mobx';
 
 const SSDListInput = observer(() => {
   return (
@@ -19,8 +20,10 @@ const SSDListInput = observer(() => {
           arrayval={globalStateObject.StatusList}
           choosedval={getGlobalObjectStore().emptyobject.get().Mystatuslist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            (getGlobalObjectStore().emptyobject.get().Mystatuslist =
-              event.toString())
+            runInAction(() => {
+              getGlobalObjectStore().emptyobject.get().Mystatuslist =
+                event.toString();
+            })
           }
         />
       </View>
@@ -34,7 +37,10 @@ const SSDListInput = observer(() => {
           arrayval={globalStateObject.Size}
           choosedval={getGlobalObjectStore().emptyobject.get().Mysize}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            (getGlobalObjectStore().emptyobject.get().Mysize = event.toString())
+            runInAction(() => {
+              getGlobalObjectStore().emptyobject.get().Mysize =
+                event.toString();
+            })
           }
         />
       </View>
@@ -48,8 +54,10 @@ const SSDListInput = observer(() => {
           arrayval={globalStateObject.Dificulity}
           choosedval={getGlobalObjectStore().emptyobject.get().Mydificulity}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            (getGlobalObjectStore().emptyobject.get().Mydificulity =
-              event.toString())
+            runInAction(() => {
+              getGlobalObjectStore().emptyobject.get().Mydificulity =
+                event.toString();
+            })
           }
         />
       </View>

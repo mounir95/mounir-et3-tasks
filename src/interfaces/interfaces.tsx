@@ -111,5 +111,5 @@ export interface TTrans {
     textinlang: {AR: string; ENG: string};
   };
   setLanguage(language: string): void;
-  get(message: string): any;
+  get(message: string): string;
 }

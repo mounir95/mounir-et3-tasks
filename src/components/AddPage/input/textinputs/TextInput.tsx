@@ -6,21 +6,24 @@ import getGlobalObjectStore from '../../../../stores/GlobalObjectStore';
 import getRequiredStore from '../../../../stores/RequiredStore';
 import getLanguageStore from '../../../../stores/LanguageStore';
 import {colors} from '../../../../constants/constants';
+import {runInAction} from 'mobx';
 
 const InputText = observer(() => {
   const onInputchange = (
     event: React.ChangeEvent<HTMLSelectElement>,
     Atribuite: string,
   ): void => {
-    if (Atribuite === 'comment') {
-      getGlobalObjectStore().emptyobject.get().Mycomment = event.toString();
-    } else if (Atribuite === 'pr_Link') {
-      getGlobalObjectStore().emptyobject.get().Myprlink = event.toString();
-    } else if (Atribuite === 'release_version') {
-      getGlobalObjectStore().emptyobject.get().Myreleaseversion =
-        event.toString();
-    }
-    getRequiredStore().checkInputValidation();
+    runInAction(() => {
+      if (Atribuite === 'comment') {
+        getGlobalObjectStore().emptyobject.get().Mycomment = event.toString();
+      } else if (Atribuite === 'pr_Link') {
+        getGlobalObjectStore().emptyobject.get().Myprlink = event.toString();
+      } else if (Atribuite === 'release_version') {
+        getGlobalObjectStore().emptyobject.get().Myreleaseversion =
+          event.toString();
+      }
+      getRequiredStore().checkInputValidation();
+    });
   };
 
   return (

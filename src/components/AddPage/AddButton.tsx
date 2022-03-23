@@ -7,9 +7,12 @@ import {observer} from 'mobx-react';
 import getRequiredStore from '../../stores/RequiredStore';
 import getLanguageStore from '../../stores/LanguageStore';
 import {colors, windowWidth} from '../../constants/constants';
+import {runInAction} from 'mobx';
 
 const AddButton = observer(() => {
-  getAddPageStore().addtext.set(getLanguageStore.get('addtext'));
+  runInAction(() => {
+    getAddPageStore().addtext.set(getLanguageStore.get('addtext'));
+  });
   const onPressSubmit = () => {
     if (getAddPageStore().addtext.get() === getLanguageStore.get('closetext')) {
       getAddPageStore().openInputForm();
@@ -22,12 +25,14 @@ const AddButton = observer(() => {
   };
 
   React.useEffect(() => {
-    setInterval(async () => {
-      getGlobalObjectStore().ShowPopUp.set(true);
-      setTimeout(() => {
-        getGlobalObjectStore().ShowPopUp.set(false);
-      }, 5 * 2 * 1000);
-    }, 5 * 60 * 1000);
+    runInAction(() => {
+      setInterval(async () => {
+        getGlobalObjectStore().ShowPopUp.set(true);
+        setTimeout(() => {
+          getGlobalObjectStore().ShowPopUp.set(false);
+        }, 5 * 2 * 1000);
+      }, 5 * 60 * 1000);
+    });
   }, []);
 
   return (

@@ -14,7 +14,6 @@ const Excel = observer(() => {
     getSqlQueryStore().sqlGet();
   }, []);
   
-  
   return (
     <SafeAreaView style={{flex: 1, marginTop: windowWidth * 0.06}}>
       <ScrollView>

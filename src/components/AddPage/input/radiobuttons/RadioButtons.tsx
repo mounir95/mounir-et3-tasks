@@ -5,6 +5,7 @@ import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../../../stores/GlobalObjectStore';
 import getLanguageStore from '../../../../stores/LanguageStore';
 import {booleanval, windowWidth} from '../../../../constants/constants';
+import {runInAction} from 'mobx';
 
 type Props = {
   radioButtons: Function;
@@ -35,8 +36,10 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              (getGlobalObjectStore().emptyobject.get().MyreviewedbyBY =
-                booleanstring.toString())
+              runInAction(() => {
+                getGlobalObjectStore().emptyobject.get().MyreviewedbyBY =
+                  booleanstring.toString();
+              })
             }
             value={getGlobalObjectStore().emptyobject.get().MyreviewedbyBY}
           />
@@ -59,8 +62,10 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              (getGlobalObjectStore().emptyobject.get().MyreviewedbyAH =
-                booleanstring.toString())
+              runInAction(() => {
+                getGlobalObjectStore().emptyobject.get().MyreviewedbyAH =
+                  booleanstring.toString();
+              })
             }
             value={getGlobalObjectStore().emptyobject.get().MyreviewedbyAH}
           />
@@ -83,8 +88,10 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              (getGlobalObjectStore().emptyobject.get().MyreviewedbyHT =
-                booleanstring.toString())
+              runInAction(() => {
+                getGlobalObjectStore().emptyobject.get().MyreviewedbyHT =
+                  booleanstring.toString();
+              })
             }
             value={getGlobalObjectStore().emptyobject.get().MyreviewedbyHT}
           />

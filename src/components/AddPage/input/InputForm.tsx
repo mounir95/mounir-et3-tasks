@@ -15,10 +15,6 @@ import {colors, windowWidth} from '../../../constants/constants';
 import getSqlQueryStore from '../../../stores/SqlQuery';
 
 const InputRow = observer(() => {
-  React.useEffect(() => {
-    getSqlQueryStore().sqlGet();
-  }, []);
-  
   const toRadioButtons = () => {
     if (getRequiredStore().checkInputValidation() === true) {
       getGlobalObjectStore().emptyobject.get().Myid = getGlobalObjectStore().lastIndexToUse.get();
@@ -38,8 +34,8 @@ const InputRow = observer(() => {
         reveiwedbyah: getGlobalObjectStore().emptyobject.get().MyreviewedbyAH,
         reveiwedbyht: getGlobalObjectStore().emptyobject.get().MyreviewedbyHT
       };
-            console.log('my data////', data)
       getSqlQueryStore().sqlInsert(data);
+      getSqlQueryStore().sqlGet();
     }
   };
 

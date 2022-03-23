@@ -9,6 +9,7 @@ import getExcelStore from '../../../../../stores/ExcelStore';
 import getLanguageStore from '../../../../../stores/LanguageStore';
 import {colors, windowWidth} from '../../../../../constants/constants';
 import {TSQLObject} from '../../../../../interfaces/interfaces';
+import {runInAction} from 'mobx';
 
 const SortByDate = observer(() => {
   const itemarray = getLanguageStore.get('arrayofsort').map((item: string) => {
@@ -16,27 +17,29 @@ const SortByDate = observer(() => {
   });
 
   const setDateSort = (event: React.ChangeEvent) => {
-    let newobjectarray;
-    let value;
-    event === null ? (value = event) : (value = event.toString());
-    if (getLanguageStore.get('desc') === value) {
-      let x = 'desc';
-      newobjectarray = orderBy(
-        getGlobalObjectStore().arrayofobjects.get(),
-        (obj: TSQLObject) => obj.date,
-        [x === 'desc' ? 'desc' : 'asc'],
-      );
-    } else {
-      let x = 'asc';
-      newobjectarray = orderBy(
-        getGlobalObjectStore().arrayofobjects.get(),
-        (obj: TSQLObject) => obj.date,
-        [x === 'asc' ? 'asc' : 'desc'],
-      );
-    }
-    getSortFilterStore().setDateFun();
-    getGlobalObjectStore().arrayofobjects.set(newobjectarray);
-    getExcelStore().resetStore();
+    runInAction(() => {
+      let newobjectarray;
+      let value;
+      event === null ? (value = event) : (value = event.toString());
+      if (getLanguageStore.get('desc') === value) {
+        let x = 'desc';
+        newobjectarray = orderBy(
+          getGlobalObjectStore().arrayofobjects.get(),
+          (obj: TSQLObject) => obj.date,
+          [x === 'desc' ? 'desc' : 'asc'],
+        );
+      } else {
+        let x = 'asc';
+        newobjectarray = orderBy(
+          getGlobalObjectStore().arrayofobjects.get(),
+          (obj: TSQLObject) => obj.date,
+          [x === 'asc' ? 'asc' : 'desc'],
+        );
+      }
+      getSortFilterStore().setDateFun();
+      getGlobalObjectStore().arrayofobjects.set(newobjectarray);
+      getExcelStore().resetStore();
+    });
   };
 
   return (

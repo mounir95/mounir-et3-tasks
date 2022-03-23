@@ -5,6 +5,7 @@ import SelectInput from './SelectInput';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../../../stores/LanguageStore';
 import {globalStateObject, windowWidth} from '../../../../constants/constants';
+import {runInAction} from 'mobx';
 
 const InputSelectList = observer(() => {
   return (
@@ -20,7 +21,9 @@ const InputSelectList = observer(() => {
           arrayval={globalStateObject.SEList}
           choosedval={getUpdateFormStore().Myselist.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            getUpdateFormStore().Myselist.set(event.toString())
+            runInAction(() => {
+              getUpdateFormStore().Myselist.set(event.toString());
+            })
           }
         />
       </View>
@@ -35,7 +38,9 @@ const InputSelectList = observer(() => {
           arrayval={globalStateObject.Platform}
           choosedval={getUpdateFormStore().Myplatform.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            getUpdateFormStore().Myplatform.set(event.toString())
+            runInAction(() => {
+              getUpdateFormStore().Myplatform.set(event.toString());
+            })
           }
         />
       </View>

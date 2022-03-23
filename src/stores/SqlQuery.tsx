@@ -1,4 +1,5 @@
 import {memoize} from 'lodash';
+import {runInAction} from 'mobx';
 import {ipaddress} from '../constants/constants';
 import getGlobalObjectStore from './GlobalObjectStore';
 
@@ -27,12 +28,14 @@ class SqlQueryStore {
   };
 
   sqlDelete = (objid: number) => {
-    this.fetchFun(
-      `${ipaddress}/api/delete`,
-      'POST',
-      {'Content-Type': 'application/json'},
-      {id: objid},
-    );
+    runInAction(() => {
+      this.fetchFun(
+        `${ipaddress}/api/delete`,
+        'POST',
+        {'Content-Type': 'application/json'},
+        {id: objid},
+      );
+    });
   };
 
   sqlGet = () => {
@@ -42,7 +45,10 @@ class SqlQueryStore {
       {'Content-Type': 'application/json'},
       {id: 'id'},
     ).then(async res => {
-      getGlobalObjectStore().arrayofobjects.set(await res.json());
+      const result = await res.json();
+      runInAction(() => {
+        getGlobalObjectStore().arrayofobjects.set(result);
+      });
     });
   };
 

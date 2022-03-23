@@ -13,69 +13,80 @@ import getGlobalObjectStore from '../../../../../stores/GlobalObjectStore';
 import filter from 'lodash/filter';
 import {observer} from 'mobx-react';
 import {colors, windowWidth} from '../../../../../constants/constants';
+import {runInAction} from 'mobx';
 
 const Filters = observer(() => {
   const filterStatusFun = (event: React.ChangeEvent) => {
-    getGlobalObjectStore().filteredarrayofobjects.set(
-      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
-        if (c.hasOwnProperty('statuslist')) {
-          return c.statuslist === event.toString();
-        }
-      }),
-    );
-    getFilterStore().platform.set(!getFilterStore().platform.get());
-    getFilterStore().se.set(!getFilterStore().se.get());
-    getFilterStore().status.set(getFilterStore().status.get());
-    getFilterStore().comment.set(!getFilterStore().comment.get());
+    runInAction(() => {
+      getGlobalObjectStore().filteredarrayofobjects.set(
+        filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
+          if (c.hasOwnProperty('statuslist')) {
+            return c.statuslist === event.toString();
+          }
+        }),
+      );
+      getFilterStore().platform.set(!getFilterStore().platform.get());
+      getFilterStore().se.set(!getFilterStore().se.get());
+      getFilterStore().status.set(getFilterStore().status.get());
+      getFilterStore().comment.set(!getFilterStore().comment.get());
+    });
   };
 
   const filterSElistFun = (event: React.ChangeEvent) => {
-    getGlobalObjectStore().filteredarrayofobjects.set(
-      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
-        if (c.hasOwnProperty('selist')) {
-          return c.selist === event.toString();
-        }
-      }),
-    );
-    getFilterStore().platform.set(!getFilterStore().platform.get());
-    getFilterStore().se.set(getFilterStore().se.get());
-    getFilterStore().status.set(!getFilterStore().status.get());
-    getFilterStore().comment.set(!getFilterStore().comment.get());
+    runInAction(() => {
+      getGlobalObjectStore().filteredarrayofobjects.set(
+        filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
+          if (c.hasOwnProperty('selist')) {
+            return c.selist === event.toString();
+          }
+        }),
+      );
+      getFilterStore().platform.set(!getFilterStore().platform.get());
+      getFilterStore().se.set(getFilterStore().se.get());
+      getFilterStore().status.set(!getFilterStore().status.get());
+      getFilterStore().comment.set(!getFilterStore().comment.get());
+    });
   };
 
   const filterPlatformFun = (event: React.ChangeEvent) => {
-    getGlobalObjectStore().filteredarrayofobjects.set(
-      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
-        if (c.hasOwnProperty('platform')) {
-          return c.platform === event.toString();
-        }
-      }),
-    );
-    getFilterStore().platform.set(getFilterStore().platform.get());
-    getFilterStore().se.set(getFilterStore().se.get());
-    getFilterStore().status.set(!getFilterStore().status.get());
-    getFilterStore().comment.set(!getFilterStore().comment.get());
+    runInAction(() => {
+      getGlobalObjectStore().filteredarrayofobjects.set(
+        filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
+          if (c.hasOwnProperty('platform')) {
+            return c.platform === event.toString();
+          }
+        }),
+      );
+      getFilterStore().platform.set(getFilterStore().platform.get());
+      getFilterStore().se.set(getFilterStore().se.get());
+      getFilterStore().status.set(!getFilterStore().status.get());
+      getFilterStore().comment.set(!getFilterStore().comment.get());
+    });
   };
 
   const textChangedFun = (event: string) => {
-    getGlobalObjectStore().filteredarrayofobjects.set(
-      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
-        if (c.hasOwnProperty('comment')) {
-          return c.comment.includes(event) === true;
-        }
-      }),
-    );
-    getFilterStore().platform.set(!getFilterStore().platform.get());
-    getFilterStore().se.set(!getFilterStore().se.get());
-    getFilterStore().status.set(!getFilterStore().status.get());
-    getFilterStore().comment.set(getFilterStore().comment.get());
+    runInAction(() => {
+      getGlobalObjectStore().filteredarrayofobjects.set(
+        filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
+          if (c.hasOwnProperty('comment')) {
+            return c.comment.includes(event) === true;
+          }
+        }),
+      );
+      getFilterStore().platform.set(!getFilterStore().platform.get());
+      getFilterStore().se.set(!getFilterStore().se.get());
+      getFilterStore().status.set(!getFilterStore().status.get());
+      getFilterStore().comment.set(getFilterStore().comment.get());
+    });
   };
 
   const pressFilter = () => {
     getExcelStore().openFilterForm();
-    getGlobalObjectStore().filteredarrayofobjects.set(
-      getGlobalObjectStore().arrayofobjects.get(),
-    );
+    runInAction(() => {
+      getGlobalObjectStore().filteredarrayofobjects.set(
+        getGlobalObjectStore().arrayofobjects.get(),
+      );
+    });
   };
 
   return (

@@ -5,6 +5,7 @@ import RadioButtonRow from './RadioButtonInput';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../../../stores/LanguageStore';
 import {booleanval, windowWidth} from '../../../../constants/constants';
+import {runInAction} from 'mobx';
 
 const RadioButtonInput = observer(() => {
   return (
@@ -28,7 +29,11 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              getUpdateFormStore().MyreviewedbyBY.set(booleanstring.toString())
+              runInAction(() => {
+                getUpdateFormStore().MyreviewedbyBY.set(
+                  booleanstring.toString(),
+                );
+              })
             }
             value={getUpdateFormStore().MyreviewedbyBY.get()}
           />
@@ -51,7 +56,11 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              getUpdateFormStore().MyreviewedbyAH.set(booleanstring.toString())
+              runInAction(() => {
+                getUpdateFormStore().MyreviewedbyAH.set(
+                  booleanstring.toString(),
+                );
+              })
             }
             value={getUpdateFormStore().MyreviewedbyAH.get()}
           />
@@ -74,7 +83,11 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              getUpdateFormStore().MyreviewedbyHT.set(booleanstring.toString())
+              runInAction(() => {
+                getUpdateFormStore().MyreviewedbyHT.set(
+                  booleanstring.toString(),
+                );
+              })
             }
             value={getUpdateFormStore().MyreviewedbyHT.get()}
           />
