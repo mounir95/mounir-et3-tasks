@@ -8,7 +8,6 @@ import getAddPageStore from '../../stores/AddPageStore';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../stores/LanguageStore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 
 type RootStackParamList = {
   Excel: undefined;
@@ -21,9 +20,9 @@ const ADDPage = observer(() => {
     getAddPageStore().openInputForm();
     navigation.navigate('Excel');
   };
-  
+
   React.useEffect(() => {
-    const getDefaultLang = async () => {
+    async () => {
       const value = await AsyncStorage.getItem('language');
       if (value !== null) {
         getLanguageStore.language.set(value);
@@ -32,17 +31,6 @@ const ADDPage = observer(() => {
         getLanguageStore.language.set('EN');
       }
     };
-    const getDefaultObj = async () => {
-      const jsonValue = await AsyncStorage.getItem('object');
-      if (jsonValue !== null) {
-        getGlobalObjectStore().arrayofobjects.set(JSON.parse(jsonValue));
-      } else {
-        const jsonValue = JSON.stringify([]);
-        await AsyncStorage.setItem('object', jsonValue);
-      }
-    };
-    getDefaultLang();
-    getDefaultObj();
   }, []);
 
   return (

@@ -5,27 +5,27 @@ import {
   windowHeight,
   windowWidth,
 } from '../../../../constants/constants';
-import {TPrObject} from '../../../../interfaces/interfaces';
+import {TSQLObject} from '../../../../interfaces/interfaces';
 
 type Props = {
-  object: TPrObject;
+  object: TSQLObject;
   index: number;
 };
 const FilteredRows: FC<Props> = ({object, index}) => {
   const objectarrayval = [
-    object.Mydate,
-    object.Myselist,
-    object.Myid,
-    object.Myplatform,
-    object.Myreleaseversion,
-    object.Mycomment,
-    object.Myprlink,
-    object.Mysize,
-    object.Mydificulity,
-    object.Mystatuslist,
-    object.MyreviewedbyBY,
-    object.MyreviewedbyAH,
-    object.MyreviewedbyHT,
+    object.date,
+    object.selist,
+    object.id,
+    object.platform,
+    object.releaseVerion,
+    object.comment,
+    object.prlink,
+    object.size,
+    object.difficulity,
+    object.statuslist,
+    object.reveiwedbyby,
+    object.reveiwedbyah,
+    object.reveiwedbyht,
   ];
 
   return (

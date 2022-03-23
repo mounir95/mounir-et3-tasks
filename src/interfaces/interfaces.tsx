@@ -21,6 +21,22 @@ export interface TPrObject {
   MyreviewedbyHT: string;
 }
 
+export interface TSQLObject {
+  id: number;
+  date: string;
+  selist: string;
+  platform: string;
+  releaseVerion: string;
+  comment: string;
+  prlink: string;
+  size: string;
+  difficulity: string;
+  statuslist: string;
+  reveiwedbyby: string;
+  reveiwedbyah: string;
+  reveiwedbyht: string;
+}
+
 export interface globalObject {
   Date: Date;
   SEList: string[];
@@ -36,21 +52,21 @@ export interface globalObject {
   ReveiwedByHT: string;
 }
 
-export const setObjectArrayFun = (object: TPrObject) => {
+export const setObjectArrayFun = (object: TSQLObject) => {
   return [
-    object.Mydate,
-    object.Myselist,
-    object.Myid,
-    object.Myplatform,
-    object.Myreleaseversion,
-    object.Mycomment,
-    object.Myprlink,
-    object.Mysize,
-    object.Mydificulity,
-    object.Mystatuslist,
-    object.MyreviewedbyBY,
-    object.MyreviewedbyAH,
-    object.MyreviewedbyHT,
+    object.date,
+    object.selist,
+    object.id,
+    object.platform,
+    object.releaseVerion,
+    object.comment,
+    object.prlink,
+    object.size,
+    object.difficulity,
+    object.statuslist,
+    object.reveiwedbyby,
+    object.reveiwedbyah,
+    object.reveiwedbyht,
   ];
 };
 

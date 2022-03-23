@@ -12,18 +12,35 @@ import {observer} from 'mobx-react';
 import getRequiredStore from '../../../stores/RequiredStore';
 import getLanguageStore from '../../../stores/LanguageStore';
 import {colors, windowWidth} from '../../../constants/constants';
+import getSqlQueryStore from '../../../stores/SqlQuery';
 
 const InputRow = observer(() => {
+  React.useEffect(() => {
+    getSqlQueryStore().sqlGet();
+  }, []);
+  
   const toRadioButtons = () => {
     if (getRequiredStore().checkInputValidation() === true) {
       getGlobalObjectStore().emptyobject.get().Myid = getGlobalObjectStore().lastIndexToUse.get();
       getAddPageStore().openInputForm();
-      getGlobalObjectStore().addObjectToArray(getGlobalObjectStore().emptyobject.get());
+      const data = { 
+        date: getGlobalObjectStore().emptyobject.get().Mydate,
+        selist: getGlobalObjectStore().emptyobject.get().Myselist,
+        id: getGlobalObjectStore().emptyobject.get().Myid,
+        platform: getGlobalObjectStore().emptyobject.get().Myplatform,
+        releaseVerion: getGlobalObjectStore().emptyobject.get().Myreleaseversion,
+        comment: getGlobalObjectStore().emptyobject.get().Mycomment,
+        prlink: getGlobalObjectStore().emptyobject.get().Myprlink,
+        size: getGlobalObjectStore().emptyobject.get().Mysize,
+        difficulity: getGlobalObjectStore().emptyobject.get().Mydificulity,
+        statuslist: getGlobalObjectStore().emptyobject.get().Mystatuslist,
+        reveiwedbyby: getGlobalObjectStore().emptyobject.get().MyreviewedbyBY,
+        reveiwedbyah: getGlobalObjectStore().emptyobject.get().MyreviewedbyAH,
+        reveiwedbyht: getGlobalObjectStore().emptyobject.get().MyreviewedbyHT
+      };
+            console.log('my data////', data)
+      getSqlQueryStore().sqlInsert(data);
     }
-  };
-
-  const handlePressCloseButton = () => {
-    getAddPageStore().openInputForm();
   };
 
   return (
@@ -55,7 +72,7 @@ const InputRow = observer(() => {
         </View>
       )}
       {getAddPageStore().inputform.get() && (
-        <TouchableOpacity onPress={() => handlePressCloseButton()}>
+        <TouchableOpacity onPress={() => getAddPageStore().openInputForm()}>
           <View style={{alignItems: 'center'}}>
             <Text
               style={{

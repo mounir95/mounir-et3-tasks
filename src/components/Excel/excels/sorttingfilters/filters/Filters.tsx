@@ -6,7 +6,7 @@ import FilterByComment from './FitlerByComment';
 import FilterByStatus from './FilterByStatus';
 import FilterBySE from './FilterBySE';
 import FilterByPlatform from './FilterByPlatform';
-import {TPrObject} from '../../../../../interfaces/interfaces';
+import {TSQLObject} from '../../../../../interfaces/interfaces';
 import getExcelStore from '../../../../../stores/ExcelStore';
 import getFilterStore from '../../../../../stores/FilterStore';
 import getGlobalObjectStore from '../../../../../stores/GlobalObjectStore';
@@ -17,9 +17,9 @@ import {colors, windowWidth} from '../../../../../constants/constants';
 const Filters = observer(() => {
   const filterStatusFun = (event: React.ChangeEvent) => {
     getGlobalObjectStore().filteredarrayofobjects.set(
-      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TPrObject) => {
-        if (c.hasOwnProperty('Mystatuslist')) {
-          return c.Mystatuslist === event.toString();
+      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
+        if (c.hasOwnProperty('statuslist')) {
+          return c.statuslist === event.toString();
         }
       }),
     );
@@ -31,9 +31,9 @@ const Filters = observer(() => {
 
   const filterSElistFun = (event: React.ChangeEvent) => {
     getGlobalObjectStore().filteredarrayofobjects.set(
-      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TPrObject) => {
-        if (c.hasOwnProperty('Myselist')) {
-          return c.Myselist === event.toString();
+      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
+        if (c.hasOwnProperty('selist')) {
+          return c.selist === event.toString();
         }
       }),
     );
@@ -45,9 +45,9 @@ const Filters = observer(() => {
 
   const filterPlatformFun = (event: React.ChangeEvent) => {
     getGlobalObjectStore().filteredarrayofobjects.set(
-      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TPrObject) => {
-        if (c.hasOwnProperty('Myplatform')) {
-          return c.Myplatform === event.toString();
+      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
+        if (c.hasOwnProperty('platform')) {
+          return c.platform === event.toString();
         }
       }),
     );
@@ -59,9 +59,9 @@ const Filters = observer(() => {
 
   const textChangedFun = (event: string) => {
     getGlobalObjectStore().filteredarrayofobjects.set(
-      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TPrObject) => {
-        if (c.hasOwnProperty('Mycomment')) {
-          return c.Mycomment.includes(event) === true;
+      filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
+        if (c.hasOwnProperty('comment')) {
+          return c.comment.includes(event) === true;
         }
       }),
     );

@@ -7,8 +7,14 @@ import UpdateForm from './update/UpdateForm';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../stores/LanguageStore';
 import {windowWidth} from '../../constants/constants';
+import getSqlQueryStore from '../../stores/SqlQuery';
 
 const Excel = observer(() => {
+  React.useEffect(() => {
+    getSqlQueryStore().sqlGet();
+  }, []);
+  
+  
   return (
     <SafeAreaView style={{flex: 1, marginTop: windowWidth * 0.06}}>
       <ScrollView>
