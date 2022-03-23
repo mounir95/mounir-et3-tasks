@@ -32,46 +32,16 @@ const AddButton = observer(() => {
 
   return (
     <View style={{alignItems: 'center'}}>
-      <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity onPress={() => getLanguageStore.setLanguage('ENG')}>
-          <Text
-            style={{
-              borderWidth: windowWidth * 0.006,
-              borderRadius: windowWidth * 0.013,
-              padding: windowWidth * 0.013,
-              marginBottom: windowWidth * 0.013,
-              borderColor: colors.lightpurple,
-              color: colors.lightpurple,
-              backgroundColor: colors.white,
-            }}>
-            {getLanguageStore.get('enlang')}
+      <Dialog
+        visible={getGlobalObjectStore().ShowPopUp.get()}
+        dialogTitle={<DialogTitle title="PRS" />}>
+        <DialogContent>
+          <Text>
+            {getLanguageStore.get('prcount')}
+            {getGlobalObjectStore().lastIndexpopUp.get()}
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => getLanguageStore.setLanguage('AR')}>
-          <Text
-            style={{
-              borderWidth: windowWidth * 0.006,
-              borderRadius: windowWidth * 0.013,
-              padding: windowWidth * 0.013,
-              marginBottom: windowWidth * 0.013,
-              borderColor: colors.lightpurple,
-              color: colors.lightpurple,
-              backgroundColor: colors.white,
-            }}>
-            {getLanguageStore.get('arlang')}
-          </Text>
-        </TouchableOpacity>
-        <Dialog
-          visible={getGlobalObjectStore().ShowPopUp.get()}
-          dialogTitle={<DialogTitle title="PRS" />}>
-          <DialogContent>
-            <Text>
-              {getLanguageStore.get('prcount')}
-              {getGlobalObjectStore().lastIndexpopUp.get()}
-            </Text>
-          </DialogContent>
-        </Dialog>
-      </View>
+        </DialogContent>
+      </Dialog>
       {getAddPageStore().addbuttontrue.get() && (
         <TouchableOpacity onPress={() => onPressSubmit()}>
           <Text

@@ -17,7 +17,9 @@ const SortByDate = observer(() => {
 
   const setDateSort = (event: React.ChangeEvent) => {
     let newobjectarray;
-    if (event.toString() === getLanguageStore.get('desc')) {
+    let value;
+    event === null ? (value = event) : (value = event.toString());
+    if (getLanguageStore.get('desc') === value) {
       let x = 'desc';
       newobjectarray = orderBy(
         getGlobalObjectStore().arrayofobjects.get(),

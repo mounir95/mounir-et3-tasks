@@ -1,5 +1,5 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Excel from '../components/Excel/Excel';
 import ADDPage from '../components/AddPage/ADDPage';
 

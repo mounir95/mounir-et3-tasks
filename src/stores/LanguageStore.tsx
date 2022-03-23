@@ -5,9 +5,17 @@ import {observable, runInAction} from 'mobx';
 const getLanguageStore: TTrans = {
   language: observable.box<string>('ENG'),
   LG: {
+    translation: {
+      AR: 'صفحة الترجمة',
+      ENG: 'Translation Page',
+    },
     addpage: {
       AR: 'صفحة الإضافة',
       ENG: 'ADD Page',
+    },
+    excel: {
+      AR: 'صفحةالإكسل',
+      ENG: 'Excel Page',
     },
     excelpage: {
       AR: 'PR صفحة النتائج',
@@ -169,6 +177,10 @@ const getLanguageStore: TTrans = {
         {name: ''},
       ],
     },
+    textinlang: {
+      AR: 'يرجى اختيار اللغة التي تفضلها في هذا التطبيق: ',
+      ENG: 'Please choose the language you prefer in this App: ',
+    }
   },
 
   setLanguage(language: string) {
