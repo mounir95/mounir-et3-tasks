@@ -4,7 +4,7 @@ import Excel from '../components/Excel/Excel';
 import ADDPage from '../components/AddPage/ADDPage';
 import getLanguageStore from '../stores/LanguageStore';
 import {observer} from 'mobx-react';
-import {Lang} from './lang';
+import {Lang} from './Lang';
 
 const Drawer = createDrawerNavigator();
 

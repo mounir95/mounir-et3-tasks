@@ -12,9 +12,11 @@ import {TSQLObject} from '../../../../../interfaces/interfaces';
 import {runInAction} from 'mobx';
 
 const SortByDate = observer(() => {
-  const itemarray = getLanguageStore.get('arrayofsort').map((item: string) => {
-    return {label: item, value: item};
-  });
+  const itemarray = getLanguageStore
+    .getArray('arrayofsort')
+    .map((item: string) => {
+      return {label: item, value: item};
+    });
 
   const setDateSort = (event: React.ChangeEvent) => {
     runInAction(() => {

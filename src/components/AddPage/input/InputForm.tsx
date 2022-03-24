@@ -13,13 +13,14 @@ import getRequiredStore from '../../../stores/RequiredStore';
 import getLanguageStore from '../../../stores/LanguageStore';
 import {colors, windowWidth} from '../../../constants/constants';
 import getSqlQueryStore from '../../../stores/SqlQuery';
+import { runInAction } from 'mobx';
 
 const InputRow = observer(() => {
   const toRadioButtons = () => {
     if (getRequiredStore().checkInputValidation() === true) {
-      getGlobalObjectStore().emptyobject.get().Myid = getGlobalObjectStore().lastIndexToUse.get();
+      getGlobalObjectStore().emptyobject.get().Myid = getGlobalObjectStore().lastindex.get() + 1;
       getAddPageStore().openInputForm();
-      const data = { 
+      const data = {
         date: getGlobalObjectStore().emptyobject.get().Mydate,
         selist: getGlobalObjectStore().emptyobject.get().Myselist,
         id: getGlobalObjectStore().emptyobject.get().Myid,
@@ -35,7 +36,9 @@ const InputRow = observer(() => {
         reveiwedbyht: getGlobalObjectStore().emptyobject.get().MyreviewedbyHT
       };
       getSqlQueryStore().sqlInsert(data);
+      runInAction(() => {
       getSqlQueryStore().sqlGet();
+      });
     }
   };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
-import Dialog, {DialogTitle, DialogContent} from 'react-native-popup-dialog';
 import getAddPageStore from '../../stores/AddPageStore';
 import getGlobalObjectStore from '../../stores/GlobalObjectStore';
 import {observer} from 'mobx-react';
@@ -8,45 +7,25 @@ import getRequiredStore from '../../stores/RequiredStore';
 import getLanguageStore from '../../stores/LanguageStore';
 import {colors, windowWidth} from '../../constants/constants';
 import {runInAction} from 'mobx';
+import getSqlQueryStore from '../../stores/SqlQuery';
 
 const AddButton = observer(() => {
   runInAction(() => {
     getAddPageStore().addtext.set(getLanguageStore.get('addtext'));
   });
   const onPressSubmit = () => {
+    getSqlQueryStore().sqlGetid();
     if (getAddPageStore().addtext.get() === getLanguageStore.get('closetext')) {
       getAddPageStore().openInputForm();
     } else {
       getAddPageStore().closeInputForm();
       getRequiredStore().resetValidationTrue();
     }
-    getGlobalObjectStore().orderingArrayOfObject();
     getGlobalObjectStore().clearemptyObject();
   };
 
-  React.useEffect(() => {
-    runInAction(() => {
-      setInterval(async () => {
-        getGlobalObjectStore().ShowPopUp.set(true);
-        setTimeout(() => {
-          getGlobalObjectStore().ShowPopUp.set(false);
-        }, 5 * 2 * 1000);
-      }, 5 * 60 * 1000);
-    });
-  }, []);
-
   return (
     <View style={{alignItems: 'center'}}>
-      <Dialog
-        visible={getGlobalObjectStore().ShowPopUp.get()}
-        dialogTitle={<DialogTitle title="PRS" />}>
-        <DialogContent>
-          <Text>
-            {getLanguageStore.get('prcount')}
-            {getGlobalObjectStore().lastIndexpopUp.get()}
-          </Text>
-        </DialogContent>
-      </Dialog>
       {getAddPageStore().addbuttontrue.get() && (
         <TouchableOpacity onPress={() => onPressSubmit()}>
           <Text

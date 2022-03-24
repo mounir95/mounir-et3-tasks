@@ -53,7 +53,7 @@ const Datepicker = observer(() => {
       )}
       {getGlobalObjectStore().isPickerShow.get() && (
         <DateTimePicker
-          value={getGlobalObjectStore().date.get()}
+          value={new Date(Date.now())}
           mode={'date'}
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
           is24Hour={true}

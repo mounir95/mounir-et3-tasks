@@ -187,18 +187,24 @@ const getLanguageStore: TTrans = {
     runInAction(() => {
       this.language.set(language);
     });
-    const setData = async () => {
+    async () => {
       await AsyncStorage.setItem('language', language);
     };
-    setData();
   },
 
   get(message: string) {
     const language = this.language.get();
-    return this.LG[message] === undefined ||
-      this.LG[message][language] === undefined
-      ? message
-      : this.LG[message][language];
+    return this.LG[message][language];
+  },
+
+  getArray(array: string) {
+    const language = this.language.get();
+    return this.LG[array][language];
+  },
+
+  getObjArray(array: string) {
+    const language = this.language.get();
+    return this.LG[array][language];
   },
 };
 

@@ -112,4 +112,6 @@ export interface TTrans {
   };
   setLanguage(language: string): void;
   get(message: string): string;
+  getArray(array: string): string[];
+  getObjArray(array: string): [{name: string}];
 }

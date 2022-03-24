@@ -44,7 +44,7 @@ const FirstRow: FC<Props> = ({index}) => {
             backgroundColor: colors.lightpurple,
           }}>
           <Text style={{color: colors.white}}>
-            {getLanguageStore.get('excelcol')[index].name}
+            {getLanguageStore.getObjArray('excelcol')[index].name}
           </Text>
         </View>
       )}

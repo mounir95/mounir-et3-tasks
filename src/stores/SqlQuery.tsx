@@ -52,6 +52,24 @@ class SqlQueryStore {
     });
   };
 
+  sqlGetid = () => {
+    this.fetchFun(
+      `${ipaddress}/api/getid`,
+      'GET',
+      {'Content-Type': 'application/json'},
+      {id: 'id'},
+    ).then(async res => {
+      const result = await res.json();
+      runInAction(() => {
+        if (result[0].id >= 0) {
+          getGlobalObjectStore().lastindex.set(result[0].id);
+        } else{
+          getGlobalObjectStore().lastindex.set(0);
+        }
+      });
+    });
+  };
+
   sqlInsert = (data: object) => {
     this.fetchFun(
       `${ipaddress}/api/insert`,

@@ -8,10 +8,23 @@ import {observer} from 'mobx-react';
 import getLanguageStore from '../../stores/LanguageStore';
 import {windowWidth} from '../../constants/constants';
 import getSqlQueryStore from '../../stores/SqlQuery';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {runInAction} from 'mobx';
 
 const Excel = observer(() => {
   React.useEffect(() => {
-    getSqlQueryStore().sqlGet();
+    runInAction(() => {
+      getSqlQueryStore().sqlGet();
+      async () => {
+        const value = await AsyncStorage.getItem('language');
+        if (value !== null) {
+          getLanguageStore.language.set(value);
+        } else {
+          await AsyncStorage.setItem('language', 'ENG');
+          getLanguageStore.language.set('EN');
+        }
+      };
+    });
   }, []);
   
   return (
@@ -20,7 +33,7 @@ const Excel = observer(() => {
         <SortFilter />
         <FlatList
           horizontal={true}
-          data={getLanguageStore.get('excelcol')}
+          data={getLanguageStore.getObjArray('excelcol')}
           renderItem={({index}) => (
             <View>
               <FirstRow index={index} />
@@ -28,7 +41,7 @@ const Excel = observer(() => {
             </View>
           )}
           keyExtractor={item => item.name}
-          extraData={getLanguageStore.get('excelcol')}
+          extraData={getLanguageStore.getObjArray('excelcol')}
         />
         <UpdateForm />
       </ScrollView>
