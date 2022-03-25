@@ -21,9 +21,6 @@ class SqlQueryStore {
         headers: getheader,
         body: JSON.stringify(getbody),
       });
-      // .then(async res => await res.json());
-      // .catch(error => console.error('Error:', error))
-      // .then(async response => console.log('Success:', await response));
     }
   };
 

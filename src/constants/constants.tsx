@@ -3,7 +3,6 @@ export const windowWidth = Dimensions.get('window').width;
 export const windowHeight = Dimensions.get('window').height;
 
 export const ipaddress: string = 'https://192.168.42.231:3001';
-// export const ipaddress: string = 'http://192.168.42.231:3001';
 
 import {globalObject, TBoolval} from '../interfaces/interfaces';
 

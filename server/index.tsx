@@ -23,17 +23,22 @@ con.connect(function (error) {
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
-// app.use((_, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     next();
-// });
 
 app.get('/api/get', (req, res) => {
   console.log('get all data');
   const sqlSelect = 'SELECT * FROM Pr ORDER BY id ASC';
   con.query(sqlSelect, (err, result) => {
+      console.log(result);
+      res.send(result);
+    },
+  )
+});
+
+app.get('/api/getid', (req, res) => {
+  console.log('get max id');
+  const sqlSelect = 'SELECT MAX(id) AS id FROM Pr';
+  con.query(sqlSelect, (err, result) => {
+      console.log(result);
       res.send(result);
     },
   )
@@ -60,9 +65,9 @@ app.post('/api/insert', (req, res) => {
     sqlInsert,
     [date, se, id, platform, release, comm, pr,size, diff, stat, revby, revah, revht],
     function (err, result) {
+      console.log(result);
       if (err) throw err;
       res.send(' successfully');
-
     });
   });
 
@@ -102,6 +107,7 @@ app.post('/api/insert', (req, res) => {
     sqlInsert,
     [id],
     function (err, result) {
+      console.log(result);
       if (err) throw err;
       res.send(' successfully');
     });
@@ -110,7 +116,6 @@ app.post('/api/insert', (req, res) => {
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-
 const options = {
   key: fs.readFileSync(path.join('key.pem')),
   cert: fs.readFileSync(path.join('cert.pem'))
@@ -118,7 +123,3 @@ const options = {
 https.createServer(options, app).listen(3001, function (){
   console.log('SEVING)');
 })
-
-// app.listen(3001, () => {
-//   console.log('running on port 3001');
-// });
