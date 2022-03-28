@@ -5,7 +5,6 @@ import RadioButtonRow from './RadioButtonInput';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../../../stores/LanguageStore';
 import {booleanval, windowWidth} from '../../../../constants/constants';
-import {runInAction} from 'mobx';
 
 const RadioButtonInput = observer(() => {
   return (
@@ -29,11 +28,10 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              runInAction(() => {
-                getUpdateFormStore().MyreviewedbyBY.set(
-                  booleanstring.toString(),
-                );
-              })
+              getUpdateFormStore().updateRadFun(
+                'byapprove',
+                booleanstring.toString(),
+              )
             }
             value={getUpdateFormStore().MyreviewedbyBY.get()}
           />
@@ -56,11 +54,10 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              runInAction(() => {
-                getUpdateFormStore().MyreviewedbyAH.set(
-                  booleanstring.toString(),
-                );
-              })
+              getUpdateFormStore().updateRadFun(
+                'ahapprove',
+                booleanstring.toString(),
+              )
             }
             value={getUpdateFormStore().MyreviewedbyAH.get()}
           />
@@ -83,11 +80,10 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              runInAction(() => {
-                getUpdateFormStore().MyreviewedbyHT.set(
-                  booleanstring.toString(),
-                );
-              })
+              getUpdateFormStore().updateRadFun(
+                'htapprove',
+                booleanstring.toString(),
+              )
             }
             value={getUpdateFormStore().MyreviewedbyHT.get()}
           />

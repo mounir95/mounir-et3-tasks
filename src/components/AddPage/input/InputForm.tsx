@@ -13,7 +13,6 @@ import getRequiredStore from '../../../stores/RequiredStore';
 import getLanguageStore from '../../../stores/LanguageStore';
 import {colors, windowWidth} from '../../../constants/constants';
 import getSqlQueryStore from '../../../stores/SqlQuery';
-import { runInAction } from 'mobx';
 
 const InputRow = observer(() => {
   const toRadioButtons = () => {
@@ -36,9 +35,7 @@ const InputRow = observer(() => {
         reveiwedbyht: getGlobalObjectStore().emptyobject.get().MyreviewedbyHT
       };
       getSqlQueryStore().sqlInsert(data);
-      runInAction(() => {
       getSqlQueryStore().sqlGet();
-      });
     }
   };
 

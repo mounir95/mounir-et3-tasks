@@ -66,6 +66,13 @@ class GlobalObjectStore {
     });
   };
 
+  ShowPopUpFun = (boolval: boolean) => {
+    runInAction(() => {
+      this.ShowPopUp.set(boolval);
+    });
+  };
+
+
   inputDate = (dateval: Date) => {
     runInAction(() => {
       this.emptyobject.get().Mydate = dateval.toUTCString();

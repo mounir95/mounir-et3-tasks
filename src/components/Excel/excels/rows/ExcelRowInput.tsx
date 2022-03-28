@@ -15,7 +15,6 @@ import {
   windowWidth,
 } from '../../../../constants/constants';
 import getSqlQueryStore from '../../../../stores/SqlQuery';
-import {runInAction} from 'mobx';
 
 type Props = {
   object: TSQLObject;
@@ -24,62 +23,58 @@ type Props = {
 
 const ExcelRowInput: FC<Props> = observer(({object, index}) => {
   const onUpdate = (objectid: number) => {
-    runInAction(() => {
-      if (getExcelStore().id.get() !== objectid) {
-        getExcelStore().id.set(objectid);
-        getGlobalObjectStore()
-          .arrayofobjects.get()
-          .map((e: TSQLObject) => {
-            if (e.id === getExcelStore().id.get()) {
-              getUpdateFormStore().Myselist.set(e.selist);
-              getUpdateFormStore().Myplatform.set(e.platform);
-              getUpdateFormStore().Myreleaseversion.set(e.releaseVerion);
-              getUpdateFormStore().Mystatuslist.set(e.statuslist);
-              getUpdateFormStore().Mysize.set(e.size);
-              getUpdateFormStore().Mydificulity.set(e.difficulity);
-              getUpdateFormStore().Myprlink.set(e.prlink);
-              getUpdateFormStore().Mycomment.set(e.comment);
-              getUpdateFormStore().MyreviewedbyBY.set(e.reveiwedbyby);
-              getUpdateFormStore().MyreviewedbyAH.set(e.reveiwedbyah);
-              getUpdateFormStore().MyreviewedbyHT.set(e.reveiwedbyht);
-            }
-          });
-      }
-      if (getRequiredStore().checkUpdateValidation() === true) {
-        getGlobalObjectStore()
-          .arrayofobjects.get()
-          .map((e: TSQLObject) => {
-            if (e.id === getExcelStore().id.get()) {
-              const data = {
-                id: getExcelStore().id.get(),
-                selist: getUpdateFormStore().Myselist.get(),
-                platform: getUpdateFormStore().Myplatform.get(),
-                releaseVerion: getUpdateFormStore().Myreleaseversion.get(),
-                comment: getUpdateFormStore().Mycomment.get(),
-                prlink: getUpdateFormStore().Myprlink.get(),
-                size: getUpdateFormStore().Mysize.get(),
-                difficulity: getUpdateFormStore().Mydificulity.get(),
-                statuslist: getUpdateFormStore().Mystatuslist.get(),
-                reveiwedbyby: getUpdateFormStore().MyreviewedbyBY.get(),
-                reveiwedbyah: getUpdateFormStore().MyreviewedbyAH.get(),
-                reveiwedbyht: getUpdateFormStore().MyreviewedbyHT.get(),
-              };
-              getSqlQueryStore().sqlUpdate(data);
-            }
-          });
-        getExcelStore().openUpdateForm(objectid);
-        getUpdateFormStore().resetStore();
-        getSortFilterStore().closeopenFilter();
-        getSqlQueryStore().sqlGet();
-      }
-    });
+    if (getExcelStore().id.get() !== objectid) {
+      getExcelStore().id.set(objectid);
+      getGlobalObjectStore()
+        .arrayofobjects.get()
+        .map((e: TSQLObject) => {
+          if (e.id === getExcelStore().id.get()) {
+            getUpdateFormStore().Myselist.set(e.selist);
+            getUpdateFormStore().Myplatform.set(e.platform);
+            getUpdateFormStore().Myreleaseversion.set(e.releaseVerion);
+            getUpdateFormStore().Mystatuslist.set(e.statuslist);
+            getUpdateFormStore().Mysize.set(e.size);
+            getUpdateFormStore().Mydificulity.set(e.difficulity);
+            getUpdateFormStore().Myprlink.set(e.prlink);
+            getUpdateFormStore().Mycomment.set(e.comment);
+            getUpdateFormStore().MyreviewedbyBY.set(e.reveiwedbyby);
+            getUpdateFormStore().MyreviewedbyAH.set(e.reveiwedbyah);
+            getUpdateFormStore().MyreviewedbyHT.set(e.reveiwedbyht);
+          }
+        });
+    }
+    if (getRequiredStore().checkUpdateValidation() === true) {
+      getGlobalObjectStore()
+        .arrayofobjects.get()
+        .map((e: TSQLObject) => {
+          if (e.id === getExcelStore().id.get()) {
+            const data = {
+              id: getExcelStore().id.get(),
+              selist: getUpdateFormStore().Myselist.get(),
+              platform: getUpdateFormStore().Myplatform.get(),
+              releaseVerion: getUpdateFormStore().Myreleaseversion.get(),
+              comment: getUpdateFormStore().Mycomment.get(),
+              prlink: getUpdateFormStore().Myprlink.get(),
+              size: getUpdateFormStore().Mysize.get(),
+              difficulity: getUpdateFormStore().Mydificulity.get(),
+              statuslist: getUpdateFormStore().Mystatuslist.get(),
+              reveiwedbyby: getUpdateFormStore().MyreviewedbyBY.get(),
+              reveiwedbyah: getUpdateFormStore().MyreviewedbyAH.get(),
+              reveiwedbyht: getUpdateFormStore().MyreviewedbyHT.get(),
+            };
+            getSqlQueryStore().sqlUpdate(data);
+          }
+        });
+      getExcelStore().openUpdateForm(objectid);
+      getUpdateFormStore().resetStore();
+      getSortFilterStore().closeopenFilter();
+      getSqlQueryStore().sqlGet();
+    }
   };
 
   const onDeleteFun = () => {
-    runInAction(() => {
-      getGlobalObjectStore().deletObjectWithId(object.id);
-      getSqlQueryStore().sqlGet();
-    });
+    getGlobalObjectStore().deletObjectWithId(object.id);
+    getSqlQueryStore().sqlGet();
   };
 
   const objectarrayval = setObjectArrayFun(object);

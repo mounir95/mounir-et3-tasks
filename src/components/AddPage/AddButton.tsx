@@ -6,13 +6,10 @@ import {observer} from 'mobx-react';
 import getRequiredStore from '../../stores/RequiredStore';
 import getLanguageStore from '../../stores/LanguageStore';
 import {colors, windowWidth} from '../../constants/constants';
-import {runInAction} from 'mobx';
 import getSqlQueryStore from '../../stores/SqlQuery';
 
 const AddButton = observer(() => {
-  runInAction(() => {
-    getAddPageStore().addtext.set(getLanguageStore.get('addtext'));
-  });
+  getLanguageStore.setrunInAction(getAddPageStore().addtext, 'addtext');
   const onPressSubmit = () => {
     getSqlQueryStore().sqlGetid();
     if (getAddPageStore().addtext.get() === getLanguageStore.get('closetext')) {

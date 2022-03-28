@@ -1,6 +1,6 @@
 import {TTrans} from '../interfaces/interfaces';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {observable, runInAction} from 'mobx';
+import {IObservableValue, observable, runInAction} from 'mobx';
 
 const getLanguageStore: TTrans = {
   language: observable.box<string>('ENG'),
@@ -180,7 +180,7 @@ const getLanguageStore: TTrans = {
     textinlang: {
       AR: 'يرجى اختيار اللغة التي تفضلها في هذا التطبيق: ',
       ENG: 'Please choose the language you prefer in this App: ',
-    }
+    },
   },
 
   setLanguage(language: string) {
@@ -205,6 +205,12 @@ const getLanguageStore: TTrans = {
   getObjArray(array: string) {
     const language = this.language.get();
     return this.LG[array][language];
+  },
+
+  setrunInAction(objectval: IObservableValue<string>, message: string) {
+    runInAction(() => {
+      objectval.set(getLanguageStore.get(message));
+    });
   },
 };
 

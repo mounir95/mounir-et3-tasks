@@ -114,4 +114,5 @@ export interface TTrans {
   get(message: string): string;
   getArray(array: string): string[];
   getObjArray(array: string): [{name: string}];
+  setrunInAction(objectval: IObservableValue<string>, message: string): void;
 }

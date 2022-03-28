@@ -5,7 +5,7 @@ import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../../../stores/GlobalObjectStore';
 import getLanguageStore from '../../../../stores/LanguageStore';
 import {globalStateObject, windowWidth} from '../../../../constants/constants';
-import {runInAction} from 'mobx';
+import getAddPageStore from '../../../../stores/AddPageStore';
 
 const InputSelectList = observer(() => {
   return (
@@ -21,10 +21,7 @@ const InputSelectList = observer(() => {
           arrayval={globalStateObject.SEList}
           choosedval={getGlobalObjectStore().emptyobject.get().Myselist}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            runInAction(() => {
-              getGlobalObjectStore().emptyobject.get().Myselist =
-                event.toString();
-            })
+            getAddPageStore().InputSelFun('setext', event.toString())
           }
         />
       </View>
@@ -39,10 +36,7 @@ const InputSelectList = observer(() => {
           arrayval={globalStateObject.Platform}
           choosedval={getGlobalObjectStore().emptyobject.get().Myplatform}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            runInAction(() => {
-              getGlobalObjectStore().emptyobject.get().Myplatform =
-                event.toString();
-            })
+            getAddPageStore().InputSelFun('platformtext', event.toString())
           }
         />
       </View>

@@ -21,6 +21,9 @@ class SqlQueryStore {
         headers: getheader,
         body: JSON.stringify(getbody),
       });
+      // .then(async res => await res.json());
+      // .catch(error => console.error('Error:', error))
+      // .then(async response => console.log('Success:', await response));
     }
   };
 
@@ -57,32 +60,38 @@ class SqlQueryStore {
       {id: 'id'},
     ).then(async res => {
       const result = await res.json();
-      runInAction(() => {
-        if (result[0].id >= 0) {
+      if (result[0].id >= 0) {
+        runInAction(() => {
           getGlobalObjectStore().lastindex.set(result[0].id);
-        } else{
+        });
+      } else {
+        runInAction(() => {
           getGlobalObjectStore().lastindex.set(0);
-        }
-      });
+        });
+      }
     });
   };
 
   sqlInsert = (data: object) => {
-    this.fetchFun(
-      `${ipaddress}/api/insert`,
-      'POST',
-      {'Content-Type': 'application/json'},
-      data,
-    );
+    runInAction(() => {
+      this.fetchFun(
+        `${ipaddress}/api/insert`,
+        'POST',
+        {'Content-Type': 'application/json'},
+        data,
+      );
+    });
   };
 
   sqlUpdate = (data: object) => {
-    this.fetchFun(
-      `${ipaddress}/api/update`,
-      'POST',
-      {'Content-Type': 'application/json'},
-      data,
-    );
+    runInAction(() => {
+      this.fetchFun(
+        `${ipaddress}/api/update`,
+        'POST',
+        {'Content-Type': 'application/json'},
+        data,
+      );
+    });
   };
 }
 

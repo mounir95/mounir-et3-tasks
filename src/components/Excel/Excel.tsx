@@ -8,23 +8,10 @@ import {observer} from 'mobx-react';
 import getLanguageStore from '../../stores/LanguageStore';
 import {windowWidth} from '../../constants/constants';
 import getSqlQueryStore from '../../stores/SqlQuery';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {runInAction} from 'mobx';
 
 const Excel = observer(() => {
   React.useEffect(() => {
-    runInAction(() => {
-      getSqlQueryStore().sqlGet();
-      async () => {
-        const value = await AsyncStorage.getItem('language');
-        if (value !== null) {
-          getLanguageStore.language.set(value);
-        } else {
-          await AsyncStorage.setItem('language', 'ENG');
-          getLanguageStore.language.set('EN');
-        }
-      };
-    });
+    getSqlQueryStore().sqlGet();
   }, []);
   
   return (

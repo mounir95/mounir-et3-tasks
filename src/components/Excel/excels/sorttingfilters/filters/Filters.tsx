@@ -6,87 +6,15 @@ import FilterByComment from './FitlerByComment';
 import FilterByStatus from './FilterByStatus';
 import FilterBySE from './FilterBySE';
 import FilterByPlatform from './FilterByPlatform';
-import {TSQLObject} from '../../../../../interfaces/interfaces';
 import getExcelStore from '../../../../../stores/ExcelStore';
 import getFilterStore from '../../../../../stores/FilterStore';
-import getGlobalObjectStore from '../../../../../stores/GlobalObjectStore';
-import filter from 'lodash/filter';
 import {observer} from 'mobx-react';
 import {colors, windowWidth} from '../../../../../constants/constants';
-import {runInAction} from 'mobx';
 
 const Filters = observer(() => {
-  const filterStatusFun = (event: React.ChangeEvent) => {
-    runInAction(() => {
-      getGlobalObjectStore().filteredarrayofobjects.set(
-        filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
-          if (c.hasOwnProperty('statuslist')) {
-            return c.statuslist === event.toString();
-          }
-        }),
-      );
-      getFilterStore().platform.set(!getFilterStore().platform.get());
-      getFilterStore().se.set(!getFilterStore().se.get());
-      getFilterStore().status.set(getFilterStore().status.get());
-      getFilterStore().comment.set(!getFilterStore().comment.get());
-    });
-  };
-
-  const filterSElistFun = (event: React.ChangeEvent) => {
-    runInAction(() => {
-      getGlobalObjectStore().filteredarrayofobjects.set(
-        filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
-          if (c.hasOwnProperty('selist')) {
-            return c.selist === event.toString();
-          }
-        }),
-      );
-      getFilterStore().platform.set(!getFilterStore().platform.get());
-      getFilterStore().se.set(getFilterStore().se.get());
-      getFilterStore().status.set(!getFilterStore().status.get());
-      getFilterStore().comment.set(!getFilterStore().comment.get());
-    });
-  };
-
-  const filterPlatformFun = (event: React.ChangeEvent) => {
-    runInAction(() => {
-      getGlobalObjectStore().filteredarrayofobjects.set(
-        filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
-          if (c.hasOwnProperty('platform')) {
-            return c.platform === event.toString();
-          }
-        }),
-      );
-      getFilterStore().platform.set(getFilterStore().platform.get());
-      getFilterStore().se.set(getFilterStore().se.get());
-      getFilterStore().status.set(!getFilterStore().status.get());
-      getFilterStore().comment.set(!getFilterStore().comment.get());
-    });
-  };
-
-  const textChangedFun = (event: string) => {
-    runInAction(() => {
-      getGlobalObjectStore().filteredarrayofobjects.set(
-        filter(getGlobalObjectStore().arrayofobjects.get(), (c: TSQLObject) => {
-          if (c.hasOwnProperty('comment')) {
-            return c.comment.includes(event) === true;
-          }
-        }),
-      );
-      getFilterStore().platform.set(!getFilterStore().platform.get());
-      getFilterStore().se.set(!getFilterStore().se.get());
-      getFilterStore().status.set(!getFilterStore().status.get());
-      getFilterStore().comment.set(getFilterStore().comment.get());
-    });
-  };
-
   const pressFilter = () => {
     getExcelStore().openFilterForm();
-    runInAction(() => {
-      getGlobalObjectStore().filteredarrayofobjects.set(
-        getGlobalObjectStore().arrayofobjects.get(),
-      );
-    });
+    getExcelStore().filteredArrayFun();
   };
 
   return (
@@ -136,7 +64,7 @@ const Filters = observer(() => {
               }}>
               <FilterByStatus
                 statusFilter={(event: React.ChangeEvent) =>
-                  filterStatusFun(event)
+                  getFilterStore().filterStatusFun(event)
                 }
                 filterchoosed={getFilterStore().status.get()}
               />
@@ -149,7 +77,7 @@ const Filters = observer(() => {
               }}>
               <FilterBySE
                 seListFilter={(event: React.ChangeEvent) =>
-                  filterSElistFun(event)
+                  getFilterStore().filterSElistFun(event)
                 }
                 filterchoosed={getFilterStore().se.get()}
               />
@@ -162,14 +90,16 @@ const Filters = observer(() => {
               }}>
               <FilterByPlatform
                 platformFilter={(event: React.ChangeEvent) =>
-                  filterPlatformFun(event)
+                  getFilterStore().filterPlatformFun(event)
                 }
                 filterchoosed={getFilterStore().platform.get()}
               />
             </View>
           </View>
           <FilterByComment
-            textChanged={(event: string) => textChangedFun(event)}
+            textChanged={(event: string) =>
+              getFilterStore().textChangedFun(event)
+            }
             filterchoosed={getFilterStore().comment.get()}
           />
         </View>

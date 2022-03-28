@@ -6,7 +6,6 @@ import TextInputRow from './TextInputRow';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../../../stores/LanguageStore';
 import {colors, windowWidth} from '../../../../constants/constants';
-import {runInAction} from 'mobx';
 
 const InputText = observer(() => {
   return (
@@ -23,13 +22,12 @@ const InputText = observer(() => {
         <TextInputRow
           stringval={getUpdateFormStore().Myreleaseversion.get()}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            runInAction(() => {
-              getUpdateFormStore().Myreleaseversion.set(event.toString());
-            })
+            getUpdateFormStore().updateTextFun(
+              'releaseversion',
+              event.toString(),
+            )
           }
         />
-        {/* {console.log(getUpdateFormStore().Myreleaseversion.get())} */}
-        {/* {console.log(getRequiredStore().checkUpdateValidation())} */}
       </View>
       <View>
         {!getRequiredStore().comment.get() && (
@@ -43,9 +41,7 @@ const InputText = observer(() => {
         <TextInputRow
           stringval={getUpdateFormStore().Mycomment.get()}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            runInAction(() => {
-              getUpdateFormStore().Mycomment.set(event.toString());
-            })
+            getUpdateFormStore().updateTextFun('comment', event.toString())
           }
         />
       </View>
@@ -61,9 +57,7 @@ const InputText = observer(() => {
         <TextInputRow
           stringval={getUpdateFormStore().Myprlink.get()}
           onchangefun={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            runInAction(() => {
-              getUpdateFormStore().Myprlink.set(event.toString());
-            })
+            getUpdateFormStore().updateTextFun('prcount', event.toString())
           }
         />
       </View>

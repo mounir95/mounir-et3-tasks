@@ -5,19 +5,14 @@ import getLanguageStore from './stores/LanguageStore';
 import getGlobalObjectStore from './stores/GlobalObjectStore';
 import Dialog, {DialogTitle, DialogContent} from 'react-native-popup-dialog';
 import {Text} from 'react-native';
-import {runInAction} from 'mobx';
 import {observer} from 'mobx-react';
 
 const App = observer(() => {
   React.useEffect(() => {
     setInterval(async () => {
-      runInAction(() => {
-        getGlobalObjectStore().ShowPopUp.set(true);
-      });
+      getGlobalObjectStore().ShowPopUpFun(true);
       setTimeout(() => {
-        runInAction(() => {
-          getGlobalObjectStore().ShowPopUp.set(false);
-        });
+        getGlobalObjectStore().ShowPopUpFun(false);
       }, 5 * 2 * 1000);
     }, 5 * 60 * 1000);
   }, []);

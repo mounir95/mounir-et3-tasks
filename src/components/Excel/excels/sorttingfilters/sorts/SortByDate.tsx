@@ -1,15 +1,11 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import orderBy from 'lodash/orderBy';
-import getGlobalObjectStore from '../../../../../stores/GlobalObjectStore';
 import {observer} from 'mobx-react';
 import getSortFilterStore from '../../../../../stores/SortFilterStore';
 import getExcelStore from '../../../../../stores/ExcelStore';
 import getLanguageStore from '../../../../../stores/LanguageStore';
 import {colors, windowWidth} from '../../../../../constants/constants';
-import {TSQLObject} from '../../../../../interfaces/interfaces';
-import {runInAction} from 'mobx';
 
 const SortByDate = observer(() => {
   const itemarray = getLanguageStore
@@ -19,29 +15,11 @@ const SortByDate = observer(() => {
     });
 
   const setDateSort = (event: React.ChangeEvent) => {
-    runInAction(() => {
-      let newobjectarray;
-      let value;
-      event === null ? (value = event) : (value = event.toString());
-      if (getLanguageStore.get('desc') === value) {
-        let x = 'desc';
-        newobjectarray = orderBy(
-          getGlobalObjectStore().arrayofobjects.get(),
-          (obj: TSQLObject) => obj.date,
-          [x === 'desc' ? 'desc' : 'asc'],
-        );
-      } else {
-        let x = 'asc';
-        newobjectarray = orderBy(
-          getGlobalObjectStore().arrayofobjects.get(),
-          (obj: TSQLObject) => obj.date,
-          [x === 'asc' ? 'asc' : 'desc'],
-        );
-      }
-      getSortFilterStore().setDateFun();
-      getGlobalObjectStore().arrayofobjects.set(newobjectarray);
-      getExcelStore().resetStore();
-    });
+    let value;
+    event === null ? (value = null) : (value = event.toString());
+    getExcelStore().sortArrayFun(value);
+    getSortFilterStore().setDateFun();
+    getExcelStore().resetStore();
   };
 
   return (

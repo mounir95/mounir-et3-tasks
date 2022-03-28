@@ -5,7 +5,6 @@ import SelectInput from '../selectlists/SelectInput';
 import {observer} from 'mobx-react';
 import getLanguageStore from '../../../../stores/LanguageStore';
 import {globalStateObject, windowWidth} from '../../../../constants/constants';
-import {runInAction} from 'mobx';
 
 const SSDListInput = observer(() => {
   return (
@@ -20,9 +19,7 @@ const SSDListInput = observer(() => {
           arrayval={globalStateObject.StatusList}
           choosedval={getUpdateFormStore().Mystatuslist.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            runInAction(() => {
-              getUpdateFormStore().Mystatuslist.set(event.toString());
-            })
+            getUpdateFormStore().updateSSDFun('statustext', event.toString())
           }
         />
       </View>
@@ -36,9 +33,7 @@ const SSDListInput = observer(() => {
           arrayval={globalStateObject.Size}
           choosedval={getUpdateFormStore().Mysize.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            runInAction(() => {
-              getUpdateFormStore().Mysize.set(event.toString());
-            })
+            getUpdateFormStore().updateSSDFun('sizetext', event.toString())
           }
         />
       </View>
@@ -52,9 +47,10 @@ const SSDListInput = observer(() => {
           arrayval={globalStateObject.Dificulity}
           choosedval={getUpdateFormStore().Mydificulity.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            runInAction(() => {
-              getUpdateFormStore().Mydificulity.set(event.toString());
-            })
+            getUpdateFormStore().updateSSDFun(
+              'dificulitytext',
+              event.toString(),
+            )
           }
         />
       </View>
