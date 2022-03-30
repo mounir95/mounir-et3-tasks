@@ -1,8 +1,13 @@
-const express = require('express');
+import express from 'express';
+import mysql from 'mysql';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+// const express = require('express');
+// const mysql = require('mysql');
+// const cors = require('cors');
+// const bodyParser = require('body-parser');
+
 const app = express();
-const mysql = require('mysql');
-const cors = require('cors');
-const bodyParser = require('body-parser');
 
 const con = mysql.createConnection({
   host: 'localhost',
@@ -23,6 +28,12 @@ con.connect(function (error) {
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+// app.use((_, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     next();
+// });
 
 app.get('/api/get', (req, res) => {
   console.log('get all data');
@@ -113,13 +124,17 @@ app.post('/api/insert', (req, res) => {
     });
   });
 
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
-const options = {
-  key: fs.readFileSync(path.join('key.pem')),
-  cert: fs.readFileSync(path.join('cert.pem'))
-};
-https.createServer(options, app).listen(3001, function (){
-  console.log('SEVING)');
-})
+// const https = require('https');
+// const fs = require('fs');
+// const path = require('path');
+// const options = {
+//   key: fs.readFileSync(path.join('key.pem')),
+//   cert: fs.readFileSync(path.join('cert.pem'))
+// };
+// https.createServer(options, app).listen(3001, function (){
+//   console.log('SEVING)');
+// })
+
+app.listen(3001, () => {
+  console.log('running on port 3001');
+});

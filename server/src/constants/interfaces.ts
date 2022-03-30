@@ -1,0 +1,15 @@
+export interface TBodyObject {
+   date : string,
+   selist : string,
+   id : string,
+   platform : string,
+   releaseVerion : string,
+   comment : string,
+   prlink : string,
+   size : string,
+   difficulity : string,
+   statuslist : string,
+   reveiwedbyby : string,
+   reveiwedbyah : string,
+   reveiwedbyht : string,
+}
