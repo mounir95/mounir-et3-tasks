@@ -1,5 +1,4 @@
 import {computed, observable, runInAction} from 'mobx';
-import orderBy from 'lodash/orderBy';
 import filter from 'lodash/filter';
 import {TPrObject, TSQLObject} from '../interfaces/interfaces';
 import {memoize} from 'lodash';
@@ -8,6 +7,7 @@ import getSqlQueryStore from './SqlQuery';
 
 class GlobalObjectStore {
   arrayofobjects = observable.box<TSQLObject[]>([]);
+  lastindex = observable.box<number>();
   filteredarrayofobjects = observable.box<TSQLObject[]>([]);
   ShowPopUp = observable.box<boolean>(false);
   isPickerShow = observable.box<Boolean>(false);
@@ -31,23 +31,13 @@ class GlobalObjectStore {
   deletObjectWithId = async (objid: number) => {
     runInAction(() => {
       filter(this.arrayofobjects.get(), (c: TSQLObject) => {
-        if (c.id === objid){
+        if (c.id === objid) {
           getSqlQueryStore().sqlDelete(objid);
         }
       });
     });
     const jsonValue = JSON.stringify(this.arrayofobjects.get());
     await AsyncStorage.setItem('object', jsonValue);
-  };
-
-  orderingArrayOfObject = () => {
-    runInAction(() => {
-      this.arrayofobjects.set(
-        orderBy(this.arrayofobjects.get(), (obj: TSQLObject) => obj.id, [
-          'asc',
-        ]),
-      );
-    });
   };
 
   clearemptyObject = () => {
@@ -76,6 +66,13 @@ class GlobalObjectStore {
     });
   };
 
+  ShowPopUpFun = (boolval: boolean) => {
+    runInAction(() => {
+      this.ShowPopUp.set(boolval);
+    });
+  };
+
+
   inputDate = (dateval: Date) => {
     runInAction(() => {
       this.emptyobject.get().Mydate = dateval.toUTCString();
@@ -91,18 +88,6 @@ class GlobalObjectStore {
     }
   });
 
-  lastIndexToUse = computed(() => {
-    if (
-      this.arrayofobjects.get()[this.arrayofobjects.get().length - 1] ===
-      undefined
-    ) {
-      return 1;
-    } else {
-      return (
-        this.arrayofobjects.get()[this.arrayofobjects.get().length - 1].id + 1
-      );
-    }
-  });
 }
 
 const getGlobalObjectStore = memoize(

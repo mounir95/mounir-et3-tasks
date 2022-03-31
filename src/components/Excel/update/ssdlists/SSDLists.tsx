@@ -19,7 +19,7 @@ const SSDListInput = observer(() => {
           arrayval={globalStateObject.StatusList}
           choosedval={getUpdateFormStore().Mystatuslist.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            getUpdateFormStore().Mystatuslist.set(event.toString())
+            getUpdateFormStore().updateSSDFun('statustext', event.toString())
           }
         />
       </View>
@@ -33,7 +33,7 @@ const SSDListInput = observer(() => {
           arrayval={globalStateObject.Size}
           choosedval={getUpdateFormStore().Mysize.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            getUpdateFormStore().Mysize.set(event.toString())
+            getUpdateFormStore().updateSSDFun('sizetext', event.toString())
           }
         />
       </View>
@@ -47,7 +47,10 @@ const SSDListInput = observer(() => {
           arrayval={globalStateObject.Dificulity}
           choosedval={getUpdateFormStore().Mydificulity.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            getUpdateFormStore().Mydificulity.set(event.toString())
+            getUpdateFormStore().updateSSDFun(
+              'dificulitytext',
+              event.toString(),
+            )
           }
         />
       </View>

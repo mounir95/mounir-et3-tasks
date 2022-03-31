@@ -35,7 +35,7 @@ const FilterByStatus: FC<Props> = observer(({statusFilter, filterchoosed}) => {
               borderColor: colors.purple,
               borderRadius: windowWidth * 0.022,
               color: colors.black,
-              paddingRight: windowWidth * 0.083, // to ensure the text is never behind the icon
+              paddingRight: windowWidth * 0.083,
             },
           }}
         />
@@ -53,7 +53,7 @@ const FilterByStatus: FC<Props> = observer(({statusFilter, filterchoosed}) => {
               borderColor: colors.purple,
               borderRadius: windowWidth * 0.022,
               color: colors.black,
-              paddingRight: windowWidth * 0.083, // to ensure the text is never behind the icon
+              paddingRight: windowWidth * 0.083,
             },
           }}
         />

@@ -1,13 +1,21 @@
 import {TTrans} from '../interfaces/interfaces';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {observable, runInAction} from 'mobx';
+import {IObservableValue, observable, runInAction} from 'mobx';
 
 const getLanguageStore: TTrans = {
   language: observable.box<string>('ENG'),
   LG: {
+    translation: {
+      AR: 'صفحة الترجمة',
+      ENG: 'Translation Page',
+    },
     addpage: {
       AR: 'صفحة الإضافة',
       ENG: 'ADD Page',
+    },
+    excel: {
+      AR: 'صفحةالإكسل',
+      ENG: 'Excel Page',
     },
     excelpage: {
       AR: 'PR صفحة النتائج',
@@ -169,24 +177,40 @@ const getLanguageStore: TTrans = {
         {name: ''},
       ],
     },
+    textinlang: {
+      AR: 'يرجى اختيار اللغة التي تفضلها في هذا التطبيق: ',
+      ENG: 'Please choose the language you prefer in this App: ',
+    },
   },
 
   setLanguage(language: string) {
     runInAction(() => {
       this.language.set(language);
     });
-    const setData = async () => {
+    async () => {
       await AsyncStorage.setItem('language', language);
     };
-    setData();
   },
 
   get(message: string) {
     const language = this.language.get();
-    return this.LG[message] === undefined ||
-      this.LG[message][language] === undefined
-      ? message
-      : this.LG[message][language];
+    return this.LG[message][language];
+  },
+
+  getArray(array: string) {
+    const language = this.language.get();
+    return this.LG[array][language];
+  },
+
+  getObjArray(array: string) {
+    const language = this.language.get();
+    return this.LG[array][language];
+  },
+
+  setrunInAction(objectval: IObservableValue<string>, message: string) {
+    runInAction(() => {
+      objectval.set(getLanguageStore.get(message));
+    });
   },
 };
 

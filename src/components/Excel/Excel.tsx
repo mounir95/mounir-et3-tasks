@@ -14,14 +14,13 @@ const Excel = observer(() => {
     getSqlQueryStore().sqlGet();
   }, []);
   
-  
   return (
     <SafeAreaView style={{flex: 1, marginTop: windowWidth * 0.06}}>
       <ScrollView>
         <SortFilter />
         <FlatList
           horizontal={true}
-          data={getLanguageStore.get('excelcol')}
+          data={getLanguageStore.getObjArray('excelcol')}
           renderItem={({index}) => (
             <View>
               <FirstRow index={index} />
@@ -29,7 +28,7 @@ const Excel = observer(() => {
             </View>
           )}
           keyExtractor={item => item.name}
-          extraData={getLanguageStore.get('excelcol')}
+          extraData={getLanguageStore.getObjArray('excelcol')}
         />
         <UpdateForm />
       </ScrollView>

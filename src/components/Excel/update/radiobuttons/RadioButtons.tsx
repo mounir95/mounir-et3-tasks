@@ -28,7 +28,10 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              getUpdateFormStore().MyreviewedbyBY.set(booleanstring.toString())
+              getUpdateFormStore().updateRadFun(
+                'byapprove',
+                booleanstring.toString(),
+              )
             }
             value={getUpdateFormStore().MyreviewedbyBY.get()}
           />
@@ -51,7 +54,10 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              getUpdateFormStore().MyreviewedbyAH.set(booleanstring.toString())
+              getUpdateFormStore().updateRadFun(
+                'ahapprove',
+                booleanstring.toString(),
+              )
             }
             value={getUpdateFormStore().MyreviewedbyAH.get()}
           />
@@ -74,7 +80,10 @@ const RadioButtonInput = observer(() => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              getUpdateFormStore().MyreviewedbyHT.set(booleanstring.toString())
+              getUpdateFormStore().updateRadFun(
+                'htapprove',
+                booleanstring.toString(),
+              )
             }
             value={getUpdateFormStore().MyreviewedbyHT.get()}
           />

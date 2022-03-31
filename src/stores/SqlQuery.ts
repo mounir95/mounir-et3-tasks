@@ -1,4 +1,5 @@
 import {memoize} from 'lodash';
+import {runInAction} from 'mobx';
 import {ipaddress} from '../constants/constants';
 import getGlobalObjectStore from './GlobalObjectStore';
 
@@ -27,12 +28,14 @@ class SqlQueryStore {
   };
 
   sqlDelete = (objid: number) => {
-    this.fetchFun(
-      `${ipaddress}/api/delete`,
-      'POST',
-      {'Content-Type': 'application/json'},
-      {id: objid},
-    );
+    runInAction(() => {
+      this.fetchFun(
+        `${ipaddress}/api/delete`,
+        'POST',
+        {'Content-Type': 'application/json'},
+        {id: objid},
+      );
+    });
   };
 
   sqlGet = () => {
@@ -42,26 +45,53 @@ class SqlQueryStore {
       {'Content-Type': 'application/json'},
       {id: 'id'},
     ).then(async res => {
-      getGlobalObjectStore().arrayofobjects.set(await res.json());
+      const result = await res.json();
+      runInAction(() => {
+        getGlobalObjectStore().arrayofobjects.set(result);
+      });
+    });
+  };
+
+  sqlGetid = () => {
+    this.fetchFun(
+      `${ipaddress}/api/getid`,
+      'GET',
+      {'Content-Type': 'application/json'},
+      {id: 'id'},
+    ).then(async res => {
+      const result = await res.json();
+      if (result[0].id >= 0) {
+        runInAction(() => {
+          getGlobalObjectStore().lastindex.set(result[0].id);
+        });
+      } else {
+        runInAction(() => {
+          getGlobalObjectStore().lastindex.set(0);
+        });
+      }
     });
   };
 
   sqlInsert = (data: object) => {
-    this.fetchFun(
-      `${ipaddress}/api/insert`,
-      'POST',
-      {'Content-Type': 'application/json'},
-      data,
-    );
+    runInAction(() => {
+      this.fetchFun(
+        `${ipaddress}/api/insert`,
+        'POST',
+        {'Content-Type': 'application/json'},
+        data,
+      );
+    });
   };
 
   sqlUpdate = (data: object) => {
-    this.fetchFun(
-      `${ipaddress}/api/update`,
-      'POST',
-      {'Content-Type': 'application/json'},
-      data,
-    );
+    runInAction(() => {
+      this.fetchFun(
+        `${ipaddress}/api/update`,
+        'POST',
+        {'Content-Type': 'application/json'},
+        data,
+      );
+    });
   };
 }
 

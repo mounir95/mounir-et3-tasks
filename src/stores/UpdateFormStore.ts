@@ -52,6 +52,59 @@ class UpdateFormStore {
       this.radiobuttonstrue.set(false);
     });
   };
+
+  updateTextFun = (valname: string, eventtostr: string) => {
+    runInAction(() => {
+      if (valname === 'prcount') {
+        this.Myprlink.set(eventtostr);
+      }
+      if (valname === 'comment') {
+        this.Mycomment.set(eventtostr);
+      }
+      if (valname === 'releaseversion') {
+        this.Myreleaseversion.set(eventtostr);
+      }
+    });
+  };
+
+  updateSSDFun = (valname: string, eventtostr: string) => {
+    runInAction(() => {
+      if (valname === 'dificulitytext') {
+        this.Mydificulity.set(eventtostr);
+      }
+      if (valname === 'statustext') {
+        this.Mystatuslist.set(eventtostr);
+      }
+      if (valname === 'sizetext') {
+        this.Mysize.set(eventtostr);
+      }
+    });
+  };
+
+  updateSelFun = (valname: string, eventtostr: string) => {
+    runInAction(() => {
+      if (valname === 'setext') {
+        this.Myselist.set(eventtostr);
+      }
+      if (valname === 'platformtext') {
+        this.Myplatform.set(eventtostr);
+      }
+    });
+  };
+
+  updateRadFun = (valname: string, eventtostr: string) => {
+    runInAction(() => {
+      if (valname === 'byapprove') {
+        this.MyreviewedbyBY.set(eventtostr);
+      }
+      if (valname === 'ahapprove') {
+        this.MyreviewedbyAH.set(eventtostr);
+      }
+      if (valname === 'htapprove') {
+        this.MyreviewedbyHT.set(eventtostr);
+      }
+    });
+  };
 }
 const getUpdateFormStore = memoize(
   () => {

@@ -1,8 +1,13 @@
-const express = require('express');
+import express from 'express';
+import mysql from 'mysql';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+// const express = require('express');
+// const mysql = require('mysql');
+// const cors = require('cors');
+// const bodyParser = require('body-parser');
+
 const app = express();
-const mysql = require('mysql');
-const cors = require('cors');
-const bodyParser = require('body-parser');
 
 const con = mysql.createConnection({
   host: 'localhost',
@@ -34,6 +39,17 @@ app.get('/api/get', (req, res) => {
   console.log('get all data');
   const sqlSelect = 'SELECT * FROM Pr ORDER BY id ASC';
   con.query(sqlSelect, (err, result) => {
+      console.log(result);
+      res.send(result);
+    },
+  )
+});
+
+app.get('/api/getid', (req, res) => {
+  console.log('get max id');
+  const sqlSelect = 'SELECT MAX(id) AS id FROM Pr';
+  con.query(sqlSelect, (err, result) => {
+      console.log(result);
       res.send(result);
     },
   )
@@ -60,9 +76,9 @@ app.post('/api/insert', (req, res) => {
     sqlInsert,
     [date, se, id, platform, release, comm, pr,size, diff, stat, revby, revah, revht],
     function (err, result) {
+      console.log(result);
       if (err) throw err;
       res.send(' successfully');
-
     });
   });
 
@@ -102,23 +118,23 @@ app.post('/api/insert', (req, res) => {
     sqlInsert,
     [id],
     function (err, result) {
+      console.log(result);
       if (err) throw err;
       res.send(' successfully');
     });
   });
 
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
+// const https = require('https');
+// const fs = require('fs');
+// const path = require('path');
+// const options = {
+//   key: fs.readFileSync(path.join('key.pem')),
+//   cert: fs.readFileSync(path.join('cert.pem'))
+// };
+// https.createServer(options, app).listen(3001, function (){
+//   console.log('SEVING)');
+// })
 
-const options = {
-  key: fs.readFileSync(path.join('key.pem')),
-  cert: fs.readFileSync(path.join('cert.pem'))
-};
-https.createServer(options, app).listen(3001, function (){
-  console.log('SEVING)');
-})
-
-// app.listen(3001, () => {
-//   console.log('running on port 3001');
-// });
+app.listen(3001, () => {
+  console.log('running on port 3001');
+});

@@ -20,7 +20,7 @@ const InputSelectList = observer(() => {
           arrayval={globalStateObject.SEList}
           choosedval={getUpdateFormStore().Myselist.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            getUpdateFormStore().Myselist.set(event.toString())
+            getUpdateFormStore().updateSelFun('setext', event.toString())
           }
         />
       </View>
@@ -35,7 +35,7 @@ const InputSelectList = observer(() => {
           arrayval={globalStateObject.Platform}
           choosedval={getUpdateFormStore().Myplatform.get()}
           onChoose={(event: ChangeEvent<HTMLSelectElement>) =>
-            getUpdateFormStore().Myplatform.set(event.toString())
+            getUpdateFormStore().updateSelFun('platformtext', event.toString())
           }
         />
       </View>

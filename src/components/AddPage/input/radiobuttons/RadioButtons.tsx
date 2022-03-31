@@ -5,6 +5,7 @@ import {observer} from 'mobx-react';
 import getGlobalObjectStore from '../../../../stores/GlobalObjectStore';
 import getLanguageStore from '../../../../stores/LanguageStore';
 import {booleanval, windowWidth} from '../../../../constants/constants';
+import getAddPageStore from '../../../../stores/AddPageStore';
 
 type Props = {
   radioButtons: Function;
@@ -35,8 +36,10 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              (getGlobalObjectStore().emptyobject.get().MyreviewedbyBY =
-                booleanstring.toString())
+              getAddPageStore().InputRadFun(
+                'byapprove',
+                booleanstring.toString(),
+              )
             }
             value={getGlobalObjectStore().emptyobject.get().MyreviewedbyBY}
           />
@@ -59,8 +62,10 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              (getGlobalObjectStore().emptyobject.get().MyreviewedbyAH =
-                booleanstring.toString())
+              getAddPageStore().InputRadFun(
+                'ahapprove',
+                booleanstring.toString(),
+              )
             }
             value={getGlobalObjectStore().emptyobject.get().MyreviewedbyAH}
           />
@@ -83,8 +88,10 @@ const RadioButtonInput: FC<Props> = observer(({radioButtons}) => {
             radiobuttonfun={(
               booleanstring: React.ChangeEvent<HTMLInputElement>,
             ) =>
-              (getGlobalObjectStore().emptyobject.get().MyreviewedbyHT =
-                booleanstring.toString())
+              getAddPageStore().InputRadFun(
+                'htapprove',
+                booleanstring.toString(),
+              )
             }
             value={getGlobalObjectStore().emptyobject.get().MyreviewedbyHT}
           />

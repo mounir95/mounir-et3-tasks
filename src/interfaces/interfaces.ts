@@ -73,7 +73,9 @@ export const setObjectArrayFun = (object: TSQLObject) => {
 export interface TTrans {
   language: IObservableValue<string>;
   LG: {
+    translation: {AR: string; ENG: string};
     addpage: {AR: string; ENG: string};
+    excel: {AR: string; ENG: string};
     excelpage: {AR: string; ENG: string};
     arlang: {AR: string; ENG: string};
     enlang: {AR: string; ENG: string};
@@ -106,7 +108,11 @@ export interface TTrans {
     desc: {AR: string; ENG: string};
     arrayofsort: {AR: [string, string]; ENG: [string, string]};
     excelcol: {AR: object[]; ENG: object[]};
+    textinlang: {AR: string; ENG: string};
   };
   setLanguage(language: string): void;
-  get(message: string): any;
+  get(message: string): string;
+  getArray(array: string): string[];
+  getObjArray(array: string): [{name: string}];
+  setrunInAction(objectval: IObservableValue<string>, message: string): void;
 }

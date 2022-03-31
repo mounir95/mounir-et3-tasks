@@ -1,39 +1,24 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import orderBy from 'lodash/orderBy';
-import getGlobalObjectStore from '../../../../../stores/GlobalObjectStore';
 import {observer} from 'mobx-react';
 import getSortFilterStore from '../../../../../stores/SortFilterStore';
 import getExcelStore from '../../../../../stores/ExcelStore';
 import getLanguageStore from '../../../../../stores/LanguageStore';
 import {colors, windowWidth} from '../../../../../constants/constants';
-import {TSQLObject} from '../../../../../interfaces/interfaces';
 
 const SortByDate = observer(() => {
-  const itemarray = getLanguageStore.get('arrayofsort').map((item: string) => {
-    return {label: item, value: item};
-  });
+  const itemarray = getLanguageStore
+    .getArray('arrayofsort')
+    .map((item: string) => {
+      return {label: item, value: item};
+    });
 
   const setDateSort = (event: React.ChangeEvent) => {
-    let newobjectarray;
-    if (event.toString() === getLanguageStore.get('desc')) {
-      let x = 'desc';
-      newobjectarray = orderBy(
-        getGlobalObjectStore().arrayofobjects.get(),
-        (obj: TSQLObject) => obj.date,
-        [x === 'desc' ? 'desc' : 'asc'],
-      );
-    } else {
-      let x = 'asc';
-      newobjectarray = orderBy(
-        getGlobalObjectStore().arrayofobjects.get(),
-        (obj: TSQLObject) => obj.date,
-        [x === 'asc' ? 'asc' : 'desc'],
-      );
-    }
+    let value;
+    event === null ? (value = null) : (value = event.toString());
+    getExcelStore().sortArrayFun(value);
     getSortFilterStore().setDateFun();
-    getGlobalObjectStore().arrayofobjects.set(newobjectarray);
     getExcelStore().resetStore();
   };
 
@@ -55,7 +40,7 @@ const SortByDate = observer(() => {
               borderColor: colors.purple,
               borderRadius: windowWidth * 0.022,
               color: colors.black,
-              paddingRight: windowWidth * 0.083, // to ensure the text is never behind the icon
+              paddingRight: windowWidth * 0.083,
             },
           }}
           items={itemarray}
@@ -73,7 +58,7 @@ const SortByDate = observer(() => {
               borderColor: colors.purple,
               borderRadius: windowWidth * 0.022,
               color: colors.black,
-              paddingRight: windowWidth * 0.083, // to ensure the text is never behind the icon
+              paddingRight: windowWidth * 0.083,
             },
           }}
           items={itemarray}
